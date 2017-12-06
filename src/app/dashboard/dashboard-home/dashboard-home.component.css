@@ -1,0 +1,45 @@
+.book-row {
+	padding: 10px;
+}
+
+.book-row > .row {
+	text-align: center;
+	height: 200px;
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
+.book-row > .row > .col-xs-2 {
+	display: inline-block;
+	height: 100%;
+	width: auto;
+	/*float: left;*/
+	/**height: 100%;
+	width: 100px;*/
+}
+/*
+.book-row > .row > .col-xs-2 > .header {
+	padding: 0;
+}
+
+.book-row > .row > .col-xs-2 > .header > h4 {
+	padding: 0;
+	font-size: 18px;
+}
+*/
+
+.book-row > .row > .col-xs-2 > .image {
+	border-radius: 4px;
+}
+
+.book-row > .row > .col-xs-2 > .image > a > img {
+	height: 100%;
+	width: auto;
+}
+
+.book-containesr {
+	height: 100px;
+	display: -webkit-flex;
+  display: flex;
+	overflow-x: auto;
+}
