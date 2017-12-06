@@ -1,0 +1,83 @@
+/* Library navbar */
+.library-nav a {
+  text-decoration: none;
+  display: block;
+}
+
+.library-nav ul {
+  list-style: none;
+  position: relative;
+  text-align: left;
+  margin: 0;
+}
+
+.library-nav li {
+  float: left;
+}
+
+/* clear'n floats */
+.library-nav ul:after {
+  clear: both;
+}
+
+.library-nav ul:before,
+.library-nav ul:after {
+    content: " ";
+    display: table;
+}
+
+.library-nav {
+  position: relative;
+  text-align: center;
+  border-radius: 4px;
+  background: transparent;
+  font-size: 1.1em;
+}
+
+/* prime */
+.library-nav ul.primary {
+  padding: 0;
+}
+
+.library-nav ul.primary li a {
+  display: block;
+  padding: 20px 20px;
+  border-right: 1px solid #d8d8d8;
+}
+
+.library-nav ul.primary li a:hover {
+  background-color: #d8d8d8;
+}
+
+.library-nav ul.primary li.active a {
+  background-color: #f7f7f7;
+}
+
+/* keeps the tab background white */
+.library-nav ul.primary li:hover a {
+  background: #f2f2f2;
+  /*background-image: -webkit-linear-gradient(top, #fff 20%, #efeded 100%);
+  background-image: -moz-linear-gradient(top, #fff 20%, #efeded 100%);
+  background-image: -o-linear-gradient(top, #fff 20%, #efeded 100%);
+  background-image: linear-gradient(top, #fff 20%, #efeded 100%);*/
+  text-shadow: none;
+}
+
+.title {
+  font-size: 1.5vw;
+}
+
+.tile-date {
+  background-color: #eaeaea;
+  font-size: 0.8em;
+  border-radius: 0 0 4px 4px;
+}
+
+.tile-icon {
+  width: 16px;
+  height:auto;
+}
+
+div > img.tile-icon {
+  -webkit-transform: translate(-15%, -15%);
+}

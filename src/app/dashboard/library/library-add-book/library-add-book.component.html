@@ -1,0 +1,242 @@
+<a href="javascript:void(0);" (click)="this.location.back();">← Return</a>
+<div class="card" [@cardaddbook]>
+	<div class="header">
+		<h4 class="title">Add new book</h4>
+		<p class="category" placement="bottom">Add a new book to your library or wishlist</p>
+	</div>
+	<div class="content">
+		<form [formGroup]="form" (ngSubmit)="addBook(form.value)">
+			<!-- Image -->
+			<div class="image" id="book-image">
+					<img src="/assets/img/lc01.jpg" alt="Book cover">
+			</div>
+			<!-- Summary -->
+			<div class="form-group">
+				<label>Summary</label>
+				<p>{{summary}}</p>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<!-- Title -->
+					<div class="form-group" [ngClass] = "{'has-error': !form.controls['title'].valid && form.controls['title'].touched}">
+						<label>Book Title</label>
+						<input type="text" class="form-control" placeholder="Your version title" formControlName="title">
+						<span class="help-block" *ngIf="!form.controls['title'].valid && form.controls['title'].touched">Please enter a valid book title.</span>
+					</div>
+				</div>
+				<!-- Original title -->
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Original Title</label>
+						<input type="text" class="form-control" placeholder="Original version title" formControlName="original">
+					</div>
+				</div>
+			</div>
+			<!-- Author -->
+			<div class="form-group">
+				<label>Author</label>
+				<div class="row">
+					<div class="col-md-3">
+						<!-- Author image -->
+						<div class="image" id="author-image">
+								<img src="/assets/img/lee-child.jpg" alt="Author">
+						</div>
+					</div>
+					<div class="col-md-9">
+						<!-- Name -->
+						<div class="form-group" [ngClass] = "{'has-error': !form.controls['author'].valid && form.controls['author'].touched}">
+							<label>Name</label>
+							<div class="row">
+								<div class="col-md-10">
+									<input type="text" class="form-control" placeholder="Author name" formControlName="author">
+									<span class="help-block" *ngIf="!form.controls['author'].valid && form.controls['author'].touched">Please enter a valid author name.</span>
+								</div>
+								<div class="col-md-2">
+									<!-- Author Watch -->
+									<button type="button"
+										(click)="form.controls['authorWatch'].setValue(!form.controls['authorWatch'].value)"
+										[ngClass] = "{'active': form.controls['authorWatch'].value}"
+										class="library-button btn btn-default"
+										style="vertical-align: center; font-size=1.2em"
+										tooltip="Add this author to your watch list"
+										[tooltipDisabled]="false"
+										[tooltipAnimation]="true"
+										tooltipPlacement="bottom">
+										<span class="pe-7s-look" aria-hidden="true" style="font-size: 1.2em;"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<!-- Author bio -->
+						<p>James D. "Jim" Grant, better known by his pen name Lee Child, is a British author who writes thriller novels. He is especially known for his Jack Reacher novel series.</p>
+						<!-- Author info -->
+						<p style="font-size: 0.9em;">
+							<b>Born:</b> October 29, 1954 (age 62), Coventry, United Kingdom
+							<br><b>Full name:</b> James D. Grant
+							<br><b>Genre:</b> Crime fiction, mystery, thriller
+							<br><b>Movies:</b> Jack Reacher, Jack Reacher: Never Go Back
+						</p>
+						<!-- Author website -->
+						<i class="pe-7s-global" style="font-size: 1.3em;"></i> <a href="#">leechild.com</a>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">
+					<!-- Publisher -->
+					<div class="form-group">
+						<label>Publisher</label>
+						<input type="text" class="form-control" placeholder="Publisher" formControlName="publisher">
+					</div>
+				</div>
+				<div class="col-md-1">
+					<!-- Year -->
+					<div class="form-group">
+						<label>Year</label>
+						<input type="text" class="form-control" placeholder="Year" formControlName="year">
+					</div>
+				</div>
+				<div class="col-md-2">
+					<!-- Pages -->
+					<div class="form-group">
+						<label>Pages</label>
+						<input type="text" class="form-control" formControlName="pages">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<!-- Genres -->
+						<label>Genres</label>
+						<div class="input-group">
+							<input #genre type="text" class="form-control" placeholder="Add genre...">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button" (click)="genres.push(genre.value); genre.value = '';"><i class="ti-plus"></i></button>
+							</span>
+						</div>
+						<!-- Added genres -->
+						<p><a *ngFor="let genre of genres; let lastItem = last" href="javascript:void(0);">{{genre}}{{lastItem ? '' : ', '}}</a></p>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<!-- Collection -->
+					<div class="form-group">
+						<label>Colection</label>
+						<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								{{selectedCollection}}
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+								<li><a href="javascript:void(0);" data-toggle="modal" data-target="#newCollection">New collection</a></li>
+								<li role="separator" class="divider"></li>
+								<li *ngFor="let collection of collections; let i = index"><a href="javascript:void(0);" (click)="selectedCollection = collections[i]">{{collection}}</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<!-- Language -->
+					<div class="form-group">
+						<label>Language</label>
+						<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								{{selectedLanguage}}
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+								<li *ngFor="let language of languages; let i = index"><a href="javascript:void(0);" (click)="selectedLanguage = languages[i]">{{language}}</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<!-- About -->
+					<div class="form-group">
+						<label>About</label><br>
+						<div class="btn-group" role="group">
+							<button type="button"
+								(click) = "book.owned = !book.owned"
+								class="btn btn-default" [ngClass]="{'active': book.owned}"
+								tooltip="Owned"
+								[tooltipDisabled]="false"
+								[tooltipAnimation]="true"
+								tooltipPlacement="bottom">
+								<i class="pe-7s-check" style="font-size: 1.3em;"></i>
+							</button>
+							<button type="button"
+								(click) = "book.owned = !book.owned"
+								class="btn btn-default" [ngClass]="{'active': !book.owned}"
+								tooltip="Wishlist"
+								[tooltipDisabled]="false"
+								[tooltipAnimation]="true"
+								tooltipPlacement="bottom">
+								<i class="pe-7s-gift" style="font-size: 1.3em;"></i>
+							</button>
+							<button type="button"
+								(click) = "book.read = !book.read"
+								class="btn btn-default" [ngClass]="{'active': book.read}"
+								tooltip="Read"
+								[tooltipDisabled]="false"
+								[tooltipAnimation]="true"
+								tooltipPlacement="bottom">
+								<i class="pe-7s-glasses" style="font-size: 1.3em;"></i>
+							</button>
+							<button type="button"
+								(click) = "book.favorite = !book.favorite"
+								class="btn btn-default" [ngClass]="{'active': book.favorite}"
+								tooltip="Favorite"
+								[tooltipDisabled]="false"
+								[tooltipAnimation]="true"
+								tooltipPlacement="bottom">
+								<i class="pe-7s-like" style="font-size: 1.3em;"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<!-- Tags -->
+					<div class="form-group">
+						<label>Tags</label>
+						<div class="input-group">
+							<input #tag type="text" class="form-control" placeholder="Add tags...">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button" (click)="tags.push(tag.value); tag.value = '';"><i class="ti-plus"></i></button>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<!-- Rating -->
+					<div class="form-group">
+						<label>Rating</label><br>
+						<rating [float]="true" formControlName="rating"></rating>
+					</div>
+				</div>
+			</div>
+			<!-- Added tags -->
+			<div class="row">
+				<span class="col-md-12">
+					<ng-container *ngFor="let tag of tags; let lastItem = last; let i = index">
+						<i class="pe-7s-ticket"></i>
+						<a href="javascrip:void(0);"> {{tag}}</a>
+						<a href="javascript:void(0);" (click)="tags.splice(i, 1)"><i class='pe-7s-close-circle'></i></a>
+						{{lastItem ? '' : ', '}}
+					</ng-container>
+				</span>
+			</div>
+			<!-- Notes -->
+			<div class="form-group">
+				<label>Notes</label>
+				<textarea formControlName="notes" rows="5" class="form-control" placeholder="Leave notes, thoughts, or a full review of the book here :)" value=""></textarea>
+			</div>
+			<hr>
+			<div style="text-align: center;">
+				<button type="submit" class="btn btn-default" [disabled]="!form.valid">Add book</button>
+			</div>
+		</form>
+	</div>
+</div>

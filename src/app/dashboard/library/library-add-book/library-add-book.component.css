@@ -1,0 +1,11 @@
+#book-image {
+  display: block;
+  margin: auto;
+  border-radius: 0;
+  width: 30%;
+  height:auto;
+}
+
+#author-image {
+  border-radius: 0;
+}

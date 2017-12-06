@@ -1,0 +1,111 @@
+<div class="card" [@cardbook]>
+	<div class="header">
+		<h4 class="title">{{book.title}}</h4>
+		<p class="category" placement="bottom"><a href="javascript:void(0);">{{book.author}}</a></p>
+	</div>
+	<div class="content">
+		<div class="image" id="book-image">
+				<img src="{{book.image}}" alt="Book cover">
+		</div>
+		<label>Summary</label>
+		<p>{{book.summary}}</p>
+		<div class="row">
+			<div class="col-md-3">
+				<label>Publisher:</label>
+				<p>{{book.publisher}}</p>
+			</div>
+			<div class="col-md-3">
+				<label>Language:</label>
+				<p>{{book.language}}</p>
+			</div>
+			<div class="col-md-3">
+				<label>Year</label>
+				<p>{{book.year}}</p>
+			</div>
+			<div class="col-md-3">
+				<label>Pages</label>
+				<p>{{book.pages}}</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+			</div>
+			<div class="col-md-3">
+				<label>Collection</label>
+				<p><a href="javascript:void(0);">{{book.collection}}</a></p>
+			</div>
+			<div class="col-md-3">
+				<label>Rating</label><br>
+				<rating [(ngModel)]="book.rating" [readonly]="true" [float]="true"></rating>
+			</div>
+			<div class="col-md-3">
+				<label>About</label><br>
+				<div class="row">
+					<div class="col-md-1">
+						<i class="pe-7s-check tile-icon"
+							[ngClass] = "{'pe-7s-check': book.owned, 'pe-7s-gift': !book.owned}"
+							tooltip="{{book.owned ? 'Owned' : 'Wishlist'}}"
+										[tooltipDisabled]="false"
+										[tooltipAnimation]="true"
+										tooltipPlacement="bottom"></i> <!-- or wishlist!! -->
+					</div>
+					<div class="col-md-1">
+						<i class="pe-7s-glasses tile-icon"
+							[ngClass] = "{'inactive': !book.read}"
+							tooltip="{{book.read ? 'Read' : 'Unread'}}"
+										[tooltipDisabled]="false"
+										[tooltipAnimation]="true"
+										tooltipPlacement="bottom"></i>
+					</div>
+					<div class="col-md-1">
+						<i class="pe-7s-like tile-icon"
+							[ngClass] = "{'inactive': !book.favorite}"
+							tooltip="{{book.favorite ? 'Favorite' : 'Add to favorite'}}"
+										[tooltipDisabled]="false"
+										[tooltipAnimation]="true"
+										tooltipPlacement="bottom"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<label>
+					Genres
+					<a href="javascript:void(0);"><i class="pe-7s-plus tile-icon" style="font-size: 0.9em;"></i></a>
+				</label>
+				<p><a *ngFor="let genre of book.genres; let lastItem = last" href="javascript:void(0);">{{genre}}{{lastItem ? '' : ', '}}</a></p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<label>
+					Tags
+					<a href="javascript:void(0);"><i class="pe-7s-plus tile-icon" style="font-size: 0.9em;"></i></a>
+				</label>
+				<div>
+					<ng-container *ngFor="let tag of book.tags; let lastItem = last; let i = index">
+						<i class="pe-7s-ticket"></i>
+						<a href="javascrip:void(0);"> {{tag}}</a>
+						<a href="javascript:void(0);" (click)="book.tags.splice(i, 1)"><i class='pe-7s-close-circle'></i></a>
+						{{lastItem ? '' : ', '}}
+					</ng-container>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<label>
+					Notes
+					<a href="javascript:void(0);" (click)="editNotes = true"><i class="pe-7s-pen tile-icon" style="font-size: 0.9em;"></i></a>
+				</label>
+				<p *ngIf="editNotes == false">{{book.notes}}</p>
+				<div *ngIf="editNotes == true">
+					<textarea #notes rows="5" class="form-control" value="{{book.notes}}"></textarea>
+					<button type="button" class="btn btn-default" (click)="book.notes = notes.value; editNotes = false">Confirm</button>
+					<button type="button" class="btn btn-default" (click)="editNotes = false">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

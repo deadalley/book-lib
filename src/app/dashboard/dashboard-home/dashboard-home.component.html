@@ -1,0 +1,212 @@
+<div class="main-content" [@card]>
+  <div class="container-fluid">
+    <!-- Latest books -->
+    <div class="card">
+      <div class="header">
+    		<h4 class="title">Last added books</h4>
+    	</div>
+      <div class="content book-row">
+        <div class="row">
+          <div class="col-xs-2" *ngFor="let book of latestBooks">
+            <!--<div class="header">
+  						<!-- Header --
+  						<h4 class="title">{{book.title}}</h4>
+  						<p class="category" placement="bottom"><a href="#">{{book.author}}</a></p>
+  					</div>-->
+  					<!--<div class="">-->
+  						<!-- Image -->
+  						<div class="image">
+  							<a href="javascript:void(0);" (click)="this.gr.getBook(book.id)">
+                  <img src="book.hasOwnProperty('image_large') ? {{book.image_large}} : http://100scopenotes.com/files/2016/02/no_book_cover_lg.jpg" alt="Book cover">
+                </a>
+  						</div>
+  						<!-- Added date --
+              <div class="row" style="padding: 0 15px 0 15px;">
+  							<p class="tile-date">Added on 11-11-2011</p>
+  						</div>-->
+            <!--</div>-->
+          </div>
+        </div>
+      </div>
+    	<!-- Content --
+    	<div class="book-container">
+        <div class="book-container" *ngFor="let book of latestBooks">
+          <div class="header">
+						<!-- Header --
+						<h4 class="title">{{book.title}}</h4>
+						<p class="category" placement="bottom"><a href="#">{{book.author}}</a></p>
+					</div>
+					<div class="content">
+						<!-- Image --
+						<div class="image">
+							<a href="javascript:void(0);" (click)="this.gr.getBook(book.id)"><img src="{{book.image_large}}" alt="something alt"></a>
+						</div>
+						<!-- Added date --
+            <div class="row" style="padding: 0 15px 0 15px;">
+							<p class="tile-date">Added on 11-11-2011</p>
+						</div>
+          </div>
+        </div>
+      </div>-->
+    </div>
+    <!-- First login -->
+    <div class="card" style="text-align: center;" *ngIf="firstLogin">
+    	<!-- Header -->
+    	<div class="header">
+        <img src="/assets/img/angular.png" alt="Logo">
+    		<h1 class="title">Let's get started with your library!</h1>
+    	</div>
+    	<!-- Content -->
+    	<div class="content">
+    		<p>Start your library by adding a book...</p>
+    		<!-- Form -->
+    		<form style="text-align: left;" [formGroup]="form" (ngSubmit)="addBook(form.value)">
+    			<div class="row">
+    				<div class="col-xs-2"></div>
+    				<div class="col-xs-8">
+    					<div class="card">
+    						<div class="content">
+    							<!-- Title -->
+    							<div class="form-group" [ngClass] = "{'has-error': !form.controls['title'].valid && form.controls['title'].touched}">
+    								<label for="title">Book Title</label>
+    								<input type="text" class="form-control" formControlName="title" placeholder="Title">
+    								<span class="help-block" *ngIf="!form.controls['title'].valid && form.controls['title'].touched">Please enter a valid book title.</span>
+    							</div>
+    							<!-- Author -->
+    							<div class="form-group" [ngClass] = "{'has-error': !form.controls['author'].valid && form.controls['author'].touched}">
+    								<label>Author</label>
+    								<input type="text" class="form-control" formControlName="author" placeholder="Author">
+    								<span class="help-block" *ngIf="!form.controls['author'].valid && form.controls['author'].touched">Please enter a valid author name.</span>
+    							</div>
+    							<div class="row">
+    								<div class="col-xs-6">
+    									<div class="form-group">
+    										<label>Language</label>
+    										<div class="dropdown">
+    											<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    												{{selectedLanguage}}
+    												<span class="caret"></span>
+    											</button>
+    											<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    												<li *ngFor="let language of languages; let i = index"><a href="javascript:void(0);" (click)="selectedLanguage = languages[i]">{{language}}</a></li>
+    											</ul>
+    										</div>
+    									</div>
+    								</div>
+    								<div class="col-xs-6">
+    									<div class="form-group">
+    										<label>About</label><br>
+    										<div class="btn-group" role="group">
+    											<button type="button"
+    												(click) = "book.owned = !book.owned"
+    												class="btn btn-default" [ngClass]="{'active': book.owned}"
+    												tooltip="Owned"
+    												[tooltipDisabled]="false"
+    												[tooltipAnimation]="true"
+    												tooltipPlacement="bottom">
+    												<i class="pe-7s-check" style="font-size: 1.3em;"></i>
+    											</button>
+    											<button type="button"
+    												(click) = "book.owned = !book.owned"
+    												class="btn btn-default" [ngClass]="{'active': !book.owned}"
+    												tooltip="Wishlist"
+    												[tooltipDisabled]="false"
+    												[tooltipAnimation]="true"
+    												tooltipPlacement="bottom">
+    												<i class="pe-7s-gift" style="font-size: 1.3em;"></i>
+    											</button>
+    											<button type="button"
+    												(click) = "book.read = !book.read"
+    												class="btn btn-default" [ngClass]="{'active': book.read}"
+    												tooltip="Read"
+    												[tooltipDisabled]="false"
+    												[tooltipAnimation]="true"
+    												tooltipPlacement="bottom">
+    												<i class="pe-7s-glasses" style="font-size: 1.3em;"></i>
+    											</button>
+    											<button type="button"
+    												(click) = "book.favorite = !book.favorite"
+    												class="btn btn-default" [ngClass]="{'active': book.favorite}"
+    												tooltip="Favorite"
+    												[tooltipDisabled]="false"
+    												[tooltipAnimation]="true"
+    												tooltipPlacement="bottom">
+    												<i class="pe-7s-like" style="font-size: 1.3em;"></i>
+    											</button>
+    										</div>
+    									</div>
+    								</div>
+    							</div> <!-- !row -->
+                  <div class="row">
+                    <div class="col-xs-12" style="text-align: right;">
+                      <a href="#moreOptions" data-toggle="collapse"><label style="padding:0;">More options </label><i class="pe-7s-angle-down" style="vfont-size: 1.6em;"></i></a>
+                      <hr style="margin-top: 0;">
+                    </div>
+                  </div>
+                  <!-- More options -->
+                  <div class="collapse" id="moreOptions">
+                    <div class="form-group">
+                      <label>Original Title</label>
+                      <input type="text" class="form-control" placeholder="Original version title" formControlName="original">
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-8">
+                        <div class="form-group">
+              						<label>Publisher</label>
+              						<input type="text" class="form-control" placeholder="Publisher" formControlName="publisher">
+              					</div>
+                      </div>
+                      <div class="col-xs-2">
+                        <div class="form-group">
+              						<label>Year</label>
+              						<input type="text" class="form-control" placeholder="Year" formControlName="year">
+              					</div>
+                      </div>
+                      <div class="col-xs-2">
+                        <div class="form-group">
+              						<label>Pages</label>
+              						<input type="text" class="form-control" formControlName="pages">
+              					</div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+          						<!-- Genres -->
+          						<label>Genres</label>
+          						<div class="input-group">
+          							<input #genre type="text" class="form-control" placeholder="Add genre...">
+          							<span class="input-group-btn">
+          								<button class="btn btn-default" type="button" (click)="genres.push(genre.value); genre.value = '';"><i class="ti-plus"></i></button>
+          							</span>
+          						</div>
+          						<!-- Added genres -->
+          						<p><a *ngFor="let genre of genres; let lastItem = last; let i = index;" href="javascript:void(0);">{{genre}}
+                        <a href="javascript:void(0);" (click)="genres.splice(i, 1)"><i class='pe-7s-close-circle'></i></a>
+                        {{lastItem ? '' : ', '}}
+                      </a></p>
+          					</div>
+                    <div class="form-group">
+          						<label>Rating</label><br>
+          						<rating [float]="true" formControlName="rating"></rating>
+          					</div>
+                  </div>
+    							<!--<div class="image">
+    								<img src="" alt="something alt">
+    							</div>-->
+    							<hr>
+    							<div style="text-align: center;">
+    								<button type="submit" class="btn btn-default" [disabled]="!form.valid">Add book</button>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    				<div class="col-xs-2"></div>
+    			</div>
+    		</form>
+    		<p>... or import it!</p>
+    			<button type="button" class="btn btn-default">Import from Goodreads</button>
+          <button type="button" class="btn btn-default">Import from file</button>
+    		<p class="text-muted" style="font-style: italic; font-size: 0.9em;">File format: .xcs.</p>
+    	</div>
+    </div>
+  </div>
+</div>
