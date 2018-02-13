@@ -15,12 +15,13 @@ import { DashboardComponent } from './dashboard.component';
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
 import { LibraryComponent } from './library/library.component';
 
-import { GoodreadsService } from '../services/goodreads.service';
-
 const dashboardRoutes: Routes = [
   { path: '', component: DashboardComponent, children: [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: DashboardHomeComponent },
+    { path: 'author_watch', redirectTo: 'library', pathMatch: 'full' },
+    { path: 'wishlist', redirectTo: 'library', pathMatch: 'full' },
+    { path: 'profile', redirectTo: 'library', pathMatch: 'full' },
     { path: 'library', loadChildren: './library/library.module#LibraryModule' }
   ]}
 ];
@@ -42,6 +43,5 @@ const dashboardRoutes: Routes = [
     RatingModule
   ],
   exports: [ DashboardComponent ],
-  providers: [ GoodreadsService ]
 })
 export class DashboardModule { }
