@@ -12,7 +12,7 @@ export interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
   { path: 'home', title: 'Home',  icon:'pe-7s-home', class: '' },
   { path: 'library', title: 'Library',  icon:'pe-7s-notebook', class: '' },
-  { path: 'author-watch', title: 'Author Watch',  icon:'pe-7s-look', class: '' },
+  { path: 'author_watch', title: 'Author Watch',  icon:'pe-7s-look', class: '' },
   { path: 'wishlist', title: 'Wishlist',  icon:'pe-7s-gift', class: '' },
   { path: 'profile', title: 'Profile',  icon:'pe-7s-user', class: '' }
 ];

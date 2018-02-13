@@ -31,11 +31,5 @@ import { Book } from '../../../book';
 })
 
 export class LibraryBookComponent{
-  @Input() book: Book;
-
-  editNotes: boolean;
-
-  constructor() {
-    this.editNotes = false;
-  }
+  
 }
