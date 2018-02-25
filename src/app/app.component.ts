@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 
-declare var $:any;
+declare var $: any
 
 @Component({
   selector: 'app-root',

@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding } from '@angular/core'
 
 @Component({
     moduleId: module.id,
@@ -7,5 +7,5 @@ import { Component, HostBinding } from '@angular/core';
 })
 
 export class FooterComponent{
-    test : Date = new Date();
+    test: Date = new Date()
 }
