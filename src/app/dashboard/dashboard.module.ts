@@ -1,19 +1,19 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common'
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
+import { FormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms'
 
-import { SidebarModule } from './sidebar/sidebar.module';
-import { FooterModule } from './shared/footer/footer.module';
-import { NavbarModule} from './shared/navbar/navbar.module';
-import { LibraryModule } from './library/library.module';
-import { TooltipModule } from 'ngx-tooltip';
-import { RatingModule } from 'ngx-rating';
+import { SidebarModule } from './sidebar/sidebar.module'
+import { FooterModule } from './shared/footer/footer.module'
+import { NavbarModule} from './shared/navbar/navbar.module'
+import { LibraryModule } from './library/library.module'
+import { TooltipModule } from 'ngx-tooltip'
+import { RatingModule } from 'ngx-rating'
 
-import { DashboardComponent } from './dashboard.component';
-import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
-import { LibraryComponent } from './library/library.component';
+import { DashboardComponent } from './dashboard.component'
+import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component'
+import { LibraryComponent } from './library/library.component'
 
 const dashboardRoutes: Routes = [
   { path: '', component: DashboardComponent, children: [
@@ -24,7 +24,7 @@ const dashboardRoutes: Routes = [
     { path: 'profile', redirectTo: 'library', pathMatch: 'full' },
     { path: 'library', loadChildren: './library/library.module#LibraryModule' }
   ]}
-];
+]
 
 @NgModule({
   declarations: [

@@ -10,7 +10,10 @@
       true,
       "check-space"
     ],
-    "curly": true,
+    "curly": [
+      true,
+      "ignore-same-line"
+    ],
     "eofline": true,
     "forin": true,
     "import-blacklist": [
@@ -20,7 +23,8 @@
     "import-spacing": true,
     "indent": [
       true,
-      "spaces"
+      "spaces",
+      2
     ],
     "interface-over-type-literal": true,
     "label-position": true,
@@ -46,6 +50,7 @@
     ],
     "no-construct": true,
     "no-debugger": true,
+    "no-duplicate-imports": true,
     "no-duplicate-super": true,
     "no-empty": false,
     "no-empty-interface": true,
@@ -54,6 +59,7 @@
       true,
       "ignore-params"
     ],
+    "no-irregular-whitespace": true,
     "no-misused-new": true,
     "no-non-null-assertion": true,
     "no-shadowed-variable": true,
@@ -63,8 +69,10 @@
     "no-trailing-whitespace": true,
     "no-unnecessary-initializer": true,
     "no-unused-expression": true,
+    "no-unused-variable": true,
     "no-use-before-declare": true,
     "no-var-keyword": true,
+    "no-var-requires": true,
     "object-literal-sort-keys": false,
     "one-line": [
       true,
@@ -74,13 +82,18 @@
       "check-whitespace"
     ],
     "prefer-const": true,
+    "prefer-template":  [
+      true,
+      "allow-single-concat"
+    ],
     "quotemark": [
       true,
       "single"
     ],
     "radix": true,
     "semicolon": [
-      "always"
+      true,
+      "never"
     ],
     "triple-equals": [
       true,
@@ -116,7 +129,7 @@
     "component-selector": [
       true,
       "element",
-      "app",
+      "",
       "kebab-case"
     ],
     "use-input-property-decorator": true,

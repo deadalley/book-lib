@@ -1,16 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
-import { Route } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
-import { TooltipModule } from 'ngx-tooltip';
-import { RatingModule } from 'ngx-rating';
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { RouterModule, Routes } from '@angular/router'
+import { Route } from '@angular/router'
+import { FormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms'
+import { TooltipModule } from 'ngx-tooltip'
+import { RatingModule } from 'ngx-rating'
 
-import { LibraryComponent } from './library.component';
-import { LibraryHomeComponent } from './library-home/library-home.component';
-import { LibraryAddBookComponent } from './library-add-book/library-add-book.component';
-import { LibraryBookComponent } from './library-book/library-book.component';
+import { LibraryComponent } from './library.component'
+import { LibraryHomeComponent } from './library-home/library-home.component'
+import { LibraryAddBookComponent } from './library-add-book/library-add-book.component'
+import { LibraryBookComponent } from './library-book/library-book.component'
 
 const libraryRoutes: Routes = [
   { path: '', component: LibraryComponent, children: [
