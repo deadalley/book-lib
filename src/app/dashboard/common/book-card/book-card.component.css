@@ -1,0 +1,30 @@
+.title {
+  font-size: 1.5vw;
+}
+
+.tile-date {
+  background-color: #eaeaea;
+  font-size: 0.8em;
+  border-radius: 0 0 4px 4px;
+}
+
+.tile-icon {
+  width: 16px;
+  height:auto;
+}
+
+div > img.tile-icon {
+  -webkit-transform: translate(-15%, -15%);
+}
+
+i.tile-icon {
+  font-size: 1.4em;
+}
+
+i.active {
+  color: #333;
+}
+
+i.inactive {
+  color: #c9c9c9;
+}

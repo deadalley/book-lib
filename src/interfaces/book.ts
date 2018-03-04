@@ -5,6 +5,7 @@ export interface Book {
   owned: boolean,
   read: boolean,
   favorite: boolean,
+  date: string,
   isbn?: number,
   original?: string,
   language?: string,
@@ -12,13 +13,11 @@ export interface Book {
   year?: number,
   pages?: number,
   genres?: string[],
-  summary?: string,
   collection?: string,
   tags?: string[],
   notes?: string,
   image_small?: string,
   image_large?: string,
   rating?: number,
-  date?: string,
   gr_link?: string
 }

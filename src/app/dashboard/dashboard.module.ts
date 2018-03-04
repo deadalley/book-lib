@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { FormsModule } from '@angular/forms'
-import { ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { SidebarModule } from './sidebar/sidebar.module'
 import { FooterModule } from './shared/footer/footer.module'
@@ -13,6 +12,9 @@ import { RatingModule } from 'ngx-rating'
 
 import { DashboardComponent } from './dashboard.component'
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component'
+import { FirstLoginComponent } from './dashboard-home/first-login/first-login.component'
+import { BookCardComponent } from './common/book-card/book-card.component'
+import { BookTagsComponent } from './common/book-tags/book-tags.component'
 import { LibraryComponent } from './library/library.component'
 
 const dashboardRoutes: Routes = [
@@ -29,7 +31,10 @@ const dashboardRoutes: Routes = [
 @NgModule({
   declarations: [
     DashboardComponent,
-    DashboardHomeComponent
+    DashboardHomeComponent,
+    FirstLoginComponent,
+    BookCardComponent,
+    BookTagsComponent
   ],
   imports: [
     RouterModule.forChild(dashboardRoutes),
@@ -42,6 +47,6 @@ const dashboardRoutes: Routes = [
     TooltipModule,
     RatingModule
   ],
-  exports: [ DashboardComponent ],
+  exports: [DashboardComponent],
 })
 export class DashboardModule { }

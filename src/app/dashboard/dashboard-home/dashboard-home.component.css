@@ -13,20 +13,7 @@
 	display: inline-block;
 	height: 100%;
 	width: auto;
-	/*float: left;*/
-	/**height: 100%;
-	width: 100px;*/
 }
-/*
-.book-row > .row > .col-xs-2 > .header {
-	padding: 0;
-}
-
-.book-row > .row > .col-xs-2 > .header > h4 {
-	padding: 0;
-	font-size: 18px;
-}
-*/
 
 .book-row > .row > .col-xs-2 > .image {
 	border-radius: 4px;

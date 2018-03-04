@@ -1,5 +1,6 @@
-import { assertThat, hasProperties, number, string, bool, not, equalTo } from 'hamjest'
+import { assertThat, hasProperties, array, number, string, bool, not, equalTo } from 'hamjest'
 import BookFactory from './book'
+import CollectionFactory from './collection'
 import { Book } from '../interfaces/book'
 import { FactoryArray, GenericFactory } from './utils'
 
@@ -11,15 +12,27 @@ describe('Book', () => {
       author: string(),
       owned: bool(),
       read: bool(),
-      favorite: bool()
+      favorite: bool(),
+      date: string()
     }
     const book = BookFactory.build()
     assertThat(book, hasProperties(props))
   })
 })
 
+describe('Collection', ()=> {
+  it('should create a collection of books', () => {
+    const props = {
+      title: string(),
+      books: array()
+    }
+    const collection = CollectionFactory.build()
+    assertThat(collection, hasProperties(props))
+  })
+})
+
 describe('Utils', () => {
-  it('should return an array of factories', () => {
+  xit('should return an array of factories', () => {
     const factories = FactoryArray(GenericFactory, 5)
     factories.forEach((item, idx) => {
       if (idx === factories.length - 1) { return }

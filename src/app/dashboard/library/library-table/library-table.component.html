@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="header">
+        <h4 class="title">Library</h4>
+      </div>
+      <div class="content table-responsive table-full-width">
+        <table class="table table-hover table-striped" [@cardbooks]>
+          <thead>
+            <tr>
+              <th class="col">Title</th>
+              <th class="col">Author</th>
+              <th class="col">Language</th>
+              <th class="col">Added on</th>
+              <th class="col-md-1"></th>
+            </tr>
+          <tbody>
+            <tr *ngFor="let book of books">
+              <td class="col">{{book.title}}</td>
+              <td class="col">{{book.author}}</td>
+              <td class="col">{{book.language}}</td>
+              <td class="col">{{book.date}}</td>
+              <td class="col-md-2">
+                <a href="javascript:void(0);" (click) = "book.owned = !book.owned">
+                  <i class="pe-7s-check tile-icon"
+                    [ngClass] = "{'pe-7s-check': book.owned, 'pe-7s-gift': !book.owned, 'active': true}"
+                    tooltip="{{book.owned ? 'Owned' : 'Wishlist'}}"
+                          [tooltipDisabled]="false"
+                          [tooltipAnimation]="true"
+                          tooltipPlacement="bottom"></i>
+                </a>
+                <a href="javascript:void(0);" (click) = "book.read = !book.read">
+                  <i class="pe-7s-glasses tile-icon"
+                    [ngClass] = "{'inactive': !book.read, 'active': book.read}"
+                    tooltip="{{book.read ? 'Read' : 'Unread'}}"
+                          [tooltipDisabled]="false"
+                          [tooltipAnimation]="true"
+                          tooltipPlacement="bottom"></i>
+                </a>
+                <a href="javascript:void(0);" (click) = "book.favorite = !book.favorite">
+                  <i class="pe-7s-like tile-icon"
+                    [ngClass] = "{'inactive': !book.favorite, 'active': book.favorite}"
+                    tooltip="{{book.favorite ? 'Favorite' : 'Add to favorite'}}"
+                          [tooltipDisabled]="false"
+                          [tooltipAnimation]="true"
+                          tooltipPlacement="bottom"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

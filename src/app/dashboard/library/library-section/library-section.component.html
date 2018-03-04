@@ -1,0 +1,14 @@
+<!-- Separator -->
+<div class="row">
+  <div class="col-md-12">
+    <h4 class="title">{{sectionTitle}}</h4>
+    <hr class="library-hr">
+  </div>
+</div>
+<!-- Row of book cards -->
+<div class="row" [@cardbooks]>
+  <ng-container *ngFor="let book of books; let i = index;">
+    <div class="clearfix" *ngIf="i % 4 == 0"></div>
+    <book-card [book]="book"></book-card>
+  </ng-container>
+</div><!-- !Row -->
