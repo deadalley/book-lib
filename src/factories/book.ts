@@ -16,7 +16,6 @@ const BookFactory = Factory.makeFactory<Book>({
   year: date.past().getFullYear(),
   pages: random.number(),
   genres: lorem.word(),
-  summary: lorem.text(),
   collection: lorem.word(),
   tags: lorem.noun,
   notes: lorem.text(),

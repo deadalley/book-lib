@@ -1,0 +1,66 @@
+<div class="col-md-3">
+  <div class="card" style="text-align: center;" [@cardbooks]>
+    <div class="header">
+      <!-- Header -->
+      <h4 class="title">{{book.title}}</h4>
+      <p class="category" placement="bottom">
+        <a href="#">{{book.author}}</a>
+      </p>
+    </div>
+    <div class="content">
+      <!-- Image -->
+      <div class="image">
+        <a href="javascript:void(0);" (click)="this.gr.getBook(book.id)">
+          <img
+            [src]="book.hasOwnProperty('image_large') ? book.image_large : book.image_small"
+            alt="{{book.hasOwnProperty('image_large') ? book.image_large : book.image_small}}"
+          >
+          <!--<img src="{{book.image_large}}" alt="Book cover">-->
+        </a>
+      </div>
+      <!-- Added date -->
+      <div class="row" style="padding: 0 15px 0 15px;">
+        <p class="tile-date">Added on {{book.date}}</p>
+      </div>
+      <!-- Icons -->
+      <div class="row">
+        <div class="col-xs-3">
+          <a href="javascript:void(0);" (click) = "book.owned = !book.owned">
+          <i class="pe-7s-check tile-icon"
+            [ngClass] = "{'pe-7s-check': book.owned, 'pe-7s-gift': !book.owned, 'active': true}"
+            tooltip="{{book.owned ? 'Owned' : 'Wishlist'}}"
+                  [tooltipDisabled]="false"
+                  [tooltipAnimation]="true"
+                  tooltipPlacement="bottom"></i></a> <!-- or wishlist!! -->
+        </div>
+        <div class="col-xs-3">
+          <a href="javascript:void(0);" (click) = "book.read = !book.read">
+          <i class="pe-7s-glasses tile-icon"
+            [ngClass] = "{'inactive': !book.read, 'active': book.read}"
+            tooltip="{{book.read ? 'Read' : 'Unread'}}"
+                  [tooltipDisabled]="false"
+                  [tooltipAnimation]="true"
+                  tooltipPlacement="bottom"></i></a>
+        </div>
+        <div class="col-xs-3">
+          <a href="javascript:void(0);" (click) = "book.favorite = !book.favorite">
+          <i class="pe-7s-like tile-icon"
+            [ngClass] = "{'inactive': !book.favorite, 'active': book.favorite}"
+            tooltip="{{book.favorite ? 'Favorite' : 'Add to favorite'}}"
+                  [tooltipDisabled]="false"
+                  [tooltipAnimation]="true"
+                  tooltipPlacement="bottom"></i></a>
+        </div>
+        <div class="col-xs-3">
+          <img class="tile-icon"
+            src="/assets/img/goodreads_icon_32x32.png"
+            [ngClass] = "{'inactive': !book.goodreads}"
+            tooltip="Goodreads"
+                  [tooltipDisabled]="false"
+                  [tooltipAnimation]="true"
+                  tooltipPlacement="bottom">
+        </div>
+      </div>
+    </div>
+  </div><!-- !Card -->
+</div>

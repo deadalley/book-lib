@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import './assets/css/bootstrap.min.css';
+@import './assets/css/paper-dashboard.css';
+@import './assets/css/themify-icons.css';
+@import './assets/css/pe-icon-7-stroke.css';
+@import 'https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css';
+@import 'http://fonts.googleapis.com/css?family=Roboto:400,700,300';

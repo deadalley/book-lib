@@ -1,0 +1,156 @@
+<div class="card" style="text-align: center;">
+  <!-- Header -->
+  <div class="header">
+    <img src="/assets/img/angular.png" alt="Logo">
+    <h1 class="title">Let's get started with your library!</h1>
+  </div>
+  <!-- Content -->
+  <div class="content">
+    <p>Start your library by adding a book...</p>
+    <!-- Form -->
+    <form style="text-align: left;" [formGroup]="form" (ngSubmit)="addBook(form.value)">
+      <div class="row">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8">
+          <div class="card">
+            <div class="content">
+              <!-- Title -->
+              <div class="form-group" [ngClass] = "{'has-error': !form.controls['title'].valid && form.controls['title'].touched}">
+                <label for="title">Book Title</label>
+                <input type="text" class="form-control" formControlName="title" placeholder="Title">
+                <span class="help-block" *ngIf="!form.controls['title'].valid && form.controls['title'].touched">Please enter a valid book title.</span>
+              </div>
+              <!-- Author -->
+              <div class="form-group" [ngClass] = "{'has-error': !form.controls['author'].valid && form.controls['author'].touched}">
+                <label>Author</label>
+                <input type="text" class="form-control" formControlName="author" placeholder="Author">
+                <span class="help-block" *ngIf="!form.controls['author'].valid && form.controls['author'].touched">Please enter a valid author name.</span>
+              </div>
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>Language</label>
+                    <div class="dropdown">
+                      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        {{selectedLanguage}}
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li *ngFor="let language of languages; let i = index"><a href="javascript:void(0);" (click)="selectedLanguage = languages[i]">{{language}}</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>About</label><br>
+                    <div class="btn-group" role="group">
+                      <button type="button"
+                        (click) = "book.owned = !book.owned"
+                        class="btn btn-default" [ngClass]="{'active': book.owned}"
+                        tooltip="Owned"
+                        [tooltipDisabled]="false"
+                        [tooltipAnimation]="true"
+                        tooltipPlacement="bottom">
+                        <i class="pe-7s-check" style="font-size: 1.3em;"></i>
+                      </button>
+                      <button type="button"
+                        (click) = "book.owned = !book.owned"
+                        class="btn btn-default" [ngClass]="{'active': !book.owned}"
+                        tooltip="Wishlist"
+                        [tooltipDisabled]="false"
+                        [tooltipAnimation]="true"
+                        tooltipPlacement="bottom">
+                        <i class="pe-7s-gift" style="font-size: 1.3em;"></i>
+                      </button>
+                      <button type="button"
+                        (click) = "book.read = !book.read"
+                        class="btn btn-default" [ngClass]="{'active': book.read}"
+                        tooltip="Read"
+                        [tooltipDisabled]="false"
+                        [tooltipAnimation]="true"
+                        tooltipPlacement="bottom">
+                        <i class="pe-7s-glasses" style="font-size: 1.3em;"></i>
+                      </button>
+                      <button type="button"
+                        (click) = "book.favorite = !book.favorite"
+                        class="btn btn-default" [ngClass]="{'active': book.favorite}"
+                        tooltip="Favorite"
+                        [tooltipDisabled]="false"
+                        [tooltipAnimation]="true"
+                        tooltipPlacement="bottom">
+                        <i class="pe-7s-like" style="font-size: 1.3em;"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div> <!-- !row -->
+              <div class="row">
+                <div class="col-xs-12" style="text-align: right;">
+                  <a href="#moreOptions" data-toggle="collapse"><label style="padding:0;">More options </label><i class="pe-7s-angle-down" style="vfont-size: 1.6em;"></i></a>
+                  <hr style="margin-top: 0;">
+                </div>
+              </div>
+              <!-- More options -->
+              <div class="collapse" id="moreOptions">
+                <div class="form-group">
+                  <label>Original Title</label>
+                  <input type="text" class="form-control" placeholder="Original version title" formControlName="original">
+                </div>
+                <div class="row">
+                  <div class="col-xs-8">
+                    <div class="form-group">
+                      <label>Publisher</label>
+                      <input type="text" class="form-control" placeholder="Publisher" formControlName="publisher">
+                    </div>
+                  </div>
+                  <div class="col-xs-2">
+                    <div class="form-group">
+                      <label>Year</label>
+                      <input type="text" class="form-control" placeholder="Year" formControlName="year">
+                    </div>
+                  </div>
+                  <div class="col-xs-2">
+                    <div class="form-group">
+                      <label>Pages</label>
+                      <input type="text" class="form-control" formControlName="pages">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="form-group">
+                      <!-- Genres -->
+                      <book-tags
+                        title="Genres"
+                        placeholder="Add genre..."
+                        (getItems)="getGenres($event)"
+                      ></book-tags>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <div class="form-group">
+                        <label>Rating</label><br>
+                        <rating [float]="true" formControlName="rating"></rating>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div style="text-align: center;">
+                <button type="submit" class="btn btn-default" [disabled]="!form.valid">Add book</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-2"></div>
+      </div>
+    </form>
+    <p>... or import it!</p>
+      <button type="button" class="btn btn-default">Import from Goodreads</button>
+      <button type="button" class="btn btn-default">Import from file</button>
+    <p class="text-muted" style="font-style: italic; font-size: 0.9em;">File format: .xcs.</p>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+i.tile-icon {
+  font-size: 1.4em;
+}
+
+i.active {
+  color: #333;
+}
+
+i.inactive {
+  color: #c9c9c9;
+}
+  
