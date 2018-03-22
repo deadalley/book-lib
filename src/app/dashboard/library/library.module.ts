@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { TooltipModule } from 'ngx-tooltip'
 import { RatingModule } from 'ngx-rating'
 
+import { CoreModule } from '../core/core.module'
+
 import { LibraryComponent } from './library.component'
 import { LibraryHomeComponent } from './library-home/library-home.component'
 import { LibraryAddBookComponent } from './library-add-book/library-add-book.component'
@@ -28,7 +30,8 @@ const libraryRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     TooltipModule,
-    RatingModule
+    RatingModule,
+    CoreModule
   ],
   declarations: [
     LibraryComponent,

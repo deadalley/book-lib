@@ -1,5 +1,4 @@
 import { Component, OnInit, trigger, transition, style, animate, group, state } from '@angular/core'
-import { FormControl , FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Book } from '../../../interfaces/book'
 
 @Component({
@@ -30,14 +29,8 @@ import { Book } from '../../../interfaces/book'
 })
 export class DashboardHomeComponent implements OnInit {
   firstLogin = true
-  form = { } as FormGroup
-  languages: string[]
-  genres: string[]
-  tags: string[]
-  selectedLanguage: string
-  book: Book
 
-  constructor(private fb: FormBuilder) { }
+  constructor() { }
 
   ngOnInit() { }
 }

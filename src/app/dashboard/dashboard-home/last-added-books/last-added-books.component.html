@@ -1,0 +1,28 @@
+<div class="card">
+  <div class="header">
+    <h4 class="title">Last added books</h4>
+  </div>
+  <div class="content book-row">
+    <div class="row">
+      <div class="col-xs-2" *ngFor="let book of latestBooks">
+        <!--<div class="header">
+          <!-- Header --
+          <h4 class="title">{{book.title}}</h4>
+          <p class="category" placement="bottom"><a href="#">{{book.author}}</a></p>
+        </div>-->
+        <!--<div class="">-->
+          <!-- Image -->
+          <div class="image">
+            <a href="javascript:void(0);" (click)="this.gr.getBook(book.id)">
+              <img src="book.hasOwnProperty('image_large') ? {{book.image_large}} : http://100scopenotes.com/files/2016/02/no_book_cover_lg.jpg" alt="Book cover">
+            </a>
+          </div>
+          <!-- Added date --
+          <div class="row" style="padding: 0 15px 0 15px;">
+            <p class="tile-date">Added on 11-11-2011</p>
+          </div>-->
+        <!--</div>-->
+      </div>
+    </div>
+  </div>
+</div>
