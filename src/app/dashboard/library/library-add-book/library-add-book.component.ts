@@ -1,9 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, trigger, transition, style, animate, group, state } from '@angular/core'
+import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition, style, animate, group, state } from '@angular/core'
 import { FormControl , FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
 import CollectionFactory from '../../../../factories/collection'
 import { Collection } from '../../../../interfaces/collection'
 import { Book } from '../../../../interfaces/book'
 import Languages from '../../../../utils/languages'
+import { cleanFormValues } from '../../../../utils/helpers'
 
 @Component({
   moduleId: module.id,
@@ -44,6 +46,9 @@ export class LibraryAddBookComponent implements OnInit {
   book = { } as Book
   fromGoodreads = false
 
+  @ViewChild(BookButtonsComponent)
+  buttonsComponent: BookButtonsComponent
+
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       title: ['', Validators.required],
@@ -67,28 +72,21 @@ export class LibraryAddBookComponent implements OnInit {
       books: []
     }
     this.selectedLanguage = 'Select a language'
-
-    this.book.owned = false
-    this.book.read = false
-    this.book.favorite = false
   }
 
   addBook(formValues) {
-    Object.keys(formValues).forEach((prop) => {
-      if (typeof formValues[prop] !== 'undefined' && formValues[prop]) {
-        this.book[prop] = formValues[prop]
-      }
-    })
+    const newValues = {
+      id: 99,
+      date: (new Date()).toISOString().substring(0, 10),
+      ...(this.genres.length > 0) && { genres: this.genres },
+      ...(this.tags.length > 0) && { tags: this.tags },
+      ...(this.selectedLanguage !== 'Select a language') && { language: this.selectedLanguage },
+      ...cleanFormValues(formValues),
+      ...this.buttonsComponent.getValues()
+    }
 
-    this.book.date = (new Date()).toISOString().substring(0, 10)
-    if (this.genres.length > 0) { this.book.genres = this.genres }
-    if (this.tags.length > 0) { this.book.tags = this.tags }
-    if (this.selectedCollection.title !== 'Add book to collection') {
-      this.selectedCollection.books.push(this.book)
-    }
-    if (this.selectedLanguage !== 'Select a language') {
-      this.book.language = this.selectedLanguage
-    }
+    Object.assign(this.book, newValues)
+
     console.log('Adding book', this.book)
   }
 

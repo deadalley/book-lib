@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { FormControl , FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
 import { Book } from '../../../../interfaces/book'
 import Languages from '../../../../utils/languages'
+import { cleanFormValues } from '../../../../utils/helpers'
 
 @Component({
   moduleId: module.id,
@@ -17,6 +19,9 @@ export class FirstLoginComponent implements OnInit {
   tags: string[]
   selectedLanguage: string
   book = { } as Book
+
+  @ViewChild(BookButtonsComponent)
+  buttonsComponent: BookButtonsComponent
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -35,13 +40,22 @@ export class FirstLoginComponent implements OnInit {
     this.languages = Languages
     this.genres = []
     this.selectedLanguage = 'Select a language'
-
-    this.book.owned = false
-    this.book.read = false
-    this.book.favorite = false
   }
 
   getGenres(genres: Array<string>) {
     this.genres = genres
+  }
+
+  addBook(values) {
+    const newValues = {
+      id: 99,
+      date: new Date().toISOString().substring(0, 10),
+      ...cleanFormValues(values),
+      ...this.buttonsComponent.getValues()
+    }
+
+    Object.assign(this.book, newValues)
+
+    console.log('Adding book', this.book)
   }
 }

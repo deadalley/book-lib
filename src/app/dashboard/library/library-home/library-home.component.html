@@ -2,8 +2,9 @@
 <library-navbar (toggleTilesDisplay)="toggleTilesDisplay($event)"></library-navbar>
 <!-- Books -->
 <div [ngSwitch]="tilesDisplay">
-  <library-add-book></library-add-book>
-	<!-- Tiles -->
+  <!-- <library-add-book></library-add-book> -->
+  <library-book></library-book>
+  <!-- Tiles -->
 	<ng-container *ngSwitchCase="true" >
 		<library-section [books]="this.books"></library-section>
 	</ng-container>
