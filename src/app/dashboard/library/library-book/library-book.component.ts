@@ -1,11 +1,13 @@
-import { Component, Input, Output, EventEmitter, trigger, transition, style, animate, group, state } from '@angular/core'
+import { Component, OnInit, Input, Output, EventEmitter, trigger, transition, style, animate, group, state } from '@angular/core'
 import { FormControl , FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms'
+import { Book } from '../../../../interfaces/book'
+import BookFactory from '../../../../factories/book'
 
 @Component({
   moduleId: module.id,
-  selector: 'library-book-cmp',
+  selector: 'library-book',
   templateUrl: 'library-book.component.html',
-  styleUrls: [],
+  styleUrls: ['./library-book.component.css'],
   animations: [
     trigger('cardbook', [
       state('*', style({
@@ -29,6 +31,11 @@ import { FormControl , FormGroup, FormBuilder, FormArray, Validators } from '@an
   ]
 })
 
-export class LibraryBookComponent {
+export class LibraryBookComponent implements OnInit {
+  book = {} as Book
 
+  ngOnInit() {
+    this.book = BookFactory.build()
+    console.log(this.book)
+  }
 }
