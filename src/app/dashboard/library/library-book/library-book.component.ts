@@ -36,6 +36,5 @@ export class LibraryBookComponent implements OnInit {
 
   ngOnInit() {
     this.book = BookFactory.build()
-    console.log(this.book)
   }
 }
