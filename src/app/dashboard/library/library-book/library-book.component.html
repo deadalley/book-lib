@@ -16,8 +16,16 @@
       </div>
       <div class="col-md-6">
         <div class="row">
+          <div class="col-xs-12">
+            <label>Original title:</label>
+            <a href="javascript:void(0);" (click)="editNotes = true"><i class="pe-7s-pen tile-icon" style="font-size: 0.9em;"></i></a>
+            <p>{{book.original}}</p>
+          </div>
+        </div>
+        <div class="row">
           <div class="col-md-12 col-xs-6">
-            <label>Publisher:</label><p>{{book.publisher}}</p>
+            <label>Publisher:</label>
+            <p>{{book.publisher}}</p>
           </div>
           <div class="col-md-12 col-xs-6">
             <label>Language:</label>
@@ -74,18 +82,18 @@
         </div>
         <div class="row">
           <div class="col-xs-12">
-            <label>
-              Notes
-              <a href="javascript:void(0);" (click)="editNotes = true"><i class="pe-7s-pen tile-icon" style="font-size: 0.9em;"></i></a>
-            </label>
-            <p *ngIf="editNotes == false">{{book.notes}}</p>
-            <div *ngIf="editNotes == true">
-              <textarea #notes rows="5" class="form-control" value="{{book.notes}}"></textarea>
-              <button type="button" class="btn btn-default" (click)="book.notes = notes.value; editNotes = false">Confirm</button>
-              <button type="button" class="btn btn-default" (click)="editNotes = false">Cancel</button>
-            </div>
+            <label>Notes</label>
+            <p>{{book.notes}}</p>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-1" style="float: right">
+        <button type="button" class="btn btn-default" style="float: right">Edit</button>
+      </div>
+      <div class="col-xs-1" style="float: right">
+        <button type="button" class="btn btn-default" style="float: right">Delete</button>
       </div>
     </div>
 	</div>
