@@ -1,0 +1,13 @@
+.content > .row {
+  overflow-x: auto;
+  white-space: nowrap;
+  margin: 5px;
+  padding-top: 1px;
+}
+
+.content > .row > .col-xs-3 {
+  display: inline-block;
+  float: none;
+  width: 30%;
+  padding: 0 5px;
+}

@@ -34,6 +34,7 @@ import { TooltipModule } from 'ngx-tooltip'
 
 export class BookCardComponent implements OnInit {
   @Input() book: Book
+  @Input() withButtons = true
 
   constructor() { }
 

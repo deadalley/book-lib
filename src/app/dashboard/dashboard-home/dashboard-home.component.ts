@@ -1,5 +1,6 @@
 import { Component, OnInit, trigger, transition, style, animate, group, state } from '@angular/core'
 import { Book } from '../../../interfaces/book'
+import BookFactory from '../../../factories/book'
 
 @Component({
   selector: 'app-dashboard-home',
@@ -29,8 +30,11 @@ import { Book } from '../../../interfaces/book'
 })
 export class DashboardHomeComponent implements OnInit {
   firstLogin = true
+  latestBooks = [] as Book[]
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.latestBooks = BookFactory.buildList(10)
+  }
 }
