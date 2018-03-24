@@ -1,10 +1,8 @@
 <div class="main-content" [@card]>
   <div class="container-fluid">
     <!-- Latest books -->
-    <last-added-books></last-added-books>
+    <last-added-books *ngIf="latestBooks.length > 0" [latestBooks]="latestBooks"></last-added-books>
 		<!-- First login -->
-		<ng-container  *ngIf="firstLogin">
-			<first-login></first-login>
-		</ng-container>
+    <first-login *ngIf="firstLogin"></first-login>
   </div>
 </div>

@@ -1,18 +1,15 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, Input } from '@angular/core'
 import { Book } from '../../../../interfaces/book'
-import BookFactory from '../../../../factories/book'
 
 @Component({
   moduleId: module.id,
   selector: 'last-added-books',
   templateUrl: 'last-added-books.component.html',
-  styleUrls: []
+  styleUrls: ['./last-added-books.component.css']
 })
 
 export class LastAddedBooksComponent implements OnInit {
-  latestBooks: Book[]
+  @Input() latestBooks: Book[]
 
-  ngOnInit() {
-    this.latestBooks = BookFactory.buildList(10)
-  }
+  ngOnInit() { }
 }
