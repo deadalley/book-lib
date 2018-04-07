@@ -63,7 +63,10 @@ export class LibraryAddBookComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.allCollections = [{ title: 'Collection 1', books: [] }, { title: 'Collection 2', books: [] } ,{ title: 'Collection 3', books: [] }]
+    this.allCollections = [
+      { title: 'Collection 1', books: [], description: '' },
+      { title: 'Collection 2', books: [], description: ''  },
+      { title: 'Collection 3', books: [], description: ''  }]
     this.collections = []
     this.languages = Languages
     this.genres = []
