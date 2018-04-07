@@ -13,7 +13,7 @@ export interface Book {
   year?: number,
   pages?: number,
   genres?: string[],
-  collection?: string,
+  collections?: string[],
   tags?: string[],
   notes?: string,
   image_small?: string,

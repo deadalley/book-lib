@@ -18,7 +18,6 @@
         <div class="row">
           <div class="col-xs-12">
             <label>Original title:</label>
-            <a href="javascript:void(0);" (click)="editNotes = true"><i class="pe-7s-pen tile-icon" style="font-size: 0.9em;"></i></a>
             <p>{{book.original}}</p>
           </div>
         </div>
@@ -48,7 +47,6 @@
         <div class="row">
           <div class="col-md-4 col-xs-6">
             <label>Collections</label>
-            <p><a href="javascript:void(0);">{{book.collection}}</a></p>
           </div>
           <div class="col-md-8 col-xs-6">
             <label>Rating</label><br>
@@ -57,24 +55,17 @@
         </div>
         <div class="row">
           <div class="col-xs-12">
-            <label>
-              Genres
-              <a href="javascript:void(0);"><i class="pe-7s-plus tile-icon" style="font-size: 0.9em;"></i></a>
-            </label>
+            <label>Genres</label>
             <p><a *ngFor="let genre of book.genres; let lastItem = last" href="javascript:void(0);">{{genre}}{{lastItem ? '' : ', '}}</a></p>
           </div>
         </div>
         <div class="row">
           <div class="col-xs-12">
-            <label>
-              Tags
-              <a href="javascript:void(0);"><i class="pe-7s-plus tile-icon" style="font-size: 0.9em;"></i></a>
-            </label>
+            <label>Tags</label>
             <div>
-              <ng-container *ngFor="let tag of book.tags; let lastItem = last; let i = index">
+              <ng-container *ngFor="let tag of book.tags; let lastItem = last">
                 <i class="pe-7s-ticket"></i>
                 <a href="javascrip:void(0);"> {{tag}}</a>
-                <a href="javascript:void(0);" (click)="book.tags.splice(i, 1)"><i class='pe-7s-close-circle'></i></a>
                 {{lastItem ? '' : ', '}}
               </ng-container>
             </div>

@@ -55,8 +55,8 @@ export class LibraryAddBookComponent implements OnInit {
       original: '',
       author: ['', Validators.required],
       publisher: '',
-      year: 0,
-      pages: 0,
+      year: [0, Validators.min(0)],
+      pages: [0, Validators.min(0)],
       notes: '',
       rating: 0
     })
