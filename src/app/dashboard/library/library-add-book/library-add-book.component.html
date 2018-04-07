@@ -108,16 +108,18 @@
 				</div>
 				<div class="col-md-2">
 					<!-- Year -->
-					<div class="form-group">
+					<div class="form-group" [ngClass] = "{'has-error': !form.controls['year'].valid && form.controls['year'].touched}">
 						<label>Year</label>
 						<input type="number" class="form-control" placeholder="Year" formControlName="year">
+            <span class="help-block" *ngIf="!form.controls['year'].valid && form.controls['year'].touched">Please enter a valid year.</span>
 					</div>
 				</div>
 				<div class="col-md-2">
 					<!-- Pages -->
-					<div class="form-group">
+					<div class="form-group" [ngClass] = "{'has-error': !form.controls['pages'].valid && form.controls['pages'].touched}">
 						<label>Pages</label>
 						<input type="number" class="form-control" formControlName="pages">
+            <span class="help-block" *ngIf="!form.controls['pages'].valid && form.controls['pages'].touched">Please enter a valid number of pages.</span>
 					</div>
 				</div>
 			</div>
@@ -191,45 +193,6 @@
 					<!-- About -->
 					<div class="form-group">
 						<book-buttons></book-buttons>
-						<!-- <label>About</label><br>
-						<div class="btn-group" role="group">
-							<button type="button"
-								(click) = "this.book.owned = !this.book.owned"
-								class="btn btn-default" [ngClass]="{'selected': this.book.owned}"
-								tooltip="Owned"
-								[tooltipDisabled]="false"
-								[tooltipAnimation]="true"
-								tooltipPlacement="bottom">
-								<i class="pe-7s-check" style="font-size: 1.3em;"></i>
-							</button>
-							<button type="button"
-								(click) = "this.book.owned = !this.book.owned"
-								class="btn btn-default" [ngClass]="{'selected': !this.book.owned}"
-								tooltip="Wishlist"
-								[tooltipDisabled]="false"
-								[tooltipAnimation]="true"
-								tooltipPlacement="bottom">
-								<i class="pe-7s-gift" style="font-size: 1.3em;"></i>
-							</button>
-							<button type="button"
-								(click) = "this.book.read = !this.book.read"
-								class="btn btn-default" [ngClass]="{'selected': this.book.read}"
-								tooltip="Read"
-								[tooltipDisabled]="false"
-								[tooltipAnimation]="true"
-								tooltipPlacement="bottom">
-								<i class="pe-7s-glasses" style="font-size: 1.3em;"></i>
-							</button>
-							<button type="button"
-								(click) = "this.book.favorite = !this.book.favorite"
-								class="btn btn-default" [ngClass]="{'selected': this.book.favorite}"
-								tooltip="Favorite"
-								[tooltipDisabled]="false"
-								[tooltipAnimation]="true"
-								tooltipPlacement="bottom">
-								<i class="pe-7s-like" style="font-size: 1.3em;"></i>
-							</button>
-						</div> -->
 					</div>
         </div>
         <div class="col-md-3">
