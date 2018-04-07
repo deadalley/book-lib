@@ -10,6 +10,7 @@ import { CoreModule } from '../core/core.module'
 import { LibraryComponent } from './library.component'
 import { LibraryHomeComponent } from './library-home/library-home.component'
 import { LibraryAddBookComponent } from './library-add-book/library-add-book.component'
+import { LibraryAddCollectionComponent } from './library-add-collection/library-add-collection.component'
 import { LibraryBookComponent } from './library-book/library-book.component'
 import { LibraryNavbarComponent } from './library-navbar/library-navbar.component'
 import { LibrarySectionComponent } from './library-section/library-section.component'
@@ -37,6 +38,7 @@ const libraryRoutes: Routes = [
     LibraryComponent,
     LibraryHomeComponent,
     LibraryAddBookComponent,
+    LibraryAddCollectionComponent,
     LibraryBookComponent,
     LibraryNavbarComponent,
     LibrarySectionComponent,

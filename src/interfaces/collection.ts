@@ -2,5 +2,6 @@ import { Book } from './book'
 
 export interface Collection {
   title: string,
-  books: number[]
+  books: number[],
+  description: string
 }

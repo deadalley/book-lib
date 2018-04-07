@@ -5,6 +5,7 @@ import { lorem } from 'faker'
 
 const CollectionFactory = Factory.makeFactory<Collection>({
   title: lorem.word(),
+  description: lorem.sentence(),
   books: [lorem.word(), lorem.word(), lorem.word()]
 })
 
