@@ -37,11 +37,11 @@ import { cleanFormValues } from '../../../../utils/helpers'
 
 export class LibraryAddBookComponent implements OnInit {
   form: FormGroup
+  allCollections: Collection[]
   collections: Collection[]
   languages: string[]
   genres: string[]
   tags: string[]
-  selectedCollection: Collection
   selectedLanguage: string
   book = { } as Book
   fromGoodreads = false
@@ -63,14 +63,11 @@ export class LibraryAddBookComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.collections = CollectionFactory.buildList(5)
+    this.allCollections = [{ title: 'Collection 1', books: [] }, { title: 'Collection 2', books: [] } ,{ title: 'Collection 3', books: [] }]
+    this.collections = []
     this.languages = Languages
     this.genres = []
     this.tags = []
-    this.selectedCollection = {
-      title: 'Add book to a collection',
-      books: []
-    }
     this.selectedLanguage = 'Select a language'
   }
 
@@ -80,6 +77,7 @@ export class LibraryAddBookComponent implements OnInit {
       date: (new Date()).toISOString().substring(0, 10),
       ...(this.genres.length > 0) && { genres: this.genres },
       ...(this.tags.length > 0) && { tags: this.tags },
+      ...(this.collections.length > 0) && { collections: this.collections.map((collection) => collection.title) },
       ...(this.selectedLanguage !== 'Select a language') && { language: this.selectedLanguage },
       ...cleanFormValues(formValues),
       ...this.buttonsComponent.getValues()
@@ -87,7 +85,10 @@ export class LibraryAddBookComponent implements OnInit {
 
     Object.assign(this.book, newValues)
 
+    this.collections.forEach((collection) => collection.books.push(this.book.id))
+
     console.log('Adding book', this.book)
+    console.log('Collections', this.collections)
   }
 
   getGenres(genres: Array<string>) {
@@ -96,5 +97,16 @@ export class LibraryAddBookComponent implements OnInit {
 
   getTags(tags: Array<string>) {
     this.tags = tags
+  }
+
+  moveCollection(origin, target, index) {
+    const collection = origin.splice(index, 1)[0]
+    target.push(collection)
+
+    this.allCollections.sort((a, b) => {
+      if (a.title < b.title) { return -1 }
+      if (a.title > b.title) { return 1 }
+      return 0
+    })
   }
 }
