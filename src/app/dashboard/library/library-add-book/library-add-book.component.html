@@ -131,6 +131,7 @@
             <book-tags
               title="Genres"
 							placeholder="Add genre..."
+							iconClass="pe-7s-folder"
 							(getItems)="getGenres($event)"
             ></book-tags>
 					</div>
@@ -138,22 +139,30 @@
 				<div class="col-md-3">
 					<!-- Collection -->
 					<div class="form-group">
-						<label>Collection</label>
+						<label>Collections</label>
 						<div class="dropdown">
 							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-								{{selectedCollection.title}}
+								Add book to a collection
 								<span class="caret"></span>
 							</button>
-							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
 								<li><a href="javascript:void(0);" data-toggle="modal" data-target="#newCollection">New collection</a></li>
 								<li role="separator" class="divider"></li>
-								<li *ngFor="let collection of collections; let i = index">
-                  <a href="javascript:void(0);" (click)="selectedCollection = collections[i]">
+								<li *ngFor="let collection of allCollections; let i = index">
+                  <a href="javascript:void(0);" (click)="moveCollection(allCollections, collections, i)">
                     {{collection.title}}
                   </a>
                 </li>
 							</ul>
 						</div>
+						<ng-container *ngFor="let collection of collections; let i = index; let lastItem = last">
+							<i class="pe-7s-notebook"></i>
+							<a href="javascrip:void(0);"> {{collection.title}}</a>
+							<a href="javascript:void(0);" (click)="moveCollection(collections, allCollections, i)">
+								<i class='pe-7s-close-circle' style="font-size: 1.1em"></i>
+							</a>
+							{{lastItem ? '' : ', '}}
+						</ng-container>
 					</div>
 				</div>
 				<div class="col-md-3">
