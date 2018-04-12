@@ -31,10 +31,9 @@ import { Book } from '../../../../interfaces/book'
 })
 
 export class LibrarySectionComponent implements OnInit {
-  sectionTitle: string
+  @Input() sectionTitle: string
+  @Input() description: string
   @Input() books: Book[]
 
-  ngOnInit() {
-    this.sectionTitle = this.books[0].author
-  }
+  ngOnInit() { }
 }
