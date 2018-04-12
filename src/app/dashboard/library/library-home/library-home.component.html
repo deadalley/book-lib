@@ -2,15 +2,23 @@
 <library-navbar (toggleTilesDisplay)="toggleTilesDisplay($event)"></library-navbar>
 <!-- Books -->
 <div [ngSwitch]="tilesDisplay">
+  <!-- Collections -->
+  <ng-container *ngFor="let collection of collections">
+    <library-section
+      [books]="getBooksByIds(collection.books)"
+      [sectionTitle]="collection.title"
+      [description]="collection.description"
+    ></library-section>
+  </ng-container>
   <library-add-book></library-add-book>
   <library-add-collection></library-add-collection>
   <library-book></library-book>
   <!-- Tiles -->
 	<ng-container *ngSwitchCase="true" >
-		<library-section [books]="this.books"></library-section>
+		<library-section [books]="books" [sectionTitle]="books[0].author"></library-section>
 	</ng-container>
   <!-- Table -->
   <ng-container *ngSwitchCase="false">
-    <library-table [books]="this.books"></library-table>
+    <library-table [books]="books"></library-table>
   </ng-container>
 </div>
