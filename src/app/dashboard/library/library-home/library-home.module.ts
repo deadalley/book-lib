@@ -19,9 +19,9 @@ import { IterableObject } from '../../../../pipes/iterable-object.pipe'
 
 const libraryHomeRoutes: Routes = [
   { path: '', component: LibraryHomeComponent, children: [
+     { path: '', redirectTo: 'books', pathMatch: 'full' },
      { path: 'books', component: LibraryBooksComponent, pathMatch: 'full' },
-     { path: 'collections', component: LibraryCollectionsComponent, pathMatch: 'full' },
-     // { path: '**', redirectTo: 'books', pathMatch: 'full' }
+     { path: 'collections', component: LibraryCollectionsComponent, pathMatch: 'full' }
   ]}
 ]
 
