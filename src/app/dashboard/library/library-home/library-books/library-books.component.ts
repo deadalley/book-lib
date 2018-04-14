@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core'
+import BookFactory from '../../../../../factories/book'
 import { Book } from '../../../../../interfaces/book'
 
 @Component({
@@ -10,9 +11,11 @@ import { Book } from '../../../../../interfaces/book'
 
 export class LibraryBooksComponent implements OnInit {
   @Input() tilesDisplay = true
-  @Input() books: Book[]
+  books: Book[]
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.books = BookFactory.buildList(10)
+  }
 }

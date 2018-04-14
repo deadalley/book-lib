@@ -1,8 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-import BookFactory from '../../../../factories/book'
-import CollectionFactory from '../../../../factories/collection'
-import { Book } from '../../../../interfaces/book'
-import { Collection } from '../../../../interfaces/collection'
 
 @Component({
   moduleId: module.id,
@@ -12,15 +8,7 @@ import { Collection } from '../../../../interfaces/collection'
 })
 
 export class LibraryHomeComponent implements OnInit {
-  books: Book[]
-  collections: Collection[]
-
-  ngOnInit() {
-    this.books = BookFactory.buildList(10)
-    this.collections = CollectionFactory.buildList(3)
-
-    this.books.forEach((book) => this.collections[Math.floor(Math.random() * 3)].books.push(book.id))
-  }
+  ngOnInit() { }
 
   toggleTilesDisplay(tilesDisplay: boolean) {
     console.log('toggled! ' + tilesDisplay)

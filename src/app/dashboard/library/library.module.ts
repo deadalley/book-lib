@@ -15,6 +15,8 @@ import { LibraryBookComponent } from './library-book/library-book.component'
 const libraryRoutes: Routes = [
   { path: '', component: LibraryComponent, children: [
     { path: '', loadChildren: './library-home/library-home.module#LibraryHomeModule' },
+    { path: 'collections/new', component: LibraryAddCollectionComponent, pathMatch: 'full' },
+    { path: 'books/new', component: LibraryAddBookComponent, pathMatch: 'full' },
     { path: 'new', component: LibraryAddBookComponent },
     { path: ':id', component: LibraryBookComponent }
   ]}

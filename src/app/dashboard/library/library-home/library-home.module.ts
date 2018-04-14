@@ -18,7 +18,7 @@ const libraryHomeRoutes: Routes = [
   { path: '', component: LibraryHomeComponent, children: [
      { path: 'books', component: LibraryBooksComponent, pathMatch: 'full' },
      { path: 'collections', component: LibraryCollectionsComponent, pathMatch: 'full' },
-     { path: '**', redirectTo: 'books', pathMatch: 'full' }
+     // { path: '**', redirectTo: 'books', pathMatch: 'full' }
   ]}
 ]
 
