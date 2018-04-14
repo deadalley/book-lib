@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Router, RoutesRecognized } from '@angular/router'
+import { LibraryService } from '../../library.service'
 
 @Component({
   moduleId: module.id,
@@ -9,14 +10,20 @@ import { Router, RoutesRecognized } from '@angular/router'
 })
 
 export class LibraryNavbarComponent implements OnInit {
-  @Output() toggleTilesDisplay = new EventEmitter<boolean>()
-
   private get localUrlPath(): string {
     const splitUrl = this.router.url.split('/')
     return splitUrl[splitUrl.length - 1]
   }
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private libraryService: LibraryService
+  ) { }
 
   ngOnInit() { }
+
+  toggleTilesDisplay(toggle) {
+    console.log('toggling ', toggle)
+    this.libraryService.toggleTilesDisplay(toggle)
+  }
 }

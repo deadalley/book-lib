@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core'
-import BookFactory from '../../../../../factories/book'
+import { Component, OnInit } from '@angular/core'
 import { Book } from '../../../../../interfaces/book'
+import { LibraryService } from '../../library.service'
 
 @Component({
   moduleId: module.id,
@@ -10,12 +10,13 @@ import { Book } from '../../../../../interfaces/book'
 })
 
 export class LibraryBooksComponent implements OnInit {
-  @Input() tilesDisplay = true
+  tilesDisplay = true
   books: Book[]
 
-  constructor() { }
-
-  ngOnInit() {
-    this.books = BookFactory.buildList(10)
+  constructor(private libraryService: LibraryService) {
+    libraryService.books$.subscribe((books) => this.books = books)
+    libraryService.tilesDisplay$.subscribe((tilesDisplay) => this.tilesDisplay = tilesDisplay)
   }
+
+  ngOnInit() { }
 }

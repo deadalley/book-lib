@@ -89,7 +89,7 @@ export class LibraryAddBookComponent implements OnInit {
 
     Object.assign(this.book, newValues)
 
-    this.collections.forEach((collection) => collection.books.push(this.book.id))
+    this.collections.forEach((collection) => collection.books.push(this.book))
 
     console.log('Adding book', this.book)
     console.log('Collections', this.collections)
