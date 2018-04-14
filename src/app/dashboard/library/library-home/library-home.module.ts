@@ -14,6 +14,9 @@ import { LibraryNavbarComponent } from './library-navbar/library-navbar.componen
 import { LibrarySectionComponent } from './library-section/library-section.component'
 import { LibraryTableComponent } from './library-table/library-table.component'
 
+import { BookOrderPipe } from '../../../../pipes/book-order.pipe'
+import { IterableObject } from '../../../../pipes/iterable-object.pipe'
+
 const libraryHomeRoutes: Routes = [
   { path: '', component: LibraryHomeComponent, children: [
      { path: 'books', component: LibraryBooksComponent, pathMatch: 'full' },
@@ -38,7 +41,9 @@ const libraryHomeRoutes: Routes = [
     LibraryCollectionsComponent,
     LibraryNavbarComponent,
     LibrarySectionComponent,
-    LibraryTableComponent
+    LibraryTableComponent,
+    BookOrderPipe,
+    IterableObject
   ],
   exports: [ LibraryHomeComponent ],
 })

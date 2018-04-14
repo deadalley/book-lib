@@ -29,7 +29,6 @@ export class LibraryNavbarComponent implements OnInit {
   ngOnInit() { }
 
   toggleTilesDisplay(toggle) {
-    console.log('toggling ', toggle)
     this.libraryService.toggleTilesDisplay(toggle)
   }
 

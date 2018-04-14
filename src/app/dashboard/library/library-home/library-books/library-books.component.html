@@ -6,12 +6,12 @@
       <library-section [books]="books"></library-section>
     </ng-container>
     <ng-container *ngIf="orderingMethod !== 'title'">
-      <!-- <ng-container *ngFor="let item of JSObject.keys(orderedItems)">
+      <ng-container *ngFor="let item of books | ordering: orderingMethod | iterable">
         <library-section
-          [sectionTitle]="item"
-          [books]="orderedItems[item]"
+          [sectionTitle]="item.key"
+          [books]="item.value"
         ></library-section>
-      </ng-container> -->
+      </ng-container>
     </ng-container>
   </ng-container>
   <!-- Table -->

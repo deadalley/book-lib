@@ -9,8 +9,4 @@ import { Component, OnInit } from '@angular/core'
 
 export class LibraryHomeComponent implements OnInit {
   ngOnInit() { }
-
-  toggleTilesDisplay(tilesDisplay: boolean) {
-    console.log('toggled! ' + tilesDisplay)
-  }
 }
