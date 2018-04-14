@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, trigger, transition, style, animate, group, state } from '@angular/core'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { Book } from '../../../../interfaces/book'
+import { Book } from '../../../../../interfaces/book'
 
 @Component({
   moduleId: module.id,
-  selector: 'library-section',
-  templateUrl: 'library-section.component.html',
-  styleUrls: [],
+  selector: 'library-table',
+  templateUrl: 'library-table.component.html',
+  styleUrls: ['./library-table.component.css'],
   animations: [
     trigger('cardbooks', [
       state('*', style({
@@ -30,10 +30,10 @@ import { Book } from '../../../../interfaces/book'
   ]
 })
 
-export class LibrarySectionComponent implements OnInit {
-  @Input() sectionTitle: string
-  @Input() description: string
+export class LibraryTableComponent implements OnInit {
   @Input() books: Book[]
+
+  constructor() { }
 
   ngOnInit() { }
 }

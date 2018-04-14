@@ -21,9 +21,9 @@ export const AppRoutes: Routes = [
         path: 'dashboard',
         loadChildren: './dashboard/dashboard.module#DashboardModule'
     },
-    {
-        path: '**',
-        redirectTo: 'home',
-        pathMatch: 'full',
-    }
+    // {
+    //     path: '**',
+    //     redirectTo: 'home',
+    //     pathMatch: 'full',
+    // }
 ]
