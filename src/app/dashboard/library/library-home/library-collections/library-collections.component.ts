@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core'
+import CollectionFactory from '../../../../../factories//collection'
 import { Collection } from '../../../../../interfaces/collection'
 
 @Component({
@@ -9,11 +10,13 @@ import { Collection } from '../../../../../interfaces/collection'
 })
 
 export class LibraryCollectionsComponent implements OnInit {
-  @Input() collections: Collection[]
+  collections: Collection[]
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.collections = CollectionFactory.buildList(3)
+  }
 
   getBooksByIds(ids) {
     return []

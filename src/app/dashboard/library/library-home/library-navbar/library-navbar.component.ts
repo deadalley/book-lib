@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core'
+import { Router } from '@angular/router'
 
 @Component({
   moduleId: module.id,
@@ -10,7 +11,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core'
 export class LibraryNavbarComponent implements OnInit {
   @Output() toggleTilesDisplay = new EventEmitter<boolean>()
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() { }
 }
