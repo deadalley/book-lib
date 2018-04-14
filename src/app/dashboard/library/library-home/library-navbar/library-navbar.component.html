@@ -6,8 +6,14 @@
       <div class="col-xs-5">
         <nav class="library-nav">
           <ul class="primary">
-            <li class="active"><a href="javascript:void(0);" routerLink="/dashboard/library"><i class="pe-7s-bookmarks" style="vertical-align:middle; font-size: 1.4em;"></i> All Books</a></li>
-            <li class=""><a href="javascript:void(0);"><i class="pe-7s-box1" style="vertical-align:middle; font-size: 1.4em;"></i> Collections</a></li>
+            <li class="active">
+              <a href="javascript:void(0);" routerLink="./books">
+                <i class="pe-7s-bookmarks" style="vertical-align:middle; font-size: 1.4em;"></i> All Books</a>
+            </li>
+            <li class="">
+              <a href="javascript:void(0);" routerLink="./collections">
+                <i class="pe-7s-box1" style="vertical-align:middle; font-size: 1.4em;"></i> Collections</a>
+            </li>
           </ul>
         </nav>
       </div>
@@ -36,15 +42,15 @@
       <!-- Tile buttons -->
       <div class="col-xs-3" style="padding: 13px 33px 0 0; text-align: right;">
         <!-- Add book -->
-        <button type="button" class="library-button btn btn-default" routerLink="../new">
+        <button type="button" class="library-button btn btn-default" routerLink="../../new">
           <span class="ti-plus" aria-hidden="true"></span>
         </button>
         <!-- Table -->
-        <button type="button" class="library-button btn btn-default" (click)="this.toggleTilesDisplay.emit(false)">
+        <button type="button" class="library-button btn btn-default" (click)="toggleTilesDisplay.emit(false)">
           <span class="ti-view-list" aria-hidden="true"></span>
         </button>
         <!-- Tiles -->
-        <button type="button" class="library-button btn btn-default" (click)="this.toggleTilesDisplay.emit(true)">
+        <button type="button" class="library-button btn btn-default" (click)="toggleTilesDisplay.emit(true)">
           <span class="ti-layout-grid3" aria-hidden="true"></span>
         </button>
       </div>

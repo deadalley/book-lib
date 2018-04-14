@@ -1,24 +1,29 @@
 <!-- Navbar -->
-<library-navbar (toggleTilesDisplay)="toggleTilesDisplay($event)"></library-navbar>
+<library-navbar></library-navbar>
+<router-outlet></router-outlet>
 <!-- Books -->
-<div [ngSwitch]="tilesDisplay">
-  <!-- Collections -->
-  <ng-container *ngFor="let collection of collections">
-    <library-section
-      [books]="getBooksByIds(collection.books)"
-      [sectionTitle]="collection.title"
-      [description]="collection.description"
-    ></library-section>
-  </ng-container>
-  <library-add-book></library-add-book>
-  <library-add-collection></library-add-collection>
-  <library-book></library-book>
-  <!-- Tiles -->
-	<ng-container *ngSwitchCase="true" >
-		<library-section [books]="books" [sectionTitle]="books[0].author"></library-section>
-	</ng-container>
-  <!-- Table -->
+<!-- <div [ngSwitch]="booksDisplay">
   <ng-container *ngSwitchCase="false">
-    <library-table [books]="books"></library-table>
+    <!-- Collections --
+    <ng-container *ngFor="let collection of collections">
+        <library-section
+          [books]="getBooksByIds(collection.books)"
+          [sectionTitle]="collection.title"
+          [description]="collection.description"
+        ></library-section>
+      </ng-container>
   </ng-container>
-</div>
+  <ng-container *ngSwitchCase="true">
+    <!-- Books --
+    <div [ngSwitch]="tilesDisplay">
+        <!-- Tiles --
+        <ng-container *ngSwitchCase="true">
+          <library-section [books]="books" [sectionTitle]="books[0].author"></library-section>
+        </ng-container>
+        <!-- Table --
+        <ng-container *ngSwitchCase="false">
+          <library-table [books]="books"></library-table>
+        </ng-container>
+      </div>
+  </ng-container>
+</div> -->

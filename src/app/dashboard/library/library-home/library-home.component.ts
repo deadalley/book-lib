@@ -14,7 +14,6 @@ import { Collection } from '../../../../interfaces/collection'
 export class LibraryHomeComponent implements OnInit {
   books: Book[]
   collections: Collection[]
-  tilesDisplay = true
 
   ngOnInit() {
     this.books = BookFactory.buildList(10)
@@ -24,10 +23,6 @@ export class LibraryHomeComponent implements OnInit {
   }
 
   toggleTilesDisplay(tilesDisplay: boolean) {
-    this.tilesDisplay = tilesDisplay
-  }
-
-  getBooksByIds(ids) {
-    return this.books.filter((book) => ids.includes(book.id))
+    console.log('toggled! ' + tilesDisplay)
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition, style, animate, group, state } from '@angular/core'
 import { FormControl , FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { Location } from '@angular/common'
 import { Collection } from '../../../../interfaces/collection'
 
 @Component({
@@ -34,7 +35,7 @@ export class LibraryAddCollectionComponent implements OnInit {
   form: FormGroup
   collection: Collection
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private location: Location) {
     this.form = this.fb.group({
       title: ['', Validators.required],
       description: ''

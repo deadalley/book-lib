@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition, style, animate, group, state } from '@angular/core'
 import { FormControl , FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { Location } from '@angular/common'
 import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
 import CollectionFactory from '../../../../factories/collection'
 import { Collection } from '../../../../interfaces/collection'
@@ -49,7 +50,7 @@ export class LibraryAddBookComponent implements OnInit {
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private location: Location) {
     this.form = this.fb.group({
       title: ['', Validators.required],
       original: '',
