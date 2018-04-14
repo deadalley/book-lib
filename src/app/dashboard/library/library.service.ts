@@ -7,10 +7,12 @@ import { Collection } from '../../../interfaces/collection'
 
 @Injectable()
 export class LibraryService {
+  private bookOrdering = new BehaviorSubject<string>('title')
   private tilesDisplay = new BehaviorSubject<boolean>(true)
   private books = new BehaviorSubject<Book[]>([])
   private collections = new BehaviorSubject<Collection[]>([])
 
+  bookOrdering$ = this.bookOrdering.asObservable()
   tilesDisplay$ = this.tilesDisplay.asObservable()
   collections$ = this.collections.asObservable()
   books$ = this.books.asObservable()
@@ -27,5 +29,9 @@ export class LibraryService {
 
   toggleTilesDisplay(toggle: boolean) {
     this.tilesDisplay.next(toggle)
+  }
+
+  setBookOrderingMethod(method: string) {
+    this.bookOrdering.next(method)
   }
 }

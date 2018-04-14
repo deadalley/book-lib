@@ -25,9 +25,9 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="javascript:void(0);">Author</a></li>
-            <li><a href="javascript:void(0);">Date</a></li>
-            <li><a href="javascript:void(0);">Title</a></li>
+            <li *ngFor="let ordering of orderings">
+              <a href="javascript:void(0);" (click)="setOrdering(ordering)">{{ordering}}</a>
+            </li>
           </ul>
         </div>
       </div>
