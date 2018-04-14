@@ -10,7 +10,13 @@ import { LibraryService } from '../../library.service'
 })
 
 export class LibraryNavbarComponent implements OnInit {
-  private get localUrlPath(): string {
+  orderings = [
+    'Author',
+    'Date',
+    'Title'
+  ]
+
+  get localUrlPath(): string {
     const splitUrl = this.router.url.split('/')
     return splitUrl[splitUrl.length - 1]
   }
@@ -25,5 +31,9 @@ export class LibraryNavbarComponent implements OnInit {
   toggleTilesDisplay(toggle) {
     console.log('toggling ', toggle)
     this.libraryService.toggleTilesDisplay(toggle)
+  }
+
+  setOrdering(order: string) {
+    this.libraryService.setBookOrderingMethod(order.toLowerCase())
   }
 }

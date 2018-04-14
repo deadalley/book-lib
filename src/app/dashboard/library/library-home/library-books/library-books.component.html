@@ -2,7 +2,17 @@
 <div [ngSwitch]="tilesDisplay">
   <!-- Tiles -->
   <ng-container *ngSwitchCase="true">
-    <library-section [books]="books" [sectionTitle]="books[0].author"></library-section>
+    <ng-container *ngIf="orderingMethod === 'title'">
+      <library-section [books]="books"></library-section>
+    </ng-container>
+    <ng-container *ngIf="orderingMethod !== 'title'">
+      <!-- <ng-container *ngFor="let item of JSObject.keys(orderedItems)">
+        <library-section
+          [sectionTitle]="item"
+          [books]="orderedItems[item]"
+        ></library-section>
+      </ng-container> -->
+    </ng-container>
   </ng-container>
   <!-- Table -->
   <ng-container *ngSwitchCase="false">
