@@ -5,7 +5,7 @@ import { lorem, random } from 'faker'
 const CollectionFactory = Factory.makeFactory<Collection>({
   title: lorem.word(),
   description: lorem.sentence(),
-  books: [random.number(), random.number()]
+  books: []
 })
 
 export default CollectionFactory

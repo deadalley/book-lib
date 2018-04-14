@@ -1,7 +1,7 @@
 <!-- Collections -->
 <ng-container *ngFor="let collection of collections">
   <library-section
-    [books]="getBooksByIds(collection.books)"
+    [books]="collection.books"
     [sectionTitle]="collection.title"
     [description]="collection.description"
   ></library-section>

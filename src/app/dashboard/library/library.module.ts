@@ -12,6 +12,8 @@ import { LibraryAddBookComponent } from './library-add-book/library-add-book.com
 import { LibraryAddCollectionComponent } from './library-add-collection/library-add-collection.component'
 import { LibraryBookComponent } from './library-book/library-book.component'
 
+import { LibraryService } from './library.service'
+
 const libraryRoutes: Routes = [
   { path: '', component: LibraryComponent, children: [
     { path: '', loadChildren: './library-home/library-home.module#LibraryHomeModule' },
@@ -37,6 +39,9 @@ const libraryRoutes: Routes = [
     LibraryAddBookComponent,
     LibraryAddCollectionComponent,
     LibraryBookComponent
+  ],
+  providers: [
+    LibraryService
   ],
   exports: [ LibraryComponent ],
 })
