@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core'
-import { Router } from '@angular/router'
+import { Router, RoutesRecognized } from '@angular/router'
 
 @Component({
   moduleId: module.id,
@@ -10,6 +10,11 @@ import { Router } from '@angular/router'
 
 export class LibraryNavbarComponent implements OnInit {
   @Output() toggleTilesDisplay = new EventEmitter<boolean>()
+
+  private get localUrlPath(): string {
+    const splitUrl = this.router.url.split('/')
+    return splitUrl[splitUrl.length - 1]
+  }
 
   constructor(private router: Router) { }
 
