@@ -12,7 +12,6 @@ import { LibraryService } from '../../library.service'
 export class LibraryBooksComponent implements OnInit {
   tilesDisplay = true
   orderingMethod = 'title'
-  orderedItems: any
   books: Book[]
 
   constructor(private libraryService: LibraryService) {

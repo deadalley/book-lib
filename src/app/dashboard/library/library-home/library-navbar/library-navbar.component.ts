@@ -11,9 +11,15 @@ import { LibraryService } from '../../library.service'
 
 export class LibraryNavbarComponent implements OnInit {
   selectedOrdering: string
-  orderings = [
+  bookOrderings = [
     'Author',
     'Date',
+    'Title'
+  ]
+
+  collectionOrderings = [
+    'Date',
+    'Size',
     'Title'
   ]
 
@@ -27,7 +33,9 @@ export class LibraryNavbarComponent implements OnInit {
     private libraryService: LibraryService
   ) { }
 
-  ngOnInit() { this.selectedOrdering = this.orderings[0] }
+  ngOnInit() {
+    this.selectedOrdering = 'Title'
+  }
 
   toggleTilesDisplay(toggle) {
     this.libraryService.toggleTilesDisplay(toggle)
@@ -35,6 +43,10 @@ export class LibraryNavbarComponent implements OnInit {
 
   setOrdering(order: string) {
     this.selectedOrdering = order
-    this.libraryService.setBookOrderingMethod(order.toLowerCase())
+    if (this.localUrlPath === 'books') {
+      this.libraryService.setBookOrderingMethod(order.toLowerCase())
+    } else if (this.localUrlPath === 'collections') {
+      this.libraryService.setCollectionOrderingMethod(order.toLowerCase())
+    }
   }
 }

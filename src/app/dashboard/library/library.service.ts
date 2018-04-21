@@ -8,10 +8,12 @@ import { Collection } from '../../../interfaces/collection'
 @Injectable()
 export class LibraryService {
   private bookOrdering = new BehaviorSubject<string>('title')
+  private collectionOrdering = new BehaviorSubject<string>('title')
   private tilesDisplay = new BehaviorSubject<boolean>(true)
   private books = new BehaviorSubject<Book[]>([])
   private collections = new BehaviorSubject<Collection[]>([])
 
+  collectionOrdering$ = this.collectionOrdering.asObservable()
   bookOrdering$ = this.bookOrdering.asObservable()
   tilesDisplay$ = this.tilesDisplay.asObservable()
   collections$ = this.collections.asObservable()
@@ -33,5 +35,17 @@ export class LibraryService {
 
   setBookOrderingMethod(method: string) {
     this.bookOrdering.next(method)
+  }
+
+  setCollectionOrderingMethod(method: string) {
+    this.collectionOrdering.next(method)
+  }
+
+  addBook(book: Book) {
+    this.books.next(this.books.getValue().concat([book]))
+  }
+
+  addCollection(collection: Collection) {
+    this.collections.next(this.collections.getValue().concat([collection]))
   }
 }
