@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
+import { RouterModule } from '@angular/router'
 
 import { TooltipModule } from 'ngx-tooltip'
 import { RatingModule } from 'ngx-rating'
@@ -17,7 +18,8 @@ import { BookButtonsComponent } from './book-buttons/book-buttons.component'
   imports: [
     CommonModule,
     TooltipModule,
-    RatingModule
+    RatingModule,
+    RouterModule
   ],
   exports: [
     BookCardComponent,

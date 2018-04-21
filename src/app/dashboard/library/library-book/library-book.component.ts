@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, trigger, transition, style, animate, group, state } from '@angular/core'
 import { FormControl , FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms'
+import { Location } from '@angular/common'
 import { Book } from '../../../../interfaces/book'
 import BookFactory from '../../../../factories/book'
 
@@ -32,7 +33,9 @@ import BookFactory from '../../../../factories/book'
 })
 
 export class LibraryBookComponent implements OnInit {
-  book = {} as Book
+  book = { } as Book
+
+  constructor(private location: Location) { }
 
   ngOnInit() {
     this.book = BookFactory.build()

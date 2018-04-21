@@ -2,6 +2,7 @@ import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition
 import { FormControl , FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Location } from '@angular/common'
 import { Collection } from '../../../../interfaces/collection'
+import { LibraryService } from '../library.service';
 
 @Component({
   moduleId: module.id,
@@ -35,7 +36,7 @@ export class LibraryAddCollectionComponent implements OnInit {
   form: FormGroup
   collection: Collection
 
-  constructor(private fb: FormBuilder, private location: Location) {
+  constructor(private fb: FormBuilder, private location: Location, private libraryService: LibraryService) {
     this.form = this.fb.group({
       title: ['', Validators.required],
       description: ''
@@ -52,5 +53,7 @@ export class LibraryAddCollectionComponent implements OnInit {
     }
 
     console.log('Adding collection', this.collection)
+    this.libraryService.addCollection(this.collection)
+    this.location.back()
   }
 }

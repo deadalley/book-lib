@@ -146,7 +146,7 @@
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-								<li><a href="javascript:void(0);" data-toggle="modal" data-target="#newCollection">New collection</a></li>
+								<li><a routerLink="../../collections/new" href="javascript:void(0);">New collection</a></li>
 								<li role="separator" class="divider"></li>
 								<li *ngFor="let collection of allCollections; let i = index">
                   <a href="javascript:void(0);" (click)="moveCollection(allCollections, collections, i)">

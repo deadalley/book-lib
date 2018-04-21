@@ -2,11 +2,11 @@ import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition
 import { FormControl , FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Location } from '@angular/common'
 import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
-import CollectionFactory from '../../../../factories/collection'
 import { Collection } from '../../../../interfaces/collection'
 import { Book } from '../../../../interfaces/book'
 import Languages from '../../../../utils/languages'
 import { cleanFormValues } from '../../../../utils/helpers'
+import { LibraryService } from '../library.service'
 
 @Component({
   moduleId: module.id,
@@ -50,7 +50,8 @@ export class LibraryAddBookComponent implements OnInit {
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
 
-  constructor(private fb: FormBuilder, private location: Location) {
+  constructor(private fb: FormBuilder, private location: Location, private libraryService: LibraryService) {
+    this.libraryService.collections$.subscribe((collections) => this.allCollections = collections)
     this.form = this.fb.group({
       title: ['', Validators.required],
       original: '',
@@ -64,10 +65,6 @@ export class LibraryAddBookComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.allCollections = [
-      { title: 'Collection 1', books: [], description: '' },
-      { title: 'Collection 2', books: [], description: ''  },
-      { title: 'Collection 3', books: [], description: ''  }]
     this.collections = []
     this.languages = Languages
     this.genres = []
@@ -93,6 +90,10 @@ export class LibraryAddBookComponent implements OnInit {
 
     console.log('Adding book', this.book)
     console.log('Collections', this.collections)
+
+    this.libraryService.addBook(this.book)
+    this.libraryService.loadCollections(this.allCollections.concat(this.collections))
+    this.location.back()
   }
 
   getGenres(genres: Array<string>) {
