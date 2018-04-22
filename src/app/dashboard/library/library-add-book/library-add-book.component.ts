@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition, style, animate, group, state } from '@angular/core'
-import { FormControl , FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Location } from '@angular/common'
 import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
 import { Collection } from '../../../../interfaces/collection'

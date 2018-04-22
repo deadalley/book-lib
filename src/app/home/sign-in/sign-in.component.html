@@ -1,0 +1,37 @@
+<div class="card">
+  <div class="header">
+    <h4 class="title">Sign in</h4>
+  </div>
+  <div class="content">
+    <form [formGroup]="form" (ngSubmit)="signIn(form.value)">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group" [ngClass]="{'has-error': !form.controls['email'].valid && form.controls['email'].touched}">
+            <label>E-mail</label>
+            <input type="text" class="form-control" formControlName="email">
+            <span class="help-block" *ngIf="!form.controls['email'].valid && form.controls['email'].touched">
+              Please enter a valid e-mail
+            </span>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <div class="form-group" [ngClass]="{'has-error': !form.controls['password'].valid && form.controls['password'].touched}">
+            <label>Password</label>
+            <input type="password" class="form-control" formControlName="password">
+            <span class="help-block" *ngIf="!form.controls['password'].valid && form.controls['password'].touched">
+              Please enter a valid password
+            </span>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <span style="color: #a94442" *ngIf="errorMessage">
+        <i class="pe-7s-attention"></i> {{errorMessage}}
+        <hr>
+      </span>
+      <div style="text-align: center;">
+        <button type="submit" class="btn btn-default" [disabled]="!form.valid">Sign in</button>
+      </div>
+    </form>
+  </div>
+</div>
