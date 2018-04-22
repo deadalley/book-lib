@@ -15,7 +15,7 @@ export class LibraryBooksComponent implements OnInit {
   books: Book[]
 
   constructor(private libraryService: LibraryService) {
-    libraryService.books$.subscribe((books) => this.books = books)
+    libraryService.books$.subscribe((books) => this.books = books as Book[])
     libraryService.tilesDisplay$.subscribe((tilesDisplay) => this.tilesDisplay = tilesDisplay)
     libraryService.bookOrdering$.subscribe((ordering) => this.orderingMethod = ordering)
   }
