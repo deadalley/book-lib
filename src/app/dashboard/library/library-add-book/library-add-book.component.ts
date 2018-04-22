@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition, style, animate, group, state } from '@angular/core'
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Location } from '@angular/common'
+import { random } from 'faker'
 import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
 import { Collection } from '../../../../interfaces/collection'
 import { Book } from '../../../../interfaces/book'
@@ -74,7 +75,7 @@ export class LibraryAddBookComponent implements OnInit {
 
   addBook(formValues) {
     const newValues = {
-      id: 99,
+      id: random.uuid(),
       date: (new Date()).toISOString().substring(0, 10),
       ...(this.genres.length > 0) && { genres: this.genres },
       ...(this.tags.length > 0) && { tags: this.tags },
@@ -93,7 +94,7 @@ export class LibraryAddBookComponent implements OnInit {
 
     this.libraryService.addBook(this.book)
     this.libraryService.loadCollections(this.allCollections.concat(this.collections))
-    this.location.back()
+    // this.location.back()
   }
 
   getGenres(genres: Array<string>) {

@@ -1,7 +1,6 @@
 import { Component, OnInit, trigger, transition, style, animate, group, state } from '@angular/core'
 import 'rxjs/add/operator/map'
 import { LibraryService } from './library.service'
-import BookFactory from '../../../factories/book'
 import CollectionFactory from '../../../factories/collection'
 
 @Component({
@@ -36,9 +35,9 @@ export class LibraryComponent implements OnInit {
   constructor(private libraryService: LibraryService) { }
 
   ngOnInit() {
-    const collections = CollectionFactory.buildList(3)
-    collections.forEach((collection) => collection.books.push(BookFactory.build()))
-    this.libraryService.loadCollections(collections)
+    // const collections = CollectionFactory.buildList(3)
+    // collections.forEach((collection) => collection.books.push(BookFactory.build()))
+    // this.libraryService.loadCollections(collections)
     this.libraryService.loadBooks()
   }
 }
