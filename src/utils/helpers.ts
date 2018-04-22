@@ -9,3 +9,16 @@ export const cleanFormValues = (formValues): object => {
   })
   return cleanValues
 }
+
+export const parseFirebaseAuthError = (error): string => {
+  switch (error.code) {
+    case 'auth/invalid-email':
+      return 'Please provide a valid e-mail'
+    case 'auth/user-not-found':
+      return 'User not found'
+    case 'auth/wrong-password':
+      return 'Wrong password'
+    default:
+      return 'Could not login. Try again.'
+  }
+}

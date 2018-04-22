@@ -9,7 +9,6 @@ import { AngularFireDatabaseModule } from 'angularfire2/database'
 
 import { AppComponent } from './app.component'
 import { AppRoutes } from './app.routing'
-import { HomeComponent } from './home/home.component'
 
 import { AuthService } from '../services/auth.service'
 import { DatabaseService } from '../services/database.service'
@@ -25,8 +24,7 @@ export const firebaseConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent
+    AppComponent
   ],
   providers: [
     AuthService,
