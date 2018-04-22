@@ -8,10 +8,6 @@ import { User } from '../interfaces/user'
 
 @Injectable()
 export class AuthService {
-  private _activeUser: User
-
-  get activeUser(): User { return this._activeUser }
-
   constructor (
     public fireAuth: AngularFireAuth,
     private fireDb: AngularFireDatabase,
@@ -24,16 +20,22 @@ export class AuthService {
       if (_user === null) {
         console.log('user does not exist.')
 
-        this._activeUser = {
+        _user = {
           name: user.displayName,
           id: user.uid,
           email: user.email,
           books: []
         }
-        this.database.pushUser(this._activeUser)
-      } else { this._activeUser = user }
+        this.database.pushUser(_user)
+      }
 
-      localStorage.setItem('user', JSON.stringify(this._activeUser))
+      const _ref = Object.keys(_user)[0]
+      _user = {
+        ...(_user[_ref]),
+        ref: _ref
+      }
+
+      localStorage.setItem('user', JSON.stringify(_user))
     })
   }
 
@@ -59,9 +61,13 @@ export class AuthService {
         console.log('Successfully logged in')
         localStorage.setItem('userLoginCredentials', JSON.stringify(response))
 
-        this.database.findUserById(response.uid, (user) => {
-          this._activeUser = user
-          localStorage.setItem('user', JSON.stringify(this._activeUser))
+        this.database.findUserById(response.uid, (_user) => {
+          const _ref = Object.keys(_user)[0]
+          _user = {
+            ...(_user[_ref]),
+            ref: _ref
+          }
+          localStorage.setItem('user', JSON.stringify(_user))
         })
 
         this.router.navigate(['library'])

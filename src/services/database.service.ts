@@ -28,6 +28,8 @@ export class DatabaseService {
   }
 
   pushBook(book: Book) {
+    const user = JSON.parse(localStorage.getItem('user'))
+    this.db.list(`users/${user['ref']}/books`).push(book.id)
     this.books.push(book)
   }
 }
