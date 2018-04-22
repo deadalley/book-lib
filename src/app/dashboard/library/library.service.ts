@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import 'rxjs/add/observable/from'
+import { DatabaseService } from '../../../services/database.service'
 import { Book } from '../../../interfaces/book'
+import { User } from '../../../interfaces/user'
 import { Collection } from '../../../interfaces/collection'
 
 @Injectable()
@@ -13,16 +15,20 @@ export class LibraryService {
   private books = new BehaviorSubject<Book[]>([])
   private collections = new BehaviorSubject<Collection[]>([])
 
+  private _owner: User
+
   collectionOrdering$ = this.collectionOrdering.asObservable()
   bookOrdering$ = this.bookOrdering.asObservable()
   tilesDisplay$ = this.tilesDisplay.asObservable()
   collections$ = this.collections.asObservable()
   books$ = this.books.asObservable()
 
-  constructor() { }
+  constructor(private database: DatabaseService) {
+    this._owner = JSON.parse(localStorage.getItem('user'))
+  }
 
-  loadBooks(books: Book[]) {
-    this.books.next(books)
+  loadBooks() {
+    this.database.getBooksByIds(this._owner.books, (books) => this.books.next(books))
   }
 
   loadCollections(collections: Collection[]) {
@@ -42,7 +48,7 @@ export class LibraryService {
   }
 
   addBook(book: Book) {
-    this.books.next(this.books.getValue().concat([book]))
+    this.database.pushBook(book)
   }
 
   addCollection(collection: Collection) {
