@@ -38,6 +38,6 @@ export class LibraryComponent implements OnInit {
     // const collections = CollectionFactory.buildList(3)
     // collections.forEach((collection) => collection.books.push(BookFactory.build()))
     // this.libraryService.loadCollections(collections)
-    this.libraryService.loadBooks()
+    // this.libraryService.loadBooks()
   }
 }

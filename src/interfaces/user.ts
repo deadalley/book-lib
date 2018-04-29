@@ -1,6 +1,6 @@
 export interface User {
-  id: number,
-  name: string,
-  email: string,
-  books: number[]
+  id: number
+  ref: string
+  name: string
+  email: string
 }

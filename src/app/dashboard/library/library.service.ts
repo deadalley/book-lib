@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
-import 'rxjs/add/observable/from'
 import { DatabaseService } from '../../../services/database.service'
-import { Book } from '../../../interfaces/book'
 import { User } from '../../../interfaces/user'
+import { Book } from '../../../interfaces/book'
 import { Collection } from '../../../interfaces/collection'
+import * as _ from 'lodash'
 
 @Injectable()
 export class LibraryService {
@@ -25,14 +25,16 @@ export class LibraryService {
 
   constructor(private database: DatabaseService) {
     this._owner = JSON.parse(localStorage.getItem('user'))
+    this.loadBooks()
+    this.loadCollections()
   }
 
   loadBooks() {
-    this.database.getBooksByIds(this._owner.books, (books) => this.books.next(books))
+    this.database.getBooksForUser(this._owner.ref, (books) => this.books.next(books))
   }
 
-  loadCollections(collections: Collection[]) {
-    this.collections.next(collections)
+  loadCollections() {
+    this.database.getCollectionsForUser(this._owner.ref, (collections) => this.collections.next(collections))
   }
 
   toggleTilesDisplay(toggle: boolean) {
@@ -48,7 +50,32 @@ export class LibraryService {
   }
 
   addBook(book: Book) {
-    this.database.pushBook(book)
+    this.database.postBook(_.pick(book, [
+      'id',
+      'title',
+      'author',
+      'isbn',
+      'original',
+      'language',
+      'publisher',
+      'year',
+      'pages',
+      'image_small',
+      'image_large',
+      'gr_link'
+    ]))
+    this.database.postBookForUser(this._owner.ref, _.pick(book, [
+      'id',
+      'owned',
+      'read',
+      'favorite',
+      'date',
+      'genres',
+      'collections',
+      'tags',
+      'notes',
+      'ratings'
+    ]))
   }
 
   addCollection(collection: Collection) {
