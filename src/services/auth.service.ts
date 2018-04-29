@@ -4,7 +4,8 @@ import { AngularFireDatabase } from 'angularfire2/database'
 import { Router } from '@angular/router'
 import * as firebase from 'firebase/app'
 import { DatabaseService } from './database.service'
-import { User } from '../interfaces/user'
+import { User as LocalUser } from '../interfaces/user'
+import { User as DBUser } from '../models/user'
 
 @Injectable()
 export class AuthService {
@@ -23,17 +24,16 @@ export class AuthService {
         _user = {
           name: user.displayName,
           id: user.uid,
-          email: user.email,
-          books: []
-        }
-        this.database.pushUser(_user)
+          email: user.email
+        } as DBUser
+        this.database.postUser(_user)
       }
 
       const _ref = Object.keys(_user)[0]
       _user = {
         ...(_user[_ref]),
         ref: _ref
-      }
+      } as LocalUser
 
       localStorage.setItem('user', JSON.stringify(_user))
     })
@@ -66,7 +66,7 @@ export class AuthService {
           _user = {
             ...(_user[_ref]),
             ref: _ref
-          }
+          } as LocalUser
           localStorage.setItem('user', JSON.stringify(_user))
         })
 
