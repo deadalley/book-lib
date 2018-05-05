@@ -20,22 +20,26 @@ export class AuthService {
     this.database.findUserById(user.uid, (_user) => {
       if (_user === null) {
         console.log('user does not exist.')
+        console.log(_user)
 
         _user = {
           name: user.displayName,
           id: user.uid,
           email: user.email
         } as DBUser
-        this.database.postUser(_user)
+
+        this.database.postUser(_user).then((res) => {
+          localStorage.setItem('user', JSON.stringify({ ...(_user), ref: res.ref.key }))
+        })
+      } else {
+        const _ref = Object.keys(_user)[0]
+        _user = {
+          ...(_user[_ref]),
+          ref: _ref
+        } as LocalUser
+
+        localStorage.setItem('user', JSON.stringify(_user))
       }
-
-      const _ref = Object.keys(_user)[0]
-      _user = {
-        ...(_user[_ref]),
-        ref: _ref
-      } as LocalUser
-
-      localStorage.setItem('user', JSON.stringify(_user))
     })
   }
 

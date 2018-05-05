@@ -22,3 +22,8 @@ export const parseFirebaseAuthError = (error): string => {
       return 'Could not login. Try again.'
   }
 }
+
+export const objectToArray = (object: object) => {
+  if (!object) { return }
+  return Object.keys(object).map((key) => object[key])
+}

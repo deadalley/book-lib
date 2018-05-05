@@ -1,9 +1,9 @@
 export class User {
-  id: number
+  id: string
   name: string
   email: string
   books: User.Book[]
-  collections: User.Collection[]
+  collections: string[]
 }
 
 export module User {
@@ -18,12 +18,6 @@ export module User {
     tags?: string[]
     notes?: string
     rating?: number
-  }
-
-  export class Collection {
-    title: string
-    books: string[]
-    description: string
   }
 }
 

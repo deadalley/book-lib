@@ -29,12 +29,15 @@ export class LibraryService {
     this.loadCollections()
   }
 
-  loadBooks() {
+  private loadBooks() {
     this.database.getBooksForUser(this._owner.ref, (books) => this.books.next(books))
   }
 
-  loadCollections() {
-    this.database.getCollectionsForUser(this._owner.ref, (collections) => this.collections.next(collections))
+  private loadCollections() {
+    this.database.getCollectionsForUser({
+      userRef: this._owner.ref,
+      userId: this._owner.id
+    }, (collections) => { console.log(collections); this.collections.next(collections);} )
   }
 
   toggleTilesDisplay(toggle: boolean) {
@@ -50,35 +53,18 @@ export class LibraryService {
   }
 
   addBook(book: Book) {
-    this.database.postBook(_.pick(book, [
-      'id',
-      'title',
-      'author',
-      'isbn',
-      'original',
-      'language',
-      'publisher',
-      'year',
-      'pages',
-      'image_small',
-      'image_large',
-      'gr_link'
-    ]))
-    this.database.postBookForUser(this._owner.ref, _.pick(book, [
-      'id',
-      'owned',
-      'read',
-      'favorite',
-      'date',
-      'genres',
-      'collections',
-      'tags',
-      'notes',
-      'ratings'
-    ]))
+    this.database.postBookForUser({
+      userRef: this._owner.ref,
+      userId: this._owner.id
+    }, book)
   }
 
   addCollection(collection: Collection) {
-    this.collections.next(this.collections.getValue().concat([collection]))
+    this.database.postCollectionForUser(this._owner.ref, {
+      owner: this._owner.id,
+      title: collection.title,
+      books: collection.books.map((book) => book.id),
+      description: collection.description
+    })
   }
 }
