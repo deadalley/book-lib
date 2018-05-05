@@ -14,6 +14,7 @@ export class LibraryService {
   private tilesDisplay = new BehaviorSubject<boolean>(true)
   private books = new BehaviorSubject<Book[]>([])
   private collections = new BehaviorSubject<Collection[]>([])
+  private book = new BehaviorSubject<Book>(undefined)
 
   private _owner: User
 
@@ -22,6 +23,7 @@ export class LibraryService {
   tilesDisplay$ = this.tilesDisplay.asObservable()
   collections$ = this.collections.asObservable()
   books$ = this.books.asObservable()
+  private book$ = this.book.asObservable()
 
   constructor(private database: DatabaseService) {
     this._owner = JSON.parse(localStorage.getItem('user'))
@@ -37,7 +39,7 @@ export class LibraryService {
     this.database.getCollectionsForUser({
       userRef: this._owner.ref,
       userId: this._owner.id
-    }, (collections) => { console.log(collections); this.collections.next(collections);} )
+    }, (collections) => this.collections.next(collections) )
   }
 
   toggleTilesDisplay(toggle: boolean) {
@@ -66,5 +68,10 @@ export class LibraryService {
       books: collection.books.map((book) => book.id),
       description: collection.description
     })
+  }
+
+  findBook(id: string) {
+    this.database.findBookById({ userRef: this._owner.ref, bookId: id}, (book) => this.book.next(book))
+    return this.book$
   }
 }

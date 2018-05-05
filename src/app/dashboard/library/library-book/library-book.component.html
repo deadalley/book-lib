@@ -18,27 +18,33 @@
         <div class="row">
           <div class="col-xs-12">
             <label>Original title:</label>
-            <p>{{book.original}}</p>
+            <p [ngClass]="{'unavailable': !book.original }">
+              {{book.original ? book.original : 'Not available' }}
+            </p>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12 col-xs-6">
             <label>Publisher:</label>
-            <p>{{book.publisher}}</p>
+            <p [ngClass]="{'unavailable': !book.publisher }">
+              {{book.publisher ? book.publisher : 'Not available' }}
+            </p>
           </div>
           <div class="col-md-12 col-xs-6">
             <label>Language:</label>
-            <p>{{book.language}}</p>
+            <p [ngClass]="{'unavailable': !book.language }">
+              {{book.language ? book.language : 'Not available'}}
+            </p>
           </div>
         </div>
         <div class="row">
           <div class="col-md-2 col-xs-3">
             <label>Year</label>
-            <p>{{book.year}}</p>
+            <p [ngClass]="{'unavailable': !book.year }">{{book.year ? book.year : 'Not available'}}</p>
           </div>
           <div class="col-md-2 col-xs-3">
             <label>Pages</label>
-            <p>{{book.pages}}</p>
+            <p [ngClass]="{'unavailable': !book.pages }">{{book.pages ? book.pates : 'Not available'}}</p>
           </div>
           <div class="col-md-8 col-xs-6">
             <book-buttons></book-buttons>
@@ -48,6 +54,9 @@
           <div class="col-md-4 col-xs-6">
             <label>Collections</label>
             <div>
+              <p *ngIf="!book.collections" [ngClass]="{'unavailable': !book.collections }">
+                No collections
+              </p>
               <ng-container *ngFor="let collection of book.collections; let lastItem = last">
                 <i class="pe-7s-notebook"></i>
                 <a href="javascrip:void(0);"> {{collection}}</a>
@@ -64,6 +73,9 @@
           <div class="col-xs-12">
             <label>Genres</label>
             <div>
+              <p *ngIf="!book.genres" [ngClass]="{'unavailable': !book.genres }">
+                No genres
+              </p>
               <ng-container *ngFor="let genre of book.genres; let lastItem = last">
                 <i class="pe-7s-folder"></i>
                 <a href="javascrip:void(0);"> {{genre}}</a>
@@ -76,6 +88,9 @@
           <div class="col-xs-12">
             <label>Tags</label>
             <div>
+              <p *ngIf="!book.tags" [ngClass]="{'unavailable': !book.tags }">
+                No tags
+              </p>
               <ng-container *ngFor="let tag of book.tags; let lastItem = last">
                 <i class="pe-7s-ticket"></i>
                 <a href="javascrip:void(0);"> {{tag}}</a>
@@ -87,7 +102,7 @@
         <div class="row">
           <div class="col-xs-12">
             <label>Notes</label>
-            <p>{{book.notes}}</p>
+            <p [ngClass]="{'unavailable': !book.notes }">{{book.notes ? book.notes : 'Not available'}}</p>
           </div>
         </div>
       </div>

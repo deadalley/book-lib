@@ -34,10 +34,5 @@ import CollectionFactory from '../../../factories/collection'
 export class LibraryComponent implements OnInit {
   constructor(private libraryService: LibraryService) { }
 
-  ngOnInit() {
-    // const collections = CollectionFactory.buildList(3)
-    // collections.forEach((collection) => collection.books.push(BookFactory.build()))
-    // this.libraryService.loadCollections(collections)
-    // this.libraryService.loadBooks()
-  }
+  ngOnInit() { }
 }

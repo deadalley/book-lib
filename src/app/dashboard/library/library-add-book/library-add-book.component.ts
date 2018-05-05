@@ -93,8 +93,7 @@ export class LibraryAddBookComponent implements OnInit {
     console.log('Collections', this.collections)
 
     this.libraryService.addBook(this.book)
-    // this.libraryService.loadCollections(this.allCollections.concat(this.collections))
-    // this.location.back()
+    this.location.back()
   }
 
   getGenres(genres: Array<string>) {

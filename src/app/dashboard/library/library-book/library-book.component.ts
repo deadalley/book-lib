@@ -3,6 +3,8 @@ import { FormControl , FormGroup, FormBuilder, FormArray, Validators } from '@an
 import { Location } from '@angular/common'
 import { Book } from '../../../../interfaces/book'
 import BookFactory from '../../../../factories/book'
+import { LibraryService } from '../library.service'
+import { Router } from '@angular/router'
 
 @Component({
   moduleId: module.id,
@@ -35,9 +37,18 @@ import BookFactory from '../../../../factories/book'
 export class LibraryBookComponent implements OnInit {
   book = { } as Book
 
-  constructor(private location: Location) { }
+  get localUrlPath(): string {
+    const splitUrl = this.router.url.split('/')
+    return splitUrl[splitUrl.length - 1]
+  }
+
+  constructor(
+    private location: Location,
+    private libraryService: LibraryService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
-    this.book = BookFactory.build()
+    this.libraryService.findBook(this.localUrlPath).subscribe((book) => { if (book) { this.book = book } })
   }
 }
