@@ -1,7 +1,9 @@
 <div class="card" style="text-align: center;" [@cardbooks]>
   <div class="header">
     <!-- Header -->
-    <h4 class="title">{{book.title}}</h4>
+    <h4 class="title">
+      <a href="#" routerLink="./{{book.id}}">{{book.title}}</a>
+    </h4>
     <p class="category" placement="bottom">
       <a href="#">{{book.author}}</a>
     </p>

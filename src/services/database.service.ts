@@ -37,6 +37,13 @@ export class DatabaseService {
     this.users.query.orderByChild('id').equalTo(id).once('value', (snap) => cb(snap.val()))
   }
 
+  findBookById({ userRef, bookId }, cb) {
+    this.getBooksForUser(userRef, (books) => {
+      console.log(books[0])
+      cb(books[0])
+    }, [bookId])
+  }
+
   getBooksByIds(ids: string[], cb) {
     this.books.valueChanges().subscribe((books) => cb(ids ? books.filter((book) => ids.includes(book['id'])) : []))
   }
@@ -126,7 +133,6 @@ export class DatabaseService {
 
   getCollectionsForUser({ userRef, userId }, cb) {
     // Map collections and books for user
-    console.log(userId)
     this.collections.query.orderByChild('owner').equalTo(userId).on('value', (snap) => {
       if (snap.val() === null) { return }
 
@@ -135,7 +141,7 @@ export class DatabaseService {
       this.getBooksForUser(userRef, (books) => {
         const mappedCollections = collections.map((collection) => {
           const collectionBooks = objectToArray(collection.books)
-          console.log(collectionBooks)
+
           return {
             title: collection['title'],
             books: collection['books'] ? books.filter((book) => collectionBooks.includes(book['id'])) : [],
