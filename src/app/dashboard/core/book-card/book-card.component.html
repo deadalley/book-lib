@@ -2,7 +2,7 @@
   <div class="header">
     <!-- Header -->
     <h4 class="title">
-      <a href="#" routerLink="./{{book.id}}">{{book.title}}</a>
+      <a href="#" routerLink="../books/{{book.id}}">{{book.title}}</a>
     </h4>
     <p class="category" placement="bottom">
       <a href="#">{{book.author}}</a>
@@ -11,7 +11,7 @@
   <div class="content">
     <!-- Image -->
     <div class="image">
-      <a href="javascript:void(0);" routerLink="./{{book.id}}">
+      <a href="javascript:void(0);" routerLink="../books/{{book.id}}">
         <img
           [src]="book.hasOwnProperty('image_large') ? book.image_large : book.image_small"
           alt="Book cover"

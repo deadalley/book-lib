@@ -8,12 +8,14 @@ import { RatingModule } from 'ngx-rating'
 import { BookCardComponent } from './book-card/book-card.component'
 import { BookTagsComponent } from './book-tags/book-tags.component'
 import { BookButtonsComponent } from './book-buttons/book-buttons.component'
+import { ModalComponent } from './modal/modal.component'
 
 @NgModule({
   declarations: [
     BookCardComponent,
     BookTagsComponent,
-    BookButtonsComponent
+    BookButtonsComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { BookButtonsComponent } from './book-buttons/book-buttons.component'
   exports: [
     BookCardComponent,
     BookTagsComponent,
-    BookButtonsComponent
+    BookButtonsComponent,
+    ModalComponent
   ]
 })
 export class CoreModule { }

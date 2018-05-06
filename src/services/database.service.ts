@@ -77,7 +77,7 @@ export class DatabaseService {
       }
 
       if (collectionsToRemove.length > 0) {
-        // TODO: remove
+        this.deleteBookFromCollection(userId, { id: book.id, collections: collectionsToRemove })
       }
     })
     this.books.query.orderByChild('id').equalTo(book.id).once('value', (snap) => {
@@ -97,15 +97,34 @@ export class DatabaseService {
         collections.forEach((collection) => {
           // Remove from collection
           this.db.list(`collections/${collection.ref}/books`).query
-            .orderByChild('id')
+            .orderByValue()
             .equalTo(book.id)
             .once('value', (_snap) => {
-              const ref = snap.val()[0]
+              if (!_snap.val()) { return }
+              const ref = Object.keys(_snap.val())[0]
               this.db.list(`collections/${collection.ref}/books/${ref}`).remove()
             })
         })
       }
     })
+  }
+
+  deleteBook({ userRef, userId }, book) {
+    this.books.query.orderByChild('id').equalTo(book.id).on('value', (snap) => {
+      if (!snap.val()) { return }
+      const ref = Object.keys(snap.val())[0]
+
+      this.db.object(`books/${ref}`).remove()
+    })
+
+    this.userBooksRef(userRef).query.orderByChild('id').equalTo(book.id).on('value', (snap) => {
+      if (!snap.val()) { return }
+      const ref = Object.keys(snap.val())[0]
+
+      this.db.object(`users/${userRef}/books/${ref}`).remove()
+    })
+
+    this.deleteBookFromCollection(userId, book)
   }
 
   postBookForCollection(userId, book) {

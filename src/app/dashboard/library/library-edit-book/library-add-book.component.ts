@@ -8,6 +8,7 @@ import { Book } from '../../../../interfaces/book'
 import Languages from '../../../../utils/languages'
 import { cleanFormValues } from '../../../../utils/helpers'
 import { LibraryService } from '../library.service'
+import { Router } from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -54,9 +55,13 @@ export class LibraryAddBookComponent implements OnInit {
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
 
-  constructor(private fb: FormBuilder, private location: Location, private libraryService: LibraryService) {
+  constructor(
+    private fb: FormBuilder,
+    private location: Location,
+    private libraryService: LibraryService,
+    private router: Router
+  ) {
     this.libraryService.collections$.subscribe((collections) => {
-      console.log(collections)
       this.allCollections = collections.map((collection) => collection.title)
     })
     this.form = this.fb.group({

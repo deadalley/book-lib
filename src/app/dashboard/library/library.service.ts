@@ -81,4 +81,11 @@ export class LibraryService {
     this.database.findBookById({ userRef: this._owner.ref, bookId: id}, (book) => this.book.next(book))
     return this.book$
   }
+
+  deleteBook(book: Book) {
+    this.database.deleteBook({
+      userRef: this._owner.ref,
+      userId: this._owner.id
+    }, book)
+  }
 }

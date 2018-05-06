@@ -204,9 +204,9 @@
 					<!-- About -->
 					<div class="form-group">
 						<book-buttons
-							[owned]="book.owned"
-							[read]="book.read"
-							[favorite]="book.favorite"
+							[owned]="book.owned ? book.owned : false"
+							[read]="book.read ? book.read : false"
+							[favorite]="book.favorite ? book.favorite : false"
 						></book-buttons>
 					</div>
         </div>
