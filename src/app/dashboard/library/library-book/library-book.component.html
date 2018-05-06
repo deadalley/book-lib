@@ -44,7 +44,7 @@
           </div>
           <div class="col-md-2 col-xs-3">
             <label>Pages</label>
-            <p [ngClass]="{'unavailable': !book.pages }">{{book.pages ? book.pates : 'Not available'}}</p>
+            <p [ngClass]="{'unavailable': !book.pages }">{{book.pages ? book.pages : 'Not available'}}</p>
           </div>
           <div class="col-md-8 col-xs-6">
             <label>Rating</label><br>
@@ -57,19 +57,19 @@
           </div>
           <div class="col-xs-3" style="text-align: center">
             <i class="pe-7s-check about-icon" [ngClass]="{'about-icon-unavailable': !book.owned }"></i>
-            <p class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.owned }">Owned</p>
+            <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.owned }">Owned</div>
           </div>
           <div class="col-xs-3" style="text-align: center">
-            <i class="pe-7s-gift about-icon" [ngClass]="{'about-icon-unavailable': book.owned }"></i>
-            <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': book.owned }">Wishlist</div>
+            <i class="pe-7s-gift about-icon" [ngClass]="{'about-icon-unavailable': !!book.owned }"></i>
+            <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !!book.owned }">Wishlist</div>
           </div>
           <div class="col-xs-3" style="text-align: center">
             <i class="pe-7s-glasses about-icon" [ngClass]="{'about-icon-unavailable': !book.read }"></i>
-            <p class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.read }">Read</p>
+            <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.read }">Read</div>
           </div>
           <div class="col-xs-3" style="text-align: center">
             <i class="pe-7s-like about-icon" [ngClass]="{'about-icon-unavailable': !book.favorite }"></i>
-            <p class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.favorite }">Favorite</p>
+            <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.favorite }">Favorite</div>
           </div>
         </div>
         <div class="row">
@@ -127,7 +127,7 @@
     </div>
     <div class="row">
       <div class="col-xs-1" style="float: right">
-        <button type="button" class="btn btn-default" style="float: right">Edit</button>
+        <button type="button" class="btn btn-default" style="float: right" routerLink="./edit">Edit</button>
       </div>
       <div class="col-xs-1" style="float: right">
         <button type="button" class="btn btn-default" style="float: right">Delete</button>
