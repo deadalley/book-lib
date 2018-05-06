@@ -47,11 +47,33 @@
             <p [ngClass]="{'unavailable': !book.pages }">{{book.pages ? book.pates : 'Not available'}}</p>
           </div>
           <div class="col-md-8 col-xs-6">
-            <book-buttons></book-buttons>
+            <label>Rating</label><br>
+            <rating [(ngModel)]="book.rating" [readonly]="true" [float]="true"></rating>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4 col-xs-6">
+          <div class="col-xs-12">
+            <label>About</label>
+          </div>
+          <div class="col-xs-3" style="text-align: center">
+            <i class="pe-7s-check about-icon" [ngClass]="{'about-icon-unavailable': !book.owned }"></i>
+            <p class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.owned }">Owned</p>
+          </div>
+          <div class="col-xs-3" style="text-align: center">
+            <i class="pe-7s-gift about-icon" [ngClass]="{'about-icon-unavailable': book.owned }"></i>
+            <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': book.owned }">Wishlist</div>
+          </div>
+          <div class="col-xs-3" style="text-align: center">
+            <i class="pe-7s-glasses about-icon" [ngClass]="{'about-icon-unavailable': !book.read }"></i>
+            <p class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.read }">Read</p>
+          </div>
+          <div class="col-xs-3" style="text-align: center">
+            <i class="pe-7s-like about-icon" [ngClass]="{'about-icon-unavailable': !book.favorite }"></i>
+            <p class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.favorite }">Favorite</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
             <label>Collections</label>
             <div>
               <p *ngIf="!book.collections" [ngClass]="{'unavailable': !book.collections }">
@@ -63,10 +85,6 @@
                 {{lastItem ? '' : ', '}}
               </ng-container>
             </div>
-          </div>
-          <div class="col-md-8 col-xs-6">
-            <label>Rating</label><br>
-            <rating [(ngModel)]="book.rating" [readonly]="true" [float]="true"></rating>
           </div>
         </div>
         <div class="row">

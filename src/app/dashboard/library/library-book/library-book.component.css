@@ -66,3 +66,13 @@ p {
   font-style: italic;
   color: #cacaca;
 }
+
+.about-icon {
+  font-size: 1.4em;
+  color: #9A9A9A;
+  text-align: center;
+}
+
+.about-icon-unavailable {
+  color: #cacaca;
+}
