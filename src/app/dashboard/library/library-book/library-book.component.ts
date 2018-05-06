@@ -51,4 +51,8 @@ export class LibraryBookComponent implements OnInit {
   ngOnInit() {
     this.libraryService.findBook(this.localUrlPath).subscribe((book) => { if (book) { this.book = book } })
   }
+
+  deleteBook() {
+    this.libraryService.deleteBook(this.book)
+  }
 }

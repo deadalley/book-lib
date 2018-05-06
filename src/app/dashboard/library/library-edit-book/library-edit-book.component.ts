@@ -8,7 +8,7 @@ import { Book } from '../../../../interfaces/book'
 import Languages from '../../../../utils/languages'
 import { cleanFormValues } from '../../../../utils/helpers'
 import { LibraryService } from '../library.service'
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 
 @Component({
   moduleId: module.id,
@@ -64,7 +64,8 @@ export class LibraryEditBookComponent implements OnInit {
     private fb: FormBuilder,
     private location: Location,
     private libraryService: LibraryService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.form = this.fb.group({
       title: ['', Validators.required],
@@ -122,7 +123,8 @@ export class LibraryEditBookComponent implements OnInit {
     console.log('Updating book', this.book)
 
     this.libraryService.updateBook(this.book)
-    this.location.back()
+    this.router.navigate(['../../'], { relativeTo: this.route })
+    // this.location.back()
   }
 
   getGenres(genres: Array<string>) {
