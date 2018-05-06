@@ -61,6 +61,13 @@ export class LibraryService {
     }, book)
   }
 
+  updateBook(book) {
+    this.database.updateBookForUser({
+      userRef: this._owner.ref,
+      userId: this._owner.id
+    }, book)
+  }
+
   addCollection(collection: Collection) {
     this.database.postCollectionForUser(this._owner.ref, {
       owner: this._owner.id,

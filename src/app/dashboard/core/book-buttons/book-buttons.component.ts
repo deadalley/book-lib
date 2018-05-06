@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, Input } from '@angular/core'
 
 @Component({
   moduleId: module.id,
@@ -8,9 +8,9 @@ import { Component, OnInit } from '@angular/core'
 })
 
 export class BookButtonsComponent implements OnInit {
-  owned = false
-  read = false
-  favorite = false
+  @Input() owned = false
+  @Input() read = false
+  @Input() favorite = false
 
   ngOnInit() { }
 

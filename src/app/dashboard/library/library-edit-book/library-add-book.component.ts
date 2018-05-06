@@ -11,9 +11,9 @@ import { LibraryService } from '../library.service'
 
 @Component({
   moduleId: module.id,
-  selector: 'library-add-book',
-  templateUrl: 'library-add-book.component.html',
-  styleUrls: ['./library-add-book.component.css'],
+  selector: 'library-edit-book',
+  templateUrl: 'library-edit-book.component.html',
+  styleUrls: ['./library-edit-book.component.css'],
   animations: [
     trigger('cardaddbook', [
       state('*', style({
@@ -39,20 +39,26 @@ import { LibraryService } from '../library.service'
 
 export class LibraryAddBookComponent implements OnInit {
   form: FormGroup
-  allCollections: Collection[]
-  collections: Collection[]
+  allCollections: string[]
+  collections: string[]
   languages: string[]
   genres: string[]
   tags: string[]
   selectedLanguage: string
   book = { } as Book
+  title = 'Add new book'
+  description = 'Add a new book to your library or wishlist'
+  button = 'Add book'
   fromGoodreads = false
 
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
 
   constructor(private fb: FormBuilder, private location: Location, private libraryService: LibraryService) {
-    this.libraryService.collections$.subscribe((collections) => this.allCollections = collections)
+    this.libraryService.collections$.subscribe((collections) => {
+      console.log(collections)
+      this.allCollections = collections.map((collection) => collection.title)
+    })
     this.form = this.fb.group({
       title: ['', Validators.required],
       original: '',
@@ -79,7 +85,7 @@ export class LibraryAddBookComponent implements OnInit {
       date: (new Date()).toISOString().substring(0, 10),
       ...(this.genres.length > 0) && { genres: this.genres },
       ...(this.tags.length > 0) && { tags: this.tags },
-      ...(this.collections.length > 0) && { collections: this.collections.map((collection) => collection.title) },
+      ...(this.collections.length > 0) && { collections: this.collections },
       ...(this.selectedLanguage !== 'Select a language') && { language: this.selectedLanguage },
       ...cleanFormValues(formValues),
       ...this.buttonsComponent.getValues()
@@ -87,10 +93,10 @@ export class LibraryAddBookComponent implements OnInit {
 
     Object.assign(this.book, newValues)
 
-    this.collections.forEach((collection) => collection.books.push(this.book))
+    // this.collections.forEach((collection) => collection.books.push(this.book))
 
     console.log('Adding book', this.book)
-    console.log('Collections', this.collections)
+    // console.log('Collections', this.collections)
 
     this.libraryService.addBook(this.book)
     this.location.back()
@@ -109,8 +115,8 @@ export class LibraryAddBookComponent implements OnInit {
     target.push(collection)
 
     this.allCollections.sort((a, b) => {
-      if (a.title < b.title) { return -1 }
-      if (a.title > b.title) { return 1 }
+      if (a < b) { return -1 }
+      if (a > b) { return 1 }
       return 0
     })
   }

@@ -5,7 +5,7 @@ import { User } from '../models/user'
 import { Book } from '../models/book'
 import { Collection } from '../models/collection'
 import { random } from 'faker'
-import { objectToArray } from '../utils/helpers'
+import { objectToArray, filterBook, filterBookForUser } from '../utils/helpers'
 import * as firebase from 'firebase/app'
 import * as _ from 'lodash'
 
@@ -39,7 +39,6 @@ export class DatabaseService {
 
   findBookById({ userRef, bookId }, cb) {
     this.getBooksForUser(userRef, (books) => {
-      console.log(books[0])
       cb(books[0])
     }, [bookId])
   }
@@ -60,52 +59,77 @@ export class DatabaseService {
     this.collections.push({ id: random.uuid(), ...(collection) })
   }
 
-  postBookForUser({ userRef, userId }, book) {
-    book['id'] = random.uuid()
-    this.postBook(_.pick(book, [
-      'id',
-      'title',
-      'author',
-      'isbn',
-      'original',
-      'language',
-      'publisher',
-      'year',
-      'pages',
-      'image_small',
-      'image_large',
-      'gr_link'
-    ]))
-    this.userBooksRef(userRef).push(_.pick(book, [
-      'id',
-      'owned',
-      'read',
-      'favorite',
-      'date',
-      'genres',
-      'collections',
-      'tags',
-      'notes',
-      'ratings'
-    ]))
+  updateBookForUser({ userRef, userId }, book) {
+    this.userBooksRef(userRef).query.orderByChild('id').equalTo(book.id).once('value', (snap) => {
+      const ref = Object.keys(snap.val())[0]
+      const oldBook = snap.val()[ref]
 
+      this.db.object(`users/${userRef}/books/${ref}`).set(filterBookForUser(book))
+
+      if (!book.collections) { book.collections = [] }
+      if (!oldBook.collections) { oldBook.collections = [] }
+
+      const collectionsToAdd = book.collections.filter((collection) => !oldBook.collections.includes(collection))
+      const collectionsToRemove = oldBook.collections.filter((collection) => !book.collections.includes(collection))
+
+      if (collectionsToAdd.length > 0 ) {
+        this.postBookForCollection(userId, { id: book.id, collections: collectionsToAdd })
+      }
+
+      if (collectionsToRemove.length > 0) {
+        // TODO: remove
+      }
+    })
+    this.books.query.orderByChild('id').equalTo(book.id).once('value', (snap) => {
+      const ref = Object.keys(snap.val())[0]
+      this.db.object(`books/${ref}`).set(filterBook(book))
+    })
+  }
+
+  deleteBookFromCollection(userId, book) {
     // Get collections of user
     this.collections.query.orderByChild('owner').equalTo(userId).once('value', (snap) => {
       // Map object to array
-      console.log(snap.val())
       let collections = Object.keys(snap.val()).map((key) => ({ ...(snap.val()[key]), ref: key }))
 
-      console.log(collections)
-      console.log(book.collections)
       if (book.collections) {
         collections = collections.filter((collection) => book.collections.includes(collection['title']))
-        console.log(collections)
+        collections.forEach((collection) => {
+          // Remove from collection
+          this.db.list(`collections/${collection.ref}/books`).query
+            .orderByChild('id')
+            .equalTo(book.id)
+            .once('value', (_snap) => {
+              const ref = snap.val()[0]
+              this.db.list(`collections/${collection.ref}/books/${ref}`).remove()
+            })
+        })
+      }
+    })
+  }
+
+  postBookForCollection(userId, book) {
+    // Get collections of user
+    this.collections.query.orderByChild('owner').equalTo(userId).once('value', (snap) => {
+      // Map object to array
+      let collections = Object.keys(snap.val()).map((key) => ({ ...(snap.val()[key]), ref: key }))
+
+      if (book.collections) {
+        collections = collections.filter((collection) => book.collections.includes(collection['title']))
         collections.forEach((collection) => {
           // Add to collection
           this.db.list(`collections/${collection.ref}/books`).push(book.id)
         })
       }
     })
+  }
+
+  postBookForUser({ userRef, userId }, book) {
+    book['id'] = random.uuid()
+    this.postBook(filterBook(book))
+    this.userBooksRef(userRef).push(filterBookForUser(book))
+
+    this.postBookForCollection(userId, book)
   }
 
   postCollectionForUser(userRef: string, collection) {
