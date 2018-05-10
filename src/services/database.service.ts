@@ -141,6 +141,23 @@ export class DatabaseService {
     this.deleteBookFromCollection(userId, book)
   }
 
+  deleteCollection({ userRef, userId }, collection) {
+    this.collections.query.orderByChild('id').equalTo(collection.id).on('value', (snap) => {
+      if (!snap.val()) { return }
+      // tslint:disable-next-line:no-shadowed-variable
+      const ref = Object.keys(snap.val())[0]
+
+      this.db.object(`collections/${ref}`).remove()
+    })
+
+    this.userCollectionsRef(userRef).query.orderByValue().equalTo(collection.id).on('value', (snap) => {
+      if (!snap.val()) { return }
+      const ref = Object.keys(snap.val())[0]
+      this.db.object(`users/${userRef}/collections/${ref}`).remove()
+    })
+    // TODO: Remove collections from books
+  }
+
   postBookForCollection(userId, book) {
     // Get collections of user
     this.collections.query.orderByChild('owner').equalTo(userId).once('value', (snap) => {

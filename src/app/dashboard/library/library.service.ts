@@ -99,4 +99,11 @@ export class LibraryService {
   updateCollection(collection) {
     this.database.updateCollection(collection)
   }
+
+  deleteCollection(collection) {
+    this.database.deleteCollection({
+      userRef: this._owner.ref,
+      userId: this._owner.id
+    }, collection)
+  }
 }
