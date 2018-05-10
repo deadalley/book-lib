@@ -13,6 +13,7 @@ import { LibraryCollectionsComponent } from './library-collections/library-colle
 import { LibraryNavbarComponent } from './library-navbar/library-navbar.component'
 import { LibrarySectionComponent } from './library-section/library-section.component'
 import { LibraryTableComponent } from './library-table/library-table.component'
+import { LibraryNoBooksComponent } from './library-no-books/library-no-books.component'
 
 import { BookOrderPipe } from '../../../../pipes/book-order.pipe'
 import { IterableObject } from '../../../../pipes/iterable-object.pipe'
@@ -42,6 +43,7 @@ const libraryHomeRoutes: Routes = [
     LibraryNavbarComponent,
     LibrarySectionComponent,
     LibraryTableComponent,
+    LibraryNoBooksComponent,
     BookOrderPipe,
     IterableObject
   ],

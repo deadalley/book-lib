@@ -6,7 +6,7 @@ import { LibraryService } from '../library.service'
 
 @Component({
   moduleId: module.id,
-  selector: 'library-edit-collection',
+  selector: 'library-add-collection',
   templateUrl: 'library-edit-collection.component.html',
   styleUrls: ['./library-edit-collection.component.css'],
   animations: [

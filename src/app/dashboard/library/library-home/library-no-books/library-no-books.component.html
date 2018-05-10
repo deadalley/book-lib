@@ -8,7 +8,7 @@
   <div class="content">
     <p>Start your library by adding a book...</p>
     <!-- Form -->
-    <form style="text-align: left;" [formGroup]="form" (ngSubmit)="addBook(form.value)">
+    <form style="text-align: left;" [formGroup]="form" (ngSubmit)="submit(form.value)">
       <div class="row">
         <div class="col-xs-2"></div>
         <div class="col-xs-8">

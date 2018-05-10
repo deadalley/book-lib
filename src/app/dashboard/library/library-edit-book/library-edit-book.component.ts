@@ -51,6 +51,7 @@ export class LibraryEditBookComponent implements OnInit {
   description = 'Edit book'
   button = 'Update book'
   fromGoodreads = false
+  showImage = true
 
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
