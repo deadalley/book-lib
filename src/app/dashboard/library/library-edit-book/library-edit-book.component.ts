@@ -75,6 +75,8 @@ export class LibraryEditBookComponent implements OnInit {
       year: [0, Validators.min(0)],
       pages: [0, Validators.min(0)],
       notes: '',
+      image_large: '',
+      image_small: '',
       rating: 0
     })
 
@@ -96,6 +98,8 @@ export class LibraryEditBookComponent implements OnInit {
         year: this.book.year,
         pages: this.book.pages,
         notes: this.book.notes,
+        image_large: this.book.image_large,
+        image_small: this.book.image_small,
         rating: this.book.rating
       })
 
@@ -109,6 +113,7 @@ export class LibraryEditBookComponent implements OnInit {
   ngOnInit() { }
 
   submit(formValues) {
+    console.log(formValues)
     const newValues = {
       ...(this.genres.length > 0) && { genres: this.genres },
       ...(this.tags.length > 0) && { tags: this.tags },
@@ -117,6 +122,7 @@ export class LibraryEditBookComponent implements OnInit {
       ...cleanFormValues(formValues),
       ...this.buttonsComponent.getValues()
     }
+    console.log(newValues)
 
     Object.assign(this.book, newValues)
 

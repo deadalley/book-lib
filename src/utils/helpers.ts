@@ -5,7 +5,7 @@ export const cleanFormValues = (formValues): object => {
   let cleanValues = { }
 
   Object.keys(formValues).forEach((prop) => {
-    if (typeof formValues[prop] !== 'undefined' && formValues[prop]) {
+    if (typeof formValues[prop] !== 'undefined') {
       cleanValues[prop] = formValues[prop]
     }
   })

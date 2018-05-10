@@ -28,26 +28,11 @@
 						</div>
 					</div>
 					<!-- Original title -->
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<div class="form-group">
 							<label>Original Title</label>
 							<input type="text" class="form-control" placeholder="Original version title" formControlName="original">
 						</div>
-					</div>
-					<div class="col-md-2">
-						<label>Book Cover</label>
-						<button type="button"
-							(click)="console.log('Add book cover')"
-							[ngClass] = "{'active': true}"
-							class="library-button btn btn-default"
-							style="vertical-align: center; font-size=1.2em"
-							tooltip="Load a book cover"
-							[tooltipDisabled]="false"
-							[tooltipAnimation]="true"
-							tooltipPlacement="bottom"
-						>
-							<span class="pe-7s-photo" aria-hidden="true" style="font-size: 1.2em;"></span>
-						</button>
 					</div>
 				</div>
 				<!-- Author -->
@@ -220,6 +205,22 @@
 							<rating [float]="true" formControlName="rating"></rating>
 						</div>
 					</div>
+        </div>
+        <!-- Image -->
+        <div class="row">
+					<div class="col-xs-12">
+						<!-- Title -->
+						<div class="form-group" [ngClass] = "{'has-error': !form.controls['image_large'].valid && form.controls['image_large'].touched}">
+							<label>
+                Book Cover
+                <a href="javascript:void(0);" (click)="this.form.patchValue({ image_large: '', image_small: '' })">
+                  <i class="pe-7s-close-circle" style="font-size: 100%"></i>
+                </a>
+              </label>
+							<input type="text" class="form-control" placeholder="Link to the book cover" formControlName="image_large">
+							<span class="help-block" *ngIf="!form.controls['image_large'].valid && form.controls['image_large'].touched">Please enter a valid link to your book cover.</span>
+						</div>
+          </div>
 				</div>
 				<!-- Notes -->
 				<div class="form-group">
