@@ -14,6 +14,7 @@ import {
 } from '../utils/helpers'
 import * as firebase from 'firebase/app'
 import * as _ from 'lodash'
+import { merge } from 'rxjs/observable/merge';
 
 @Injectable()
 export class DatabaseService {
@@ -70,7 +71,7 @@ export class DatabaseService {
   }
 
   findBookForUserById(userRef: string, id: string, cb) {
-    this.getBooksForUserByIds(userRef, (books) => cb(books[0]), [id])
+    this.getBooksForUser(userRef, (books) => cb(books[0]), [id])
   }
 
   private getBooksByIds(cb, ids?: string[]) {
@@ -87,8 +88,15 @@ export class DatabaseService {
       this.getBooksByIds((books) => {
         const mappedBooks = userBooks.reduce((obj, book) => (obj[book['id']] = book, obj), {})
         const mergedBooks = books.map((book) => ({ ...(book), ...(mappedBooks[book.id]) }))
-
-        cb(mergedBooks)
+        if (mergedBooks.some((book) => book.collections)) {
+          this.getCollectionsByIds((collections) => {
+            mergedBooks.forEach((book) => {
+              if (!book.collections) { return }
+              book.collections = filterByParam(collections, book.collections, 'id').map((collection) => collection.title)
+            })
+            cb(mergedBooks)
+          })
+        } else { cb(mergedBooks) }
       }, bookIds)
     }, bookIds)
   }
@@ -160,7 +168,7 @@ export class DatabaseService {
       this.db.object(`users/${userRef}/books/${ref}`).remove()
     })
 
-    this.deleteBookFromCollection(book)
+    if (book.collections) { this.deleteBookFromCollection(book) }
   }
 
   /** COLLECTION **/

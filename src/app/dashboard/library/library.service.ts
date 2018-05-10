@@ -33,9 +33,9 @@ export class LibraryService {
     this.loadCollections()
   }
 
-  private mapCollectionTitleToId(collections) {
-    collections = this.collections.getValue().map((collection) => {
-      if (collections.includes(collection.title)) { return collection.id }
+  private mapCollectionTitleToId(book) {
+    book.collections = this.collections.getValue().map((collection) => {
+      if (book.collections.includes(collection.title)) { return collection.id }
     })
   }
 
@@ -60,12 +60,12 @@ export class LibraryService {
   }
 
   addBook(book: Book) {
-    if (book.collections) { this.mapCollectionTitleToId(book.collections) }
+    if (book.collections) { this.mapCollectionTitleToId(book) }
     this.database.postBookForUser(this._owner.ref, this._owner.id, book)
   }
 
   updateBook(book) {
-    if (book.collections) { this.mapCollectionTitleToId(book.collections) }
+    if (book.collections) { this.mapCollectionTitleToId(book) }
     this.database.updateBookForUser(this._owner.ref, this._owner.id, book)
   }
 
