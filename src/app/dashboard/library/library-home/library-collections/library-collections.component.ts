@@ -33,11 +33,16 @@ import { LibraryService } from '../../library.service'
 
 export class LibraryCollectionsComponent implements OnInit {
   orderingMethod = 'title'
-  collections: Collection[]
+  collections = [] as Collection[]
   selectedCollection = { } as Collection
+  isLoading = true
 
   constructor(private libraryService: LibraryService) {
-    libraryService.collections$.subscribe((collections) => this.collections = collections)
+    libraryService.collections$.subscribe((collections) => {
+      if (!collections) { return }
+      this.isLoading = false
+      this.collections = collections
+    })
     libraryService.collectionOrdering$.subscribe((ordering) => this.orderingMethod = ordering)
   }
 

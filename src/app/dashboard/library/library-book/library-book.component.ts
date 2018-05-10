@@ -36,6 +36,7 @@ import { Router } from '@angular/router'
 
 export class LibraryBookComponent implements OnInit {
   book = { } as Book
+  isLoading = true
 
   get localUrlPath(): string {
     const splitUrl = this.router.url.split('/')
@@ -49,7 +50,12 @@ export class LibraryBookComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.libraryService.findBook(this.localUrlPath).subscribe((book) => { if (book) { this.book = book } })
+    this.libraryService.findBook(this.localUrlPath).subscribe((book) => {
+      if (book) {
+        this.isLoading = false
+        this.book = book
+      }
+    })
   }
 
   deleteBook() {

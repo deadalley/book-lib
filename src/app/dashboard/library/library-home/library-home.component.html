@@ -1,7 +1,4 @@
-<ng-container *ngIf="hasBooks">
-  <library-navbar></library-navbar>
-  <router-outlet></router-outlet>
-</ng-container>
-<ng-container *ngIf="!hasBooks">
-  <library-no-books></library-no-books>
-</ng-container>
+<library-navbar *ngIf="hasBooks"></library-navbar>
+<loading [visible]="isLoading"></loading>
+<router-outlet *ngIf="hasBooks"></router-outlet>
+<library-no-books *ngIf="!hasBooks && !isLoading"></library-no-books>

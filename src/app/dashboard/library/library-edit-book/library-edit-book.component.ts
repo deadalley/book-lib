@@ -52,6 +52,7 @@ export class LibraryEditBookComponent implements OnInit {
   button = 'Update book'
   fromGoodreads = false
   showImage = true
+  isLoading = true
 
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
@@ -86,6 +87,8 @@ export class LibraryEditBookComponent implements OnInit {
       this.book = book
       this.collections = this.book.collections ? this.book.collections : []
       this.libraryService.collections$.subscribe((collections) => {
+        if (!collections) { return }
+        this.isLoading = false
         this.allCollections = collections
                                 .filter((collection) => !this.collections.includes(collection.title))
                                 .map((collection) => collection.title)

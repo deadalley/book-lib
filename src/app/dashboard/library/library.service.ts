@@ -13,7 +13,7 @@ export class LibraryService {
   private collectionOrdering = new BehaviorSubject<string>('title')
   private tilesDisplay = new BehaviorSubject<boolean>(true)
   private books = new BehaviorSubject<Book[]>(undefined)
-  private collections = new BehaviorSubject<Collection[]>([])
+  private collections = new BehaviorSubject<Collection[]>(undefined)
   private book = new BehaviorSubject<Book>(undefined)
   private collection = new BehaviorSubject<Collection>(undefined)
 

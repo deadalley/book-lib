@@ -10,13 +10,9 @@ import { ActivatedRoute } from '@angular/router'
 })
 
 export class PageNavigatorComponent implements OnInit {
-  private fragment: string
-
   constructor(private location: Location, private route: ActivatedRoute) { }
 
-  ngOnInit() {
-    // this.route.fragment.subscribe(fragment => { this.fragment = fragment })
-  }
+  ngOnInit() { }
 
   scrollToAnchor(location: string, wait: number): void {
     const element = document.querySelector('#' + location)
