@@ -33,47 +33,69 @@ export class DatabaseService {
     this.collections = db.list('collections')
   }
 
-  findUserById(id: number, cb) {
-    this.users.query.orderByChild('id').equalTo(id).once('value', (snap) => cb(snap.val()))
-  }
-
-  findBookById({ userRef, bookId }, cb) {
-    this.getBooksForUser(userRef, (books) => {
-      cb(books[0])
-    }, [bookId])
-  }
-
-  findCollectionById(id: string, cb) {
-    this.collections.query.orderByChild('id').equalTo(id).once('value', (snap) => {
-      cb(objectToArray(snap.val())[0])
-    })
-  }
-
-  getBooksByIds(ids: string[], cb) {
-    this.books.valueChanges().subscribe((books) => cb(ids ? books.filter((book) => ids.includes(book['id'])) : []))
-  }
-
+  /** USER **/
   postUser(user: User) {
     return this.users.push(user)
   }
 
+  findUserById(id: number, cb) {
+    this.users.query.orderByChild('id').equalTo(id).once('value', (snap) => cb(snap.val()))
+  }
+
+  /** BOOK **/
   private postBook(book: Book) {
     this.books.push({ id: random.uuid(), ...(book) })
   }
 
-  private postCollection(collection: Collection) {
-    this.collections.push({ id: random.uuid(), ...(collection) })
-  }
+  postBookForCollection(userId: string, book) {
+    // Get collections of user
+    this.collections.query.orderByChild('owner').equalTo(userId).once('value', (snap) => {
+      // Map object to array
+      let collections = Object.keys(snap.val()).map((key) => ({ ...(snap.val()[key]), ref: key }))
 
-  updateCollection(collection) {
-    this.collections.query.orderByChild('id').equalTo(collection.id).once('value', (snap) => {
-      const ref = Object.keys(snap.val())[0]
-      this.db.object(`collections/${ref}/title`).set(collection.title)
-      this.db.object(`collections/${ref}/description`).set(collection.description)
+      if (book.collections) {
+        collections = collections.filter((collection) => book.collections.includes(collection['title']))
+        collections.forEach((collection) => {
+          // Add to collection
+          this.db.list(`collections/${collection.ref}/books`).push(book.id)
+        })
+      }
     })
   }
 
-  updateBookForUser({ userRef, userId }, book) {
+  postBookForUser(userRef: string, userId: string, book) {
+    book['id'] = random.uuid()
+    this.postBook(filterBook(book))
+    this.userBooksRef(userRef).push(filterBookForUser(book))
+
+    this.postBookForCollection(userId, book)
+  }
+
+  findBookForUserById(userRef: string, bookId: string, cb) {
+    this.getBooksForUserByIds(userRef, (books) => cb(books[0]), [bookId])
+  }
+
+  private getBooksByIds(cb, ids?: string[]) {
+    this.books.valueChanges().subscribe((books) => cb(ids ? books.filter((book) => ids.includes(book['id'])) : books))
+  }
+
+  private getBooksForUserByIds(userRef: string, cb, ids?: string[]) {
+    this.userBooksRef(userRef).valueChanges().subscribe((books) => cb(ids ? books.filter((book) => ids.includes(book['id'])) : books))
+  }
+
+  getBooksForUser(userRef: string, cb, bookIds?: string[]) {
+    // Join books and user books
+    this.getBooksForUserByIds(userRef, (userBooks) => {
+      this.getBooksByIds((books) => {
+        const mappedBooks = userBooks.reduce((obj, book) => (obj[book['id']] = book, obj), {})
+        const mergedBooks = books.map((book) => ({ ...(book), ...(mappedBooks[book.id]) }))
+
+        cb(mergedBooks)
+      }, bookIds)
+    }, bookIds)
+  }
+
+  updateBookForUser(userRef: string, userId: string, book) {
     this.userBooksRef(userRef).query.orderByChild('id').equalTo(book.id).once('value', (snap) => {
       const ref = Object.keys(snap.val())[0]
       const oldBook = snap.val()[ref]
@@ -100,7 +122,7 @@ export class DatabaseService {
     })
   }
 
-  deleteBookFromCollection(userId, book) {
+  deleteBookFromCollection(userId: string, book) {
     // Get collections of user
     this.collections.query.orderByChild('owner').equalTo(userId).once('value', (snap) => {
       // Map object to array
@@ -123,7 +145,7 @@ export class DatabaseService {
     })
   }
 
-  deleteBook({ userRef, userId }, book) {
+  deleteBook(userRef: string, userId: string, book) {
     this.books.query.orderByChild('id').equalTo(book.id).on('value', (snap) => {
       if (!snap.val()) { return }
       const ref = Object.keys(snap.val())[0]
@@ -141,45 +163,9 @@ export class DatabaseService {
     this.deleteBookFromCollection(userId, book)
   }
 
-  deleteCollection({ userRef, userId }, collection) {
-    this.collections.query.orderByChild('id').equalTo(collection.id).on('value', (snap) => {
-      if (!snap.val()) { return }
-      // tslint:disable-next-line:no-shadowed-variable
-      const ref = Object.keys(snap.val())[0]
-
-      this.db.object(`collections/${ref}`).remove()
-    })
-
-    this.userCollectionsRef(userRef).query.orderByValue().equalTo(collection.id).on('value', (snap) => {
-      if (!snap.val()) { return }
-      const ref = Object.keys(snap.val())[0]
-      this.db.object(`users/${userRef}/collections/${ref}`).remove()
-    })
-    // TODO: Remove collections from books
-  }
-
-  postBookForCollection(userId, book) {
-    // Get collections of user
-    this.collections.query.orderByChild('owner').equalTo(userId).once('value', (snap) => {
-      // Map object to array
-      let collections = Object.keys(snap.val()).map((key) => ({ ...(snap.val()[key]), ref: key }))
-
-      if (book.collections) {
-        collections = collections.filter((collection) => book.collections.includes(collection['title']))
-        collections.forEach((collection) => {
-          // Add to collection
-          this.db.list(`collections/${collection.ref}/books`).push(book.id)
-        })
-      }
-    })
-  }
-
-  postBookForUser({ userRef, userId }, book) {
-    book['id'] = random.uuid()
-    this.postBook(filterBook(book))
-    this.userBooksRef(userRef).push(filterBookForUser(book))
-
-    this.postBookForCollection(userId, book)
+  /** COLLECTION **/
+  private postCollection(collection: Collection) {
+    this.collections.push({ id: random.uuid(), ...(collection) })
   }
 
   postCollectionForUser(userRef: string, collection) {
@@ -188,31 +174,20 @@ export class DatabaseService {
     this.postCollection(collection)
   }
 
-  getBooksForUser(userRef: string, cb, bookIds: number[] = []) {
-    // Join books and user books
-    this.userBooksRef(userRef).valueChanges().subscribe((userBooks) => {
-      // Map array to object where keys are the book ids and values are the books
-      const mappedBooks = userBooks.reduce((obj, book) => (obj[book['id']] = book, obj), {})
-
-      this.getBooksByIds(Object.keys(mappedBooks), (books) => {
-        let mergedBooks = books.map((book) => ({ ...(book), ...(mappedBooks[book['id']]) }))
-
-        if (bookIds.length > 0) {
-          mergedBooks = mergedBooks.filter((book) => bookIds.includes(book['id']))
-        }
-        cb(mergedBooks)
-      })
+  findCollectionById(id: string, cb) {
+    this.collections.query.orderByChild('id').equalTo(id).once('value', (snap) => {
+      cb(objectToArray(snap.val())[0])
     })
   }
 
-  getCollectionsForUser({ userRef, userId }, cb) {
+  getCollectionsForUser(userRef: string, userId: string, cb) {
     // Map collections and books for user
     this.collections.query.orderByChild('owner').equalTo(userId).on('value', (snap) => {
       if (snap.val() === null) { return }
 
       const collections = objectToArray(snap.val())
 
-      this.getBooksForUser(userRef, (books) => {
+      this.getBooksForUserByIds(userRef, (books) => {
         const mappedCollections = collections.map((collection) => {
           const collectionBooks = objectToArray(collection.books)
 
@@ -227,5 +202,30 @@ export class DatabaseService {
         cb(mappedCollections)
       })
     })
+  }
+
+  updateCollection(collection) {
+    this.collections.query.orderByChild('id').equalTo(collection.id).once('value', (snap) => {
+      const ref = Object.keys(snap.val())[0]
+      this.db.object(`collections/${ref}/title`).set(collection.title)
+      this.db.object(`collections/${ref}/description`).set(collection.description)
+    })
+  }
+
+  deleteCollection(userRef: string, userId: string, collection) {
+    this.collections.query.orderByChild('id').equalTo(collection.id).on('value', (snap) => {
+      if (!snap.val()) { return }
+      // tslint:disable-next-line:no-shadowed-variable
+      const ref = Object.keys(snap.val())[0]
+
+      this.db.object(`collections/${ref}`).remove()
+    })
+
+    this.userCollectionsRef(userRef).query.orderByValue().equalTo(collection.id).on('value', (snap) => {
+      if (!snap.val()) { return }
+      const ref = Object.keys(snap.val())[0]
+      this.db.object(`users/${userRef}/collections/${ref}`).remove()
+    })
+    // TODO: Remove collections from books
   }
 }
