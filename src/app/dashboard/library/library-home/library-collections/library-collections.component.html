@@ -8,7 +8,7 @@
         <a href="javascript:void(0);" routerLink="./{{collection.id}}/edit">
           <i class="pe-7s-note" style="font-size: 0.8em;"></i>
         </a>
-        <a href="javascript:void(0);">
+        <a href="" data-toggle="modal" data-target="#deleteCollection" (click)="selectedCollection = collection">
           <i class="pe-7s-close-circle" style="font-size: 0.8em;"></i>
         </a>
       </h4>
@@ -26,3 +26,12 @@
     </ng-container>
   </div><!-- !Row -->
 </ng-container>
+
+<modal
+  identifier="deleteCollection"
+  title="Are you sure you want to delete {{selectedCollection.title}}?"
+  content="This collection will be removed permanently from your library. All books related to this collection will be kept."
+  cancel="Cancel"
+  accept="Accept"
+  [onAccept]="deleteCollection.bind(this)"
+></modal>

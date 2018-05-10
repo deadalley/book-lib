@@ -34,6 +34,7 @@ import { LibraryService } from '../../library.service'
 export class LibraryCollectionsComponent implements OnInit {
   orderingMethod = 'title'
   collections: Collection[]
+  selectedCollection = { } as Collection
 
   constructor(private libraryService: LibraryService) {
     libraryService.collections$.subscribe((collections) => this.collections = collections)
@@ -41,4 +42,8 @@ export class LibraryCollectionsComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+  deleteCollection() {
+    this.libraryService.deleteCollection(this.selectedCollection)
+  }
 }
