@@ -124,7 +124,6 @@ export class LibraryEditBookComponent implements OnInit {
 
     this.libraryService.updateBook(this.book)
     this.router.navigate(['../../'], { relativeTo: this.route })
-    this.location.back()
   }
 
   getGenres(genres: Array<string>) {

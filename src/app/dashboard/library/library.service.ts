@@ -97,6 +97,6 @@ export class LibraryService {
   }
 
   deleteCollection(collection) {
-    this.database.deleteCollection(this._owner.ref, this._owner.id,  collection)
+    this.database.deleteCollection(this._owner.ref, collection)
   }
 }
