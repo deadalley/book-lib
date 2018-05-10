@@ -61,12 +61,21 @@ export class LibraryService {
 
   addBook(book: Book) {
     if (book.collections) { this.mapCollectionTitleToId(book) }
-    this.database.postBookForUser(this._owner.ref, this._owner.id, book)
+    this.database.postBookForUser(this._owner.ref, book)
+  }
+
+  findBook(id: string) {
+    this.database.findBookForUserById(this._owner.ref, id, (book) => this.book.next(book))
+    return this.book$
   }
 
   updateBook(book) {
     if (book.collections) { this.mapCollectionTitleToId(book) }
-    this.database.updateBookForUser(this._owner.ref, this._owner.id, book)
+    this.database.updateBookForUser(this._owner.ref, book)
+  }
+
+  deleteBook(book: Book) {
+    this.database.deleteBook(this._owner.ref, book)
   }
 
   addCollection(collection: Collection) {
@@ -76,15 +85,6 @@ export class LibraryService {
       books: collection.books.map((book) => book.id),
       description: collection.description
     })
-  }
-
-  findBook(id: string) {
-    this.database.findBookForUserById(this._owner.ref, id, (book) => this.book.next(book))
-    return this.book$
-  }
-
-  deleteBook(book: Book) {
-    this.database.deleteBook(this._owner.ref, this._owner.id, book)
   }
 
   findCollection(id: string) {
