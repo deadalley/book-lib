@@ -2,13 +2,13 @@ import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition
 import { FormControl , FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Location } from '@angular/common'
 import { Collection } from '../../../../interfaces/collection'
-import { LibraryService } from '../library.service';
+import { LibraryService } from '../library.service'
 
 @Component({
   moduleId: module.id,
-  selector: 'library-add-collection',
-  templateUrl: 'library-add-collection.component.html',
-  styleUrls: ['./library-add-collection.component.css'],
+  selector: 'library-edit-collection',
+  templateUrl: 'library-edit-collection.component.html',
+  styleUrls: ['./library-edit-collection.component.css'],
   animations: [
     trigger('cardaddbook', [
       state('*', style({
@@ -35,6 +35,9 @@ import { LibraryService } from '../library.service';
 export class LibraryAddCollectionComponent implements OnInit {
   form: FormGroup
   collection: Collection
+  title = 'Add new collection'
+  description = 'Add a new collection to your library'
+  button = 'Add collection'
 
   constructor(private fb: FormBuilder, private location: Location, private libraryService: LibraryService) {
     this.form = this.fb.group({
@@ -45,8 +48,9 @@ export class LibraryAddCollectionComponent implements OnInit {
 
   ngOnInit() { }
 
-  addCollection(formValues) {
+  submit(formValues) {
     this.collection = {
+      id: '',
       title: formValues.title,
       description: formValues.description,
       books: []

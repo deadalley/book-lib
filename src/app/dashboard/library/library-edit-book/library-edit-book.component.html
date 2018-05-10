@@ -5,7 +5,7 @@
 		<p class="category" placement="bottom">{{description}}</p>
 	</div>
 	<div class="content">
-		<form [formGroup]="form" (ngSubmit)="addBook(form.value)">
+		<form [formGroup]="form" (ngSubmit)="submit(form.value)">
 			<!-- Image -->
 			<div class="image book-image" *ngIf="fromGoodreads">
 				<img src="/assets/img/lc01.jpg" alt="Book cover">

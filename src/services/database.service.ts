@@ -43,6 +43,12 @@ export class DatabaseService {
     }, [bookId])
   }
 
+  findCollectionById(id: string, cb) {
+    this.collections.query.orderByChild('id').equalTo(id).once('value', (snap) => {
+      cb(objectToArray(snap.val())[0])
+    })
+  }
+
   getBooksByIds(ids: string[], cb) {
     this.books.valueChanges().subscribe((books) => cb(ids ? books.filter((book) => ids.includes(book['id'])) : []))
   }
@@ -57,6 +63,14 @@ export class DatabaseService {
 
   private postCollection(collection: Collection) {
     this.collections.push({ id: random.uuid(), ...(collection) })
+  }
+
+  updateCollection(collection) {
+    this.collections.query.orderByChild('id').equalTo(collection.id).once('value', (snap) => {
+      const ref = Object.keys(snap.val())[0]
+      this.db.object(`collections/${ref}/title`).set(collection.title)
+      this.db.object(`collections/${ref}/description`).set(collection.description)
+    })
   }
 
   updateBookForUser({ userRef, userId }, book) {
@@ -186,6 +200,7 @@ export class DatabaseService {
           const collectionBooks = objectToArray(collection.books)
 
           return {
+            id: collection['id'],
             title: collection['title'],
             books: collection['books'] ? books.filter((book) => collectionBooks.includes(book['id'])) : [],
             description: collection['description']
