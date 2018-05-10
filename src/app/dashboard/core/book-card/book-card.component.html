@@ -26,31 +26,28 @@
     <!-- Icons -->
     <div class="row" *ngIf="withButtons">
       <div class="col-xs-3">
-        <a href="javascript:void(0);" (click) = "book.owned = !book.owned">
         <i class="pe-7s-check tile-icon"
           [ngClass] = "{'pe-7s-check': book.owned, 'pe-7s-gift': !book.owned, 'active': true}"
           tooltip="{{book.owned ? 'Owned' : 'Wishlist'}}"
                 [tooltipDisabled]="false"
                 [tooltipAnimation]="true"
-                tooltipPlacement="bottom"></i></a> <!-- or wishlist!! -->
+                tooltipPlacement="bottom"></i>
       </div>
       <div class="col-xs-3">
-        <a href="javascript:void(0);" (click) = "book.read = !book.read">
         <i class="pe-7s-glasses tile-icon"
           [ngClass] = "{'inactive': !book.read, 'active': book.read}"
           tooltip="{{book.read ? 'Read' : 'Unread'}}"
                 [tooltipDisabled]="false"
                 [tooltipAnimation]="true"
-                tooltipPlacement="bottom"></i></a>
+                tooltipPlacement="bottom"></i>
       </div>
       <div class="col-xs-3">
-        <a href="javascript:void(0);" (click) = "book.favorite = !book.favorite">
         <i class="pe-7s-like tile-icon"
           [ngClass] = "{'inactive': !book.favorite, 'active': book.favorite}"
-          tooltip="{{book.favorite ? 'Favorite' : 'Add to favorite'}}"
+          tooltip="{{book.favorite ? 'Favorite' : 'Not a favorite'}}"
                 [tooltipDisabled]="false"
                 [tooltipAnimation]="true"
-                tooltipPlacement="bottom"></i></a>
+                tooltipPlacement="bottom"></i>
       </div>
       <div class="col-xs-3">
         <img class="tile-icon"
