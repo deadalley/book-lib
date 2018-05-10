@@ -84,7 +84,7 @@ export class LibraryAddBookComponent implements OnInit {
     this.selectedLanguage = 'Select a language'
   }
 
-  addBook(formValues) {
+  submit(formValues) {
     const newValues = {
       id: random.uuid(),
       date: (new Date()).toISOString().substring(0, 10),

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, trigger, transition, style, animate, group, state } from '@angular/core'
+import { Component, OnInit, Input, trigger, transition, style, animate, state } from '@angular/core'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { Book } from '../../../../../interfaces/book'
 

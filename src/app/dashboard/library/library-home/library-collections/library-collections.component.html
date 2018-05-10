@@ -1,8 +1,28 @@
 <!-- Collections -->
 <ng-container *ngFor="let collection of collections">
-  <library-section
-    [books]="collection.books"
-    [sectionTitle]="collection.title"
-    [description]="collection.description"
-  ></library-section>
+  <!-- Separator -->
+  <div class="row">
+    <div class="col-md-12">
+      <h4 class="title">
+        {{collection.title}}
+        <a href="javascript:void(0);" routerLink="./{{collection.id}}/edit">
+          <i class="pe-7s-note" style="font-size: 0.8em;"></i>
+        </a>
+        <a href="javascript:void(0);">
+          <i class="pe-7s-close-circle" style="font-size: 0.8em;"></i>
+        </a>
+      </h4>
+      <p class="text-muted">{{collection.description}}</p>
+      <hr class="library-hr" *ngIf="sectionTitle">
+    </div>
+  </div>
+  <!-- Row of book cards -->
+  <div class="row" [@cardbooks]>
+    <ng-container *ngFor="let book of collection.books; let i = index;">
+      <div class="clearfix" *ngIf="i % 4 == 0"></div>
+      <div class="col-md-3">
+        <book-card [book]="book"></book-card>
+      </div>
+    </ng-container>
+  </div><!-- !Row -->
 </ng-container>

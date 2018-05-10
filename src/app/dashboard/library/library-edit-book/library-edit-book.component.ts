@@ -108,7 +108,7 @@ export class LibraryEditBookComponent implements OnInit {
 
   ngOnInit() { }
 
-  addBook(formValues) {
+  submit(formValues) {
     const newValues = {
       ...(this.genres.length > 0) && { genres: this.genres },
       ...(this.tags.length > 0) && { tags: this.tags },

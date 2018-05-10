@@ -15,6 +15,7 @@ export class LibraryService {
   private books = new BehaviorSubject<Book[]>([])
   private collections = new BehaviorSubject<Collection[]>([])
   private book = new BehaviorSubject<Book>(undefined)
+  private collection = new BehaviorSubject<Collection>(undefined)
 
   private _owner: User
 
@@ -24,6 +25,7 @@ export class LibraryService {
   collections$ = this.collections.asObservable()
   books$ = this.books.asObservable()
   private book$ = this.book.asObservable()
+  private collection$ = this.collection.asObservable()
 
   constructor(private database: DatabaseService) {
     this._owner = JSON.parse(localStorage.getItem('user'))
@@ -87,5 +89,14 @@ export class LibraryService {
       userRef: this._owner.ref,
       userId: this._owner.id
     }, book)
+  }
+
+  findCollection(id: string) {
+    this.database.findCollectionById(id, (collection) => this.collection.next(collection))
+    return this.collection$
+  }
+
+  updateCollection(collection) {
+    this.database.updateCollection(collection)
   }
 }
