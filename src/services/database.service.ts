@@ -5,7 +5,13 @@ import { User } from '../models/user'
 import { Book } from '../models/book'
 import { Collection } from '../models/collection'
 import { random } from 'faker'
-import { objectToArray, filterBook, filterBookForUser, filterByParam } from '../utils/helpers'
+import {
+  objectToArray,
+  objectToArrayWithRef,
+  filterBook,
+  filterBookForUser,
+  filterByParam
+} from '../utils/helpers'
 import * as firebase from 'firebase/app'
 import * as _ from 'lodash'
 
@@ -44,22 +50,14 @@ export class DatabaseService {
 
   /** BOOK **/
   private postBook(book: Book) {
-    this.books.push({ id: random.uuid(), ...(book) })
+    this.books.push(book)
   }
 
-  postBookForCollection(userId: string, book) {
-    // Get collections of user
-    this.collections.query.orderByChild('owner').equalTo(userId).once('value', (snap) => {
-      // Map object to array
-      let collections = Object.keys(snap.val()).map((key) => ({ ...(snap.val()[key]), ref: key }))
-
-      if (book.collections) {
-        collections = collections.filter((collection) => book.collections.includes(collection['title']))
-        collections.forEach((collection) => {
-          // Add to collection
-          this.db.list(`collections/${collection.ref}/books`).push(book.id)
-        })
-      }
+  private postBookForCollections(book) {
+    this.collections.query.orderByChild('id').once('value', (snap) => {
+      const allCollections = objectToArrayWithRef(snap.val())
+      const collections = filterByParam(allCollections, book.collections, 'id')
+      collections.forEach((collection) => this.db.list(`collections/${collection.ref}/books`).push(book.id))
     })
   }
 
@@ -68,7 +66,7 @@ export class DatabaseService {
     this.postBook(filterBook(book))
     this.userBooksRef(userRef).push(filterBookForUser(book))
 
-    this.postBookForCollection(userId, book)
+    if (book.collections) { this.postBookForCollections(book) }
   }
 
   findBookForUserById(userRef: string, id: string, cb) {
@@ -109,7 +107,7 @@ export class DatabaseService {
       const collectionsToRemove = oldBook.collections.filter((collection) => !book.collections.includes(collection))
 
       if (collectionsToAdd.length > 0 ) {
-        this.postBookForCollection(userId, { id: book.id, collections: collectionsToAdd })
+        this.postBookForCollections({ id: book.id, collections: collectionsToAdd })
       }
 
       if (collectionsToRemove.length > 0) {
@@ -185,11 +183,16 @@ export class DatabaseService {
   getCollectionsForUser(userRef: string, cb, collectionIds?: string[]) {
     // Map collections and books for user
     this.userCollectionsRef(userRef).valueChanges().subscribe((userCollections) => {
-      console.log('usercollections', userCollections)
       this.getCollectionsByIds((collections) => {
         this.getBooksForUser(userRef, (books) => {
-          collections.forEach((collection) => collection.books = filterByParam(books, collection.books, 'id'))
-          console.log(collections)
+          collections.forEach((collection) => {
+            if (!collection.books) {
+              collection.books = []
+              return
+            }
+            collection.books = objectToArray(collection.books)
+            collection.books = filterByParam(books, collection.books, 'id')
+          })
           cb(collections)
         })
       }, userCollections as string[])
