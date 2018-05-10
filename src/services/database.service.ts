@@ -217,10 +217,25 @@ export class DatabaseService {
     })
   }
 
-  deleteCollection(userRef: string, userId: string, collection) {
+  deleteCollection(userRef: string, collection) {
+    const collectionBooks = collection.books.map((book) => book.id)
+    this.userBooksRef(userRef).query.orderByKey().once('value', (snap) => {
+      const books = objectToArrayWithRef(snap.val())
+      books.filter((book) => collectionBooks.includes(book.id))
+           .forEach((book) => {
+              this.db.list(`users/${userRef}/books/${book.ref}/collections`).query
+                .orderByValue()
+                .equalTo(collection.id)
+                .once('value', (_snap) => {
+                  if (!_snap.val()) { return }
+                  const ref = Object.keys(_snap.val())[0]
+                  this.db.object(`users/${userRef}/books/${book.ref}/collections/${ref}`).remove()
+                })
+           })
+    })
+
     this.collections.query.orderByChild('id').equalTo(collection.id).on('value', (snap) => {
       if (!snap.val()) { return }
-      // tslint:disable-next-line:no-shadowed-variable
       const ref = Object.keys(snap.val())[0]
 
       this.db.object(`collections/${ref}`).remove()
@@ -229,8 +244,8 @@ export class DatabaseService {
     this.userCollectionsRef(userRef).query.orderByValue().equalTo(collection.id).on('value', (snap) => {
       if (!snap.val()) { return }
       const ref = Object.keys(snap.val())[0]
+
       this.db.object(`users/${userRef}/collections/${ref}`).remove()
     })
-    // TODO: Remove collections from books
   }
 }
