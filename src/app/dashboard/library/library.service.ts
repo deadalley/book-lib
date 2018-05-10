@@ -33,6 +33,12 @@ export class LibraryService {
     this.loadCollections()
   }
 
+  private mapCollectionTitleToId(collections) {
+    collections = this.collections.getValue().map((collection) => {
+      if (collections.includes(collection.title)) { return collection.id }
+    })
+  }
+
   private loadBooks() {
     this.database.getBooksForUser(this._owner.ref, (books) => this.books.next(books))
   }
@@ -54,15 +60,12 @@ export class LibraryService {
   }
 
   addBook(book: Book) {
-    const collections = this.collections.getValue()
-    book.collections = collections.map((collection) => {
-      if (book.collections.includes(collection.title)) { return collection.id }
-    })
-    console.log(book.collections)
+    if (book.collections) { this.mapCollectionTitleToId(book.collections) }
     this.database.postBookForUser(this._owner.ref, this._owner.id, book)
   }
 
   updateBook(book) {
+    if (book.collections) { this.mapCollectionTitleToId(book.collections) }
     this.database.updateBookForUser(this._owner.ref, this._owner.id, book)
   }
 

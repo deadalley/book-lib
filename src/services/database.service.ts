@@ -93,6 +93,29 @@ export class DatabaseService {
     }, bookIds)
   }
 
+  private updateBook(book) {
+    this.books.query.orderByChild('id').equalTo(book.id).once('value', (snap) => {
+      const ref = Object.keys(snap.val())[0]
+      this.db.object(`books/${ref}`).set(book)
+    })
+  }
+
+  private updateBookCollections(bookId: string, oldCollections: string[], newCollections: string[]) {
+    if (!newCollections) { newCollections = [] }
+    if (!oldCollections) { oldCollections = [] }
+
+    const collectionsToAdd = newCollections.filter((collection) => !oldCollections.includes(collection))
+    const collectionsToRemove = oldCollections.filter((collection) => !newCollections.includes(collection))
+
+    if (collectionsToAdd.length > 0 ) {
+      this.postBookForCollections({ id: bookId, collections: collectionsToAdd })
+    }
+
+    if (collectionsToRemove.length > 0) {
+      this.deleteBookFromCollection({ id: bookId, collections: collectionsToRemove })
+    }
+  }
+
   updateBookForUser(userRef: string, userId: string, book) {
     this.userBooksRef(userRef).query.orderByChild('id').equalTo(book.id).once('value', (snap) => {
       const ref = Object.keys(snap.val())[0]
@@ -100,46 +123,25 @@ export class DatabaseService {
 
       this.db.object(`users/${userRef}/books/${ref}`).set(filterBookForUser(book))
 
-      if (!book.collections) { book.collections = [] }
-      if (!oldBook.collections) { oldBook.collections = [] }
-
-      const collectionsToAdd = book.collections.filter((collection) => !oldBook.collections.includes(collection))
-      const collectionsToRemove = oldBook.collections.filter((collection) => !book.collections.includes(collection))
-
-      if (collectionsToAdd.length > 0 ) {
-        this.postBookForCollections({ id: book.id, collections: collectionsToAdd })
-      }
-
-      if (collectionsToRemove.length > 0) {
-        this.deleteBookFromCollection(userId, { id: book.id, collections: collectionsToRemove })
-      }
+      this.updateBookCollections(book.id, oldBook.collections, book.collections)
     })
-    this.books.query.orderByChild('id').equalTo(book.id).once('value', (snap) => {
-      const ref = Object.keys(snap.val())[0]
-      this.db.object(`books/${ref}`).set(filterBook(book))
-    })
+    this.updateBook(filterBook(book))
   }
 
-  deleteBookFromCollection(userId: string, book) {
-    // Get collections of user
-    this.collections.query.orderByChild('owner').equalTo(userId).once('value', (snap) => {
-      // Map object to array
-      let collections = Object.keys(snap.val()).map((key) => ({ ...(snap.val()[key]), ref: key }))
-
-      if (book.collections) {
-        collections = collections.filter((collection) => book.collections.includes(collection['title']))
-        collections.forEach((collection) => {
-          // Remove from collection
-          this.db.list(`collections/${collection.ref}/books`).query
-            .orderByValue()
-            .equalTo(book.id)
-            .once('value', (_snap) => {
-              if (!_snap.val()) { return }
-              const ref = Object.keys(_snap.val())[0]
-              this.db.list(`collections/${collection.ref}/books/${ref}`).remove()
-            })
-        })
-      }
+  private deleteBookFromCollection(book) {
+    this.collections.query.orderByChild('id').once('value', (snap) => {
+      const allCollections = objectToArrayWithRef(snap.val())
+      const collections = filterByParam(allCollections, book.collections, 'id')
+      collections.forEach((collection) => {
+        this.db.list(`collections/${collection.ref}/books`).query
+          .orderByValue()
+          .equalTo(book.id)
+          .once('value', (_snap) => {
+            if (!_snap.val()) { return }
+            const ref = Object.keys(_snap.val())[0]
+            this.db.list(`collections/${collection.ref}/books/${ref}`).remove()
+          })
+      })
     })
   }
 
@@ -158,7 +160,7 @@ export class DatabaseService {
       this.db.object(`users/${userRef}/books/${ref}`).remove()
     })
 
-    this.deleteBookFromCollection(userId, book)
+    this.deleteBookFromCollection(book)
   }
 
   /** COLLECTION **/
