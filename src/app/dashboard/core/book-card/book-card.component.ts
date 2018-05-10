@@ -39,4 +39,8 @@ export class BookCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() { }
+
+  formatDate(date: string) {
+    return new Date(date).toLocaleDateString()
+  }
 }

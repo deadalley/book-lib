@@ -10,6 +10,7 @@ export class BookOrderPipe implements PipeTransform {
     const orderedItems = { }
 
     books.forEach((book) => {
+      if (orderingMethod === 'date') { book.date = new Date(book.date).toLocaleDateString() }
       if (Object.keys(orderedItems).includes(book[orderingMethod])) {
         orderedItems[book[orderingMethod]].push(book)
       } else {
