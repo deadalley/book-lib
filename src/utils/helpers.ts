@@ -59,3 +59,7 @@ export const filterBookForUser = (book) =>
     'notes',
     'rating'
   ])
+
+export const filterByParam = (array: Array<any>, filter: Array<any>, param: string) => {
+  return filter ? array.filter((item) => filter.includes(item[param])) : array
+}

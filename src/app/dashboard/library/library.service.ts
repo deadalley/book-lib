@@ -38,7 +38,7 @@ export class LibraryService {
   }
 
   private loadCollections() {
-    this.database.getCollectionsForUser(this._owner.ref, this._owner.id, (collections) => this.collections.next(collections) )
+    this.database.getCollectionsForUser(this._owner.ref, (collections) => this.collections.next(collections) )
   }
 
   toggleTilesDisplay(toggle: boolean) {
