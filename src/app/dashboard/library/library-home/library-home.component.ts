@@ -10,10 +10,12 @@ import { LibraryService } from '../library.service'
 
 export class LibraryHomeComponent implements OnInit {
   hasBooks = false
+  isLoading = true
 
   constructor(libraryService: LibraryService) {
     libraryService.books$.subscribe((books) => {
       if (!books) { return }
+      this.isLoading = false
       return this.hasBooks = books.length > 0
     })
    }

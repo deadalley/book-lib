@@ -1,4 +1,5 @@
-<page-navigator>
+<loading [visible]="isLoading"></loading>
+<page-navigator *ngIf="!isLoading">
 	<div class="card" [@cardaddbook]>
 		<div class="header">
 			<h4 class="title">{{title}}</h4>
