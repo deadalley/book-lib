@@ -62,7 +62,7 @@ export class DatabaseService {
     })
   }
 
-  postBookForUser(userRef: string, userId: string, book) {
+  postBookForUser(userRef: string, book) {
     book['id'] = random.uuid()
     this.postBook(filterBook(book))
     this.userBooksRef(userRef).push(filterBookForUser(book))
@@ -124,7 +124,7 @@ export class DatabaseService {
     }
   }
 
-  updateBookForUser(userRef: string, userId: string, book) {
+  updateBookForUser(userRef: string, book) {
     this.userBooksRef(userRef).query.orderByChild('id').equalTo(book.id).once('value', (snap) => {
       const ref = Object.keys(snap.val())[0]
       const oldBook = snap.val()[ref]
@@ -153,7 +153,7 @@ export class DatabaseService {
     })
   }
 
-  deleteBook(userRef: string, userId: string, book) {
+  deleteBook(userRef: string, book) {
     this.books.query.orderByChild('id').equalTo(book.id).on('value', (snap) => {
       if (!snap.val()) { return }
       const ref = Object.keys(snap.val())[0]
