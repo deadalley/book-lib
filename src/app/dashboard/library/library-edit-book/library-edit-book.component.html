@@ -7,8 +7,11 @@
 		<div class="content">
 			<form [formGroup]="form" (ngSubmit)="submit(form.value)">
 				<!-- Image -->
-				<div class="image book-image" *ngIf="fromGoodreads">
-					<img src="/assets/img/lc01.jpg" alt="Book cover">
+				<div class="image book-image">
+          <img
+            [src]="book.image_large ? book.image_large : (book.image_small ? book.image_small : '/assets/img/no-book-cover.png')"
+            alt="Book cover"
+          >
 				</div>
 				<!-- Summary -->
 				<div id="book-summary" *ngIf="fromGoodreads">

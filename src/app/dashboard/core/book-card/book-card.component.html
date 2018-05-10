@@ -13,7 +13,7 @@
     <div class="image">
       <a href="javascript:void(0);" routerLink="../books/{{book.id}}">
         <img
-          [src]="book.hasOwnProperty('image_large') ? book.image_large : book.image_small"
+          [src]="book.image_large ? book.image_large : (book.image_small ? book.image_small : '/assets/img/no-book-cover.png')"
           alt="Book cover"
         >
         <!--<img src="{{book.image_large}}" alt="Book cover">-->
