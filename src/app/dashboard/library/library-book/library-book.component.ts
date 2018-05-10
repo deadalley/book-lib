@@ -54,5 +54,6 @@ export class LibraryBookComponent implements OnInit {
 
   deleteBook() {
     this.libraryService.deleteBook(this.book)
+    this.location.back()
   }
 }

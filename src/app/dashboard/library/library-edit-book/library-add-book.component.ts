@@ -12,7 +12,7 @@ import { Router } from '@angular/router'
 
 @Component({
   moduleId: module.id,
-  selector: 'library-edit-book',
+  selector: 'library-add-book',
   templateUrl: 'library-edit-book.component.html',
   styleUrls: ['./library-edit-book.component.css'],
   animations: [
@@ -51,6 +51,7 @@ export class LibraryAddBookComponent implements OnInit {
   description = 'Add a new book to your library or wishlist'
   button = 'Add book'
   fromGoodreads = false
+  showImage = false
 
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
@@ -72,6 +73,8 @@ export class LibraryAddBookComponent implements OnInit {
       year: [0, Validators.min(0)],
       pages: [0, Validators.min(0)],
       notes: '',
+      image_large: '',
+      image_small: '',
       rating: 0
     })
   }
@@ -98,10 +101,7 @@ export class LibraryAddBookComponent implements OnInit {
 
     Object.assign(this.book, newValues)
 
-    // this.collections.forEach((collection) => collection.books.push(this.book))
-
     console.log('Adding book', this.book)
-    // console.log('Collections', this.collections)
 
     this.libraryService.addBook(this.book)
     this.location.back()
