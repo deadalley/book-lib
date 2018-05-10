@@ -24,6 +24,7 @@ const libraryRoutes: Routes = [
     { path: 'books/new', component: LibraryAddBookComponent, pathMatch: 'full' },
     { path: 'books/:id', component: LibraryBookComponent },
     { path: 'books/:id/edit', component: LibraryEditBookComponent },
+    { path: 'books/collections/new', redirectTo: 'collections/new' },
     // { path: '**', redirectTo: '', pathMatch: 'full' }
   ]}
 ]
