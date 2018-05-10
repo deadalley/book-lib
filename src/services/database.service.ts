@@ -5,7 +5,7 @@ import { User } from '../models/user'
 import { Book } from '../models/book'
 import { Collection } from '../models/collection'
 import { random } from 'faker'
-import { objectToArray, filterBook, filterBookForUser } from '../utils/helpers'
+import { objectToArray, filterBook, filterBookForUser, filterByParam } from '../utils/helpers'
 import * as firebase from 'firebase/app'
 import * as _ from 'lodash'
 
@@ -71,16 +71,16 @@ export class DatabaseService {
     this.postBookForCollection(userId, book)
   }
 
-  findBookForUserById(userRef: string, bookId: string, cb) {
-    this.getBooksForUserByIds(userRef, (books) => cb(books[0]), [bookId])
+  findBookForUserById(userRef: string, id: string, cb) {
+    this.getBooksForUserByIds(userRef, (books) => cb(books[0]), [id])
   }
 
   private getBooksByIds(cb, ids?: string[]) {
-    this.books.valueChanges().subscribe((books) => cb(ids ? books.filter((book) => ids.includes(book['id'])) : books))
+    this.books.valueChanges().subscribe((books) => cb(filterByParam(books, ids, 'id')))
   }
 
   private getBooksForUserByIds(userRef: string, cb, ids?: string[]) {
-    this.userBooksRef(userRef).valueChanges().subscribe((books) => cb(ids ? books.filter((book) => ids.includes(book['id'])) : books))
+    this.userBooksRef(userRef).valueChanges().subscribe((books) => cb(filterByParam(books, ids, 'id')))
   }
 
   getBooksForUser(userRef: string, cb, bookIds?: string[]) {
@@ -175,32 +175,24 @@ export class DatabaseService {
   }
 
   findCollectionById(id: string, cb) {
-    this.collections.query.orderByChild('id').equalTo(id).once('value', (snap) => {
-      cb(objectToArray(snap.val())[0])
-    })
+    this.getCollectionsByIds((collections) => cb(collections[0]), [id])
   }
 
-  getCollectionsForUser(userRef: string, userId: string, cb) {
+  getCollectionsByIds(cb, ids?: string[]) {
+    this.collections.valueChanges().subscribe((collections) => cb(filterByParam(collections, ids, 'id')))
+  }
+
+  getCollectionsForUser(userRef: string, cb, collectionIds?: string[]) {
     // Map collections and books for user
-    this.collections.query.orderByChild('owner').equalTo(userId).on('value', (snap) => {
-      if (snap.val() === null) { return }
-
-      const collections = objectToArray(snap.val())
-
-      this.getBooksForUserByIds(userRef, (books) => {
-        const mappedCollections = collections.map((collection) => {
-          const collectionBooks = objectToArray(collection.books)
-
-          return {
-            id: collection['id'],
-            title: collection['title'],
-            books: collection['books'] ? books.filter((book) => collectionBooks.includes(book['id'])) : [],
-            description: collection['description']
-          }
+    this.userCollectionsRef(userRef).valueChanges().subscribe((userCollections) => {
+      console.log('usercollections', userCollections)
+      this.getCollectionsByIds((collections) => {
+        this.getBooksForUser(userRef, (books) => {
+          collections.forEach((collection) => collection.books = filterByParam(books, collection.books, 'id'))
+          console.log(collections)
+          cb(collections)
         })
-
-        cb(mappedCollections)
-      })
+      }, userCollections as string[])
     })
   }
 
