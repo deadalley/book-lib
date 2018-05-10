@@ -1,0 +1,14 @@
+<div id="nav-top" class="row justify-content-between">
+  <div class="col-xs-6">
+    <a href="javascript:void(0);" (click)="this.location.back();">← Return</a>
+  </div>
+  <div class="col-xs-6" align="right">
+    <a href="javascript:void(0);" (click)="scrollToAnchor('nav-bottom', 100)">↓ Bottom</a>
+  </div>
+</div>
+<ng-content></ng-content>
+<div id="nav-bottom" class="row justify-content-end">
+  <div class="col-xs-12" align="right">
+    <a href="javascript:void(0);" (click)="scrollToAnchor('nav-top', 100)">↑ Top</a>
+  </div>
+</div>

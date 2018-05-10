@@ -8,7 +8,7 @@ import { Book } from '../../../../interfaces/book'
 import Languages from '../../../../utils/languages'
 import { cleanFormValues } from '../../../../utils/helpers'
 import { LibraryService } from '../library.service'
-import { Router } from '@angular/router';
+import { Router } from '@angular/router'
 
 @Component({
   moduleId: module.id,
