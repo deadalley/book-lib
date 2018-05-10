@@ -30,6 +30,11 @@ export const objectToArray = (object: object) => {
   return Object.keys(object).map((key) => object[key])
 }
 
+export const objectToArrayWithRef = (object: object) => {
+  if (!object) { return }
+  return Object.keys(object).map((key) => ({ ...(object[key]), ref: key }))
+}
+
 export const filterBook = (book) =>
   _.pick(book, [
     'id',

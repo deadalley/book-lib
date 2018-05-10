@@ -54,6 +54,11 @@ export class LibraryService {
   }
 
   addBook(book: Book) {
+    const collections = this.collections.getValue()
+    book.collections = collections.map((collection) => {
+      if (book.collections.includes(collection.title)) { return collection.id }
+    })
+    console.log(book.collections)
     this.database.postBookForUser(this._owner.ref, this._owner.id, book)
   }
 
