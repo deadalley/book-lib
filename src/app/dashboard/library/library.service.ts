@@ -38,10 +38,7 @@ export class LibraryService {
   }
 
   private loadCollections() {
-    this.database.getCollectionsForUser({
-      userRef: this._owner.ref,
-      userId: this._owner.id
-    }, (collections) => this.collections.next(collections) )
+    this.database.getCollectionsForUser(this._owner.ref, this._owner.id, (collections) => this.collections.next(collections) )
   }
 
   toggleTilesDisplay(toggle: boolean) {
@@ -57,17 +54,11 @@ export class LibraryService {
   }
 
   addBook(book: Book) {
-    this.database.postBookForUser({
-      userRef: this._owner.ref,
-      userId: this._owner.id
-    }, book)
+    this.database.postBookForUser(this._owner.ref, this._owner.id, book)
   }
 
   updateBook(book) {
-    this.database.updateBookForUser({
-      userRef: this._owner.ref,
-      userId: this._owner.id
-    }, book)
+    this.database.updateBookForUser(this._owner.ref, this._owner.id, book)
   }
 
   addCollection(collection: Collection) {
@@ -80,15 +71,12 @@ export class LibraryService {
   }
 
   findBook(id: string) {
-    this.database.findBookById({ userRef: this._owner.ref, bookId: id}, (book) => this.book.next(book))
+    this.database.findBookForUserById(this._owner.ref, id, (book) => this.book.next(book))
     return this.book$
   }
 
   deleteBook(book: Book) {
-    this.database.deleteBook({
-      userRef: this._owner.ref,
-      userId: this._owner.id
-    }, book)
+    this.database.deleteBook(this._owner.ref, this._owner.id, book)
   }
 
   findCollection(id: string) {
@@ -101,9 +89,6 @@ export class LibraryService {
   }
 
   deleteCollection(collection) {
-    this.database.deleteCollection({
-      userRef: this._owner.ref,
-      userId: this._owner.id
-    }, collection)
+    this.database.deleteCollection(this._owner.ref, this._owner.id,  collection)
   }
 }
