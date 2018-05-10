@@ -9,13 +9,15 @@ import { BookCardComponent } from './book-card/book-card.component'
 import { BookTagsComponent } from './book-tags/book-tags.component'
 import { BookButtonsComponent } from './book-buttons/book-buttons.component'
 import { ModalComponent } from './modal/modal.component'
+import { PageNavigatorComponent } from './page-navigator/page-navigator.component'
 
 @NgModule({
   declarations: [
     BookCardComponent,
     BookTagsComponent,
     BookButtonsComponent,
-    ModalComponent
+    ModalComponent,
+    PageNavigatorComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { ModalComponent } from './modal/modal.component'
     BookCardComponent,
     BookTagsComponent,
     BookButtonsComponent,
-    ModalComponent
+    ModalComponent,
+    PageNavigatorComponent
   ]
 })
 export class CoreModule { }

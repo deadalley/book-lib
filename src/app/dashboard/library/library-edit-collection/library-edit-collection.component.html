@@ -1,30 +1,31 @@
-<a href="javascript:void(0);" (click)="this.location.back();">← Return</a>
-<div class="card" [@cardaddbook]>
-	<div class="header">
-		<h4 class="title">{{title}}</h4>
-		<p class="category" placement="bottom">{{description}}</p>
-	</div>
-	<div class="content">
-		<form [formGroup]="form" (ngSubmit)="submit(form.value)">
-			<div class="row">
-				<div class="col-xs-12">
-					<!-- Title -->
-          <div class="form-group" [ngClass] = "{'has-error': !form.controls['title'].valid && form.controls['title'].touched}">
-            <label>Collection Title *</label>
-            <input type="text" class="form-control" placeholder="Your version title" formControlName="title">
-            <span class="help-block" *ngIf="!form.controls['title'].valid && form.controls['title'].touched">Please enter a valid title.</span>
+<page-navigator>
+  <div class="card" [@cardaddbook]>
+    <div class="header">
+      <h4 class="title">{{title}}</h4>
+      <p class="category" placement="bottom">{{description}}</p>
+    </div>
+    <div class="content">
+      <form [formGroup]="form" (ngSubmit)="submit(form.value)">
+        <div class="row">
+          <div class="col-xs-12">
+            <!-- Title -->
+            <div class="form-group" [ngClass] = "{'has-error': !form.controls['title'].valid && form.controls['title'].touched}">
+              <label>Collection Title *</label>
+              <input type="text" class="form-control" placeholder="Your version title" formControlName="title">
+              <span class="help-block" *ngIf="!form.controls['title'].valid && form.controls['title'].touched">Please enter a valid title.</span>
+            </div>
           </div>
-				</div>
-			</div>
-			<!-- Description -->
-			<div class="form-group">
-				<label>Description</label>
-				<textarea formControlName="description" rows="3" class="form-control" placeholder="What is this collection about?" value=""></textarea>
-			</div>
-			<hr>
-			<div style="text-align: center;">
-				<button type="submit" class="btn btn-default" [disabled]="!form.valid">{{button}}</button>
-			</div>
-		</form>
-	</div>
-</div>
+        </div>
+        <!-- Description -->
+        <div class="form-group">
+          <label>Description</label>
+          <textarea formControlName="description" rows="3" class="form-control" placeholder="What is this collection about?" value=""></textarea>
+        </div>
+        <hr>
+        <div style="text-align: center;">
+          <button type="submit" class="btn btn-default" [disabled]="!form.valid">{{button}}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</page-navigator>

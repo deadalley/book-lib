@@ -1,140 +1,141 @@
-<a href="javascript:void(0);" (click)="this.location.back();">← Return</a>
-<div class="card" [@cardbook]>
-	<div class="header">
-		<h4 class="title">{{book.title}}</h4>
-		<p class="category" placement="bottom"><a href="javascript:void(0);">{{book.author}}</a></p>
-	</div>
-	<div class="content">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="image book-image">
-          <img
-            [src]="book.hasOwnProperty('image_large') ? book.image_large : book.image_small"
-            alt="Book cover"
-          >
+<page-navigator>
+  <div class="card" [@cardbook]>
+    <div class="header">
+      <h4 class="title">{{book.title}}</h4>
+      <p class="category" placement="bottom"><a href="javascript:void(0);">{{book.author}}</a></p>
+    </div>
+    <div class="content">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="image book-image">
+            <img
+              [src]="book.hasOwnProperty('image_large') ? book.image_large : book.image_small"
+              alt="Book cover"
+            >
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-xs-12">
+              <label>Original title:</label>
+              <p [ngClass]="{'unavailable': !book.original }">
+                {{book.original ? book.original : 'Not available' }}
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 col-xs-6">
+              <label>Publisher:</label>
+              <p [ngClass]="{'unavailable': !book.publisher }">
+                {{book.publisher ? book.publisher : 'Not available' }}
+              </p>
+            </div>
+            <div class="col-md-12 col-xs-6">
+              <label>Language:</label>
+              <p [ngClass]="{'unavailable': !book.language }">
+                {{book.language ? book.language : 'Not available'}}
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 col-xs-3">
+              <label>Year</label>
+              <p [ngClass]="{'unavailable': !book.year }">{{book.year ? book.year : 'Not available'}}</p>
+            </div>
+            <div class="col-md-2 col-xs-3">
+              <label>Pages</label>
+              <p [ngClass]="{'unavailable': !book.pages }">{{book.pages ? book.pages : 'Not available'}}</p>
+            </div>
+            <div class="col-md-8 col-xs-6">
+              <label>Rating</label><br>
+              <rating [(ngModel)]="book.rating" [readonly]="true" [float]="true"></rating>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <label>About</label>
+            </div>
+            <div class="col-xs-3" style="text-align: center">
+              <i class="pe-7s-check about-icon" [ngClass]="{'about-icon-unavailable': !book.owned }"></i>
+              <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.owned }">Owned</div>
+            </div>
+            <div class="col-xs-3" style="text-align: center">
+              <i class="pe-7s-gift about-icon" [ngClass]="{'about-icon-unavailable': !!book.owned }"></i>
+              <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !!book.owned }">Wishlist</div>
+            </div>
+            <div class="col-xs-3" style="text-align: center">
+              <i class="pe-7s-glasses about-icon" [ngClass]="{'about-icon-unavailable': !book.read }"></i>
+              <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.read }">Read</div>
+            </div>
+            <div class="col-xs-3" style="text-align: center">
+              <i class="pe-7s-like about-icon" [ngClass]="{'about-icon-unavailable': !book.favorite }"></i>
+              <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.favorite }">Favorite</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <label>Collections</label>
+              <div>
+                <p *ngIf="!book.collections" [ngClass]="{'unavailable': !book.collections }">
+                  No collections
+                </p>
+                <ng-container *ngFor="let collection of book.collections; let lastItem = last">
+                  <i class="pe-7s-notebook"></i>
+                  <a href="javascrip:void(0);"> {{collection}}</a>
+                  {{lastItem ? '' : ', '}}
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <label>Genres</label>
+              <div>
+                <p *ngIf="!book.genres" [ngClass]="{'unavailable': !book.genres }">
+                  No genres
+                </p>
+                <ng-container *ngFor="let genre of book.genres; let lastItem = last">
+                  <i class="pe-7s-folder"></i>
+                  <a href="javascrip:void(0);"> {{genre}}</a>
+                  {{lastItem ? '' : ', '}}
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <label>Tags</label>
+              <div>
+                <p *ngIf="!book.tags" [ngClass]="{'unavailable': !book.tags }">
+                  No tags
+                </p>
+                <ng-container *ngFor="let tag of book.tags; let lastItem = last">
+                  <i class="pe-7s-ticket"></i>
+                  <a href="javascrip:void(0);"> {{tag}}</a>
+                  {{lastItem ? '' : ', '}}
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <label>Notes</label>
+              <p [ngClass]="{'unavailable': !book.notes }">{{book.notes ? book.notes : 'Not available'}}</p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="row">
-          <div class="col-xs-12">
-            <label>Original title:</label>
-            <p [ngClass]="{'unavailable': !book.original }">
-              {{book.original ? book.original : 'Not available' }}
-            </p>
-          </div>
+      <div class="row">
+        <div class="col-xs-1" style="float: right">
+          <button type="button" class="btn btn-default" style="float: right" routerLink="./edit">Edit</button>
         </div>
-        <div class="row">
-          <div class="col-md-12 col-xs-6">
-            <label>Publisher:</label>
-            <p [ngClass]="{'unavailable': !book.publisher }">
-              {{book.publisher ? book.publisher : 'Not available' }}
-            </p>
-          </div>
-          <div class="col-md-12 col-xs-6">
-            <label>Language:</label>
-            <p [ngClass]="{'unavailable': !book.language }">
-              {{book.language ? book.language : 'Not available'}}
-            </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-2 col-xs-3">
-            <label>Year</label>
-            <p [ngClass]="{'unavailable': !book.year }">{{book.year ? book.year : 'Not available'}}</p>
-          </div>
-          <div class="col-md-2 col-xs-3">
-            <label>Pages</label>
-            <p [ngClass]="{'unavailable': !book.pages }">{{book.pages ? book.pages : 'Not available'}}</p>
-          </div>
-          <div class="col-md-8 col-xs-6">
-            <label>Rating</label><br>
-            <rating [(ngModel)]="book.rating" [readonly]="true" [float]="true"></rating>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <label>About</label>
-          </div>
-          <div class="col-xs-3" style="text-align: center">
-            <i class="pe-7s-check about-icon" [ngClass]="{'about-icon-unavailable': !book.owned }"></i>
-            <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.owned }">Owned</div>
-          </div>
-          <div class="col-xs-3" style="text-align: center">
-            <i class="pe-7s-gift about-icon" [ngClass]="{'about-icon-unavailable': !!book.owned }"></i>
-            <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !!book.owned }">Wishlist</div>
-          </div>
-          <div class="col-xs-3" style="text-align: center">
-            <i class="pe-7s-glasses about-icon" [ngClass]="{'about-icon-unavailable': !book.read }"></i>
-            <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.read }">Read</div>
-          </div>
-          <div class="col-xs-3" style="text-align: center">
-            <i class="pe-7s-like about-icon" [ngClass]="{'about-icon-unavailable': !book.favorite }"></i>
-            <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.favorite }">Favorite</div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <label>Collections</label>
-            <div>
-              <p *ngIf="!book.collections" [ngClass]="{'unavailable': !book.collections }">
-                No collections
-              </p>
-              <ng-container *ngFor="let collection of book.collections; let lastItem = last">
-                <i class="pe-7s-notebook"></i>
-                <a href="javascrip:void(0);"> {{collection}}</a>
-                {{lastItem ? '' : ', '}}
-              </ng-container>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <label>Genres</label>
-            <div>
-              <p *ngIf="!book.genres" [ngClass]="{'unavailable': !book.genres }">
-                No genres
-              </p>
-              <ng-container *ngFor="let genre of book.genres; let lastItem = last">
-                <i class="pe-7s-folder"></i>
-                <a href="javascrip:void(0);"> {{genre}}</a>
-                {{lastItem ? '' : ', '}}
-              </ng-container>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <label>Tags</label>
-            <div>
-              <p *ngIf="!book.tags" [ngClass]="{'unavailable': !book.tags }">
-                No tags
-              </p>
-              <ng-container *ngFor="let tag of book.tags; let lastItem = last">
-                <i class="pe-7s-ticket"></i>
-                <a href="javascrip:void(0);"> {{tag}}</a>
-                {{lastItem ? '' : ', '}}
-              </ng-container>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <label>Notes</label>
-            <p [ngClass]="{'unavailable': !book.notes }">{{book.notes ? book.notes : 'Not available'}}</p>
-          </div>
+        <div class="col-xs-1" style="float: right">
+          <button type="button" class="btn btn-default" style="float: right" data-toggle="modal" data-target="#deleteBook">Delete</button>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-xs-1" style="float: right">
-        <button type="button" class="btn btn-default" style="float: right" routerLink="./edit">Edit</button>
-      </div>
-      <div class="col-xs-1" style="float: right">
-        <button type="button" class="btn btn-default" style="float: right" data-toggle="modal" data-target="#deleteBook">Delete</button>
-      </div>
-    </div>
-	</div>
-</div>
+  </div>
+</page-navigator>
 
 <modal
   identifier="deleteBook"
