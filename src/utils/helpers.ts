@@ -68,3 +68,7 @@ export const filterBookForUser = (book) =>
 export const filterByParam = (array: Array<any>, filter: Array<any>, param: string) => {
   return filter ? array.filter((item) => filter.includes(item[param])) : array
 }
+
+export const formatDate = (date: string) => {
+  return new Date(date).toLocaleDateString()
+}

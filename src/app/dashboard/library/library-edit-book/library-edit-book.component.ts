@@ -117,18 +117,17 @@ export class LibraryEditBookComponent implements OnInit {
   ngOnInit() { }
 
   submit(formValues) {
-    console.log(formValues)
     const newValues = {
-      ...(this.genres.length > 0) && { genres: this.genres },
-      ...(this.tags.length > 0) && { tags: this.tags },
-      ...(this.collections.length > 0) && { collections: this.collections },
+      genres: this.genres,
+      tags: this.tags,
+      collections: this.collections,
       ...(this.selectedLanguage !== 'Select a language') && { language: this.selectedLanguage },
       ...cleanFormValues(formValues),
       ...this.buttonsComponent.getValues()
     }
-    console.log(newValues)
 
     Object.assign(this.book, newValues)
+    console.log(this.collections, this.book.collections)
 
     console.log('Updating book', this.book)
 

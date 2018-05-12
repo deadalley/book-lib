@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, trigger, transition, style, animate, group, state } from '@angular/core'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { Book } from '../../../../../interfaces/book'
+import { formatDate } from '../../../../../utils/helpers'
 
 @Component({
   moduleId: module.id,
@@ -32,12 +33,9 @@ import { Book } from '../../../../../interfaces/book'
 
 export class LibraryTableComponent implements OnInit {
   @Input() books: Book[]
+  formatDate = formatDate
 
   constructor() { }
 
   ngOnInit() { }
-
-  formatDate(date: string) {
-    return new Date(date).toLocaleDateString()
-  }
 }

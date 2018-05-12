@@ -34,9 +34,9 @@ export class LibraryService {
   }
 
   private mapCollectionTitleToId(book) {
-    book.collections = this.collections.getValue().map((collection) => {
+    book.collections = _.compact(this.collections.getValue().map((collection) => {
       if (book.collections.includes(collection.title)) { return collection.id }
-    })
+    }))
   }
 
   private loadBooks() {
@@ -79,7 +79,7 @@ export class LibraryService {
   }
 
   addCollection(collection: Collection) {
-    this.database.postCollectionForUser(this._owner.ref, {
+    return this.database.postCollectionForUser(this._owner.ref, {
       owner: this._owner.id,
       title: collection.title,
       books: collection.books.map((book) => book.id),
@@ -98,5 +98,23 @@ export class LibraryService {
 
   deleteCollection(collection) {
     this.database.deleteCollection(this._owner.ref, collection)
+  }
+
+  addBooksToCollection(collection, books) {
+    this.database.postBooksForCollections(books.map((book) => ({
+      id: book.id,
+      collections: [collection.id]
+    })))
+
+    this.database.postCollectionForBooks(this._owner.ref, collection.id, books.map((book) => book.id))
+  }
+
+  removeBooksFromCollection(collection, books) {
+    this.database.deleteBooksFromCollection(books.map((book) => ({
+      id: book.id,
+      collections: [collection.id]
+    })))
+
+    this.database.deleteCollectionFromBooks(this._owner.ref, collection.id, books.map((book) => book.id))
   }
 }
