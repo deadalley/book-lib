@@ -3,6 +3,7 @@ import { FormControl , FormGroup, FormBuilder, Validators } from '@angular/forms
 import { Location } from '@angular/common'
 import { Collection } from '../../../../interfaces/collection'
 import { LibraryService } from '../library.service'
+import { formatDate } from '../../../../utils/helpers'
 
 @Component({
   moduleId: module.id,
@@ -38,6 +39,9 @@ export class LibraryAddCollectionComponent implements OnInit {
   title = 'Add new collection'
   description = 'Add a new collection to your library'
   button = 'Add collection'
+  books = []
+  isLoadingBooks = true
+  formatDate = formatDate
 
   constructor(private fb: FormBuilder, private location: Location, private libraryService: LibraryService) {
     this.form = this.fb.group({
@@ -57,7 +61,25 @@ export class LibraryAddCollectionComponent implements OnInit {
     }
 
     console.log('Adding collection', this.collection)
-    this.libraryService.addCollection(this.collection)
+    const id = this.libraryService.addCollection(this.collection)
+    this.collection.id = id
+
+    this.libraryService.addBooksToCollection(
+      this.collection,
+      this.books.filter((book) => book.inCollection && !book.wasInCollection)
+    )
+    this.libraryService.removeBooksFromCollection(
+      this.collection,
+      this.books.filter((book) => !book.inCollection && book.wasInCollection)
+    )
     this.location.back()
+  }
+
+  loadBooks() {
+    this.libraryService.books$.subscribe((books) => {
+      if (!books) { return }
+      this.isLoadingBooks = false
+      this.books = books
+    })
   }
 }

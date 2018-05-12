@@ -2,6 +2,7 @@ import { Component, OnInit, Input, trigger, transition, style, animate, group, s
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { Book } from '../../../../interfaces/book'
 import { TooltipModule } from 'ngx-tooltip'
+import { formatDate } from '../../../../utils/helpers'
 
 @Component({
   selector: 'book-card',
@@ -35,12 +36,9 @@ import { TooltipModule } from 'ngx-tooltip'
 export class BookCardComponent implements OnInit {
   @Input() book: Book
   @Input() withButtons = true
+  formatDate = formatDate
 
   constructor() { }
 
   ngOnInit() { }
-
-  formatDate(date: string) {
-    return new Date(date).toLocaleDateString()
-  }
 }

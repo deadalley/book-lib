@@ -4,6 +4,7 @@ import { Location } from '@angular/common'
 import { Collection } from '../../../../interfaces/collection'
 import { LibraryService } from '../library.service'
 import { Router } from '@angular/router'
+import { formatDate } from '../../../../utils/helpers'
 
 @Component({
   moduleId: module.id,
@@ -39,6 +40,10 @@ export class LibraryEditCollectionComponent implements OnInit {
   title = 'Edit collection'
   description = 'Edit collection'
   button = 'Update collection'
+  isLoading = true
+  books = []
+  isLoadingBooks = true
+  formatDate = formatDate
 
   get collectionId(): string {
     const splitUrl = this.router.url.split('/')
@@ -58,6 +63,7 @@ export class LibraryEditCollectionComponent implements OnInit {
     this.libraryService.findCollection(this.collectionId).subscribe((collection) => {
       if (!collection) { return }
       this.collection = collection
+      this.isLoading = false
 
       this.form.patchValue({
         title: this.collection.title,
@@ -73,11 +79,32 @@ export class LibraryEditCollectionComponent implements OnInit {
       id: this.collection.id,
       title: formValues.title,
       description: formValues.description,
-      books: this.collection.books
+      books: []
     }
 
     console.log('Updating collection', this.collection)
     this.libraryService.updateCollection(this.collection)
+
+    this.libraryService.addBooksToCollection(
+      this.collection,
+      this.books.filter((book) => book.inCollection && !book.wasInCollection)
+    )
+    this.libraryService.removeBooksFromCollection(
+      this.collection,
+      this.books.filter((book) => !book.inCollection && book.wasInCollection)
+    )
     this.location.back()
+  }
+
+  loadBooks() {
+    this.libraryService.books$.subscribe((books) => {
+      if (!books) { return }
+      this.isLoadingBooks = false
+      this.books = books
+      this.books.forEach((book) => {
+        book.inCollection = book.collections && book.collections.includes(this.collection.title)
+        book.wasInCollection = book.collections && book.collections.includes(this.collection.title)
+      })
+    })
   }
 }
