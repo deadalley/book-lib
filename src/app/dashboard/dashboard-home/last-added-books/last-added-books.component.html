@@ -3,6 +3,7 @@
     <h4 class="title">Last added books</h4>
   </div>
   <div class="content">
+    <loading [visible]="isLoading"></loading>
     <div class="row text-center">
       <ng-container *ngFor="let book of latestBooks">
         <div class="col-xs-3">

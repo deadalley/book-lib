@@ -34,7 +34,5 @@ export class DashboardHomeComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    this.latestBooks = BookFactory.buildList(10)
-  }
+  ngOnInit() { }
 }
