@@ -63,6 +63,7 @@ export class LibraryAddBookComponent implements OnInit {
     private router: Router
   ) {
     this.libraryService.collections$.subscribe((collections) => {
+      if (!collections) { return }
       this.allCollections = collections.map((collection) => collection.title)
     })
     this.form = this.fb.group({

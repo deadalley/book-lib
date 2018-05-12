@@ -30,18 +30,24 @@
         </a>
       </h4>
       <p class="text-muted">{{collection.description}}</p>
-      <hr class="library-hr" *ngIf="sectionTitle">
+      <hr class="library-hr">
     </div>
   </div>
-  <!-- Row of book cards -->
-  <div class="row" [@cardbooks]>
-    <ng-container *ngFor="let book of collection.books; let i = index;">
-      <div class="clearfix" *ngIf="i % 4 == 0"></div>
-      <div class="col-md-3">
-        <book-card [book]="book"></book-card>
-      </div>
-    </ng-container>
-  </div><!-- !Row -->
+  <div *ngIf="!collection.books || collection.books.length === 0">
+    <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 0">This collection is empty :(</h5>
+  </div>
+  <div *ngIf="collection.books && collection.books.length > 0" [ngSwitch]="tilesDisplay">
+    <library-table *ngSwitchCase="false" [books]="collection.books"></library-table>
+    <!-- Row of book cards -->
+    <div *ngSwitchCase="true" class="row" [@cardbooks]>
+      <ng-container *ngFor="let book of collection.books; let i = index;">
+        <div class="clearfix" *ngIf="i % 4 == 0"></div>
+        <div class="col-md-3">
+          <book-card [book]="book"></book-card>
+        </div>
+      </ng-container>
+    </div><!-- !Row -->
+  </div>
 </ng-container>
 
 <modal

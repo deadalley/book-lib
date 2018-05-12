@@ -36,6 +36,7 @@ export class LibraryCollectionsComponent implements OnInit {
   collections = [] as Collection[]
   selectedCollection = { } as Collection
   isLoading = true
+  tilesDisplay = true
 
   constructor(private libraryService: LibraryService) {
     libraryService.collections$.subscribe((collections) => {
@@ -44,6 +45,7 @@ export class LibraryCollectionsComponent implements OnInit {
       this.collections = collections
     })
     libraryService.collectionOrdering$.subscribe((ordering) => this.orderingMethod = ordering)
+    libraryService.tilesDisplay$.subscribe((tilesDisplay) => this.tilesDisplay = tilesDisplay)
   }
 
   ngOnInit() { }
