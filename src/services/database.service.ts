@@ -8,6 +8,7 @@ import { random } from 'faker'
 import {
   objectToArray,
   objectToArrayWithRef,
+  arrayToObjectWithId,
   filterBook,
   filterBookForUser,
   filterByParam
@@ -88,7 +89,7 @@ export class DatabaseService {
     // Join books and user books
     this.getBooksForUserByIds(userRef, (userBooks) => {
       this.getBooksByIds((books) => {
-        const mappedBooks = userBooks.reduce((obj, book) => (obj[book['id']] = book, obj), {})
+        const mappedBooks = arrayToObjectWithId(userBooks)
         const mergedBooks = books.map((book) => ({ ...(book), ...(mappedBooks[book.id]) }))
         if (mergedBooks.some((book) => book.collections)) {
           this.getCollectionsByIds((collections) => {
@@ -101,6 +102,19 @@ export class DatabaseService {
         } else { cb(mergedBooks) }
       }, bookIds)
     }, bookIds)
+  }
+
+  getLatestBooks(userRef: string, cb) {
+    this.books.query.orderByChild('date').limitToFirst(10).once('value', (snap) => {
+      const latestBooks = arrayToObjectWithId(objectToArray(snap.val()))
+      this.getBooksForUserByIds(userRef, (books) => {
+        const mergedBooks = books.map((book) => ({
+          ...(book),
+          ...(latestBooks[book.id])
+        }))
+        cb(mergedBooks)
+      }, objectToArray(latestBooks).map((book) => book.id))
+    })
   }
 
   private updateBook(book) {

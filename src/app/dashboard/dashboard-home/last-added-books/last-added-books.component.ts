@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Book } from '../../../../interfaces/book'
+import { LibraryService } from '../../library/library.service'
 
 @Component({
   moduleId: module.id,
@@ -9,7 +10,16 @@ import { Book } from '../../../../interfaces/book'
 })
 
 export class LastAddedBooksComponent implements OnInit {
-  @Input() latestBooks: Book[]
+  latestBooks: Book[]
+  isLoading = true
+
+  constructor(libraryService: LibraryService) {
+    libraryService.getLatestBooks().subscribe((books) => {
+      if (!books) { return }
+      this.isLoading = false
+      this.latestBooks = books
+    })
+  }
 
   ngOnInit() { }
 }

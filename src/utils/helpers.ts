@@ -30,6 +30,11 @@ export const objectToArray = (object: object) => {
   return Object.keys(object).map((key) => object[key])
 }
 
+export const arrayToObjectWithId = (array: Array<any>) => {
+  if (!array) { return }
+  return array.reduce((obj, item) => (obj[item.id] = item, obj), {})
+}
+
 export const objectToArrayWithRef = (object: object) => {
   if (!object) { return }
   return Object.keys(object).map((key) => ({ ...(object[key]), ref: key }))

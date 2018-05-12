@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { isAfter, subDays } from 'date-fns'
 import { DatabaseService } from '../../../services/database.service'
 import { User } from '../../../interfaces/user'
 import { Book } from '../../../interfaces/book'
@@ -9,10 +10,12 @@ import * as _ from 'lodash'
 
 @Injectable()
 export class LibraryService {
+  private MAX_DATE = 7
   private bookOrdering = new BehaviorSubject<string>('title')
   private collectionOrdering = new BehaviorSubject<string>('title')
   private tilesDisplay = new BehaviorSubject<boolean>(true)
   private books = new BehaviorSubject<Book[]>(undefined)
+  private latestBooks = new BehaviorSubject<Book[]>(undefined)
   private collections = new BehaviorSubject<Collection[]>(undefined)
   private book = new BehaviorSubject<Book>(undefined)
   private collection = new BehaviorSubject<Collection>(undefined)
@@ -24,6 +27,7 @@ export class LibraryService {
   tilesDisplay$ = this.tilesDisplay.asObservable()
   collections$ = this.collections.asObservable()
   books$ = this.books.asObservable()
+  latestBooks$ = this.latestBooks.asObservable()
   private book$ = this.book.asObservable()
   private collection$ = this.collection.asObservable()
 
@@ -76,6 +80,14 @@ export class LibraryService {
 
   deleteBook(book: Book) {
     this.database.deleteBook(this._owner.ref, book)
+  }
+
+  getLatestBooks() {
+    this.database.getLatestBooks(this._owner.ref, (books) => {
+      const filteredBooks = books.filter((book) => isAfter(book.date, subDays(new Date(), this.MAX_DATE)))
+      this.latestBooks.next(filteredBooks)
+    })
+    return this.latestBooks$
   }
 
   addCollection(collection: Collection) {
