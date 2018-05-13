@@ -116,7 +116,7 @@ export class DatabaseService {
   }
 
   getLatestBooks(userRef: string, cb) {
-    this.books.query.orderByChild('date').limitToFirst(10).once('value', (snap) => {
+    this.books.query.orderByChild('date').limitToFirst(5).once('value', (snap) => {
       const latestBooks = arrayToObjectWithId(objectToArray(snap.val()))
       this.getBooksForUserByIds(userRef, (books) => {
         const mergedBooks = books.map((book) => ({

@@ -1,11 +1,11 @@
-.content > .row {
+.overflow-row {
   overflow-x: auto;
   white-space: nowrap;
   margin: 5px;
   padding-top: 1px;
 }
 
-.content > .row > .col-xs-3 {
+.overflow-col {
   display: inline-block;
   float: none;
   width: 30%;
