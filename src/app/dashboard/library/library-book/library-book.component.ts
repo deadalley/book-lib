@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, trigger, transition, style, animate, group, state } from '@angular/core'
+import { Component, OnInit, Input, Output, EventEmitter, trigger, transition, style, animate, group, state, OnDestroy } from '@angular/core'
 import { FormControl , FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms'
 import { Location } from '@angular/common'
 import { Book } from '../../../../interfaces/book'
@@ -34,9 +34,10 @@ import { Router } from '@angular/router'
   ]
 })
 
-export class LibraryBookComponent implements OnInit {
+export class LibraryBookComponent implements OnInit, OnDestroy {
   book = { } as Book
   isLoading = true
+  subscription
 
   get localUrlPath(): string {
     const splitUrl = this.router.url.split('/')
@@ -50,7 +51,7 @@ export class LibraryBookComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.libraryService.findBook(this.localUrlPath).subscribe((book) => {
+    this.subscription = this.libraryService.findBook(this.localUrlPath).subscribe((book) => {
       if (book) {
         this.isLoading = false
         this.book = book
@@ -61,5 +62,9 @@ export class LibraryBookComponent implements OnInit {
   deleteBook() {
     this.libraryService.deleteBook(this.book)
     this.location.back()
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
   }
 }

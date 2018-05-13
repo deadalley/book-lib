@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition, style, animate, group, state } from '@angular/core'
+import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition, style, animate, group, state, OnDestroy } from '@angular/core'
 import { FormControl , FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Location } from '@angular/common'
 import { Collection } from '../../../../interfaces/collection'
@@ -34,7 +34,7 @@ import { formatDate } from '../../../../utils/helpers'
   ]
 })
 
-export class LibraryEditCollectionComponent implements OnInit {
+export class LibraryEditCollectionComponent implements OnInit, OnDestroy {
   form: FormGroup
   collection: Collection
   title = 'Edit collection'
@@ -44,6 +44,8 @@ export class LibraryEditCollectionComponent implements OnInit {
   books = []
   isLoadingBooks = true
   formatDate = formatDate
+  subscription
+  bookSubscription
 
   get collectionId(): string {
     const splitUrl = this.router.url.split('/')
@@ -60,7 +62,7 @@ export class LibraryEditCollectionComponent implements OnInit {
       title: ['', Validators.required],
       description: ''
     })
-    this.libraryService.findCollection(this.collectionId).subscribe((collection) => {
+    this.subscription = this.libraryService.findCollection(this.collectionId).subscribe((collection) => {
       if (!collection) { return }
       this.collection = collection
       this.isLoading = false
@@ -73,6 +75,11 @@ export class LibraryEditCollectionComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
+    this.bookSubscription.unsubscribe()
+  }
 
   submit(formValues) {
     this.collection = {
@@ -97,7 +104,7 @@ export class LibraryEditCollectionComponent implements OnInit {
   }
 
   loadBooks() {
-    this.libraryService.books$.subscribe((books) => {
+    this.bookSubscription = this.libraryService.books$.subscribe((books) => {
       if (!books) { return }
       this.isLoadingBooks = false
       this.books = books

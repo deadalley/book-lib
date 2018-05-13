@@ -78,11 +78,17 @@ export class DatabaseService {
   }
 
   private getBooksByIds(cb, ids?: string[]) {
-    this.books.valueChanges().subscribe((books) => cb(filterByParam(books, ids, 'id')))
+    const subscription = this.books.valueChanges().subscribe((books) => {
+      cb(filterByParam(books, ids, 'id'))
+      subscription.unsubscribe()
+    })
   }
 
   private getBooksForUserByIds(userRef: string, cb, ids?: string[]) {
-    this.userBooksRef(userRef).valueChanges().subscribe((books) => cb(filterByParam(books, ids, 'id')))
+    const subscription = this.userBooksRef(userRef).valueChanges().subscribe((books) => {
+      cb(filterByParam(books, ids, 'id'))
+      subscription.unsubscribe()
+    })
   }
 
   getBooksForUser(userRef: string, cb, bookIds?: string[]) {
@@ -100,7 +106,7 @@ export class DatabaseService {
             cb(mergedBooks)
           })
         } else { cb(mergedBooks) }
-      }, bookIds)
+      }, userBooks.map((book) => book.id))
     }, bookIds)
   }
 
@@ -181,14 +187,14 @@ export class DatabaseService {
   }
 
   deleteBook(userRef: string, book) {
-    this.books.query.orderByChild('id').equalTo(book.id).on('value', (snap) => {
+    this.books.query.orderByChild('id').equalTo(book.id).once('value', (snap) => {
       if (!snap.val()) { return }
       const ref = Object.keys(snap.val())[0]
 
       this.db.object(`books/${ref}`).remove()
     })
 
-    this.userBooksRef(userRef).query.orderByChild('id').equalTo(book.id).on('value', (snap) => {
+    this.userBooksRef(userRef).query.orderByChild('id').equalTo(book.id).once('value', (snap) => {
       if (!snap.val()) { return }
       const ref = Object.keys(snap.val())[0]
 
@@ -223,12 +229,15 @@ export class DatabaseService {
   }
 
   getCollectionsByIds(cb, ids?: string[]) {
-    this.collections.valueChanges().subscribe((collections) => cb(filterByParam(collections, ids, 'id')))
+    const subscription = this.collections.valueChanges().subscribe((collections) => {
+      cb(filterByParam(collections, ids, 'id'))
+      subscription.unsubscribe()
+    })
   }
 
   getCollectionsForUser(userRef: string, cb, collectionIds?: string[]) {
     // Map collections and books for user
-    this.userCollectionsRef(userRef).valueChanges().subscribe((userCollections) => {
+    const subscription = this.userCollectionsRef(userRef).valueChanges().subscribe((userCollections) => {
       this.getCollectionsByIds((collections) => {
         this.getBooksForUser(userRef, (books) => {
           collections.forEach((collection) => {
@@ -240,6 +249,7 @@ export class DatabaseService {
             collection.books = filterByParam(books, collection.books, 'id')
           })
           cb(collections)
+          subscription.unsubscribe()
         })
       }, userCollections as string[])
     })
@@ -274,14 +284,14 @@ export class DatabaseService {
     const collectionBooks = collection.books.map((book) => book.id)
     this.deleteCollectionFromBooks(userRef, collection.id, collectionBooks)
 
-    this.collections.query.orderByChild('id').equalTo(collection.id).on('value', (snap) => {
+    this.collections.query.orderByChild('id').equalTo(collection.id).once('value', (snap) => {
       if (!snap.val()) { return }
       const ref = Object.keys(snap.val())[0]
 
       this.db.object(`collections/${ref}`).remove()
     })
 
-    this.userCollectionsRef(userRef).query.orderByValue().equalTo(collection.id).on('value', (snap) => {
+    this.userCollectionsRef(userRef).query.orderByValue().equalTo(collection.id).once('value', (snap) => {
       if (!snap.val()) { return }
       const ref = Object.keys(snap.val())[0]
 

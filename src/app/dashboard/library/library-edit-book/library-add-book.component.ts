@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition, style, animate, group, state } from '@angular/core'
+import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition, style, animate, group, state, OnDestroy } from '@angular/core'
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Location } from '@angular/common'
 import { random } from 'faker'
@@ -38,7 +38,7 @@ import { Router } from '@angular/router'
   ]
 })
 
-export class LibraryAddBookComponent implements OnInit {
+export class LibraryAddBookComponent implements OnInit, OnDestroy {
   form: FormGroup
   allCollections: string[]
   collections: string[]
@@ -52,6 +52,7 @@ export class LibraryAddBookComponent implements OnInit {
   button = 'Add book'
   fromGoodreads = false
   showImage = false
+  subscription
 
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
@@ -62,7 +63,7 @@ export class LibraryAddBookComponent implements OnInit {
     private libraryService: LibraryService,
     private router: Router
   ) {
-    this.libraryService.collections$.subscribe((collections) => {
+    this.subscription = this.libraryService.collections$.subscribe((collections) => {
       if (!collections) { return }
       this.allCollections = collections.map((collection) => collection.title)
     })
@@ -86,6 +87,10 @@ export class LibraryAddBookComponent implements OnInit {
     this.genres = []
     this.tags = []
     this.selectedLanguage = 'Select a language'
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
   }
 
   submit(formValues) {
