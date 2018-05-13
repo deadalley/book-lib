@@ -31,6 +31,8 @@ export class AuthService {
         this.database.postUser(_user).then((res) => {
           localStorage.setItem('user', JSON.stringify({ ...(_user), ref: res.ref.key }))
         })
+
+        this.router.navigate(['library'])
       } else {
         const _ref = Object.keys(_user)[0]
         _user = {
@@ -39,6 +41,7 @@ export class AuthService {
         } as LocalUser
 
         localStorage.setItem('user', JSON.stringify(_user))
+        this.router.navigate(['library'])
       }
     })
   }
@@ -49,8 +52,6 @@ export class AuthService {
 
     console.log(response.user)
     this.createUserInDatabase(response.user)
-
-    this.router.navigate(['library'])
   }
 
   loginGoogle() {
