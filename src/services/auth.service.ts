@@ -96,4 +96,17 @@ export class AuthService {
         console.log(error.code, error.message)
       })
   }
+
+  logout() {
+    this.fireAuth.auth.signOut()
+      .then((response) => {
+        console.log('Sucessefully signed out')
+        localStorage.removeItem('userLoginCredentials')
+        localStorage.removeItem('user')
+      })
+      .catch((error) => {
+        console.log('Could not sign out')
+        console.log(error.code, error.message)
+      })
+  }
 }
