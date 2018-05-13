@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { LibraryService } from '../library.service'
 
 @Component({
@@ -8,12 +8,13 @@ import { LibraryService } from '../library.service'
   styleUrls: []
 })
 
-export class LibraryHomeComponent implements OnInit {
+export class LibraryHomeComponent implements OnInit, OnDestroy {
   hasBooks = false
   isLoading = true
+  subscription
 
   constructor(libraryService: LibraryService) {
-    libraryService.books$.subscribe((books) => {
+    this.subscription = libraryService.books$.subscribe((books) => {
       if (!books) { return }
       this.isLoading = false
       return this.hasBooks = books.length > 0
@@ -21,4 +22,8 @@ export class LibraryHomeComponent implements OnInit {
    }
 
   ngOnInit() { }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
+  }
 }

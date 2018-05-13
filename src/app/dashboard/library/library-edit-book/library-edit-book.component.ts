@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition, style, animate, group, state } from '@angular/core'
+import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition, style, animate, group, state, OnDestroy } from '@angular/core'
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Location } from '@angular/common'
 import { random } from 'faker'
@@ -38,7 +38,7 @@ import { Router, ActivatedRoute } from '@angular/router'
   ]
 })
 
-export class LibraryEditBookComponent implements OnInit {
+export class LibraryEditBookComponent implements OnInit, OnDestroy {
   form: FormGroup
   allCollections: string[]
   collections: string[]
@@ -53,6 +53,7 @@ export class LibraryEditBookComponent implements OnInit {
   fromGoodreads = false
   showImage = true
   isLoading = true
+  subscription
 
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
@@ -82,7 +83,7 @@ export class LibraryEditBookComponent implements OnInit {
       rating: 0
     })
 
-    this.libraryService.findBook(this.bookId).subscribe((book) => {
+    this.subscription = this.libraryService.findBook(this.bookId).subscribe((book) => {
       if (!book) { return }
       this.book = book
       this.collections = this.book.collections ? this.book.collections : []
@@ -92,7 +93,7 @@ export class LibraryEditBookComponent implements OnInit {
         this.allCollections = collections
                                 .filter((collection) => !this.collections.includes(collection.title))
                                 .map((collection) => collection.title)
-      })
+      }).unsubscribe()
 
       this.form.patchValue({
         title: this.book.title,
@@ -115,6 +116,10 @@ export class LibraryEditBookComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
+  }
 
   submit(formValues) {
     const newValues = {

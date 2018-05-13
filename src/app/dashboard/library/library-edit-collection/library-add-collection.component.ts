@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition, style, animate, group, state } from '@angular/core'
+import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition, style, animate, group, state, OnDestroy } from '@angular/core'
 import { FormControl , FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Location } from '@angular/common'
 import { Collection } from '../../../../interfaces/collection'
@@ -33,7 +33,7 @@ import { formatDate } from '../../../../utils/helpers'
   ]
 })
 
-export class LibraryAddCollectionComponent implements OnInit {
+export class LibraryAddCollectionComponent implements OnInit, OnDestroy {
   form: FormGroup
   collection: Collection
   title = 'Add new collection'
@@ -42,6 +42,7 @@ export class LibraryAddCollectionComponent implements OnInit {
   books = []
   isLoadingBooks = true
   formatDate = formatDate
+  subscription
 
   constructor(private fb: FormBuilder, private location: Location, private libraryService: LibraryService) {
     this.form = this.fb.group({
@@ -51,6 +52,10 @@ export class LibraryAddCollectionComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
+  }
 
   submit(formValues) {
     this.collection = {
@@ -76,7 +81,7 @@ export class LibraryAddCollectionComponent implements OnInit {
   }
 
   loadBooks() {
-    this.libraryService.books$.subscribe((books) => {
+    this.subscription = this.libraryService.books$.subscribe((books) => {
       if (!books) { return }
       this.isLoadingBooks = false
       this.books = books

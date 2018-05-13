@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, trigger, transition, style, animate, state } from '@angular/core'
+import { Component, OnInit, Input, trigger, transition, style, animate, state, OnDestroy } from '@angular/core'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { Collection } from '../../../../../interfaces/collection'
 import { LibraryService } from '../../library.service'
@@ -31,24 +31,29 @@ import { LibraryService } from '../../library.service'
   ]
 })
 
-export class LibraryCollectionsComponent implements OnInit {
+export class LibraryCollectionsComponent implements OnInit, OnDestroy {
   orderingMethod = 'title'
   collections = [] as Collection[]
   selectedCollection = { } as Collection
   isLoading = true
   tilesDisplay = true
+  subscriptions = []
 
   constructor(private libraryService: LibraryService) {
-    libraryService.collections$.subscribe((collections) => {
+    this.subscriptions.push(libraryService.collections$.subscribe((collections) => {
       if (!collections) { return }
       this.isLoading = false
       this.collections = collections
-    })
-    libraryService.collectionOrdering$.subscribe((ordering) => this.orderingMethod = ordering)
-    libraryService.tilesDisplay$.subscribe((tilesDisplay) => this.tilesDisplay = tilesDisplay)
+    }))
+    this.subscriptions.push(libraryService.collectionOrdering$.subscribe((ordering) => this.orderingMethod = ordering))
+    this.subscriptions.push(libraryService.tilesDisplay$.subscribe((tilesDisplay) => this.tilesDisplay = tilesDisplay))
   }
 
   ngOnInit() { }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe())
+  }
 
   deleteCollection() {
     this.libraryService.deleteCollection(this.selectedCollection)

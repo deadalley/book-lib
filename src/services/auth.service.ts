@@ -115,8 +115,10 @@ export class AuthService {
     this.fireAuth.auth.signOut()
       .then((response) => {
         console.log('Sucessefully signed out')
+
         localStorage.removeItem('userLoginCredentials')
         localStorage.removeItem('user')
+
         this.router.navigate(['home'])
       })
       .catch((error) => {
