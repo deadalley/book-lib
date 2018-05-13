@@ -10,16 +10,18 @@
             <label>E-mail</label>
             <input type="text" class="form-control" formControlName="email">
             <span class="help-block" *ngIf="!form.controls['email'].valid && form.controls['email'].touched">
-              Please enter a valid e-mail
+              Please enter a valid e-mail.
             </span>
           </div>
         </div>
+      </div>
+      <div class="row">
         <div class="col-xs-12">
           <div class="form-group" [ngClass]="{'has-error': !form.controls['password'].valid && form.controls['password'].touched}">
             <label>Password</label>
             <input type="password" class="form-control" formControlName="password">
             <span class="help-block" *ngIf="!form.controls['password'].valid && form.controls['password'].touched">
-              Please enter a valid password
+              Please enter a valid password.
             </span>
           </div>
         </div>

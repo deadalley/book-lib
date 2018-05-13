@@ -5,3 +5,7 @@ img {
 .col-xs-12 {
   padding: 8px 0;
 }
+
+.card {
+  text-align: center;
+}
