@@ -11,6 +11,7 @@ import { AppComponent } from './app.component'
 import { AppRoutes } from './app.routing'
 
 import { AuthService } from '../services/auth.service'
+import { AuthGuardService } from '../services/auth.guard'
 import { DatabaseService } from '../services/database.service'
 
 export const firebaseConfig = {
@@ -28,6 +29,7 @@ export const firebaseConfig = {
   ],
   providers: [
     AuthService,
+    AuthGuardService,
     DatabaseService
   ],
   imports: [
