@@ -16,7 +16,6 @@ const dashboardRoutes: Routes = [
     { path: 'home', component: DashboardHomeComponent },
     { path: 'library', loadChildren: './library/library.module#LibraryModule' },
     { path: 'profile', redirectTo: 'library', pathMatch: 'full' },
-    { path: 'sign-out', redirectTo: '/home' }
   ]}
 ]
 
