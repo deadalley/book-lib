@@ -68,3 +68,6 @@
 .page-header .container {
   z-index: 2;
 }
+.main {
+  background: rgb(241, 241, 241);
+}
