@@ -58,6 +58,7 @@ export class AuthService {
     console.log('Successfully logged in')
     localStorage.setItem('userLoginCredentials', JSON.stringify(response.user))
 
+    console.log()
     this.createUserInDatabase(response.user)
   }
 
@@ -109,10 +110,15 @@ export class AuthService {
       })
   }
 
-  signUpWithEmail({ email, password }) {
+  signUpWithEmail({ email, password, name }) {
     this.fireAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((response) => {
-        this.processResponse(response)
+        console.log('Successfully signed up')
+        localStorage.setItem('userLoginCredentials', JSON.stringify(response))
+
+        this.createUserInDatabase({ ...(response), displayName: name })
+
+        this.router.navigate(['library'])
       })
       .catch((error) => {
         console.log('Could not sign up with e-mail and password')

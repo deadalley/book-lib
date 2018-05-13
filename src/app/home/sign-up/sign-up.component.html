@@ -6,12 +6,25 @@
     <form [formGroup]="form" (ngSubmit)="signUp(form.value)">
       <div class="row">
         <div class="col-xs-12">
+          <div class="form-group" [ngClass]="{'has-error': !form.controls['name'].valid && form.controls['name'].touched}">
+            <label>Username</label>
+            <input type="text" class="form-control" formControlName="name">
+            <span class="help-block" *ngIf="!form.controls['name'].valid && form.controls['name'].touched">
+              Please enter a valid username.
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
           <div class="form-group" [ngClass]="{'has-error': !form.controls['email'].valid && form.controls['email'].touched}">
             <label>E-mail</label>
             <input type="text" class="form-control" formControlName="email">
-            <span class="help-block" *ngIf="!form.controls['email'].valid && form.controls['email'].touched">Please enter a valid e-mail</span>
+            <span class="help-block" *ngIf="!form.controls['email'].valid && form.controls['email'].touched">Please enter a valid e-mail.</span>
           </div>
         </div>
+      </div>
+      <div class="row">      
         <div class="col-xs-12">
           <div class="form-group" [ngClass]="{'has-error': !form.controls['password'].valid && form.controls['password'].touched}">
             <label>Password</label>
@@ -21,6 +34,8 @@
             </span>
           </div>
         </div>
+      </div>
+      <div class="row">      
         <div class="col-xs-12">
           <div class="form-group" [ngClass]="{'has-error': !form.controls['confirmPassword'].valid && form.controls['confirmPassword'].touched}">
             <label>Confirm password</label>
