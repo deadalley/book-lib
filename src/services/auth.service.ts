@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core'
 import { AngularFireAuth } from 'angularfire2/auth'
 import { AngularFireDatabase } from 'angularfire2/database'
 import { Router } from '@angular/router'
+import { Observable } from 'rxjs/Observable'
+import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import * as firebase from 'firebase/app'
 import { DatabaseService } from './database.service'
 import { User as LocalUser } from '../interfaces/user'
@@ -9,6 +11,10 @@ import { User as DBUser } from '../models/user'
 
 @Injectable()
 export class AuthService {
+  private _userRef = new BehaviorSubject<string>(undefined)
+
+  userRef = this._userRef.asObservable()
+
   constructor (
     public fireAuth: AngularFireAuth,
     private fireDb: AngularFireDatabase,
@@ -31,6 +37,7 @@ export class AuthService {
         this.database.postUser(_user).then((res) => {
           localStorage.setItem('user', JSON.stringify({ ...(_user), ref: res.ref.key }))
         })
+        this._userRef.next(_user.ref)
 
         this.router.navigate(['library'])
       } else {
@@ -41,6 +48,7 @@ export class AuthService {
         } as LocalUser
 
         localStorage.setItem('user', JSON.stringify(_user))
+        this._userRef.next(_user.ref)
         this.router.navigate(['library'])
       }
     })
@@ -88,10 +96,12 @@ export class AuthService {
             ...(_user[_ref]),
             ref: _ref
           } as LocalUser
+
           localStorage.setItem('user', JSON.stringify(_user))
+          this._userRef.next(_user.ref)
+          this.router.navigate(['library'])
         })
 
-        this.router.navigate(['library'])
       })
       .catch((error) => {
         console.log('Could not login with e-mail and password')

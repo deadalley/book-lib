@@ -211,8 +211,13 @@ export class DatabaseService {
 
   postCollectionForUser(userRef: string, collection) {
     collection['id'] = random.uuid()
-    this.userCollectionsRef(userRef).push(collection['id'])
-    this.postCollection(collection)
+    this.db.object(`users/${userRef}`).query.once('value', (snap) => {
+      const id = snap.val().id
+      console.log(id)
+      collection['owner'] = id
+      this.userCollectionsRef(userRef).push(collection['id'])
+      this.postCollection(collection)
+    })
     return collection.id
   }
 
