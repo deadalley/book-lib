@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router'
 })
 
 export class PageNavigatorComponent implements OnInit {
-  constructor(private location: Location, private route: ActivatedRoute) { }
+  constructor(public location: Location, private route: ActivatedRoute) { }
 
   ngOnInit() { }
 
