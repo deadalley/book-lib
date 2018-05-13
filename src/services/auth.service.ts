@@ -43,15 +43,30 @@ export class AuthService {
     })
   }
 
+  private processResponse(response) {
+    console.log('Successfully logged in')
+    localStorage.setItem('userLoginCredentials', JSON.stringify(response.user))
+
+    this.createUserInDatabase(response.user)
+
+    this.router.navigate(['library'])
+  }
+
   loginGoogle() {
     this.fireAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider)
       .then((response) => {
-        console.log('Successfully logged in')
-        localStorage.setItem('userLoginCredentials', JSON.stringify(response.user))
+        this.processResponse(response)
+      })
+      .catch((error) => {
+        console.log('Could not login')
+        console.log(error)
+      })
+  }
 
-        this.createUserInDatabase(response.user)
-
-        this.router.navigate(['library'])
+  loginFacebook() {
+    this.fireAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider)
+      .then((response) => {
+        this.processResponse(response)
       })
       .catch((error) => {
         console.log('Could not login')
@@ -62,19 +77,7 @@ export class AuthService {
   loginEmail({ email, password}, onError) {
     this.fireAuth.auth.signInWithEmailAndPassword(email, password)
       .then((response) => {
-        console.log('Successfully logged in')
-        localStorage.setItem('userLoginCredentials', JSON.stringify(response))
-
-        this.database.findUserById(response.uid, (_user) => {
-          const _ref = Object.keys(_user)[0]
-          _user = {
-            ...(_user[_ref]),
-            ref: _ref
-          } as LocalUser
-          localStorage.setItem('user', JSON.stringify(_user))
-        })
-
-        this.router.navigate(['library'])
+        this.processResponse(response)
       })
       .catch((error) => {
         console.log('Could not login with e-mail and password')
@@ -86,12 +89,7 @@ export class AuthService {
   signUpWithEmail({ email, password }) {
     this.fireAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((response) => {
-        console.log('Successfully signed up in')
-        localStorage.setItem('userLoginCredentials', JSON.stringify(response))
-
-        this.createUserInDatabase(response)
-
-        this.router.navigate(['library'])
+        this.processResponse(response)
       })
       .catch((error) => {
         console.log('Could not sign up with e-mail and password')

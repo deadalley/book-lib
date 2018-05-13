@@ -22,7 +22,7 @@ export class GetStartedComponent implements OnInit {
   }
 
   loginFacebook() {
-
+    this.authService.loginFacebook()
   }
 
   loginEmail() {
