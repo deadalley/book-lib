@@ -218,7 +218,6 @@ export class DatabaseService {
     collection['id'] = random.uuid()
     this.db.object(`users/${userRef}`).query.once('value', (snap) => {
       const id = snap.val().id
-      console.log(id)
       collection['owner'] = id
       this.userCollectionsRef(userRef).push(collection['id'])
       this.postCollection(collection)
@@ -239,15 +238,14 @@ export class DatabaseService {
   }
 
   getCollectionsByIds(cb, ids?: string[]) {
-    const subscription = this.collections.valueChanges().subscribe((collections) => {
+    const subscription = this.collections.valueChanges().takeUntil(this.isLoggedIn$).subscribe((collections) => {
       cb(filterByParam(collections, ids, 'id'))
-      subscription.unsubscribe()
     })
   }
 
   getCollectionsForUser(userRef: string, cb, collectionIds?: string[]) {
     // Map collections and books for user
-    const subscription = this.userCollectionsRef(userRef).valueChanges().subscribe((userCollections) => {
+    const subscription = this.userCollectionsRef(userRef).valueChanges().takeUntil(this.isLoggedIn$).subscribe((userCollections) => {
       this.getCollectionsByIds((collections) => {
         this.getBooksForUser(userRef, (books) => {
           collections.forEach((collection) => {
@@ -259,7 +257,6 @@ export class DatabaseService {
             collection.books = filterByParam(books, collection.books, 'id')
           })
           cb(collections)
-          subscription.unsubscribe()
         })
       }, userCollections as string[])
     })
