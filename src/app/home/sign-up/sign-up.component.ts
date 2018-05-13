@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, Output, EventEmitter } from '@angular/core'
 import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
 import { AuthService } from '../../../services/auth.service'
 
@@ -11,6 +11,8 @@ import { AuthService } from '../../../services/auth.service'
 
 export class SignUpComponent implements OnInit {
   form: FormGroup
+
+  @Output() loadComponent = new EventEmitter<string>()
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.form = this.fb.group({
@@ -36,5 +38,9 @@ export class SignUpComponent implements OnInit {
 
   signUp(formValues) {
     this.authService.signUpWithEmail(formValues)
+  }
+
+  goBack() {
+    this.loadComponent.emit('signin')
   }
 }

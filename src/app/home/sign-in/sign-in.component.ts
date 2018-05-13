@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, Output, EventEmitter } from '@angular/core'
 import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
 import { AuthService } from '../../../services/auth.service'
 import { parseFirebaseAuthError } from '../../../utils/helpers'
@@ -13,6 +13,7 @@ import { parseFirebaseAuthError } from '../../../utils/helpers'
 export class SignInComponent implements OnInit {
   form: FormGroup
   errorMessage: string
+  @Output() loadComponent = new EventEmitter<string>()
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.form = this.fb.group({
@@ -28,5 +29,13 @@ export class SignInComponent implements OnInit {
       this.errorMessage = parseFirebaseAuthError(error)
       console.log(this.errorMessage)
     })
+  }
+
+  signUp() {
+    this.loadComponent.emit('signup')
+  }
+
+  goBack() {
+    this.loadComponent.emit('getstarted')
   }
 }

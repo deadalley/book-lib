@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { HomeComponent } from './home.component'
+import { GetStartedComponent } from './get-started/get-started.component'
 import { SignUpComponent } from './sign-up/sign-up.component'
 import { SignInComponent } from './sign-in/sign-in.component'
 
@@ -20,6 +21,7 @@ const homeRoutes: Routes = [
   ],
   declarations: [
     HomeComponent,
+    GetStartedComponent,
     SignUpComponent,
     SignInComponent
   ],

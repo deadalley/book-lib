@@ -33,5 +33,14 @@
         <button type="submit" class="btn btn-default" [disabled]="!form.valid">Sign in</button>
       </div>
     </form>
+    <hr>
+    <div class="row">
+      <div class="col-xs-6" style="text-align: left" align="left">
+        <a href="javascript:void(0);" (click)="goBack()">Go back</a>
+      </div>
+      <div class="col-xs-6" style="text-align: right" align="right">
+        New here? <a href="javascript:void(0);" (click)="signUp()">Create an account.</a>
+      </div>
+    </div>
   </div>
 </div>
