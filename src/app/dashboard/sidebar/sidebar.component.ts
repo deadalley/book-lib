@@ -14,7 +14,6 @@ export const ROUTES: RouteInfo[] = [
   { path: 'home', title: 'Home',  icon: 'pe-7s-home', class: '' },
   { path: 'library', title: 'Library',  icon: 'pe-7s-notebook', class: '' },
   { path: 'profile', title: 'Profile',  icon: 'pe-7s-user', class: '' },
-  { path: 'sign-out', title: 'Log out', icon: 'pe-7s-power', class: '' }
 ]
 
 @Component({
@@ -30,7 +29,6 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem)
-    this.menuItems.find((item) => item.path === 'sign-out').action = this.signOut()
   }
 
   isNotMobileMenu() {

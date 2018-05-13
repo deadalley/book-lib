@@ -47,6 +47,7 @@ export class AuthService {
     console.log('Successfully logged in')
     localStorage.setItem('userLoginCredentials', JSON.stringify(response.user))
 
+    console.log(response.user)
     this.createUserInDatabase(response.user)
 
     this.router.navigate(['library'])
@@ -77,7 +78,19 @@ export class AuthService {
   loginEmail({ email, password}, onError) {
     this.fireAuth.auth.signInWithEmailAndPassword(email, password)
       .then((response) => {
-        this.processResponse(response)
+        console.log('Successfully logged in')
+        localStorage.setItem('userLoginCredentials', JSON.stringify(response))
+
+        this.database.findUserById(response.uid, (_user) => {
+          const _ref = Object.keys(_user)[0]
+          _user = {
+            ...(_user[_ref]),
+            ref: _ref
+          } as LocalUser
+          localStorage.setItem('user', JSON.stringify(_user))
+        })
+
+        this.router.navigate(['library'])
       })
       .catch((error) => {
         console.log('Could not login with e-mail and password')
@@ -103,6 +116,7 @@ export class AuthService {
         console.log('Sucessefully signed out')
         localStorage.removeItem('userLoginCredentials')
         localStorage.removeItem('user')
+        this.router.navigate(['home'])
       })
       .catch((error) => {
         console.log('Could not sign out')
