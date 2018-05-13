@@ -15,13 +15,16 @@ import {
 } from '../utils/helpers'
 import * as firebase from 'firebase/app'
 import * as _ from 'lodash'
-import { merge } from 'rxjs/observable/merge';
+import { merge } from 'rxjs/observable/merge'
+import { Subject } from 'rxjs/Subject'
+import 'rxjs/add/operator/takeUntil'
 
 @Injectable()
 export class DatabaseService {
   private users: AngularFireList<User>
   private books: AngularFireList<Book>
   private collections: AngularFireList<Collection>
+  isLoggedIn$ = new Subject<boolean>()
 
   private userRef(userRef: string): AngularFireObject<User> {
     return this.db.object(`users/${userRef}`)
@@ -39,6 +42,10 @@ export class DatabaseService {
     this.books = db.list('books')
     this.users = db.list('users')
     this.collections = db.list('collections')
+
+    if (!!localStorage.getItem('userLocalCredentials')) {
+      this.isLoggedIn$.next(true)
+    }
   }
 
   /** USER **/
@@ -78,16 +85,14 @@ export class DatabaseService {
   }
 
   private getBooksByIds(cb, ids?: string[]) {
-    const subscription = this.books.valueChanges().subscribe((books) => {
+    this.books.valueChanges().takeUntil(this.isLoggedIn$).subscribe((books) => {
       cb(filterByParam(books, ids, 'id'))
-      subscription.unsubscribe()
     })
   }
 
   private getBooksForUserByIds(userRef: string, cb, ids?: string[]) {
-    const subscription = this.userBooksRef(userRef).valueChanges().subscribe((books) => {
+    this.userBooksRef(userRef).valueChanges().takeUntil(this.isLoggedIn$).subscribe((books) => {
       cb(filterByParam(books, ids, 'id'))
-      subscription.unsubscribe()
     })
   }
 

@@ -58,7 +58,6 @@ export class AuthService {
     console.log('Successfully logged in')
     localStorage.setItem('userLoginCredentials', JSON.stringify(response.user))
 
-    console.log(response.user)
     this.createUserInDatabase(response.user)
   }
 
@@ -122,6 +121,7 @@ export class AuthService {
   }
 
   logout() {
+    this.database.isLoggedIn$.next(false)
     this.fireAuth.auth.signOut()
       .then((response) => {
         console.log('Sucessefully signed out')
