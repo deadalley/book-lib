@@ -7,6 +7,7 @@ import { User } from '../../../interfaces/user'
 import { Book } from '../../../interfaces/book'
 import { Collection } from '../../../interfaces/collection'
 import * as _ from 'lodash'
+import { AuthService } from 'services/auth.service'
 
 @Injectable()
 export class LibraryService {
@@ -21,6 +22,7 @@ export class LibraryService {
   private collection = new BehaviorSubject<Collection>(undefined)
 
   private _owner: User
+  private userRef: string
 
   collectionOrdering$ = this.collectionOrdering.asObservable()
   bookOrdering$ = this.bookOrdering.asObservable()
@@ -31,10 +33,17 @@ export class LibraryService {
   private book$ = this.book.asObservable()
   private collection$ = this.collection.asObservable()
 
-  constructor(private database: DatabaseService) {
-    this._owner = JSON.parse(localStorage.getItem('user'))
+  constructor(private database: DatabaseService, private auth: AuthService) {
+    this.userRef = JSON.parse(localStorage.getItem('user')).ref
     this.loadBooks()
     this.loadCollections()
+
+    this.auth.userRef.subscribe((userRef) => {
+      if (!userRef || userRef === this.userRef) { return }
+      this.userRef = userRef
+      this.loadBooks()
+      this.loadCollections()
+    })
   }
 
   private mapCollectionTitleToId(book) {
@@ -44,11 +53,11 @@ export class LibraryService {
   }
 
   private loadBooks() {
-    this.database.getBooksForUser(this._owner.ref, (books) => this.books.next(books))
+    this.database.getBooksForUser(this.userRef, (books) => this.books.next(books))
   }
 
   private loadCollections() {
-    this.database.getCollectionsForUser(this._owner.ref, (collections) => this.collections.next(collections) )
+    this.database.getCollectionsForUser(this.userRef, (collections) => this.collections.next(collections) )
   }
 
   toggleTilesDisplay(toggle: boolean) {
@@ -65,25 +74,25 @@ export class LibraryService {
 
   addBook(book: Book) {
     if (book.collections) { this.mapCollectionTitleToId(book) }
-    this.database.postBookForUser(this._owner.ref, book)
+    this.database.postBookForUser(this.userRef, book)
   }
 
   findBook(id: string) {
-    this.database.findBookForUserById(this._owner.ref, id, (book) => this.book.next(book))
+    this.database.findBookForUserById(this.userRef, id, (book) => this.book.next(book))
     return this.book$
   }
 
   updateBook(book) {
     if (book.collections) { this.mapCollectionTitleToId(book) }
-    this.database.updateBookForUser(this._owner.ref, book)
+    this.database.updateBookForUser(this.userRef, book)
   }
 
   deleteBook(book: Book) {
-    this.database.deleteBook(this._owner.ref, book)
+    this.database.deleteBook(this.userRef, book)
   }
 
   getLatestBooks() {
-    this.database.getLatestBooks(this._owner.ref, (books) => {
+    this.database.getLatestBooks(this.userRef, (books) => {
       const filteredBooks = books.filter((book) => isAfter(book.date, subDays(new Date(), this.MAX_DATE)))
       this.latestBooks.next(filteredBooks)
     })
@@ -91,8 +100,8 @@ export class LibraryService {
   }
 
   addCollection(collection: Collection) {
-    return this.database.postCollectionForUser(this._owner.ref, {
-      owner: this._owner.id,
+    return this.database.postCollectionForUser(this.userRef, {
+      owner: '',
       title: collection.title,
       books: collection.books.map((book) => book.id),
       description: collection.description
@@ -109,7 +118,7 @@ export class LibraryService {
   }
 
   deleteCollection(collection) {
-    this.database.deleteCollection(this._owner.ref, collection)
+    this.database.deleteCollection(this.userRef, collection)
   }
 
   addBooksToCollection(collection, books) {
@@ -118,7 +127,7 @@ export class LibraryService {
       collections: [collection.id]
     })))
 
-    this.database.postCollectionForBooks(this._owner.ref, collection.id, books.map((book) => book.id))
+    this.database.postCollectionForBooks(this.userRef, collection.id, books.map((book) => book.id))
   }
 
   removeBooksFromCollection(collection, books) {
@@ -127,6 +136,6 @@ export class LibraryService {
       collections: [collection.id]
     })))
 
-    this.database.deleteCollectionFromBooks(this._owner.ref, collection.id, books.map((book) => book.id))
+    this.database.deleteCollectionFromBooks(this.userRef, collection.id, books.map((book) => book.id))
   }
 }
