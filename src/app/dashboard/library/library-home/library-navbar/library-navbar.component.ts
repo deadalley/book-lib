@@ -29,7 +29,7 @@ export class LibraryNavbarComponent implements OnInit {
   }
 
   constructor(
-    private router: Router,
+    public router: Router,
     private libraryService: LibraryService
   ) { }
 

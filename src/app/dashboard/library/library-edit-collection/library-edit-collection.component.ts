@@ -78,7 +78,9 @@ export class LibraryEditCollectionComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe()
-    this.bookSubscription.unsubscribe()
+    if (this.bookSubscription) {
+      this.bookSubscription.unsubscribe()
+    }
   }
 
   submit(formValues) {

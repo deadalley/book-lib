@@ -40,6 +40,7 @@ export class LibraryAddCollectionComponent implements OnInit, OnDestroy {
   description = 'Add a new collection to your library'
   button = 'Add collection'
   books = []
+  isLoading = false
   isLoadingBooks = true
   formatDate = formatDate
   subscription
@@ -54,6 +55,7 @@ export class LibraryAddCollectionComponent implements OnInit, OnDestroy {
   ngOnInit() { }
 
   ngOnDestroy() {
+    if (!this.subscription) { return }
     this.subscription.unsubscribe()
   }
 

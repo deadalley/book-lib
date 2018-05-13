@@ -53,6 +53,7 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
   fromGoodreads = false
   showImage = false
   subscription
+  isLoading = false
 
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
