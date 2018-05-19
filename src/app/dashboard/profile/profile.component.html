@@ -1,0 +1,27 @@
+<div class="main-content" [@card]>
+  <div class="container-fluid">
+    <loading [visible]="isLoading"></loading>
+    <div class="card" [@card]>
+      <div class="header">
+        <h4 class="title">Edit profile</h4>
+      </div>
+      <div class="content">
+        <form [formGroup]="form" (ngSubmit)="submit(form.value)">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="form-group" [ngClass] = "{'has-error': !form.controls['name'].valid && form.controls['name'].touched}">
+                <label>Username</label>
+                <input type="text" class="form-control" placeholder="Username" formControlName="name">
+                <span class="help-block" *ngIf="!form.controls['name'].valid && form.controls['name'].touched">Please enter a valid book title.</span>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div style="text-align: center;">
+            <button type="submit" class="btn btn-default" [disabled]="!form.valid">Update profile</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
