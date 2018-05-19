@@ -15,8 +15,8 @@
       <h1 style="text-align: center">Welcome to Book Lib</h1>
       <hr>
       <div class="row">
-        <div class="col-xs-2"></div>
-        <div class="col-xs-8">
+        <div class="col-md-2"></div>
+        <div class="col-xs-12 col-md-8">
           <ng-container [ngSwitch]="componentToLoad">
             <get-started
               *ngSwitchCase="'getstarted'"
@@ -32,7 +32,7 @@
             ></sign-in>
           </ng-container>
         </div>
-        <div class="col-xs-2"></div>
+        <div class="col-md-2"></div>
       </div>
     </div>
   </div>
