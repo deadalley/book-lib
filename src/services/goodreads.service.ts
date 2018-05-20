@@ -4,11 +4,13 @@ import { HttpGet } from '../utils/http'
 import { environment } from 'environments/environment'
 import { AuthService } from './auth.service'
 
+const USE_PROXY = true
+
 @Injectable()
 export class GoodreadsService {
   private key = environment.goodreadsConfig.key
   private secret = environment.goodreadsConfig.secret
-  private domain = environment.goodreadsConfig.domain
+  private domain = USE_PROXY ? environment.goodreadsConfig.proxyDomain : environment.goodreadsConfig.domain
 
   id: string
   constructor(private http: Http, private auth: AuthService) {
