@@ -3,4 +3,5 @@ export interface User {
   ref: string
   name: string
   email: string
+  goodreadsId: string
 }

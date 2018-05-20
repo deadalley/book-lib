@@ -55,11 +55,13 @@ export class AuthService {
         this.setSession(result)
 
         this.auth0.client.userInfo(result.accessToken, (err, user) => {
-          console.log(user)
           const goodreadsId = user.sub.split('|')[2]
           const localUser = JSON.parse(localStorage.getItem('user'))
+
           localStorage.setItem('user', JSON.stringify({ ...(localUser), goodreadsId: goodreadsId }))
           this._goodreadsId.next(goodreadsId)
+
+          this.database.updateUser(localUser.id, { goodreadsId: goodreadsId })
         })
       } else if (error) {
         console.log('Could not log in ')

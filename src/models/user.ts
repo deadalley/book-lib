@@ -4,6 +4,7 @@ export class User {
   email: string
   books: User.Book[]
   collections: string[]
+  goodreadsId: string
 }
 
 export module User {
