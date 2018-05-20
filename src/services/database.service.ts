@@ -60,7 +60,6 @@ export class DatabaseService {
   updateUser(id: string, params: object) {
     this.findUserById(id, (user) => {
       const ref = Object.keys(user)[0]
-      console.log(id, ref, params)
       this.db.object(`users/${ref}`).set({ ...(user[ref]), ...(params) })
     })
   }
