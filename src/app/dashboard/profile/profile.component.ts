@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, trigger, transition, style, animate, group, state, OnDestroy } from '@angular/core'
 import { FormControl , FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms'
-import { DatabaseService } from '../../../services/database.service'
+import { DatabaseService } from 'services/database.service'
+import { AuthService } from 'services/auth.service'
 
 @Component({
   moduleId: module.id,
@@ -37,6 +38,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private databaseService: DatabaseService,
+    private authService: AuthService
   ) {
     this.form = this.fb.group({
       name: '',
@@ -49,5 +51,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   submit(formValues) {
     console.log('Updating user', formValues)
+  }
+
+  loginGoodreads() {
+    this.authService.loginGoodreads()
   }
 }

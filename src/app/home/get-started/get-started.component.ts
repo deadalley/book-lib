@@ -28,4 +28,4 @@ export class GetStartedComponent implements OnInit {
   loginEmail() {
     this.loadComponent.emit('signin')
   }
- }
+}

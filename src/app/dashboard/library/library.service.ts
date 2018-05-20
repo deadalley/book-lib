@@ -34,9 +34,12 @@ export class LibraryService {
   private collection$ = this.collection.asObservable()
 
   constructor(private database: DatabaseService, private auth: AuthService) {
-    this.userRef = JSON.parse(localStorage.getItem('user')).ref
-    this.loadBooks()
-    this.loadCollections()
+    const user = JSON.parse(localStorage.getItem('user'))
+    if (user) {
+      this.userRef = user.ref
+      this.loadBooks()
+      this.loadCollections()
+    }
 
     this.auth.userRef.subscribe((userRef) => {
       if (!userRef || userRef === this.userRef) { return }

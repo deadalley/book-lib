@@ -13,15 +13,8 @@ import { AppRoutes } from './app.routing'
 import { AuthService } from '../services/auth.service'
 import { AuthGuardService } from '../services/auth.guard'
 import { DatabaseService } from '../services/database.service'
-
-export const firebaseConfig = {
-  apiKey: 'AIzaSyCOJ1FNmdWadfNOCvh3Gu1fPBstpWt33Wc',
-  authDomain: 'booklib-834b9.firebaseapp.com',
-  databaseURL: 'https://booklib-834b9.firebaseio.com',
-  projectId: 'booklib-834b9',
-  storageBucket: 'booklib-834b9.appspot.com',
-  messagingSenderId: '590001193511'
-}
+import { GoodreadsService } from '../services/goodreads.service'
+import { environment } from 'environments/environment'
 
 @NgModule({
   declarations: [
@@ -30,14 +23,15 @@ export const firebaseConfig = {
   providers: [
     AuthService,
     AuthGuardService,
-    DatabaseService
+    DatabaseService,
+    GoodreadsService
   ],
   imports: [
     RouterModule.forRoot(AppRoutes),
     BrowserModule,
     BrowserAnimationsModule,
     HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule
   ],

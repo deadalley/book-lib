@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { FormControl , FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { BookButtonsComponent } from '../../../core/book-buttons/book-buttons.component'
-import { Book } from '../../../../../interfaces/book'
+import { Book } from 'interfaces/book'
 import { LibraryService } from '../../library.service'
-import Languages from '../../../../../utils/languages'
-import { cleanFormValues } from '../../../../../utils/helpers'
+import { AuthService } from 'services/auth.service'
+import Languages from 'utils/languages'
+import { cleanFormValues } from 'utils/helpers'
 
 @Component({
   moduleId: module.id,
@@ -24,7 +25,7 @@ export class LibraryNoBooksComponent implements OnInit {
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
 
-  constructor(private fb: FormBuilder, private libraryService: LibraryService) {
+  constructor(private fb: FormBuilder, private libraryService: LibraryService, private authService: AuthService) {
     this.form = this.fb.group({
       title: ['', Validators.required],
       original: '',
@@ -57,6 +58,10 @@ export class LibraryNoBooksComponent implements OnInit {
     Object.assign(this.book, newValues)
 
     console.log('Adding book', this.book)
-    this.libraryService.addBook(this.book)    
+    this.libraryService.addBook(this.book)
+  }
+
+  loginGoodreads() {
+    this.authService.loginGoodreads()
   }
 }
