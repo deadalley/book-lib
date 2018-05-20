@@ -1,6 +1,5 @@
-<div class="main-content" [@card]>
+<div class="main-content">
   <div class="container-fluid">
-    <loading [visible]="isLoading"></loading>
     <div class="card" [@card]>
       <div class="header">
         <h4 class="title">Edit profile</h4>
@@ -16,23 +15,39 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-xs-4"></div>
-            <div class="col-xs-4">
-              <a href="javascript:void(0);" (click)="loginGoodreads()">
-                <img
-                  src="/assets/img/Flat/Social buttons by Dreamstale (22).svg"
-                  alt="Connect to Goodreads"
-                >
-              </a>
-            </div>
-            <div class="col-xs-4"></div>
-          </div>
           <hr>
           <div style="text-align: center;">
             <button type="submit" class="btn btn-default" [disabled]="!form.valid">Update profile</button>
           </div>
         </form>
+      </div>
+    </div>
+    <div class="card" [@card]>
+      <div class="header">
+        <h4 class="title">Connect to Goodreads</h4>
+        <p class="category">Connect your account to your Goodreads account and import books and shelves to your personal library</p>
+      </div>
+      <div class="content">
+        <div class="row" *ngIf="!connectedToGoodreads">
+          <div class="col-xs-4"></div>
+          <div class="col-xs-4">
+            <a href="javascript:void(0);" (click)="loginGoodreads()">
+              <img
+                src="/assets/img/Flat/Social buttons by Dreamstale (22).svg"
+                alt="Connect to Goodreads"
+              >
+            </a>
+          </div>
+          <div class="col-xs-4"></div>
+        </div>
+        <div class="row justify-content-center" *ngIf="connectedToGoodreads">
+          <div class="col-xs-12 text-center">
+            <p>
+              <i class="pe-7s-check" style="font-size: 1.0em; color: #00bb1a"></i>
+              Your account is already connected to Goodreads
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

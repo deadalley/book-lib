@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, trigger, transition, st
 import { FormControl , FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms'
 import { DatabaseService } from 'services/database.service'
 import { AuthService } from 'services/auth.service'
+import { User } from 'interfaces/user'
 
 @Component({
   moduleId: module.id,
@@ -34,15 +35,24 @@ import { AuthService } from 'services/auth.service'
 
 export class ProfileComponent implements OnInit, OnDestroy {
   form: FormGroup
+  user: User
+  connectedToGoodreads = false
 
   constructor(
     private fb: FormBuilder,
     private databaseService: DatabaseService,
     private authService: AuthService
   ) {
+    this.user = JSON.parse(localStorage.getItem('user'))
+    if (!this.user) {
+      console.log('Could not find local user')
+    }
+    this.connectedToGoodreads = !!this.user.goodreadsId
+
     this.form = this.fb.group({
-      name: '',
+      name: this.user.name,
     })
+
   }
 
   ngOnInit() { }
@@ -51,6 +61,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   submit(formValues) {
     console.log('Updating user', formValues)
+
+    this.databaseService.updateUser(this.user.id, { name: formValues.name })
   }
 
   loginGoodreads() {
