@@ -80,6 +80,10 @@ export class LibraryService {
     this.database.postBookForUser(this.userRef, book)
   }
 
+  addBooks(books: Book[]) {
+    books.forEach((book) => this.addBook(book))
+  }
+
   findBook(id: string) {
     this.database.findBookForUserById(this.userRef, id, (book) => this.book.next(book))
     return this.book$

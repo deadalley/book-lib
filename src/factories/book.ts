@@ -23,7 +23,7 @@ const BookFactory = Factory.makeFactory<Book>({
   image_large: random.image(),
   rating: random.number(),
   date: date.past().toISOString().substring(0, 10),
-  gr_link: internet.url()
+  isSelected: random.boolean()
 })
 
 export default BookFactory

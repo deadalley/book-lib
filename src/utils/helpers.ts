@@ -53,7 +53,8 @@ export const filterBook = (book) =>
     'pages',
     'image_small',
     'image_large',
-    'gr_link'
+    'goodreadsLink',
+    'goodreadsId'
   ])
 
 export const filterBookForUser = (book) =>

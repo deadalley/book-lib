@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, trigger, transition, style, animate, group, state } from '@angular/core'
+import { Component, OnInit, Input, trigger, transition, style, animate, group, state, Output, EventEmitter } from '@angular/core'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { Book } from '../../../../interfaces/book'
 import { TooltipModule } from 'ngx-tooltip'
@@ -7,9 +7,7 @@ import { formatDate } from '../../../../utils/helpers'
 @Component({
   selector: 'book-card',
   templateUrl: './book-card.component.html',
-  styleUrls: [
-    './book-card.component.css',
-  ],
+  styleUrls: ['./book-card.component.css'],
   animations: [
     trigger('cardbooks', [
       state('*', style({
@@ -36,9 +34,17 @@ import { formatDate } from '../../../../utils/helpers'
 export class BookCardComponent implements OnInit {
   @Input() book: Book
   @Input() withButtons = true
+  @Input() linkable = false
+  @Input() selectable = false
+  @Output() selectedChanged = new EventEmitter<boolean>()
   formatDate = formatDate
 
   constructor() { }
 
   ngOnInit() { }
+
+  select() {
+    this.book.isSelected = !this.book.isSelected
+    this.selectedChanged.emit(this.book.isSelected)
+  }
 }

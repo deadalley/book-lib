@@ -10,5 +10,4 @@ export class Book {
   pages?: number
   image_small?: string
   image_large?: string
-  gr_link?: string
 }

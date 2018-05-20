@@ -27,15 +27,23 @@ export class GoodreadsService {
     return `${url}.xml?key=${this.key}`
   }
 
-  getUser(id: number, cb) {
-    const url = `${this.domain}/user/show/${id}`
+  getUser(cb, id?: number) {
+    const userId = id ? id : this.id
+    const url = `${this.domain}/user/show/${userId}`
 
     HttpGet(this.http, this.parseUrl(url), cb)
   }
 
-  getBook(id: number, cb) {
+  getBook(cb, id: number) {
     const url = `${this.domain}/book/show/${id}`
 
     HttpGet(this.http, this.parseUrl(url), cb)
+  }
+
+  getBooksForuser(cb, id?: number) {
+    const userId = id ? id : this.id
+    const url = `${this.domain}/review/list?v=2&key=${this.key}&id=${userId}&shelf=all&sort=title&format=xml`
+
+    HttpGet(this.http, url, (rawBooks) => cb(rawBooks ? rawBooks.reviews.review.map((review) => review.book) : rawBooks))
   }
 }

@@ -19,5 +19,7 @@ export interface Book {
   image_small?: string
   image_large?: string
   rating?: number
-  gr_link?: string
+  isSelected?: boolean
+  goodreadsLink?: string
+  goodreadsId?: number
 }

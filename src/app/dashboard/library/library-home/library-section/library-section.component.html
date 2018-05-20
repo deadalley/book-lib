@@ -11,7 +11,7 @@
   <ng-container *ngFor="let book of books; let i = index;">
     <div class="clearfix" *ngIf="i % 4 == 0"></div>
     <div class="col-md-3">
-      <book-card [book]="book"></book-card>
+      <book-card [book]="book" [linkable]="true"></book-card>
     </div>
   </ng-container>
 </div><!-- !Row -->
