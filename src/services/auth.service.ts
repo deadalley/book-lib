@@ -52,7 +52,6 @@ export class AuthService {
     this.auth0.parseHash((error, result) => {
       if (result && result.accessToken && result.idToken) {
         window.location.hash = ''
-        this.setSession(result)
 
         this.auth0.client.userInfo(result.accessToken, (err, user) => {
           const goodreadsId = user.sub.split('|')[2]
@@ -68,13 +67,6 @@ export class AuthService {
         console.log(error)
       }
     })
-  }
-
-  private setSession(authResult): void {
-    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime())
-    localStorage.setItem('accessToken', authResult.accessToken)
-    localStorage.setItem('idToken', authResult.idToken)
-    localStorage.setItem('expiresAt', expiresAt)
   }
 
   private createUserInDatabase(user) {
