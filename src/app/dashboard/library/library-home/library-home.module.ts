@@ -15,8 +15,9 @@ import { LibrarySectionComponent } from './library-section/library-section.compo
 import { LibraryTableComponent } from './library-table/library-table.component'
 import { LibraryNoBooksComponent } from './library-no-books/library-no-books.component'
 
-import { BookOrderPipe } from '../../../../pipes/book-order.pipe'
-import { IterableObject } from '../../../../pipes/iterable-object.pipe'
+import { BookOrderPipe } from 'pipes/book-order.pipe'
+import { CollectionOrderPipe } from 'pipes/collection-order.pipe'
+import { IterableObject } from 'pipes/iterable-object.pipe'
 
 const libraryHomeRoutes: Routes = [
   { path: '', component: LibraryHomeComponent, children: [
@@ -45,6 +46,7 @@ const libraryHomeRoutes: Routes = [
     LibraryTableComponent,
     LibraryNoBooksComponent,
     BookOrderPipe,
+    CollectionOrderPipe,
     IterableObject
   ],
   exports: [ LibraryHomeComponent ],

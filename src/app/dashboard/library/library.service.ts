@@ -12,8 +12,8 @@ import { AuthService } from 'services/auth.service'
 @Injectable()
 export class LibraryService {
   private MAX_DATE = 7
-  private bookOrdering = new BehaviorSubject<string>('title')
-  private collectionOrdering = new BehaviorSubject<string>('title')
+  private bookOrdering = new BehaviorSubject<string>('no grouping')
+  private collectionOrdering = new BehaviorSubject<string>('no grouping')
   private tilesDisplay = new BehaviorSubject<boolean>(true)
   private books = new BehaviorSubject<Book[]>(undefined)
   private latestBooks = new BehaviorSubject<Book[]>(undefined)

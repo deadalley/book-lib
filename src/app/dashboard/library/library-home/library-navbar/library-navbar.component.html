@@ -7,11 +7,11 @@
         <nav class="library-nav">
           <ul class="primary">
             <li [ngClass]="{'active': localUrlPath === 'books' }">
-              <a href="javascript:void(0);" routerLink="./books" (click)="setOrdering('Title')">
+              <a href="javascript:void(0);" routerLink="./books" (click)="setOrdering('No grouping')">
                 <i class="pe-7s-bookmarks" style="vertical-align:middle; font-size: 1.4em;"></i> Books</a>
             </li>
             <li [ngClass]="{'active': localUrlPath === 'collections' }">
-              <a href="javascript:void(0);" routerLink="./collections" (click)="setOrdering('Title')">
+              <a href="javascript:void(0);" routerLink="./collections" (click)="setOrdering('No grouping')">
                 <i class="pe-7s-box1" style="vertical-align:middle; font-size: 1.4em;"></i> Collections</a>
             </li>
           </ul>
@@ -25,6 +25,8 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li style="padding: 8px 16px">Select grouping</li>
+            <li role="separator" class="divider"></li>
             <li *ngFor="let ordering of (localUrlPath === 'books' ? bookOrderings : collectionOrderings)">
               <a href="javascript:void(0);" (click)="setOrdering(ordering)">
                 {{ordering}}

@@ -32,7 +32,7 @@ import { LibraryService } from '../../library.service'
 })
 
 export class LibraryCollectionsComponent implements OnInit, OnDestroy {
-  orderingMethod = 'title'
+  orderingMethod: string
   collections = [] as Collection[]
   selectedCollection = { } as Collection
   isLoading = true

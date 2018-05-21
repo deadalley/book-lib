@@ -12,13 +12,14 @@ import { LibraryService } from '../../library.service'
 export class LibraryNavbarComponent implements OnInit {
   selectedOrdering: string
   bookOrderings = [
+    'No grouping',
     'Author',
     'Date',
     'Title'
   ]
 
   collectionOrderings = [
-    'Date',
+    'No grouping',
     'Size',
     'Title'
   ]
@@ -34,7 +35,7 @@ export class LibraryNavbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.selectedOrdering = 'Title'
+    this.selectedOrdering = 'No grouping'
   }
 
   toggleTilesDisplay(toggle) {

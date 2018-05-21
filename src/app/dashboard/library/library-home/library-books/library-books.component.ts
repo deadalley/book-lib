@@ -11,7 +11,7 @@ import { LibraryService } from '../../library.service'
 
 export class LibraryBooksComponent implements OnInit, OnDestroy {
   tilesDisplay = true
-  orderingMethod = 'title'
+  orderingMethod: string
   books: Book[]
   subscriptions = []
 

@@ -1,20 +1,24 @@
 import { Pipe, PipeTransform } from '@angular/core'
-import { Book } from '../interfaces/book'
+import { Book } from 'interfaces/book'
 
 @Pipe({
-  name: 'ordering'
+  name: 'bookOrdering'
 })
 export class BookOrderPipe implements PipeTransform {
   transform(books: Book[], orderingMethod?: any): any {
-    if (!orderingMethod || orderingMethod === 'title') { return { } }
+    if (!orderingMethod || orderingMethod === 'no grouping') { return { } }
     const orderedItems = { }
 
     books.forEach((book) => {
       if (orderingMethod === 'date') { book.date = new Date(book.date).toLocaleDateString() }
-      if (Object.keys(orderedItems).includes(book[orderingMethod])) {
-        orderedItems[book[orderingMethod]].push(book)
+
+      let order = book[orderingMethod]
+      if (orderingMethod === 'title') { order = order[0].toLocaleUpperCase() }
+
+      if (Object.keys(orderedItems).includes(order)) {
+        orderedItems[order].push(book)
       } else {
-        orderedItems[book[orderingMethod]] = [book]
+        orderedItems[order] = [book]
       }
     })
 
