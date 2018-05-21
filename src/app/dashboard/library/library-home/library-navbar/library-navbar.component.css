@@ -1,64 +1,44 @@
-/* Library navbar */
-.library-nav a {
-  text-decoration: none;
-  display: block;
+.content {
+  padding: 0
 }
 
-.library-nav ul {
-  list-style: none;
-  position: relative;
-  text-align: left;
+.navbar .btn, .input-group  {
+  margin: 10px
+}
+
+.library-nav-btn > a {
+  display: block;
   margin: 0;
-}
-
-.library-nav li {
-  float: left;
-}
-
-/* clear'n floats */
-.library-nav ul:after {
-  clear: both;
-}
-
-.library-nav ul:before,
-.library-nav ul:after {
-    content: " ";
-    display: table;
-}
-
-.library-nav {
-  position: relative;
-  text-align: center;
-  border-radius: 4px;
-  background: transparent;
-  font-size: 1.1em;
-}
-
-/* prime */
-.library-nav ul.primary {
-  padding: 0;
-}
-
-.library-nav ul.primary li a {
-  display: block;
   padding: 20px 20px;
   border-right: 1px solid #d8d8d8;
 }
 
-.library-nav ul.primary li a:hover {
+@media only screen and (max-width: 600px) {
+  .library-nav-btn > a {
+    border-right: 0
+  }
+}
+
+.library-nav-btn > a:hover {
   background-color: #d8d8d8;
 }
 
-.library-nav ul.primary li.active a {
+.library-nav-btn.active > a {
   background-color: #f7f7f7;
 }
 
 /* keeps the tab background white */
-.library-nav ul.primary li:hover a {
+.library-nav-btn:hover > a {
   background: #f2f2f2;
   text-shadow: none;
 }
 
+.library-nav-btn.left > a {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+/* Buttons */
 .btn::-moz-placeholder {
   color: #DDDDDD;
   opacity: 1;
@@ -99,14 +79,6 @@
   border: 1px solid #AAAAAA;
   -webkit-box-shadow: none;
   box-shadow: none;
-  outline: 0 !important;
-  color: #333333;
-}
-
-.active {
-  background-color: #f7f7f7;
-  box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
-  -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,.125);;
   outline: 0 !important;
   color: #333333;
 }

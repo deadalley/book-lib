@@ -1,67 +1,61 @@
 <!-- Navbar -->
 <div class="card">
-  <div class="content" style="padding: 0;">
-    <div class="row">
-      <!-- Buttons -->
-      <div class="col-xs-6">
-        <nav class="library-nav">
-          <ul class="primary">
-            <li [ngClass]="{'active': localUrlPath === 'books' }">
-              <a href="javascript:void(0);" routerLink="./books" (click)="setOrdering('No grouping')">
-                <i class="pe-7s-bookmarks" style="vertical-align:middle; font-size: 1.4em;"></i> Books</a>
-            </li>
-            <li [ngClass]="{'active': localUrlPath === 'collections' }">
-              <a href="javascript:void(0);" routerLink="./collections" (click)="setOrdering('No grouping')">
-                <i class="pe-7s-box1" style="vertical-align:middle; font-size: 1.4em;"></i> Collections</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-        <!-- Dropdown -->
-      <div class="col-xs-1" style="padding: 13px 10px 0 10px; text-align: right;">
-        <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            {{selectedOrdering}}
-            <span class="caret"></span>
+  <div class="content">
+    <nav class="navbar">
+      <ul class="nav navbar-nav">
+        <li [ngClass]="{'active': localUrlPath === 'books', 'library-nav-btn': true, 'left': true}">
+          <a href="javascript:void(0);" routerLink="./books" (click)="setOrdering('No grouping')">
+          <i class="pe-7s-bookmarks" style="vertical-align:middle; font-size: 1.4em;"></i> Books</a>
+        </li>
+        <li [ngClass]="{'active': localUrlPath === 'collections', 'library-nav-btn': true}">
+          <a href="javascript:void(0);" routerLink="./collections" (click)="setOrdering('No grouping')">
+          <i class="pe-7s-box1" style="vertical-align:middle; font-size: 1.4em;"></i> Collections</a>
+        </li>
+        <li style="width: 120px">&nbsp;</li>
+        <li>
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              {{selectedOrdering}}
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li style="padding: 8px 16px">Select grouping</li>
+              <li role="separator" class="divider"></li>
+              <li *ngFor="let ordering of (localUrlPath === 'books' ? bookOrderings : collectionOrderings)">
+                <a href="javascript:void(0);" (click)="setOrdering(ordering)">
+                  {{ordering}}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li style="text-align: right">
+          <div class="input-group" style="width: 250px">
+            <span class="input-group-addon" id="sizing-addon2">
+              <i class="pe-7s-search" style="vertical-align:middle; font-size: 1.4em;"></i>
+            </span>
+            <input type="text" class="form-control" placeholder="Search">
+          </div>
+        </li>
+        <li class="text-center">
+          <!-- Import from Goodreads -->
+          <button type="button" class="btn btn-default" routerLink="goodreads/import" style="margin: 10px 5px">
+            <img src="/assets/img/goodreads_icon_32x32.png" style="height: 100%">
           </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li style="padding: 8px 16px">Select grouping</li>
-            <li role="separator" class="divider"></li>
-            <li *ngFor="let ordering of (localUrlPath === 'books' ? bookOrderings : collectionOrderings)">
-              <a href="javascript:void(0);" (click)="setOrdering(ordering)">
-                {{ordering}}
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <!-- Search -->
-      <div class="col-xs-2" style="padding: 13px 10px 0 10px;">
-        <!-- Search -->
-        <div class="input-group">
-          <span class="input-group-addon" id="sizing-addon2"><i class="pe-7s-search" style="vertical-align:middle; font-size: 1.4em;"></i></span>
-          <input type="text" class="form-control" placeholder="Search" aria-describedby="sizing-addon2">
-        </div>
-      </div>
-      <!-- Tile buttons -->
-      <div class="col-xs-3" style="padding: 13px 33px 0 0; text-align: right;">
-        <!-- Import from Goodreads -->
-        <button type="button" class="library-button btn btn-default" routerLink="goodreads/import">
-          <img src="/assets/img/goodreads_icon_32x32.png" style="height: 100%">
-        </button>
-        <!-- Add book -->
-        <button type="button" class="library-button btn btn-default" routerLink="{{router.url}}/new">
-          <span class="ti-plus" aria-hidden="true"></span>
-        </button>
-        <!-- Table -->
-        <button type="button" class="library-button btn btn-default" (click)="toggleTilesDisplay(false)">
-          <span class="ti-view-list" aria-hidden="true"></span>
-        </button>
-        <!-- Tiles -->
-        <button type="button" class="library-button btn btn-default" (click)="toggleTilesDisplay(true)">
-          <span class="ti-layout-grid3" aria-hidden="true"></span>
-        </button>
-      </div>
-    </div>
+          <!-- Add book -->
+          <button type="button" class="btn btn-default library-nav-tile" routerLink="{{router.url}}/new" style="margin: 10px 5px">
+            <span class="ti-plus" aria-hidden="true"></span>
+          </button>
+          <!-- Table -->
+          <button type="button" class="btn btn-default library-nav-tile" (click)="toggleTilesDisplay(false)" style="margin: 10px 5px">
+            <span class="ti-view-list" aria-hidden="true"></span>
+          </button>
+          <!-- Tiles -->
+          <button type="button" class="btn btn-default library-nav-tile" (click)="toggleTilesDisplay(true)" style="margin: 10px 5px">
+            <span class="ti-layout-grid3" aria-hidden="true"></span>
+          </button>
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>
