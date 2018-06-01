@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, trigger, transition, style, animate, state } from '@angular/core'
+import { Component, OnInit, Input, Output, EventEmitter, trigger, transition, style, animate, state } from '@angular/core'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { Book } from 'interfaces/book'
 
@@ -36,6 +36,11 @@ export class BooksSectionComponent implements OnInit {
   @Input() books: Book[]
   @Input() withButtons: boolean
   @Input() linkable: boolean
+  @Output() selectedBooks = new EventEmitter<Array<Book>>()
 
   ngOnInit() { }
+
+  updateSelectedBooks() {
+    this.selectedBooks.emit(this.books.filter((book) => book.isSelected))
+  }
 }

@@ -72,8 +72,13 @@
     <div class="row" *ngIf="selectable">
       <div class="col-xs-12">
         <hr>
-        <button type="button" class="btn btn-default" (click)="select()">
-          {{book.isSelected ? 'Remove' : 'Add'}}
+        <button type="button" class="btn btn-default" (click)="select()" [disabled]="book.inLibrary">
+          <ng-container *ngIf="!book.inLibrary">
+            <span *ngIf="book.isSelected" class="ti-check-box"></span>
+            <span *ngIf="!book.isSelected" class="ti-control-stop"></span>
+            Add to library
+          </ng-container>
+          {{book.inLibrary ? 'Already in library' : ''}}
         </button>
       </div>
     </div>

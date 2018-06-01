@@ -12,9 +12,11 @@
     <div class="clearfix" *ngIf="i % 4 == 0"></div>
     <div class="col-md-3">
       <book-card
-      [book]="book"
-      [linkable]="linkable"
-      [withButtons]="withButtons"
+        [book]="book"
+        [linkable]="linkable"
+        [withButtons]="withButtons"
+        [selectable]="true"
+        (selectedChanged)="updateSelectedBooks()"
       ></book-card>
     </div>
   </ng-container>

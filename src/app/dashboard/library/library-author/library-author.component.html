@@ -21,23 +21,33 @@
       </div>
       <books-section
         [sectionTitle]="'Books'"
-        [books]="author.books"
-        [withButtons]="false"
-        [linkable]="false"
+        [books]="author.books.slice(0,4)"
+        (selectedBooks)="updateSelectedBooks($event)"
       ></books-section>
-      <!-- <div class="row">
+      <div class="row">
         <div class="col-xs-12">
-          <ng-container *ngFor="let book of author.books; let i = index;">
-            <div class="clearfix" *ngIf="i % 4 == 0"></div>
-            <div class="col-md-3">
-              <book-card
-                [book]="book"
-                [withButtons]="false"
-              ></book-card>
-            </div>
-          </ng-container>
+          <a href="#displayBooks" data-toggle="collapse">
+            <label style="padding:0;">Display all books </label>
+            <i class="pe-7s-angle-down" style="font-size: 1.3em;"></i>
+          </a>
+          <hr style="margin-top: 0;">
         </div>
-      </div> -->
+      </div>
+      <div class="collapse" id="displayBooks">
+        <books-section
+          [books]="author.books.slice(4)"
+          (selectedBooks)="updateSelectedBooks($event)"
+        ></books-section>
+      </div>
+      <hr>
+      <div style="text-align: center;">
+        <button
+          type="button"
+          class="btn btn-default"
+          (click)="importBooks()"
+          [disabled]="!hasSelectedBooks"
+        >Import books to your library</button>
+      </div>
     </div>
   </div>
 </page-navigator>
