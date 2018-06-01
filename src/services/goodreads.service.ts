@@ -42,10 +42,16 @@ export class GoodreadsService {
     HttpGet(this.http, this.parseUrl(url), cb)
   }
 
-  getBooksForuser(cb, id?: number) {
+  getBooksForUser(cb, id?: number) {
     const userId = id ? id : this.id
     const url = `${this.domain}/review/list?v=2&key=${this.key}&id=${userId}&shelf=all&sort=title&format=xml`
 
     HttpGet(this.http, url, (rawBooks) => cb(rawBooks ? rawBooks.reviews.review.map((review) => review.book) : rawBooks))
   }
-}
+
+  getAuthor(cb, id) {
+    const url = `${this.domain}/author/show/${id}`
+
+    HttpGet(this.http, this.parseUrl(url), (response) => cb(response.author))
+  }
+ }

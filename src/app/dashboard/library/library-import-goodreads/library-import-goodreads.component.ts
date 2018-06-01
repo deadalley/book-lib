@@ -55,8 +55,9 @@ export class LibraryImportGoodreadsComponent implements OnInit {
   ngOnInit() { }
 
   loadBooks() {
-    this.goodreadsService.getBooksForuser((books) => {
+    this.goodreadsService.getBooksForUser((books) => {
       if (!books || books.length === 0) { return }
+      console.log(books)
 
       this.books = books.map((book) => ({
         title: book.title,
@@ -66,14 +67,15 @@ export class LibraryImportGoodreadsComponent implements OnInit {
         favorite: false,
         date: (new Date()).toISOString().substring(0, 10),
         isbn: book.isbn,
-        publiser: book.publisher,
+        publisher: book.publisher,
         year: book.publication_year,
         pages: book.num_pages,
         image_large: book.large_image_url ? book.large_image_url : book.image_url,
         image_small: book.small_image_url,
         isSelected: true,
         goodreadsLink: book.link,
-        goodreadsId: book.id._
+        goodreadsId: book.id._,
+        goodreadsAuthorId: book.authors.author.id
       }))
 
       this.libraryService.books$.subscribe((userBooks) => {

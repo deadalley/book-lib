@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { isAfter, subDays } from 'date-fns'
-import { DatabaseService } from '../../../services/database.service'
-import { User } from '../../../interfaces/user'
-import { Book } from '../../../interfaces/book'
-import { Collection } from '../../../interfaces/collection'
+import { DatabaseService } from 'services/database.service'
+import { User } from 'interfaces/user'
+import { Book } from 'interfaces/book'
+import { Collection } from 'interfaces/collection'
+import { Author } from 'interfaces/author'
 import * as _ from 'lodash'
 import { AuthService } from 'services/auth.service'
+import { GoodreadsService } from 'services/goodreads.service'
 
 @Injectable()
 export class LibraryService {

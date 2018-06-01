@@ -22,4 +22,5 @@ export interface Book {
   isSelected?: boolean
   goodreadsLink?: string
   goodreadsId?: number
+  goodreadsAuthorId?: number
 }

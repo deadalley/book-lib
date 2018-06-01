@@ -1,4 +1,5 @@
 import * as _ from 'lodash'
+import { Book } from 'interfaces/book'
 
 export const cleanFormValues = (formValues): object => {
   // tslint:disable-next-line:prefer-const
@@ -54,7 +55,8 @@ export const filterBook = (book) =>
     'image_small',
     'image_large',
     'goodreadsLink',
-    'goodreadsId'
+    'goodreadsId',
+    'goodreadsAuthorId'
   ])
 
 export const filterBookForUser = (book) =>
@@ -78,3 +80,17 @@ export const filterByParam = (array: Array<any>, filter: Array<any>, param: stri
 export const formatDate = (date: string) => {
   return new Date(date).toLocaleDateString()
 }
+
+export const parseBook = (book) => ({
+  title: book.title,
+  author: book.authors.author.name,
+  isbn: book.isbn,
+  publisher: book.publisher,
+  year: book.publication_year,
+  pages: book.num_pages,
+  image_large: book.large_image_url ? book.large_image_url : book.image_url,
+  image_small: book.small_image_url,
+  goodreadsLink: book.link,
+  goodreadsId: book.id._,
+  goodreadsAuthorId: book.authors.author.id
+})

@@ -3,14 +3,20 @@
   <!-- Tiles -->
   <ng-container *ngSwitchCase="true">
     <ng-container *ngIf="orderingMethod === 'no grouping'">
-      <library-section [books]="books"></library-section>
+      <books-section
+        [books]="books"
+        [withButtons]="true"
+        [linkable]="true"
+      ></books-section>
     </ng-container>
     <ng-container *ngIf="orderingMethod !== 'no grouping'">
       <ng-container *ngFor="let item of books | bookOrdering: orderingMethod | iterable">
-        <library-section
+        <books-section
           [sectionTitle]="item.key"
           [books]="item.value"
-        ></library-section>
+          [withButtons]="true"
+          [linkable]="true"
+        ></books-section>
       </ng-container>
     </ng-container>
   </ng-container>

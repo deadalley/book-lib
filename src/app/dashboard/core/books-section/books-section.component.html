@@ -7,11 +7,15 @@
   </div>
 </div>
 <!-- Row of book cards -->
-<div class="row" [@cardbooks]>
+<div class="row" [@card]>
   <ng-container *ngFor="let book of books; let i = index;">
     <div class="clearfix" *ngIf="i % 4 == 0"></div>
     <div class="col-md-3">
-      <book-card [book]="book" [linkable]="true"></book-card>
+      <book-card
+      [book]="book"
+      [linkable]="linkable"
+      [withButtons]="withButtons"
+      ></book-card>
     </div>
   </ng-container>
 </div><!-- !Row -->

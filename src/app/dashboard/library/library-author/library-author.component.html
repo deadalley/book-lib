@@ -1,0 +1,43 @@
+<loading [visible]="isLoading"></loading>
+<page-navigator *ngIf="!isLoading">
+  <div class="card" [@card]>
+    <div class="header">
+      <h4 class="title">{{author.name}}</h4>
+    </div>
+    <div class="content">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="image author-photo">
+            <img
+              [src]="author.image_large ? author.image_large : (author.image_small ? author.image_small : '/assets/img/no-book-cover.png')"
+              alt="Author photo"
+            >
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label>About:</label>
+          <p [innerHTML]="author.about"></p>
+        </div>
+      </div>
+      <books-section
+        [sectionTitle]="'Books'"
+        [books]="author.books"
+        [withButtons]="false"
+        [linkable]="false"
+      ></books-section>
+      <!-- <div class="row">
+        <div class="col-xs-12">
+          <ng-container *ngFor="let book of author.books; let i = index;">
+            <div class="clearfix" *ngIf="i % 4 == 0"></div>
+            <div class="col-md-3">
+              <book-card
+                [book]="book"
+                [withButtons]="false"
+              ></book-card>
+            </div>
+          </ng-container>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</page-navigator>
