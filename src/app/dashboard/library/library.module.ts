@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { RouterModule, Routes, Route } from '@angular/router'
+import { RouterModule, Routes } from '@angular/router'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { TooltipModule } from 'ngx-tooltip'
 import { RatingModule } from 'ngx-rating'
@@ -14,6 +14,7 @@ import { LibraryAddCollectionComponent } from './library-edit-collection/library
 import { LibraryEditCollectionComponent } from './library-edit-collection/library-edit-collection.component'
 import { LibraryBookComponent } from './library-book/library-book.component'
 import { LibraryAuthorComponent } from './library-author/library-author.component'
+import { LibraryFindAuthorComponent } from './library-find-author/library-find-author.component'
 import { LibraryImportGoodreadsComponent } from './library-import-goodreads/library-import-goodreads.component'
 
 import { LibraryService } from './library.service'
@@ -29,6 +30,7 @@ const libraryRoutes: Routes = [
     { path: 'books/collections/new', redirectTo: 'collections/new' },
     { path: 'goodreads/import', component: LibraryImportGoodreadsComponent },
     { path: 'authors/:id', component: LibraryAuthorComponent },
+    { path: 'authors/find/:name', component: LibraryFindAuthorComponent },
     // { path: '**', redirectTo: '', pathMatch: 'full' }
   ]}
 ]
@@ -51,6 +53,7 @@ const libraryRoutes: Routes = [
     LibraryEditCollectionComponent,
     LibraryBookComponent,
     LibraryAuthorComponent,
+    LibraryFindAuthorComponent,
     LibraryImportGoodreadsComponent
   ],
   providers: [

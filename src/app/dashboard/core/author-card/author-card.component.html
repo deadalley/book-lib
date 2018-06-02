@@ -1,0 +1,24 @@
+<div class="card" style="text-align: center;" [@card]>
+  <div class="header">
+    <!-- Header -->
+    <h4 class="title">{{author.name}}</h4>
+    <hr>
+  </div>
+  <div class="content">
+    <!-- Image -->
+    <div class="image">
+      <img
+        [src]="author.image_large ? author.image_large : (author.image_small ? author.image_small : '/assets/img/no-book-cover.png')"
+        alt="Author photo"
+      >
+    </div>
+    <!-- Selectable -->
+    <div class="row" style="margin-top: 10px">
+      <div class="col-xs-12">
+        <button type="button" class="btn btn-default" (click)="select()">
+          Select this author
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

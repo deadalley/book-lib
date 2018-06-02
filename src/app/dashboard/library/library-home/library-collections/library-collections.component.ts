@@ -9,7 +9,7 @@ import { LibraryService } from '../../library.service'
   templateUrl: 'library-collections.component.html',
   styleUrls: [],
   animations: [
-    trigger('cardbooks', [
+    trigger('card', [
       state('*', style({
         '-ms-transform': 'translate3D(0px, 0px, 0px)',
         '-webkit-transform': 'translate3D(0px, 0px, 0px)',

@@ -57,7 +57,6 @@ export class LibraryImportGoodreadsComponent implements OnInit {
   loadBooks() {
     this.goodreadsService.getBooksForUser((books) => {
       if (!books || books.length === 0) { return }
-      console.log(books)
 
       this.books = books.map((book) => ({
         title: book.title,

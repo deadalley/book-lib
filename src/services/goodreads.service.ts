@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpParams } from '@angular/common/http'
-import { HttpGet } from 'utils/http'
+import { HttpGet, HttpGetAll } from 'utils/http'
 import { environment } from 'environments/environment'
 import { AuthService } from './auth.service'
+import * as _ from 'lodash'
 
 const USE_PROXY = true
 
@@ -69,11 +70,22 @@ export class GoodreadsService {
   }
 
   searchAuthor(cb, name: string) {
+    name = 'stephen'
     const url = `${this.domain}/search/index`
     const params = this.defaultParams
-      .set('q', name)
+      .set('q', decodeURI(name))
       .set('search[field]', 'author')
 
-    HttpGet(this.http, this.parseUrl(url), params, (response) => cb(response))
+    HttpGet(this.http, this.parseUrl(url), params, (response) => {
+      const authorIds = _.uniq(response.search.results.work.map((item) => item.best_book.author.id._))
+
+      HttpGetAll(
+        this.http,
+        authorIds.map((id) => ({
+          url: `${this.domain}/author/show/${id}`,
+          params: this.defaultParams
+        })),
+      (results) => cb(results.map((result) => result.author)))
+    })
   }
  }

@@ -22,6 +22,9 @@
       <books-section
         [sectionTitle]="'Books'"
         [books]="author.books.slice(0,4)"
+        [selectable]="true"
+        [selectBtnContent]="'Add to library'"
+        [selectBtnContentDisabled]="'Already in library'"
         (selectedBooks)="updateSelectedBooks($event)"
       ></books-section>
       <div class="row">
@@ -36,6 +39,9 @@
       <div class="collapse" id="displayBooks">
         <books-section
           [books]="author.books.slice(4)"
+          [selectable]="true"
+          [selectBtnContent]="'Add to library'"
+          [selectBtnContentDisabled]="'Already in library'"
           (selectedBooks)="updateSelectedBooks($event)"
         ></books-section>
       </div>

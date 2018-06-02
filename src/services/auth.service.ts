@@ -28,9 +28,6 @@ export class AuthService {
     scope: this.scope
   })
 
-  private apiHeaders: Headers
-  private apiOptions: RequestOptions
-
   private _userRef = new BehaviorSubject<string>(undefined)
   private _goodreadsId = new BehaviorSubject<string>(undefined)
 

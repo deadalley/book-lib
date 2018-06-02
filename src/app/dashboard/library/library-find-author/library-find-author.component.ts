@@ -1,17 +1,16 @@
 import { Component, OnInit, trigger, transition, style, animate, state, OnDestroy } from '@angular/core'
 import { Router } from '@angular/router'
-import { Book } from 'interfaces/book'
 import { Author } from 'interfaces/author'
+import { Book } from 'interfaces/book'
 import { GoodreadsService } from 'services/goodreads.service'
 import { LibraryService } from '../library.service'
-import { parseBook } from 'utils/helpers'
-import * as _ from 'lodash'
+import { parseAuthor } from 'utils/helpers'
 
 @Component({
   moduleId: module.id,
-  selector: 'library-author',
-  templateUrl: 'library-author.component.html',
-  styleUrls: ['./library-author.component.css'],
+  selector: 'library--findauthor',
+  templateUrl: 'library-find-author.component.html',
+  styleUrls: ['./library-find-author.component.css'],
   animations: [
     trigger('card', [
       state('*', style({
@@ -35,8 +34,10 @@ import * as _ from 'lodash'
   ]
 })
 
-export class LibraryAuthorComponent implements OnInit, OnDestroy {
-  author = { } as Author
+export class LibraryFindAuthorComponent implements OnInit, OnDestroy {
+  authors = { } as Author[]
+  books: Book[]
+  selectedAuthor: Author
   isLoading = true
   hasSelectedBooks = false
   subscription
@@ -47,58 +48,39 @@ export class LibraryAuthorComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private goodreadsService: GoodreadsService,
     private libraryService: LibraryService,
+    private goodreadsService: GoodreadsService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.goodreadsService.getAuthor((author) => {
-      if (author) {
-        this.isLoading = false
+    this.goodreadsService.searchAuthor((authors) => {
+      this.isLoading = false
+      this.authors = authors.map((author) => parseAuthor(author))
+    }, this.localUrlPath)
 
-        const books = author.books.book.map((book) => _.omit(parseBook(book), ['author']))
-
-        this.subscription = this.libraryService.books$.subscribe((ownBooks) => {
-          if (!ownBooks) { return }
-          books.forEach((book) =>
-            book.inLibrary = ownBooks.map((ownBook) => ownBook.goodreadsId).includes(book.goodreadsId))
-        })
-
-        this.author = {
-          id: author.id,
-          name: author.name,
-          about: author.about,
-          books: books,
-          image_small: author.small_image_url,
-          image_large: author.large_image_url ? author.large_image_url : author.image_url,
-          goodreadsLink: author.link
-        }
-      }
-
-    }, +this.localUrlPath)
+    this.subscription = this.libraryService.books$.subscribe((books) => {
+      if (!books) { return }
+      this.books = books
+    })
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe()
   }
 
+  selectAuthor(author: Author) {
+    this.selectedAuthor = author
+  }
+
   updateSelectedBooks(books: Book[]) {
     this.hasSelectedBooks = books.some((book) => book.isSelected)
   }
 
-  importBooks() {
-    // TODO: Add owned, read, favorite
-    const booksToAdd = this.author.books
-      .filter((book) => book.isSelected)
-      .map((book) => ({
-        ...(book),
-        author: this.author.name,
-        owned: false,
-        read: false,
-        favorite: false,
-        date: (new Date()).toISOString().substring(0, 10),
-      }))
-    this.libraryService.addBooks(booksToAdd)
+  updateBooks() {
+    const selectedBooks = this.books.filter((book) => book.isSelected)
+    console.log(selectedBooks)
+    const hasGoodreadsAuthorId = selectedBooks.filter((book) => book.goodreadsAuthorId)
+    console.log(hasGoodreadsAuthorId)
   }
 }
