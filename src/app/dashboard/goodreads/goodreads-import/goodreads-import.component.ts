@@ -1,13 +1,13 @@
 import { Component, OnInit, trigger, transition, style, animate, group, state } from '@angular/core'
 import { GoodreadsService } from 'services/goodreads.service'
-import { LibraryService } from '../library.service'
+import { LibraryService } from '../../library/library.service'
 import { Book } from 'interfaces/book'
 
 @Component({
   moduleId: module.id,
-  selector: 'library-import-goodreads',
-  templateUrl: 'library-import-goodreads.component.html',
-  styleUrls: ['./library-import-goodreads.component.css'],
+  selector: 'goodreads-import',
+  templateUrl: 'goodreads-import.component.html',
+  styleUrls: ['./goodreads-import.component.css'],
   animations: [
     trigger('card', [
       state('*', style({
@@ -31,7 +31,7 @@ import { Book } from 'interfaces/book'
   ]
 })
 
-export class LibraryImportGoodreadsComponent implements OnInit {
+export class GoodreadsImportComponent implements OnInit {
   goodreadsId: number
   books = [] as Book[]
   isLoading = true

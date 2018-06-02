@@ -1,7 +1,5 @@
-import { Component, OnInit, trigger, transition, style, animate, group, state } from '@angular/core'
-import 'rxjs/add/operator/map'
+import { Component, OnInit, trigger, transition, style, animate, state } from '@angular/core'
 import { LibraryService } from './library.service'
-import CollectionFactory from '../../../factories/collection'
 
 @Component({
   moduleId: module.id,

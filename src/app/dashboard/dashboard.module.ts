@@ -17,9 +17,10 @@ const dashboardRoutes: Routes = [
   { path: '', component: DashboardComponent, children: [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'goodreads_login', redirectTo: 'profile', pathMatch: 'full' },
-    { path: 'goodreads_login/import', redirectTo: 'library/goodreads/import', pathMatch: 'full' },
+    { path: 'goodreads_login/import', redirectTo: 'goodreads/import', pathMatch: 'full' },
     { path: 'home', component: DashboardHomeComponent },
     { path: 'library', loadChildren: './library/library.module#LibraryModule' },
+    { path: 'goodreads', loadChildren: './goodreads/goodreads.module#GoodreadsModule' },
     { path: 'profile', component: ProfileComponent },
   ]}
 ]

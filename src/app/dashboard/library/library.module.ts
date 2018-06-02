@@ -15,7 +15,6 @@ import { LibraryEditCollectionComponent } from './library-edit-collection/librar
 import { LibraryBookComponent } from './library-book/library-book.component'
 import { LibraryAuthorComponent } from './library-author/library-author.component'
 import { LibraryFindAuthorComponent } from './library-find-author/library-find-author.component'
-import { LibraryImportGoodreadsComponent } from './library-import-goodreads/library-import-goodreads.component'
 
 import { LibraryService } from './library.service'
 
@@ -28,7 +27,6 @@ const libraryRoutes: Routes = [
     { path: 'books/:id', component: LibraryBookComponent },
     { path: 'books/:id/edit', component: LibraryEditBookComponent },
     { path: 'books/collections/new', redirectTo: 'collections/new' },
-    { path: 'goodreads/import', component: LibraryImportGoodreadsComponent },
     { path: 'authors/:id', component: LibraryAuthorComponent },
     { path: 'authors/find/:name', component: LibraryFindAuthorComponent },
     // { path: '**', redirectTo: '', pathMatch: 'full' }
@@ -53,8 +51,7 @@ const libraryRoutes: Routes = [
     LibraryEditCollectionComponent,
     LibraryBookComponent,
     LibraryAuthorComponent,
-    LibraryFindAuthorComponent,
-    LibraryImportGoodreadsComponent
+    LibraryFindAuthorComponent
   ],
   providers: [
     LibraryService

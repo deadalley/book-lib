@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { AuthService } from 'services/auth.service';
+import { AuthService } from 'services/auth.service'
 
 declare var $: any
 
@@ -14,6 +14,7 @@ export const ROUTES: RouteInfo[] = [
   { path: 'home', title: 'Home',  icon: 'pe-7s-home', class: '' },
   { path: 'library', title: 'Library',  icon: 'pe-7s-notebook', class: '' },
   { path: 'profile', title: 'Profile',  icon: 'pe-7s-user', class: '' },
+  { path: 'goodreads', title: 'Goodreads',  icon: 'pe-7s-science', class: '' },
 ]
 
 @Component({
