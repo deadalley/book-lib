@@ -38,4 +38,10 @@ export class LibraryTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() { }
+
+  authorRoute(book: Book) {
+    return book.goodreadsAuthorId
+      ? `/dashboard/library/authors/${book.goodreadsAuthorId}`
+      : `/dashboard/library/authors/find/${book.author}`
+  }
 }

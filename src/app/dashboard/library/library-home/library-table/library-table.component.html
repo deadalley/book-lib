@@ -13,11 +13,11 @@
           <tbody>
             <tr *ngFor="let book of books">
               <td class="col">
-                <a href="javascript:void(0);" routerLink="../books/{{book.id}}">
-                  {{book.title}}
-                </a>
+                <a href="#" routerLink="../books/{{book.id}}">{{book.title}}</a>
               </td>
-              <td class="col">{{book.author}}</td>
+              <td class="col">
+                <a href="#" [routerLink]="authorRoute(book)">{{book.author}}</a>
+              </td>
               <td class="col">{{formatDate(book.date)}}</td>
               <td class="col-md-2">
                 <i class="pe-7s-check tile-icon"
