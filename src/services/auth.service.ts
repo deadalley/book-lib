@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core'
 import { AngularFireAuth } from 'angularfire2/auth'
 import { AngularFireDatabase } from 'angularfire2/database'
 import { Router } from '@angular/router'
-import { Http, RequestOptions, Headers, Response } from '@angular/http'
-import { Observable } from 'rxjs/Observable'
+import { HttpClient } from '@angular/common/http'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import * as firebase from 'firebase/app'
 import * as auth0 from 'auth0-js'
@@ -42,7 +41,7 @@ export class AuthService {
     public fireAuth: AngularFireAuth,
     private fireDb: AngularFireDatabase,
     private router: Router,
-    private http: Http,
+    private http: HttpClient,
     private database: DatabaseService
   ) {
     this.setupSessionForGoodreadsLogin()

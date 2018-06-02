@@ -1,9 +1,8 @@
-import { parseString, parseNumbers } from 'xml2js'
-import { Http, Response } from '@angular/http'
+import { parseString } from 'xml2js'
+import { HttpClient, HttpParams } from '@angular/common/http'
 
-export const HttpGet = (http: Http, url: string, cb) => {
-  http.get(url)
-    .map((res: Response) => res.text())
+export const HttpGet = (http: HttpClient, url: string, params: HttpParams, cb) => {
+  http.get(url, { responseType: 'text', params })
     .subscribe((xml) => {
       new Promise((resolve) => {
         const options = { explicitRoot: false, explicitArray: false }
