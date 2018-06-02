@@ -79,8 +79,15 @@ export class LibraryFindAuthorComponent implements OnInit, OnDestroy {
 
   updateBooks() {
     const selectedBooks = this.books.filter((book) => book.isSelected)
-    console.log(selectedBooks)
     const hasGoodreadsAuthorId = selectedBooks.filter((book) => book.goodreadsAuthorId)
-    console.log(hasGoodreadsAuthorId)
+    if (hasGoodreadsAuthorId) {
+      // open modal
+    }
+    selectedBooks.forEach((book) => {
+      book.goodreadsAuthorId = this.selectedAuthor.id
+      book.author = this.selectedAuthor.name
+      this.libraryService.updateBook(book)
+    })
+    this.router.navigate(['dashboard/library'])
   }
 }

@@ -70,7 +70,6 @@ export class GoodreadsService {
   }
 
   searchAuthor(cb, name: string) {
-    name = 'stephen'
     const url = `${this.domain}/search/index`
     const params = this.defaultParams
       .set('q', decodeURI(name))
