@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
-import { FormControl , FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { Router } from '@angular/router'
 import { BookButtonsComponent } from '../../../core/book-buttons/book-buttons.component'
 import { Book } from 'interfaces/book'
 import { LibraryService } from '../../library.service'
@@ -25,7 +26,12 @@ export class LibraryNoBooksComponent implements OnInit {
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
 
-  constructor(private fb: FormBuilder, private libraryService: LibraryService, private authService: AuthService) {
+  constructor(
+    private fb: FormBuilder,
+    private libraryService: LibraryService,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.form = this.fb.group({
       title: ['', Validators.required],
       original: '',
@@ -62,6 +68,12 @@ export class LibraryNoBooksComponent implements OnInit {
   }
 
   loginGoodreads() {
-    this.authService.loginGoodreads()
+    this.authService.goodreadsId.subscribe((goodreadsId) => {
+      if (goodreadsId) {
+        this.router.navigate(['dashboard/library/goodreads/import'])
+      } else {
+        this.authService.loginGoodreads('dashboard/goodreads_login/import')
+      }
+    })
   }
 }

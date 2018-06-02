@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core'
-import { Observable } from 'rxjs/Observable'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { isAfter, subDays } from 'date-fns'
 import { DatabaseService } from 'services/database.service'
 import { User } from 'interfaces/user'
 import { Book } from 'interfaces/book'
 import { Collection } from 'interfaces/collection'
-import { Author } from 'interfaces/author'
 import * as _ from 'lodash'
 import { AuthService } from 'services/auth.service'
-import { GoodreadsService } from 'services/goodreads.service'
 
 @Injectable()
 export class LibraryService {
@@ -23,7 +20,6 @@ export class LibraryService {
   private book = new BehaviorSubject<Book>(undefined)
   private collection = new BehaviorSubject<Collection>(undefined)
 
-  private _owner: User
   private userRef: string
 
   collectionOrdering$ = this.collectionOrdering.asObservable()
@@ -36,12 +32,12 @@ export class LibraryService {
   private collection$ = this.collection.asObservable()
 
   constructor(private database: DatabaseService, private auth: AuthService) {
-    const user = JSON.parse(localStorage.getItem('user'))
-    if (user) {
-      this.userRef = user.ref
-      this.loadBooks()
-      this.loadCollections()
-    }
+    // const user = JSON.parse(localStorage.getItem('user'))
+    // if (user) {
+    //   this.userRef = user.ref
+    //   this.loadBooks()
+    //   this.loadCollections()
+    // }
 
     this.auth.userRef.subscribe((userRef) => {
       if (!userRef || userRef === this.userRef) { return }
@@ -103,7 +99,9 @@ export class LibraryService {
   getLatestBooks() {
     this.books$.subscribe((books) => {
       if (!books) { return }
-      const filteredBooks = this.books.getValue().filter((book) => isAfter(book.date, subDays(new Date(), this.MAX_DATE)))
+      const filteredBooks = this.books.getValue()
+        .filter((book) => isAfter(book.date, subDays(new Date(), this.MAX_DATE)))
+        .reverse()
 
       this.latestBooks.next(filteredBooks.slice(0, 4))
     })

@@ -13,20 +13,21 @@ import { environment } from 'environments/environment'
 
 @Injectable()
 export class AuthService {
-  private clientID = environment.auth0Config.clientId
-  private clientSecret = environment.auth0Config.clientSecret
-  private domain = environment.auth0Config.domain
-  private redirectURI = environment.auth0Config.redirectUri
-  private scope = 'openid'
-
-  private auth0 = new auth0.WebAuth({
+  private readonly localDomain = environment.localDomain
+  private readonly clientID = environment.auth0Config.clientId
+  private readonly clientSecret = environment.auth0Config.clientSecret
+  private readonly domain = environment.auth0Config.domain
+  private readonly redirectURI = environment.auth0Config.redirectUri
+  private readonly defaultParams = {
     clientID: this.clientID,
     domain: this.domain,
     responseType: 'token id_token',
     audience: `https://${this.domain}/userinfo`,
     redirectUri: this.redirectURI,
-    scope: this.scope
-  })
+    scope: 'openid'
+  }
+
+  private auth0 = new auth0.WebAuth(this.defaultParams)
 
   private _userRef = new BehaviorSubject<string>(undefined)
   private _goodreadsId = new BehaviorSubject<string>(undefined)
@@ -41,6 +42,11 @@ export class AuthService {
     private http: HttpClient,
     private database: DatabaseService
   ) {
+    const user = JSON.parse(localStorage.getItem('user'))
+    if (user) {
+      this._userRef.next(user.ref)
+      this._goodreadsId.next(user.goodreadsId)
+    }
     this.setupSessionForGoodreadsLogin()
   }
 
@@ -104,7 +110,10 @@ export class AuthService {
     this.createUserInDatabase(user)
   }
 
-  loginGoodreads() {
+  loginGoodreads(redirectUri?: string) {
+    this.auth0 = new auth0.WebAuth({
+      ...this.defaultParams,
+      redirectUri: `${this.localDomain}/${redirectUri}` || this.redirectURI })
     this.auth0.authorize({ connection: 'goodreads' })
   }
 

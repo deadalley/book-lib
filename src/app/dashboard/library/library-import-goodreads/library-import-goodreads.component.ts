@@ -38,52 +38,44 @@ export class LibraryImportGoodreadsComponent implements OnInit {
   hasSelectedBooks = false
 
   constructor(private goodreadsService: GoodreadsService, private libraryService: LibraryService) {
-    const user = JSON.parse(localStorage.getItem('user'))
-    if (!user) {
-      console.log('Could not find user')
-    }
-
-    if (!user.goodreadsId) {
-      console.log('User is not connected to Goodreads')
-    }
-
-    this.goodreadsId = user.goodreadsId
-
     this.loadBooks()
   }
 
   ngOnInit() { }
 
   loadBooks() {
-    this.goodreadsService.getBooksForUser((books) => {
-      if (!books || books.length === 0) { return }
+    this.goodreadsService.goodreadsId.subscribe((goodreadsId) => {
+      if (!goodreadsId) { return }
+      this.goodreadsService.getBooksForUser((books) => {
+        if (!books || books.length === 0) { return }
 
-      this.books = books.map((book) => ({
-        title: book.title,
-        author: book.authors.author.name,
-        owned: false,
-        read: false,
-        favorite: false,
-        date: (new Date()).toISOString().substring(0, 10),
-        isbn: book.isbn,
-        publisher: book.publisher,
-        year: book.publication_year,
-        pages: book.num_pages,
-        image_large: book.large_image_url ? book.large_image_url : book.image_url,
-        image_small: book.small_image_url,
-        isSelected: true,
-        goodreadsLink: book.link,
-        goodreadsId: book.id._,
-        goodreadsAuthorId: book.authors.author.id
-      }))
+        this.books = books.map((book) => ({
+          title: book.title,
+          author: book.authors.author.name,
+          owned: false,
+          read: false,
+          favorite: false,
+          date: (new Date()).toISOString().substring(0, 10),
+          isbn: book.isbn,
+          publisher: book.publisher,
+          year: book.publication_year,
+          pages: book.num_pages,
+          image_large: book.large_image_url ? book.large_image_url : book.image_url,
+          image_small: book.small_image_url,
+          isSelected: true,
+          goodreadsLink: book.link,
+          goodreadsId: book.id._,
+          goodreadsAuthorId: book.authors.author.id
+        }))
 
-      this.libraryService.books$.subscribe((userBooks) => {
-        if (!userBooks) { return }
+        this.libraryService.books$.subscribe((userBooks) => {
+          if (!userBooks) { return }
 
-        this.isLoading = false
-        this.hasSelectedBooks = true
-        const grBooks = userBooks.filter((book) => !!book.goodreadsLink).map((book) => book.goodreadsId)
-        this.books = this.books.filter((book) => !grBooks.includes(book.goodreadsId))
+          this.isLoading = false
+          this.hasSelectedBooks = true
+          const grBooks = userBooks.filter((book) => !!book.goodreadsLink).map((book) => book.goodreadsId)
+          this.books = this.books.filter((book) => !grBooks.includes(book.goodreadsId))
+        })
       })
     })
   }

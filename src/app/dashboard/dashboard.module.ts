@@ -16,6 +16,8 @@ import { ProfileComponent } from './profile/profile.component'
 const dashboardRoutes: Routes = [
   { path: '', component: DashboardComponent, children: [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: 'goodreads_login', redirectTo: 'profile', pathMatch: 'full' },
+    { path: 'goodreads_login/import', redirectTo: 'library/goodreads/import', pathMatch: 'full' },
     { path: 'home', component: DashboardHomeComponent },
     { path: 'library', loadChildren: './library/library.module#LibraryModule' },
     { path: 'profile', component: ProfileComponent },
