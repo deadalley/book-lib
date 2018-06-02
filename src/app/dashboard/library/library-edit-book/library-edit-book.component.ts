@@ -132,7 +132,6 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
     }
 
     Object.assign(this.book, newValues)
-    console.log(this.collections, this.book.collections)
 
     console.log('Updating book', this.book)
 

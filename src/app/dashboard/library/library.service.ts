@@ -101,9 +101,11 @@ export class LibraryService {
   }
 
   getLatestBooks() {
-    this.database.getLatestBooks(this.userRef, (books) => {
-      const filteredBooks = books.filter((book) => isAfter(book.date, subDays(new Date(), this.MAX_DATE)))
-      this.latestBooks.next(filteredBooks)
+    this.books$.subscribe((books) => {
+      if (!books) { return }
+      const filteredBooks = this.books.getValue().filter((book) => isAfter(book.date, subDays(new Date(), this.MAX_DATE)))
+
+      this.latestBooks.next(filteredBooks.slice(0, 4))
     })
     return this.latestBooks$
   }

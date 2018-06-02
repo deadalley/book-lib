@@ -18,6 +18,7 @@ export class LastAddedBooksComponent implements OnInit, OnDestroy {
   constructor(private libraryService: LibraryService) {
     this.subscription = libraryService.getLatestBooks().subscribe((books) => {
       if (!books) { return }
+
       this.isLoading = false
       this.latestBooks = books
       this.hasBooks = this.latestBooks.length > 0
