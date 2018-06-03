@@ -4,11 +4,11 @@
     <nav class="navbar">
       <ul class="nav navbar-nav">
         <li [ngClass]="{'active': localUrlPath === 'books', 'library-nav-btn': true, 'left': true}">
-          <a href="javascript:void(0);" routerLink="./books" (click)="setOrdering('No grouping')">
+          <a href="javascript:void(0);" routerLink="./books">
           <i class="pe-7s-bookmarks" style="vertical-align:middle; font-size: 1.4em;"></i> Books</a>
         </li>
         <li [ngClass]="{'active': localUrlPath === 'collections', 'library-nav-btn': true}">
-          <a href="javascript:void(0);" routerLink="./collections" (click)="setOrdering('No grouping')">
+          <a href="javascript:void(0);" routerLink="./collections">
           <i class="pe-7s-box1" style="vertical-align:middle; font-size: 1.4em;"></i> Collections</a>
         </li>
         <li style="width: 120px">&nbsp;</li>

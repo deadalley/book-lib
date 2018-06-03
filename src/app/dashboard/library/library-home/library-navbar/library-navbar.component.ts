@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute, Params } from '@angular/router'
 import { LibraryService } from '../../library.service'
+import { upperCaseFirstLetter } from 'utils/helpers'
 
 @Component({
   moduleId: module.id,
@@ -10,7 +11,7 @@ import { LibraryService } from '../../library.service'
 })
 
 export class LibraryNavbarComponent implements OnInit, OnDestroy {
-  subscription
+  subscriptions = []
   tagsDisplay = false
   selectedOrdering: string
   bookOrderings = [
@@ -31,22 +32,24 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
 
   get localUrlPath(): string {
     const splitUrl = this.router.url.split('/')
-    return splitUrl[splitUrl.length - 1]
+    return splitUrl[splitUrl.length - 1].split('?')[0]
   }
 
   constructor(
     public router: Router,
+    private route: ActivatedRoute,
     private libraryService: LibraryService
   ) {
-    this.subscription = this.libraryService.tagsDisplay$.subscribe((tagsDisplay) => this.tagsDisplay = tagsDisplay)
+    this.subscriptions.push(this.libraryService.tagsDisplay$.subscribe((tagsDisplay) => this.tagsDisplay = tagsDisplay))
+    this.subscriptions.push(this.route.queryParams.subscribe((params) => {
+      this.selectedOrdering = params['grouping'] ? upperCaseFirstLetter(params['grouping']) : 'No grouping'
+    }))
   }
 
-  ngOnInit() {
-    this.selectedOrdering = 'No grouping'
-  }
+  ngOnInit() { }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe()
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe())
   }
 
   toggleTilesDisplay(toggle) {
@@ -58,11 +61,11 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
   }
 
   setOrdering(order: string) {
-    this.selectedOrdering = order
-    if (this.localUrlPath === 'books') {
-      this.libraryService.setBookOrderingMethod(order.toLowerCase())
-    } else if (this.localUrlPath === 'collections') {
-      this.libraryService.setCollectionOrderingMethod(order.toLowerCase())
+    if (order === 'No grouping') {
+      this.router.navigate(['.'], { relativeTo: this.route })
+      return
     }
+    const queryParams: Params = { ...this.route.snapshot.queryParams, grouping: order.toLocaleLowerCase() }
+    this.router.navigate([`./${this.localUrlPath}`], { relativeTo: this.route, queryParams })
   }
 }

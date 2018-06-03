@@ -113,3 +113,5 @@ export const scrollToAnchor = (location: string, wait: number): void => {
     }, wait)
   }
 }
+
+export const upperCaseFirstLetter = (string: string) => string.charAt(0).toUpperCase() + string.slice(1)

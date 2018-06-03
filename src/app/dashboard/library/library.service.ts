@@ -23,8 +23,6 @@ export class LibraryService {
 
   private userRef: string
 
-  collectionOrdering$ = this.collectionOrdering.asObservable()
-  bookOrdering$ = this.bookOrdering.asObservable()
   tilesDisplay$ = this.tilesDisplay.asObservable()
   tagsDisplay$ = this.tagsDisplay.asObservable()
   collections$ = this.collections.asObservable()

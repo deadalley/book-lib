@@ -46,4 +46,8 @@ export class BooksSectionComponent implements OnInit {
   updateSelectedBooks() {
     this.selectedBooks.emit(this.books.filter((book) => book.isSelected))
   }
+
+  removeSpaces(title: string) {
+    return title.replace(/\s/g, '')
+  }
 }

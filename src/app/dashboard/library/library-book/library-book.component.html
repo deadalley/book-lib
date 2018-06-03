@@ -103,7 +103,13 @@
                 </p>
                 <ng-container *ngFor="let genre of book.genres; let lastItem = last">
                   <i class="pe-7s-folder"></i>
-                  <a href="javascript:void(0);"> {{genre}}</a>
+                  <a
+                    href="javascript:void(0);"
+                    routerLink="/dashboard/library/books"
+                    [queryParams]="{ grouping: 'genre' }"
+                    [fragment]="removeSpaces(genre)"
+                    queryParamsHandling="merge"                    
+                  > {{genre}}</a>
                   {{lastItem ? '' : ', '}}
                 </ng-container>
               </div>

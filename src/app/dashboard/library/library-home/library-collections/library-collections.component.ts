@@ -47,11 +47,13 @@ export class LibraryCollectionsComponent implements OnInit, OnDestroy, AfterView
       this.isLoading = false
       this.collections = collections
     }))
-    this.subscriptions.push(libraryService.collectionOrdering$.subscribe((ordering) => this.orderingMethod = ordering))
     this.subscriptions.push(libraryService.tilesDisplay$.subscribe((tilesDisplay) => this.tilesDisplay = tilesDisplay))
     this.subscriptions.push(this.route.fragment.subscribe(fragment => {
       if (!fragment) { return }
       scrollToAnchor(fragment, 100)
+    }))
+    this.subscriptions.push(this.route.queryParams.subscribe(params => {
+      this.orderingMethod = params['grouping']
     }))
   }
 
