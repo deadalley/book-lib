@@ -31,11 +31,8 @@ export class LibraryHomeComponent implements OnInit, OnDestroy {
     }))
     this.subscriptions.push(libraryService.tagsDisplay$.subscribe((tagsDisplay) => {
       this.tagsDisplay = tagsDisplay
-      const queryParams: Params = _.omit(this.activatedRoute.snapshot.queryParams, ['tag'])
-      this.router.navigate(['.'], { relativeTo: this.activatedRoute, queryParams: queryParams })
     }))
     this.subscriptions.push(this.activatedRoute.queryParams.subscribe(params => {
-      console.log(params)
       this.selectedTag = params['tag']
     }))
    }

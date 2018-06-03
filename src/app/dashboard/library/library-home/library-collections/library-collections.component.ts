@@ -1,7 +1,9 @@
-import { Component, OnInit, Input, trigger, transition, style, animate, state, OnDestroy } from '@angular/core'
+import { Component, OnInit, Input, trigger, transition, style, animate, state, OnDestroy, AfterViewInit } from '@angular/core'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { Collection } from '../../../../../interfaces/collection'
+import { ActivatedRoute } from '@angular/router'
+import { Collection } from 'interfaces/collection'
 import { LibraryService } from '../../library.service'
+import { scrollToAnchor } from 'utils/helpers'
 
 @Component({
   moduleId: module.id,
@@ -31,7 +33,7 @@ import { LibraryService } from '../../library.service'
   ]
 })
 
-export class LibraryCollectionsComponent implements OnInit, OnDestroy {
+export class LibraryCollectionsComponent implements OnInit, OnDestroy, AfterViewInit {
   orderingMethod: string
   collections = [] as Collection[]
   selectedCollection = { } as Collection
@@ -39,7 +41,7 @@ export class LibraryCollectionsComponent implements OnInit, OnDestroy {
   tilesDisplay = true
   subscriptions = []
 
-  constructor(private libraryService: LibraryService) {
+  constructor(private libraryService: LibraryService, private route: ActivatedRoute) {
     this.subscriptions.push(libraryService.collections$.subscribe((collections) => {
       if (!collections) { return }
       this.isLoading = false
@@ -47,9 +49,17 @@ export class LibraryCollectionsComponent implements OnInit, OnDestroy {
     }))
     this.subscriptions.push(libraryService.collectionOrdering$.subscribe((ordering) => this.orderingMethod = ordering))
     this.subscriptions.push(libraryService.tilesDisplay$.subscribe((tilesDisplay) => this.tilesDisplay = tilesDisplay))
+    this.subscriptions.push(this.route.fragment.subscribe(fragment => {
+      if (!fragment) { return }
+      scrollToAnchor(fragment, 100)
+    }))
   }
 
   ngOnInit() { }
+
+  ngAfterViewInit() {
+    scrollToAnchor(this.route.snapshot.fragment, 100)
+  }
 
   ngOnDestroy() {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe())
@@ -57,5 +67,9 @@ export class LibraryCollectionsComponent implements OnInit, OnDestroy {
 
   deleteCollection() {
     this.libraryService.deleteCollection(this.selectedCollection)
+  }
+
+  removeSpaces(title: string) {
+    return title.replace(/\s/g, '')
   }
 }

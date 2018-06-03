@@ -3,7 +3,9 @@
   <div class="card" [@cardbook]>
     <div class="header">
       <h4 class="title">{{book.title}}</h4>
-      <p class="category" placement="bottom"><a href="javascript:void(0);">{{book.author}}</a></p>
+      <p class="category" placement="bottom"><a href="javascript:void(0);" [routerLink]="authorRoute">
+        {{book.author}}
+      </a></p>
     </div>
     <div class="content">
       <div class="row">
@@ -82,7 +84,11 @@
                 </p>
                 <ng-container *ngFor="let collection of book.collections; let lastItem = last">
                   <i class="pe-7s-notebook"></i>
-                  <a href="javascript:void(0);"> {{collection}}</a>
+                  <a
+                    href="javascript:void(0);"
+                    routerLink="/dashboard/library/collections"
+                    [fragment]="removeSpaces(collection)"
+                  > {{collection}}</a>
                   {{lastItem ? '' : ', '}}
                 </ng-container>
               </div>
@@ -112,7 +118,13 @@
                 </p>
                 <ng-container *ngFor="let tag of book.tags; let lastItem = last">
                   <i class="pe-7s-ticket"></i>
-                  <a href="javascript:void(0);"> {{tag}}</a>
+                  <a
+                    href="javascript:void(0);"
+                    (click)="libraryService.toggleTagsDisplay(true)"
+                    routerLink="/dashboard/library/books"
+                    [queryParams]="{ tag: tag }"
+                    queryParamsHandling="merge"
+                  > {{tag}}</a>
                   {{lastItem ? '' : ', '}}
                 </ng-container>
               </div>

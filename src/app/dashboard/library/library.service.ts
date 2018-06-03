@@ -60,8 +60,12 @@ export class LibraryService {
     this.tilesDisplay.next(toggle)
   }
 
-  toggleTagsDisplay() {
-    this.tagsDisplay.next(!this.tagsDisplay.getValue())
+  toggleTagsDisplay(toggle?: boolean) {
+    if (toggle) {
+      this.tagsDisplay.next(toggle)
+    } else {
+      this.tagsDisplay.next(!this.tagsDisplay.getValue())
+    }
   }
 
   setBookOrderingMethod(method: string) {

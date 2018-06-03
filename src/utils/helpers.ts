@@ -104,3 +104,12 @@ export const parseAuthor = (author, books?) => ({
   image_large: author.large_image_url ? author.large_image_url : author.image_url,
   goodreadsLink: author.link
 })
+
+export const scrollToAnchor = (location: string, wait: number): void => {
+  const element = document.querySelector('#' + location)
+  if (element) {
+    setTimeout(() => {
+      element.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'})
+    }, wait)
+  }
+}

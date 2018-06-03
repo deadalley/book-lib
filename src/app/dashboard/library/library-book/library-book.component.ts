@@ -1,10 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter, trigger, transition, style, animate, group, state, OnDestroy } from '@angular/core'
-import { FormControl , FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms'
+import { Component, OnInit, trigger, transition, style, animate, state, OnDestroy } from '@angular/core'
 import { Location } from '@angular/common'
-import { Book } from '../../../../interfaces/book'
-import BookFactory from '../../../../factories/book'
+import { Book } from 'interfaces/book'
 import { LibraryService } from '../library.service'
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute, Params } from '@angular/router'
 
 @Component({
   moduleId: module.id,
@@ -44,10 +42,17 @@ export class LibraryBookComponent implements OnInit, OnDestroy {
     return splitUrl[splitUrl.length - 1]
   }
 
+  get authorRoute() {
+    return this.book.goodreadsAuthorId
+      ? `/dashboard/library/authors/${this.book.goodreadsAuthorId}`
+      : `/dashboard/library/authors/find/${this.book.author}`
+  }
+
   constructor(
+    public libraryService: LibraryService,
     private location: Location,
-    private libraryService: LibraryService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -66,5 +71,9 @@ export class LibraryBookComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe()
+  }
+
+  removeSpaces(title: string) {
+    return title.replace(/\s/g, '')
   }
 }
