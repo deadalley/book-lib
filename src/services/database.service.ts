@@ -232,14 +232,14 @@ export class DatabaseService {
   }
 
   getCollectionsByIds(cb, ids?: string[]) {
-    const subscription = this.collections.valueChanges().takeUntil(this.isLoggedIn$).subscribe((collections) => {
+    this.collections.valueChanges().takeUntil(this.isLoggedIn$).subscribe((collections) => {
       cb(filterByParam(collections, ids, 'id'))
     })
   }
 
   getCollectionsForUser(userRef: string, cb, collectionIds?: string[]) {
     // Map collections and books for user
-    const subscription = this.userCollectionsRef(userRef).valueChanges().takeUntil(this.isLoggedIn$).subscribe((userCollections) => {
+    this.userCollectionsRef(userRef).valueChanges().takeUntil(this.isLoggedIn$).subscribe((userCollections) => {
       this.getCollectionsByIds((collections) => {
         this.getBooksForUser(userRef, (books) => {
           collections.forEach((collection) => {
