@@ -19,6 +19,10 @@ export class LibraryBooksComponent implements OnInit, OnDestroy, AfterViewInit {
   subscriptions = []
   tagFilter: string
 
+  readonly PUSH_ORDERING = {
+    'genre': 'No genre'
+  }
+
   constructor(private libraryService: LibraryService, private route: ActivatedRoute) {
     this.subscriptions.push(libraryService.books$.subscribe((books) => this.allBooks = books as Book[]))
     this.subscriptions.push(libraryService.tilesDisplay$.subscribe((tilesDisplay) => this.tilesDisplay = tilesDisplay))

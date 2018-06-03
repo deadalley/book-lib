@@ -9,7 +9,7 @@
         [linkable]="true"
       ></books-section>
     <ng-container *ngIf="orderingMethod !== 'no grouping'">
-      <ng-container *ngFor="let item of books | bookOrdering: orderingMethod | iterable">
+      <ng-container *ngFor="let item of books | bookOrdering: orderingMethod | iterable | pushToBottom: PUSH_ORDERING[orderingMethod]">
         <books-section
           [sectionTitle]="item.key"
           [books]="item.value"

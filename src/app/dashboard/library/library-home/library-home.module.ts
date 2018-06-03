@@ -17,6 +17,7 @@ import { LibraryNoBooksComponent } from './library-no-books/library-no-books.com
 import { BookOrderPipe } from 'pipes/book-order.pipe'
 import { CollectionOrderPipe } from 'pipes/collection-order.pipe'
 import { IterableObject } from 'pipes/iterable-object.pipe'
+import { PushToBottomPipe } from 'pipes/push-to-bottom.pipe'
 
 const libraryHomeRoutes: Routes = [
   { path: '', component: LibraryHomeComponent, children: [
@@ -45,7 +46,8 @@ const libraryHomeRoutes: Routes = [
     LibraryNoBooksComponent,
     BookOrderPipe,
     CollectionOrderPipe,
-    IterableObject
+    IterableObject,
+    PushToBottomPipe
   ],
   exports: [ LibraryHomeComponent ],
 })
