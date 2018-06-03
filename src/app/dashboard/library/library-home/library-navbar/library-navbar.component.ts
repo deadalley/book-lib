@@ -15,6 +15,7 @@ export class LibraryNavbarComponent implements OnInit {
     'No grouping',
     'Author',
     'Date',
+    'Genre',
     'Title'
   ]
 
