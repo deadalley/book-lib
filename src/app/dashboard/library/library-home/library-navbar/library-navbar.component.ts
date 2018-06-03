@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { Router, RoutesRecognized } from '@angular/router'
+import { Router } from '@angular/router'
 import { LibraryService } from '../../library.service'
 
 @Component({
@@ -16,7 +16,9 @@ export class LibraryNavbarComponent implements OnInit {
     'Author',
     'Date',
     'Genre',
-    'Title'
+    'Rating',
+    'Title',
+    'Year'
   ]
 
   collectionOrderings = [

@@ -28,6 +28,8 @@ export class BookOrderPipe implements PipeTransform {
       if (orderingMethod === 'date') { book.date = new Date(book.date).toLocaleDateString() }
 
       let order = book[orderingMethod]
+      if (orderingMethod === 'rating') { order = `${(book.rating || 0)}` }
+      if (orderingMethod === 'year') { order = `${(book.year) || 'Unknown year'}` }
       if (orderingMethod === 'title') { order = order[0].toLocaleUpperCase() }
 
       if (Object.keys(orderedItems).includes(order)) {
