@@ -2,13 +2,12 @@
 <div [ngSwitch]="tilesDisplay">
   <!-- Tiles -->
   <ng-container *ngSwitchCase="true">
-    <ng-container *ngIf="orderingMethod === 'no grouping'">
       <books-section
+        *ngIf="orderingMethod === 'no grouping'"
         [books]="books"
         [withButtons]="true"
         [linkable]="true"
       ></books-section>
-    </ng-container>
     <ng-container *ngIf="orderingMethod !== 'no grouping'">
       <ng-container *ngFor="let item of books | bookOrdering: orderingMethod | iterable">
         <books-section
@@ -22,6 +21,15 @@
   </ng-container>
   <!-- Table -->
   <ng-container *ngSwitchCase="false">
-    <library-table [books]="books"></library-table>
+    <library-table *ngIf="orderingMethod === 'no grouping'" [books]="books"></library-table>
+    <ng-container *ngFor="let item of books | bookOrdering: orderingMethod | iterable">
+      <div class="row">
+        <div class="col-md-12">
+          <h4 class="title">{{item.key}}</h4>
+          <hr>
+        </div>
+        <library-table [books]="item.value"></library-table>
+      </div>
+    </ng-container>
   </ng-container>
 </div>
