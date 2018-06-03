@@ -14,6 +14,7 @@ export class LibraryService {
   private bookOrdering = new BehaviorSubject<string>('no grouping')
   private collectionOrdering = new BehaviorSubject<string>('no grouping')
   private tilesDisplay = new BehaviorSubject<boolean>(true)
+  private tagsDisplay = new BehaviorSubject<boolean>(false)
   private books = new BehaviorSubject<Book[]>(undefined)
   private latestBooks = new BehaviorSubject<Book[]>(undefined)
   private collections = new BehaviorSubject<Collection[]>(undefined)
@@ -25,6 +26,7 @@ export class LibraryService {
   collectionOrdering$ = this.collectionOrdering.asObservable()
   bookOrdering$ = this.bookOrdering.asObservable()
   tilesDisplay$ = this.tilesDisplay.asObservable()
+  tagsDisplay$ = this.tagsDisplay.asObservable()
   collections$ = this.collections.asObservable()
   books$ = this.books.asObservable()
   latestBooks$ = this.latestBooks.asObservable()
@@ -32,13 +34,6 @@ export class LibraryService {
   private collection$ = this.collection.asObservable()
 
   constructor(private database: DatabaseService, private auth: AuthService) {
-    // const user = JSON.parse(localStorage.getItem('user'))
-    // if (user) {
-    //   this.userRef = user.ref
-    //   this.loadBooks()
-    //   this.loadCollections()
-    // }
-
     this.auth.userRef.subscribe((userRef) => {
       if (!userRef || userRef === this.userRef) { return }
       this.userRef = userRef
@@ -63,6 +58,10 @@ export class LibraryService {
 
   toggleTilesDisplay(toggle: boolean) {
     this.tilesDisplay.next(toggle)
+  }
+
+  toggleTagsDisplay() {
+    this.tagsDisplay.next(!this.tagsDisplay.getValue())
   }
 
   setBookOrderingMethod(method: string) {

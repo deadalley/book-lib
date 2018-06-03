@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router } from '@angular/router'
 import { LibraryService } from '../../library.service'
 
@@ -9,7 +9,9 @@ import { LibraryService } from '../../library.service'
   styleUrls: ['library-navbar.component.css']
 })
 
-export class LibraryNavbarComponent implements OnInit {
+export class LibraryNavbarComponent implements OnInit, OnDestroy {
+  subscription
+  tagsDisplay = false
   selectedOrdering: string
   bookOrderings = [
     'No grouping',
@@ -35,14 +37,24 @@ export class LibraryNavbarComponent implements OnInit {
   constructor(
     public router: Router,
     private libraryService: LibraryService
-  ) { }
+  ) {
+    this.subscription = this.libraryService.tagsDisplay$.subscribe((tagsDisplay) => this.tagsDisplay = tagsDisplay)
+  }
 
   ngOnInit() {
     this.selectedOrdering = 'No grouping'
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
+  }
+
   toggleTilesDisplay(toggle) {
     this.libraryService.toggleTilesDisplay(toggle)
+  }
+
+  toggleTagsDisplay() {
+    this.libraryService.toggleTagsDisplay()
   }
 
   setOrdering(order: string) {

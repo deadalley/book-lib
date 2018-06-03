@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Router, ActivatedRoute, Params } from '@angular/router'
 import { LibraryService } from '../library.service'
+import * as _ from 'lodash'
 
 @Component({
   moduleId: module.id,
@@ -9,21 +11,43 @@ import { LibraryService } from '../library.service'
 })
 
 export class LibraryHomeComponent implements OnInit, OnDestroy {
+  tags: string[]
+  selectedTag: string
   hasBooks = false
   isLoading = true
-  subscription
+  tagsDisplay = false
+  subscriptions = []
 
-  constructor(libraryService: LibraryService) {
-    this.subscription = libraryService.books$.subscribe((books) => {
+  constructor(
+    libraryService: LibraryService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.subscriptions.push(libraryService.books$.subscribe((books) => {
       if (!books) { return }
       this.isLoading = false
-      return this.hasBooks = books.length > 0
-    })
+      this.hasBooks = books.length > 0
+      this.tags = _.uniq(_.flatten(_.compact(books.map((book) => book.tags))))
+    }))
+    this.subscriptions.push(libraryService.tagsDisplay$.subscribe((tagsDisplay) => {
+      this.tagsDisplay = tagsDisplay
+      const queryParams: Params = _.omit(this.activatedRoute.snapshot.queryParams, ['tag'])
+      this.router.navigate(['.'], { relativeTo: this.activatedRoute, queryParams: queryParams })
+    }))
+    this.subscriptions.push(this.activatedRoute.queryParams.subscribe(params => {
+      console.log(params)
+      this.selectedTag = params['tag']
+    }))
    }
 
   ngOnInit() { }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe()
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe())
+  }
+
+  filterBooksForTag(tag: string) {
+    const queryParams: Params = { ...this.activatedRoute.snapshot.queryParams, tag }
+    this.router.navigate(['.'], { relativeTo: this.activatedRoute, queryParams: queryParams })
   }
 }

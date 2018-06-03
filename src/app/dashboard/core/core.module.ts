@@ -14,6 +14,7 @@ import { ModalComponent } from './modal/modal.component'
 import { PageNavigatorComponent } from './page-navigator/page-navigator.component'
 import { LoadingComponent } from './loading/loading.component'
 import { BooksSectionComponent } from './books-section/books-section.component'
+import { TagsListComponent } from './tags-list/tags-list.component'
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { BooksSectionComponent } from './books-section/books-section.component'
     ModalComponent,
     PageNavigatorComponent,
     LoadingComponent,
-    BooksSectionComponent
+    BooksSectionComponent,
+    TagsListComponent
   ],
   imports: [
     LoadingModule.forRoot({
@@ -47,7 +49,8 @@ import { BooksSectionComponent } from './books-section/books-section.component'
     ModalComponent,
     PageNavigatorComponent,
     LoadingComponent,
-    BooksSectionComponent
+    BooksSectionComponent,
+    TagsListComponent
   ]
 })
 export class CoreModule { }

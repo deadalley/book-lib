@@ -1,0 +1,9 @@
+<div class="main-content">
+  <h5 class="text-muted">Tags</h5>
+  <hr>
+  <ng-container *ngFor="let tag of tags; let lastItem = last">
+    <i class="pe-7s-ticket"></i>
+    <a href="javascript:void(0);" (click)="selectedTag.emit(tag)"> {{tag}}</a>
+    {{lastItem ? '' : ', '}}
+  </ng-container>
+</div>
