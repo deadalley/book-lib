@@ -1,3 +1,7 @@
+.card {
+  margin-bottom: 30px;
+}
+
 .btn::-moz-placeholder {
   color: #DDDDDD;
   opacity: 1;
