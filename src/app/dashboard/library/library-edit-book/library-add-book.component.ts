@@ -96,7 +96,6 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
 
   submit(formValues) {
     const newValues = {
-      id: random.uuid(),
       date: (new Date()).toISOString().substring(0, 10),
       ...(this.genres.length > 0) && { genres: this.genres },
       ...(this.tags.length > 0) && { tags: this.tags },

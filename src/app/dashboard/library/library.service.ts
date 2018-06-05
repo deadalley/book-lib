@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { isAfter, subDays } from 'date-fns'
 import { DatabaseService } from 'services/database.service'
-import { User } from 'interfaces/user'
 import { Book } from 'interfaces/book'
 import { Collection } from 'interfaces/collection'
 import * as _ from 'lodash'
@@ -20,16 +19,22 @@ export class LibraryService {
   private collections = new BehaviorSubject<Collection[]>(undefined)
   private book = new BehaviorSubject<Book>(undefined)
   private collection = new BehaviorSubject<Collection>(undefined)
+  private booksToImport = new BehaviorSubject<Book[]>(undefined)
 
   private userRef: string
 
+  // TODO: _tilesDisplay$
+  // and then create getters
   tilesDisplay$ = this.tilesDisplay.asObservable()
   tagsDisplay$ = this.tagsDisplay.asObservable()
   collections$ = this.collections.asObservable()
   books$ = this.books.asObservable()
   latestBooks$ = this.latestBooks.asObservable()
+  booksToImport$ = this.booksToImport.asObservable()
   private book$ = this.book.asObservable()
   private collection$ = this.collection.asObservable()
+
+  set setBooksToImport(books: Book[]) { this.booksToImport.next(books) }
 
   constructor(private database: DatabaseService, private auth: AuthService) {
     this.auth.userRef.subscribe((userRef) => {
@@ -66,6 +71,7 @@ export class LibraryService {
     }
   }
 
+  // TODO: setters  
   setBookOrderingMethod(method: string) {
     this.bookOrdering.next(method)
   }

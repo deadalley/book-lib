@@ -13,6 +13,7 @@ import { LibraryCollectionsComponent } from './library-collections/library-colle
 import { LibraryNavbarComponent } from './library-navbar/library-navbar.component'
 import { LibraryTableComponent } from './library-table/library-table.component'
 import { LibraryNoBooksComponent } from './library-no-books/library-no-books.component'
+import { LibraryImportFileComponent } from './library-import-file/library-import-file.component'
 
 import { BookOrderPipe } from 'pipes/book-order.pipe'
 import { CollectionOrderPipe } from 'pipes/collection-order.pipe'
@@ -23,7 +24,8 @@ const libraryHomeRoutes: Routes = [
   { path: '', component: LibraryHomeComponent, children: [
      { path: '', redirectTo: 'books', pathMatch: 'full' },
      { path: 'books', component: LibraryBooksComponent, pathMatch: 'full' },
-     { path: 'collections', component: LibraryCollectionsComponent, pathMatch: 'full' }
+     { path: 'collections', component: LibraryCollectionsComponent, pathMatch: 'full' },
+     { path: 'books/import', component: LibraryImportFileComponent, pathMatch: 'full' }
   ]}
 ]
 
@@ -44,6 +46,7 @@ const libraryHomeRoutes: Routes = [
     LibraryNavbarComponent,
     LibraryTableComponent,
     LibraryNoBooksComponent,
+    LibraryImportFileComponent,
     BookOrderPipe,
     CollectionOrderPipe,
     IterableObject,
