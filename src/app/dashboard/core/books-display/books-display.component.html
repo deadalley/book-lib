@@ -10,7 +10,7 @@
   (selectedBooks)="updateSelectedBooks($event)"
   (selectedBook)="updateSelectedBook($event)"
 ></books-section>  
-<div>
+<div *ngIf="books && books.length > 0">
   <a href="#displayMore" data-toggle="collapse" (click)="displayAll = !displayAll">
     <label style="padding:0;">{{displayAll ? 'Display less ' : 'Display more '}}</label>
     <i [ngClass]="{'pe-7s-angle-down': !displayAll, 'pe-7s-angle-up': displayAll}" style="font-size: 1.3em;"></i>

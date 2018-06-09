@@ -20,34 +20,42 @@
 					<p>{{summary}}</p>
 				</div>
 				<div class="row">
-					<div class="col-md-5">
+					<div class="col-md-6">
 						<!-- Title -->
 						<div class="form-group" [ngClass] = "{'has-error': !form.controls['title'].valid && form.controls['title'].touched}">
 							<label>Book Title *</label>
-							<input [(ngModel)]="bookTitle" type="text" class="form-control" placeholder="Your version title" formControlName="title">
-							<span class="help-block" *ngIf="!form.controls['title'].valid && form.controls['title'].touched">Please enter a valid book title.</span>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<label>Find on Goodreads</label>	
-						<div>					
-							<button type="button"
-								(click)="searchBookOnGoodreads(bookTitle)"
-								class="btn btn-default"
-								tooltip="Search Goodreads"
-								[tooltipDisabled]="false"
-								[tooltipAnimation]="true"
-								tooltipPlacement="bottom">
-								<span class="pe-7s-search" aria-hidden="true" style="font-size: 1.2em;"></span>
-							</button>
+							<div style="display: flex">
+								<input [(ngModel)]="bookTitle" type="text" class="form-control" placeholder="Your version title" formControlName="title">
+								<div>
+									<span class="help-block" *ngIf="!form.controls['title'].valid && form.controls['title'].touched">Please enter a valid book title.</span>
+								</div>
+								<button type="button"
+									(click)="searchBookOnGoodreads(bookTitle)"
+									class="btn btn-default"
+									style="margin-left: 13px"
+									tooltip="Search Goodreads"
+									[tooltipDisabled]="false"
+									[tooltipAnimation]="true"
+									tooltipPlacement="bottom">
+									<span class="pe-7s-search" aria-hidden="true" style="font-size: 1.2em;"></span>
+								</button>
+							</div>
 						</div>
 					</div>
 					<!-- Original title -->
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<div class="form-group">
 							<label>Original Title</label>
 							<input type="text" class="form-control" placeholder="Original version title" formControlName="original">
 						</div>
+					</div>
+				</div>
+				<div *ngIf="suggestedBooks && suggestedBooks.length > 0" class="row">
+					<div class="col-xs-12">
+						<label style="padding:0;">Books found</label>
+						<a href="javascript:void(0);" (click)="suggestedBooks=[]">
+							<i class="pe-7s-close-circle" style="font-size: 100%"></i>
+						</a>
 					</div>
 				</div>
 				<books-display
@@ -59,52 +67,67 @@
 				<div class="form-group">
 					<label>Author</label>
 					<div class="row">
-						<div class="col-md-3" *ngIf="fromGoodreads">
+						<div class="col-md-3" *ngIf="author">
 							<!-- Author image -->
 							<div class="image author-image">
-								<img src="/assets/img/lee-child.jpg" alt="Author">
+								<img
+									[src]="author.image_large ? author.image_large : (author.image_small ? author.image_small : '/assets/img/no-book-cover.png')"
+									alt="Author photo"
+								>
 							</div>
 						</div>
 						<div class="col-md-9">
 							<!-- Name -->
 							<div class="form-group" [ngClass] = "{'has-error': !form.controls['author'].valid && form.controls['author'].touched}">
 								<label>Name *</label>
-								<div class="row">
-									<div class="col-md-10">
-										<input type="text" class="form-control" placeholder="Author name" formControlName="author">
-										<span class="help-block" *ngIf="!form.controls['author'].valid && form.controls['author'].touched">Please enter a valid author name.</span>
-									</div>
-									<div class="col-md-2">
-										<!-- Author Watch --
-										<button type="button"
-											(click)="form.controls['authorWatch'].setValue(!form.controls['authorWatch'].value)"
-											[ngClass] = "{'active': form.controls['authorWatch'].value}"
-											class="library-button btn btn-default"
-											style="vertical-align: center; font-size=1.2em"
-											tooltip="Add this author to your watch list"
-											[tooltipDisabled]="false"
-											[tooltipAnimation]="true"
-											tooltipPlacement="bottom">
-											<span class="pe-7s-look" aria-hidden="true" style="font-size: 1.2em;"></span>
-										</button> -->
-									</div>
+								<div style="display: flex">
+									<input [(ngModel)]="authorName" type="text" class="form-control" placeholder="Author name" formControlName="author">
+									<span class="help-block" *ngIf="!form.controls['author'].valid && form.controls['author'].touched">Please enter a valid author name.</span>
+									<button type="button"
+										(click)="searchAuthorOnGoodreads(authorName)"
+										class="btn btn-default"
+										style="margin-left: 13px"
+										tooltip="Search Goodreads"
+										[tooltipDisabled]="false"
+										[tooltipAnimation]="true"
+										tooltipPlacement="bottom">
+										<span class="pe-7s-search" aria-hidden="true" style="font-size: 1.2em;"></span>
+									</button>
 								</div>
+								<!-- Author Watch --
+								<button type="button"
+									(click)="form.controls['authorWatch'].setValue(!form.controls['authorWatch'].value)"
+									[ngClass] = "{'active': form.controls['authorWatch'].value}"
+									class="library-button btn btn-default"
+									style="vertical-align: center; font-size=1.2em"
+									tooltip="Add this author to your watch list"
+									[tooltipDisabled]="false"
+									[tooltipAnimation]="true"
+									tooltipPlacement="bottom">
+									<span class="pe-7s-look" aria-hidden="true" style="font-size: 1.2em;"></span>
+								</button> -->
 							</div>
 							<!-- Author bio -->
-							<ng-container *ngIf="fromGoodreads">
-								<p>James D. "Jim" Grant, better known by his pen name Lee Child, is a British author who writes thriller novels. He is especially known for his Jack Reacher novel series.</p>
-								<!-- Author info -->
-								<p style="font-size: 0.9em;">
-									<b>Born:</b> October 29, 1954 (age 62), Coventry, United Kingdom
-									<br><b>Full name:</b> James D. Grant
-									<br><b>Genre:</b> Crime fiction, mystery, thriller
-									<br><b>Movies:</b> Jack Reacher, Jack Reacher: Never Go Back
-								</p>
-								<!-- Author website -->
-								<i class="pe-7s-global" style="font-size: 1.3em;" ></i> <a href="#">leechild.com</a>
-							</ng-container>
+							<p *ngIf="author" [innerHTML]="author.about | truncate: { paragraphs: 1 }"></p>
 						</div>
 					</div>
+					<div *ngIf="suggestedAuthors && suggestedAuthors.length > 0" class="row">
+						<div class="col-xs-12">
+							<label style="padding:0;">Authors found</label>
+							<a href="javascript:void(0);" (click)="suggestedAuthors=[]">
+								<i class="pe-7s-close-circle" style="font-size: 100%"></i>
+							</a>
+						</div>
+					</div>
+					<ng-container *ngFor="let author of suggestedAuthors; let i = index;">
+						<div class="clearfix" *ngIf="i % 4 == 0"></div>
+						<div class="col-md-3">
+							<author-card
+								[author]="author"
+								(selected)="selectAuthor($event)"
+							></author-card>
+						</div>
+					</ng-container>
 				</div>
 				<div class="row">
 					<div class="col-md-8">

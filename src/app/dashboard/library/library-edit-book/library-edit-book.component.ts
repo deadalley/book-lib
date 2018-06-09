@@ -160,12 +160,19 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
   }
 
   searchBookOnGoodreads(title: string) {
+    if (!title) { return }
     this.goodreadsService.searchBook((books) => {
       this.suggestedBooks = books.map((book) => parseBook(book))
     }, title)
   }
 
   selectBook(book: Book) {
-    console.log(book)
+    this.form.patchValue({
+      title: book.title,
+      author: book.author,
+      publisher: book.publisher,
+      year: book.year,
+      pages: book.pages,
+    })
   }
 }

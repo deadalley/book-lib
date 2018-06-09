@@ -5,9 +5,10 @@ import { Router } from '@angular/router'
 import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
 import { Book } from 'interfaces/book'
 import Languages from 'utils/languages'
-import { cleanFormValues, parseBook } from 'utils/helpers'
+import { cleanFormValues, parseBook, parseAuthor } from 'utils/helpers'
 import { LibraryService } from '../library.service'
 import { GoodreadsService } from 'services/goodreads.service'
+import { Author } from 'interfaces/author'
 
 @Component({
   moduleId: module.id,
@@ -46,6 +47,7 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
   tags: string[]
   selectedLanguage: string
   book = { } as Book
+  author: Author
   title = 'Add new book'
   description = 'Add a new book to your library or wishlist'
   button = 'Add book'
@@ -54,6 +56,9 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
   subscription
   isLoading = false
   suggestedBooks: Book[]
+  suggestedAuthors: Author[]
+  goodreadsId: number
+  goodreadsAuthorId: number
 
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
@@ -103,7 +108,10 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
       ...(this.collections.length > 0) && { collections: this.collections },
       ...(this.selectedLanguage !== 'Select a language') && { language: this.selectedLanguage },
       ...cleanFormValues(formValues),
-      ...this.buttonsComponent.getValues()
+      ...this.buttonsComponent.getValues(),
+      ...(this.goodreadsAuthorId ? { goodreadsAuthorId: this.goodreadsAuthorId } : {}),
+      ...(this.author ? { goodreadsAuthorId: this.author.id } : {}),
+      ...(this.goodreadsId ? { goodreadsId: this.goodreadsId } : {})
     }
 
     Object.assign(this.book, newValues)
@@ -134,6 +142,7 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
   }
 
   searchBookOnGoodreads(title: string) {
+    if (!title) { return }
     this.goodreadsService.searchBook((books) => {
       this.suggestedBooks = books.map((book) => parseBook(book))
     }, title)
@@ -146,6 +155,26 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
       publisher: book.publisher,
       year: book.year,
       pages: book.pages,
+      image_large: book.image_large,
+      image_small: book.image_small
     })
+    this.goodreadsId = book.goodreadsId
+    this.goodreadsAuthorId = book.goodreadsAuthorId
+    this.suggestedBooks = []
+  }
+
+  searchAuthorOnGoodreads(name: string) {
+    if (!name) { return }
+    this.goodreadsService.searchAuthor((authors) => {
+      this.suggestedAuthors = authors.map((author) => parseAuthor(author))
+    }, name)
+  }
+
+  selectAuthor(author: Author) {
+    this.author = author
+    this.form.patchValue({
+      author: author.name
+    })
+    this.suggestedAuthors = []
   }
 }

@@ -92,7 +92,7 @@ export const parseBook = (book) => ({
   image_small: book.small_image_url,
   goodreadsLink: book.link,
   goodreadsId: book.id._,
-  goodreadsAuthorId: book.authors ? book.authors.author.id : book.author.id
+  goodreadsAuthorId: book.authors ? book.authors.author.id : book.author.id._
 })
 
 export const parseAuthor = (author, books?) => ({
