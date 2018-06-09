@@ -82,7 +82,9 @@ export class GoodreadsService {
       .set('search[field]', 'title')
 
     HttpGet(this.http, this.parseUrl(url), params, (response) => {
-      const books = _.uniq(response.search.results.work.map((item) => item.best_book))
+      const work = response.search.results.work
+      const results = Array.isArray(work) ? work : [work]
+      const books = _.uniq(results.map((item) => item.best_book))
 
       cb(books)
     })
