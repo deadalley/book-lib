@@ -150,7 +150,7 @@ export class DatabaseService {
       if (!book.collections) { book.collections = ['placeholder'] }
       this.db.object(`users/${userRef}/books/${ref}`).set(filterBookForUser(book))
 
-      if (newCollectionsState.length > 0) {
+      if (newCollectionsState && newCollectionsState.length > 0) {
         this.db.object(`users/${userRef}/books/${ref}/collections`).set(newCollectionsState)
       } else {
         this.db.object(`users/${userRef}/books/${ref}/collections`).remove()
