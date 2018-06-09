@@ -71,7 +71,7 @@ export class LibraryService {
     }
   }
 
-  // TODO: setters  
+  // TODO: setters
   setBookOrderingMethod(method: string) {
     this.bookOrdering.next(method)
   }

@@ -20,22 +20,41 @@
 					<p>{{summary}}</p>
 				</div>
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-5">
 						<!-- Title -->
 						<div class="form-group" [ngClass] = "{'has-error': !form.controls['title'].valid && form.controls['title'].touched}">
 							<label>Book Title *</label>
-							<input type="text" class="form-control" placeholder="Your version title" formControlName="title">
+							<input [(ngModel)]="bookTitle" type="text" class="form-control" placeholder="Your version title" formControlName="title">
 							<span class="help-block" *ngIf="!form.controls['title'].valid && form.controls['title'].touched">Please enter a valid book title.</span>
 						</div>
 					</div>
+					<div class="col-md-3">
+						<label>Find on Goodreads</label>	
+						<div>					
+							<button type="button"
+								(click)="searchBookOnGoodreads(bookTitle)"
+								class="btn btn-default"
+								tooltip="Search Goodreads"
+								[tooltipDisabled]="false"
+								[tooltipAnimation]="true"
+								tooltipPlacement="bottom">
+								<span class="pe-7s-search" aria-hidden="true" style="font-size: 1.2em;"></span>
+							</button>
+						</div>
+					</div>
 					<!-- Original title -->
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<div class="form-group">
 							<label>Original Title</label>
 							<input type="text" class="form-control" placeholder="Original version title" formControlName="original">
 						</div>
 					</div>
 				</div>
+				<books-display
+					[books]="suggestedBooks"
+					[clickable]="true"
+					(selectedBook)="selectBook($event)"
+				></books-display>
 				<!-- Author -->
 				<div class="form-group">
 					<label>Author</label>

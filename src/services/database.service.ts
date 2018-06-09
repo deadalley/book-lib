@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core'
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database'
-import { Router } from '@angular/router'
 import { User } from '../models/user'
 import { Book } from '../models/book'
 import { Collection } from '../models/collection'
@@ -13,9 +12,6 @@ import {
   filterBookForUser,
   filterByParam
 } from '../utils/helpers'
-import * as firebase from 'firebase/app'
-import * as _ from 'lodash'
-import { merge } from 'rxjs/observable/merge'
 import { Subject } from 'rxjs/Subject'
 import 'rxjs/add/operator/takeUntil'
 
@@ -125,7 +121,6 @@ export class DatabaseService {
   private updateBook(book) {
     this.books.query.orderByChild('id').equalTo(book.id).once('value', (snap) => {
       const ref = Object.keys(snap.val())[0]
-      const oldBook = snap.val()
       this.db.object(`books/${ref}`).set(book)
     })
   }
@@ -149,19 +144,19 @@ export class DatabaseService {
   updateBookForUser(userRef: string, book) {
     this.userBooksRef(userRef).query.orderByChild('id').equalTo(book.id).once('value', (snap) => {
       const ref = Object.keys(snap.val())[0]
-      const oldCollections = objectToArray(snap.val()[ref].collections)
-      const newCollections = book.collections
+      const oldCollectionsState = objectToArray(snap.val()[ref].collections)
+      const newCollectionsState = book.collections
 
       if (!book.collections) { book.collections = ['placeholder'] }
       this.db.object(`users/${userRef}/books/${ref}`).set(filterBookForUser(book))
 
-      if (newCollections) {
-        this.db.object(`users/${userRef}/books/${ref}/collections`).set(newCollections)
+      if (newCollectionsState.length > 0) {
+        this.db.object(`users/${userRef}/books/${ref}/collections`).set(newCollectionsState)
       } else {
         this.db.object(`users/${userRef}/books/${ref}/collections`).remove()
       }
 
-      this.updateBookCollections(book.id, oldCollections, newCollections)
+      this.updateBookCollections(book.id, oldCollectionsState, newCollectionsState)
     })
     this.updateBook(filterBook(book))
   }
@@ -240,8 +235,8 @@ export class DatabaseService {
   getCollectionsForUser(userRef: string, cb, collectionIds?: string[]) {
     // Map collections and books for user
     this.userCollectionsRef(userRef).valueChanges().takeUntil(this.isLoggedIn$).subscribe((userCollections) => {
-      this.getCollectionsByIds((collections) => {
-        this.getBooksForUser(userRef, (books) => {
+      this.getBooksForUser(userRef, (books) => {
+        this.getCollectionsByIds((collections) => {
           collections.forEach((collection) => {
             if (!collection.books) {
               collection.books = []
@@ -251,8 +246,8 @@ export class DatabaseService {
             collection.books = filterByParam(books, collection.books, 'id')
           })
           cb(collections)
-        })
-      }, userCollections as string[])
+        }, userCollections as string[])
+      })
     })
   }
 

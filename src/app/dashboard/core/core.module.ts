@@ -14,6 +14,7 @@ import { ModalComponent } from './modal/modal.component'
 import { PageNavigatorComponent } from './page-navigator/page-navigator.component'
 import { LoadingComponent } from './loading/loading.component'
 import { BooksSectionComponent } from './books-section/books-section.component'
+import { BooksDisplayComponent } from './books-display/books-display.component'
 import { TagsListComponent } from './tags-list/tags-list.component'
 
 @NgModule({
@@ -26,6 +27,7 @@ import { TagsListComponent } from './tags-list/tags-list.component'
     PageNavigatorComponent,
     LoadingComponent,
     BooksSectionComponent,
+    BooksDisplayComponent,
     TagsListComponent
   ],
   imports: [
@@ -50,6 +52,7 @@ import { TagsListComponent } from './tags-list/tags-list.component'
     PageNavigatorComponent,
     LoadingComponent,
     BooksSectionComponent,
+    BooksDisplayComponent,
     TagsListComponent
   ]
 })

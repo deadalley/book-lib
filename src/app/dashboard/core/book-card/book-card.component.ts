@@ -34,11 +34,12 @@ import { formatDate } from '../../../../utils/helpers'
 export class BookCardComponent implements OnInit {
   @Input() book: Book
   @Input() withButtons = true
+  @Input() clickable = false
   @Input() linkable = false
   @Input() selectable = false
   @Input() selectBtnContent: string
   @Input() selectBtnContentDisabled: string
-  @Output() selectedChanged = new EventEmitter<boolean>()
+  @Output() selectedChanged = new EventEmitter<Book>()
   formatDate = formatDate
 
   get authorRoute() {
@@ -53,6 +54,6 @@ export class BookCardComponent implements OnInit {
 
   select() {
     this.book.isSelected = !this.book.isSelected
-    this.selectedChanged.emit(this.book.isSelected)
+    this.selectedChanged.emit(this.book)
   }
 }

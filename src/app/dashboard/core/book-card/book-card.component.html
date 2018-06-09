@@ -2,7 +2,9 @@
   <div class="header">
     <!-- Header -->
     <h4 class="title">
-      <a *ngIf="linkable" href="#" routerLink="/dashboard/library/books/{{book.id}}">{{book.title}}</a>
+      <a *ngIf="linkable" href="#" routerLink="/dashboard/library/books/{{book.id}}">
+        {{book.title}}
+      </a>
       <ng-container *ngIf="!linkable">{{book.title}}</ng-container>
     </h4>
     <hr>
@@ -77,5 +79,14 @@
         </button>
       </div>
     </div>
+    <!-- Selectable -->
+    <div class="row" *ngIf="clickable">
+      <div class="col-xs-12">
+        <hr>
+        <button type="button" class="btn btn-default" (click)="select()">
+          Select
+        </button>
+      </div>
+    </div>
   </div>
-</div><!-- !Card -->
+</div>

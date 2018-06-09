@@ -1,14 +1,13 @@
-import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition, style, animate, group, state, OnDestroy } from '@angular/core'
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { Component, OnInit, ViewChild, trigger, transition, style, animate, state, OnDestroy } from '@angular/core'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Location } from '@angular/common'
-import { random } from 'faker'
-import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
-import { Collection } from '../../../../interfaces/collection'
-import { Book } from '../../../../interfaces/book'
-import Languages from '../../../../utils/languages'
-import { cleanFormValues } from '../../../../utils/helpers'
-import { LibraryService } from '../library.service'
 import { Router } from '@angular/router'
+import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
+import { Book } from 'interfaces/book'
+import Languages from 'utils/languages'
+import { cleanFormValues, parseBook } from 'utils/helpers'
+import { LibraryService } from '../library.service'
+import { GoodreadsService } from 'services/goodreads.service'
 
 @Component({
   moduleId: module.id,
@@ -54,6 +53,7 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
   showImage = false
   subscription
   isLoading = false
+  suggestedBooks: Book[]
 
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
@@ -62,6 +62,7 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private location: Location,
     private libraryService: LibraryService,
+    private goodreadsService: GoodreadsService,
     private router: Router
   ) {
     this.subscription = this.libraryService.collections$.subscribe((collections) => {
@@ -129,6 +130,22 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
       if (a < b) { return -1 }
       if (a > b) { return 1 }
       return 0
+    })
+  }
+
+  searchBookOnGoodreads(title: string) {
+    this.goodreadsService.searchBook((books) => {
+      this.suggestedBooks = books.map((book) => parseBook(book))
+    }, title)
+  }
+
+  selectBook(book: Book) {
+    this.form.patchValue({
+      title: book.title,
+      author: book.author,
+      publisher: book.publisher,
+      year: book.year,
+      pages: book.pages,
     })
   }
 }

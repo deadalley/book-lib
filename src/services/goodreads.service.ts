@@ -75,6 +75,19 @@ export class GoodreadsService {
       (rawBooks) => cb(rawBooks ? rawBooks.reviews.review.map((review) => review.book) : rawBooks))
   }
 
+  searchBook(cb, name: string) {
+    const url = `${this.domain}/search/index`
+    const params = this.defaultParams
+      .set('q', decodeURI(name))
+      .set('search[field]', 'title')
+
+    HttpGet(this.http, this.parseUrl(url), params, (response) => {
+      const books = _.uniq(response.search.results.work.map((item) => item.best_book))
+
+      cb(books)
+    })
+  }
+
   searchAuthor(cb, name: string) {
     const url = `${this.domain}/search/index`
     const params = this.defaultParams

@@ -83,7 +83,7 @@ export const formatDate = (date: string) => {
 
 export const parseBook = (book) => ({
   title: book.title,
-  author: book.authors.author.name,
+  author: book.authors ? book.authors.author.name : book.author.name,
   isbn: book.isbn,
   publisher: book.publisher,
   year: book.publication_year,
@@ -92,7 +92,7 @@ export const parseBook = (book) => ({
   image_small: book.small_image_url,
   goodreadsLink: book.link,
   goodreadsId: book.id._,
-  goodreadsAuthorId: book.authors.author.id
+  goodreadsAuthorId: book.authors ? book.authors.author.id : book.author.id
 })
 
 export const parseAuthor = (author, books?) => ({

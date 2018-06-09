@@ -35,15 +35,18 @@ export class BooksSectionComponent implements OnInit {
   @Input() description: string
   @Input() books: Book[]
   @Input() withButtons: boolean
+  @Input() clickable: boolean
   @Input() linkable: boolean
   @Input() selectable: boolean
   @Input() selectBtnContent: string
   @Input() selectBtnContentDisabled: string
   @Output() selectedBooks = new EventEmitter<Array<Book>>()
+  @Output() selectedBook = new EventEmitter<Book>()
 
   ngOnInit() { }
 
-  updateSelectedBooks() {
+  updateSelectedBooks(selectedBook: Book) {
+    this.selectedBook.emit(selectedBook)
     this.selectedBooks.emit(this.books.filter((book) => book.isSelected))
   }
 

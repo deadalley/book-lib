@@ -1,14 +1,13 @@
-import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition, style, animate, group, state, OnDestroy } from '@angular/core'
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { Component, OnInit, ViewChild, trigger, transition, style, animate, state, OnDestroy } from '@angular/core'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Location } from '@angular/common'
-import { random } from 'faker'
 import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
-import { Collection } from '../../../../interfaces/collection'
-import { Book } from '../../../../interfaces/book'
-import Languages from '../../../../utils/languages'
-import { cleanFormValues } from '../../../../utils/helpers'
+import { Book } from 'interfaces/book'
+import Languages from 'utils/languages'
+import { cleanFormValues, parseBook } from 'utils/helpers'
 import { LibraryService } from '../library.service'
 import { Router, ActivatedRoute } from '@angular/router'
+import { GoodreadsService } from 'services/goodreads.service'
 
 @Component({
   moduleId: module.id,
@@ -53,6 +52,7 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
   fromGoodreads = false
   showImage = true
   isLoading = true
+  suggestedBooks: Book[]
   subscription
 
   @ViewChild(BookButtonsComponent)
@@ -67,6 +67,7 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private location: Location,
     private libraryService: LibraryService,
+    private goodreadsService: GoodreadsService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -156,5 +157,15 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
       if (a > b) { return 1 }
       return 0
     })
+  }
+
+  searchBookOnGoodreads(title: string) {
+    this.goodreadsService.searchBook((books) => {
+      this.suggestedBooks = books.map((book) => parseBook(book))
+    }, title)
+  }
+
+  selectBook(book: Book) {
+    console.log(book)
   }
 }
