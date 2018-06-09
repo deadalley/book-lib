@@ -17,6 +17,7 @@ type AOA = Array<Array<any>>
 
 export class LibraryNavbarComponent implements OnInit, OnDestroy {
   subscriptions = []
+  tilesDisplay = true
   tagsDisplay = false
   selectedOrdering: string
   @ViewChild('fileUpload') fileUpload
@@ -47,6 +48,7 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
     private libraryService: LibraryService
   ) {
     this.subscriptions.push(this.libraryService.tagsDisplay$.subscribe((tagsDisplay) => this.tagsDisplay = tagsDisplay))
+    this.subscriptions.push(this.libraryService.tilesDisplay$.subscribe((tilesDisplay) => this.tilesDisplay = tilesDisplay))
     this.subscriptions.push(this.route.queryParams.subscribe((params) => {
       this.selectedOrdering = params['grouping'] ? upperCaseFirstLetter(params['grouping']) : 'No grouping'
     }))
@@ -58,8 +60,8 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe())
   }
 
-  toggleTilesDisplay(toggle) {
-    this.libraryService.toggleTilesDisplay(toggle)
+  toggleTilesDisplay() {
+    this.libraryService.toggleTilesDisplay(!this.tilesDisplay)
   }
 
   toggleTagsDisplay() {

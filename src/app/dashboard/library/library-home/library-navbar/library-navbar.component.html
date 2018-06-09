@@ -43,17 +43,14 @@
               <button type="button" class="btn btn-default library-nav-tile" routerLink="{{router.url}}/new" style="margin: 10px 5px">
                 <span class="ti-plus" aria-hidden="true"></span>
               </button>
+              <!-- Tiles or Table -->
+              <button type="button" class="btn btn-default library-nav-tile" (click)="toggleTilesDisplay()" style="margin: 10px 5px">
+                <span *ngIf="tilesDisplay" class="ti-view-list" aria-hidden="true"></span>
+                <span *ngIf="!tilesDisplay" class="ti-layout-grid3" aria-hidden="true"></span>
+              </button>
               <!-- Tags -->
               <button type="button" class="btn btn-default library-nav-tile" (click)="toggleTagsDisplay()" style="margin: 10px 5px">
                 <span class="ti-tag" aria-hidden="true"></span>
-              </button>
-              <!-- Table -->
-              <button type="button" class="btn btn-default library-nav-tile" (click)="toggleTilesDisplay(false)" style="margin: 10px 5px">
-                <span class="ti-view-list" aria-hidden="true"></span>
-              </button>
-              <!-- Tiles -->
-              <button type="button" class="btn btn-default library-nav-tile" (click)="toggleTilesDisplay(true)" style="margin: 10px 5px">
-                <span class="ti-layout-grid3" aria-hidden="true"></span>
               </button>
               <!-- Import -->
               <button type="button" class="btn btn-default library-nav-tile" (click)="uploadFile()" style="margin: 10px 5px">
