@@ -16,6 +16,8 @@ import { LibraryBookComponent } from './library-book/library-book.component'
 import { LibraryAuthorComponent } from './library-author/library-author.component'
 import { LibraryFindAuthorComponent } from './library-find-author/library-find-author.component'
 
+import { TruncatePipe } from 'pipes/truncate.pipe'
+
 import { LibraryService } from './library.service'
 
 const libraryRoutes: Routes = [
@@ -51,7 +53,8 @@ const libraryRoutes: Routes = [
     LibraryEditCollectionComponent,
     LibraryBookComponent,
     LibraryAuthorComponent,
-    LibraryFindAuthorComponent
+    LibraryFindAuthorComponent,
+    TruncatePipe
   ],
   providers: [
     LibraryService

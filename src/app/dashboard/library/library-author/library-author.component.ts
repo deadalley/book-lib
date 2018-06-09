@@ -39,6 +39,7 @@ export class LibraryAuthorComponent implements OnInit, OnDestroy {
   author = { } as Author
   isLoading = true
   hasSelectedBooks = false
+  showAllAbout = false
   subscription
 
   get localUrlPath(): string {

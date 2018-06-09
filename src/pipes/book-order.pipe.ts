@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core'
 import { Book } from 'interfaces/book'
-import * as _ from 'lodash'
 
 @Pipe({
   name: 'bookOrdering'

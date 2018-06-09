@@ -16,7 +16,15 @@
         </div>
         <div class="col-md-6">
           <label>About:</label>
-          <p [innerHTML]="author.about"></p>
+          <p *ngIf="showAllAbout" [innerHTML]="author.about"></p>
+          <p *ngIf="!showAllAbout" [innerHTML]="author.about | truncate: { paragraphs: 2 }"></p>
+          <div *ngIf="!showAllAbout" class="text-right">
+            <a (click)="showAllAbout = true">
+              <label style="padding:0;">More </label>
+              <i class="pe-7s-angle-down" style="font-size: 1.3em;"></i>
+            </a>
+            <hr style="margin-top: 0;">
+          </div>
         </div>
       </div>
       <books-section
