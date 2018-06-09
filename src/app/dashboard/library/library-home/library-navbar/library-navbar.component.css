@@ -10,6 +10,30 @@
   margin: 10px
 }
 
+.nav {
+  display: inline-flex;
+  width: 100%;
+}
+
+.library-nav-btn {
+  display: table-cell;
+  white-space: nowrap;
+}
+
+.library-nav-right {
+  width: 100%;
+  padding-right: 5px;
+}
+
+.library-nav-right > ul {
+  float: right;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  display: inline-flex;
+}
+
 .library-nav-btn > a {
   display: block;
   margin: 0;
@@ -18,8 +42,17 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .nav {
+    display: block;
+  }
+
   .library-nav-btn > a {
     border-right: 0
+  }
+
+  .library-nav-right > ul {
+    display: block;
+    width: 100%;
   }
 }
 

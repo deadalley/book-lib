@@ -11,54 +11,57 @@
           <a href="javascript:void(0);" routerLink="./collections">
           <i class="pe-7s-box1" style="vertical-align:middle; font-size: 1.4em;"></i> Collections</a>
         </li>
-        <!-- <li style="width: 120px">&nbsp;</li> -->
-        <li>
-          <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              {{selectedOrdering}}
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-              <li style="padding: 8px 16px">Select grouping</li>
-              <li role="separator" class="divider"></li>
-              <li *ngFor="let ordering of (localUrlPath === 'books' ? bookOrderings : collectionOrderings)">
-                <a href="javascript:void(0);" (click)="setOrdering(ordering)">
-                  {{ordering}}
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li style="text-align: right">
-          <div class="input-group" style="width: 250px">
-            <span class="input-group-addon" id="sizing-addon2">
-              <i class="pe-7s-search" style="vertical-align:middle; font-size: 1.4em;"></i>
-            </span>
-            <input type="text" class="form-control" placeholder="Search">
-          </div>
-        </li>
-        <li class="text-center">
-          <!-- Add book -->
-          <button type="button" class="btn btn-default library-nav-tile" routerLink="{{router.url}}/new" style="margin: 10px 5px">
-            <span class="ti-plus" aria-hidden="true"></span>
-          </button>
-          <!-- Tags -->
-          <button type="button" class="btn btn-default library-nav-tile" (click)="toggleTagsDisplay()" style="margin: 10px 5px">
-            <span class="ti-tag" aria-hidden="true"></span>
-          </button>
-          <!-- Table -->
-          <button type="button" class="btn btn-default library-nav-tile" (click)="toggleTilesDisplay(false)" style="margin: 10px 5px">
-            <span class="ti-view-list" aria-hidden="true"></span>
-          </button>
-          <!-- Tiles -->
-          <button type="button" class="btn btn-default library-nav-tile" (click)="toggleTilesDisplay(true)" style="margin: 10px 5px">
-            <span class="ti-layout-grid3" aria-hidden="true"></span>
-          </button>
-          <!-- Import -->
-          <button type="button" class="btn btn-default library-nav-tile" (click)="uploadFile()" style="margin: 10px 5px">
-            <span class="ti-cloud-up" aria-hidden="true"></span>
-            <input style="display: none" [hidden]="true" #fileUpload type="file" (change)="readFile($event)">
-          </button>
+        <li class="library-nav-right">
+          <ul style="list-style-type: none">
+            <li>
+              <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  {{selectedOrdering}}
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  <li style="padding: 8px 16px">Select grouping</li>
+                  <li role="separator" class="divider"></li>
+                  <li *ngFor="let ordering of (localUrlPath === 'books' ? bookOrderings : collectionOrderings)">
+                    <a href="javascript:void(0);" (click)="setOrdering(ordering)">
+                      {{ordering}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li style="text-align: right">
+              <div class="input-group" style="width: 250px">
+                <span class="input-group-addon" id="sizing-addon2">
+                  <i class="pe-7s-search" style="vertical-align:middle; font-size: 1.4em;"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Search">
+              </div>
+            </li>
+            <li class="text-center">
+              <!-- Add book -->
+              <button type="button" class="btn btn-default library-nav-tile" routerLink="{{router.url}}/new" style="margin: 10px 5px">
+                <span class="ti-plus" aria-hidden="true"></span>
+              </button>
+              <!-- Tags -->
+              <button type="button" class="btn btn-default library-nav-tile" (click)="toggleTagsDisplay()" style="margin: 10px 5px">
+                <span class="ti-tag" aria-hidden="true"></span>
+              </button>
+              <!-- Table -->
+              <button type="button" class="btn btn-default library-nav-tile" (click)="toggleTilesDisplay(false)" style="margin: 10px 5px">
+                <span class="ti-view-list" aria-hidden="true"></span>
+              </button>
+              <!-- Tiles -->
+              <button type="button" class="btn btn-default library-nav-tile" (click)="toggleTilesDisplay(true)" style="margin: 10px 5px">
+                <span class="ti-layout-grid3" aria-hidden="true"></span>
+              </button>
+              <!-- Import -->
+              <button type="button" class="btn btn-default library-nav-tile" (click)="uploadFile()" style="margin: 10px 5px">
+                <span class="ti-cloud-up" aria-hidden="true"></span>
+                <input style="display: none" [hidden]="true" #fileUpload type="file" (change)="readFile($event)">
+              </button>
+            </li>
+          </ul>
         </li>
       </ul>
     </nav>
