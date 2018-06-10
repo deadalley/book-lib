@@ -1,6 +1,9 @@
 <ng-container *ngFor="let item of items; let i = index;">
   <div class="clearfix" *ngIf="i % itemsInRow == 0"></div>
   <div class="col-md-3">
-    <ng-content></ng-content>
+    <ng-template
+      [ngTemplateOutlet]="contentTemplate"
+      [ngTemplateOutletContext]="{$implicit: item}"
+    ></ng-template>
   </div>
 </ng-container>

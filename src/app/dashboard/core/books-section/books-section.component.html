@@ -6,21 +6,21 @@
     <hr *ngIf="sectionTitle">
   </div>
 </div>
+
 <!-- Row of book cards -->
 <div class="row" [@card]>
-  <ng-container *ngFor="let book of books; let i = index;">
-    <div class="clearfix" *ngIf="i % 4 == 0"></div>
-    <div class="col-md-3">
+  <grid [items]="books">
+    <ng-template let-book>
       <book-card
         [book]="book"
+        [withButtons]="withButtons"
         [clickable]="clickable"
         [linkable]="linkable"
-        [withButtons]="withButtons"
         [selectable]="selectable"
         [selectBtnContent]="selectBtnContent"
         [selectBtnContentDisabled]="selectBtnContentDisabled"
         (selectedChanged)="updateSelectedBooks($event)"
       ></book-card>
-    </div>
-  </ng-container>
-</div><!-- !Row -->
+    </ng-template>
+  </grid>
+</div>

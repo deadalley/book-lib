@@ -126,3 +126,5 @@ export const scrollToAnchor = (location: string, wait: number): void => {
 }
 
 export const upperCaseFirstLetter = (string: string) => string.charAt(0).toUpperCase() + string.slice(1)
+
+export const removeSpaces = (string: string) => string.replace(/\s/g, '')
