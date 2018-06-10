@@ -184,7 +184,6 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
 
   selectBook(book: Book) {
     this.goodreadsService.getBook((grBook) => {
-      console.log(book, grBook)
       book = { ...book, ...parseBook(grBook) }
       this.form.patchValue({
         title: book.title,
@@ -198,7 +197,7 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
       this.goodreadsId = book.goodreadsId
       this.goodreadsAuthorId = book.goodreadsAuthorId
       this.suggestedBooks = []
-    }, +this.suggestedBooks[0].goodreadsId)
+    }, +book.goodreadsId)
   }
 
   searchAuthorOnGoodreads(name: string) {

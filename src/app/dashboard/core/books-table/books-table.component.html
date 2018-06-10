@@ -7,11 +7,12 @@
           <thead>
             <tr>
               <th class="col">Title</th>
-              <th class="col">Author</th>
-              <th class="col">Added on</th>
+              <th class="col-md-2">Author</th>
+              <th *ngIf="hasDate" class="col">Added on</th>
               <th *ngIf="withButtons" class="col-md-1"></th>
               <th *ngIf="selectable" class="col">Status</th>
               <th *ngIf="selectable" class="col"></th>
+              <th *ngIf="clickable" class="col"></th>
             </tr>
           
           <tbody>
@@ -21,12 +22,12 @@
                 {{linkable ? '' : book.title}}
               </td>
               
-              <td class="col">
+              <td class="col-md-2">
                 <a *ngIf="linkable" href="#" [routerLink]="authorRoute(book)">{{book.author}}</a>
                 {{linkable ? '' : book.author}}
               </td>
               
-              <td class="col">{{formatDate(book.date)}}</td>
+              <td *ngIf="book.date" class="col">{{formatDate(book.date)}}</td>
               
               <td *ngIf="withButtons" class="col-md-2">
                 <i class="pe-7s-check tile-icon"
@@ -61,8 +62,17 @@
                   style="text-align: center"
                   class="btn btn-default"
                   type="button"
-                  (click)="book.isSelected = !book.isSelected"
+                  (click)="updateSelectedBooks(book)"
                 >{{book.isSelected ? 'Remove' : 'Add'}}</button>
+              </td>
+
+              <td *ngIf="clickable" class="col-xs-3">
+                <button
+                  style="text-align: center"
+                  class="btn btn-default"
+                  type="button"
+                  (click)="updateSelectedBooks(book)"
+                >Select</button>
               </td>
             </tr>
           </tbody>

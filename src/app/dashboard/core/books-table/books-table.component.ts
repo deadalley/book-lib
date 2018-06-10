@@ -29,6 +29,10 @@ export class BooksTableComponent implements OnInit {
 
   formatDate = formatDate
 
+  get hasDate() {
+    return this.books.some((book) => !!book.date)
+  }
+
   ngOnInit() { }
 
   updateSelectedBooks(selectedBook: Book) {

@@ -163,7 +163,7 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
       this.goodreadsId = book.goodreadsId
       this.goodreadsAuthorId = book.goodreadsAuthorId
       this.suggestedBooks = []
-    }, +this.suggestedBooks[0].goodreadsId)
+    }, +book.goodreadsId)
   }
 
   searchAuthorOnGoodreads(name: string) {

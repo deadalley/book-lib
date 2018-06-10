@@ -47,6 +47,7 @@
 						</div>
 					</div>
 				</div>
+				<!-- Suggested books -->
 				<div *ngIf="suggestedBooks && suggestedBooks.length > 0" class="row">
 					<div class="col-xs-12">
 						<label style="padding:0;">Books found</label>
@@ -55,11 +56,13 @@
 						</a>
 					</div>
 				</div>
-				<books-display
-					[books]="suggestedBooks"
-					[clickable]="true"
-					(selectedBook)="selectBook($event)"
-				></books-display>
+				<div style="padding-left: 10px">
+					<books-display
+						[books]="suggestedBooks"
+						[clickable]="true"
+						(selectedBook)="selectBook($event)"
+					></books-display>
+				</div>
 
 				<!-- Author -->
 				<div class="form-group">
