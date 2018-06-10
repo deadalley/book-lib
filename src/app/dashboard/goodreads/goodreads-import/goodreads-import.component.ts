@@ -1,34 +1,15 @@
-import { Component, OnInit, trigger, transition, style, animate, group, state } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { GoodreadsService } from 'services/goodreads.service'
 import { LibraryService } from '../../library/library.service'
 import { Book } from 'interfaces/book'
+import { ANIMATIONS } from 'utils/constans'
 
 @Component({
   moduleId: module.id,
   selector: 'goodreads-import',
   templateUrl: 'goodreads-import.component.html',
   styleUrls: ['./goodreads-import.component.css'],
-  animations: [
-    trigger('card', [
-      state('*', style({
-        '-ms-transform': 'translate3D(0px, 0px, 0px)',
-        '-webkit-transform': 'translate3D(0px, 0px, 0px)',
-        '-moz-transform': 'translate3D(0px, 0px, 0px)',
-        '-o-transform': 'translate3D(0px, 0px, 0px)',
-        transform: 'translate3D(0px, 0px, 0px)',
-        opacity: 1})),
-        transition('void => *', [
-          style({opacity: 0,
-            '-ms-transform': 'translate3D(0px, 150px, 0px)',
-            '-webkit-transform': 'translate3D(0px, 150px, 0px)',
-            '-moz-transform': 'translate3D(0px, 150px, 0px)',
-            '-o-transform': 'translate3D(0px, 150px, 0px)',
-            transform: 'translate3D(0px, 150px, 0px)',
-          }),
-          animate('0.3s 0s ease-out')
-        ])
-    ])
-  ]
+  animations: [ANIMATIONS.CARD]
 })
 
 export class GoodreadsImportComponent implements OnInit {

@@ -1,33 +1,14 @@
-import { Component, OnInit, trigger, transition, style, animate, state, OnDestroy } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { LibraryService } from '../../library.service'
 import { Book } from 'interfaces/book'
+import { ANIMATIONS } from 'utils/constans'
 
 @Component({
   moduleId: module.id,
   selector: 'library-import-file',
   templateUrl: 'library-import-file.component.html',
   styleUrls: ['./library-import-file.component.css'],
-  animations: [
-    trigger('card', [
-      state('*', style({
-        '-ms-transform': 'translate3D(0px, 0px, 0px)',
-        '-webkit-transform': 'translate3D(0px, 0px, 0px)',
-        '-moz-transform': 'translate3D(0px, 0px, 0px)',
-        '-o-transform': 'translate3D(0px, 0px, 0px)',
-        transform: 'translate3D(0px, 0px, 0px)',
-        opacity: 1})),
-        transition('void => *', [
-          style({opacity: 0,
-              '-ms-transform': 'translate3D(0px, 150px, 0px)',
-              '-webkit-transform': 'translate3D(0px, 150px, 0px)',
-              '-moz-transform': 'translate3D(0px, 150px, 0px)',
-              '-o-transform': 'translate3D(0px, 150px, 0px)',
-              transform: 'translate3D(0px, 150px, 0px)',
-          }),
-          animate('0.3s 0s ease-out')
-        ])
-    ]),
-  ]
+  animations: [ANIMATIONS.CARD]
 })
 
 export class LibraryImportFileComponent implements OnInit, OnDestroy {

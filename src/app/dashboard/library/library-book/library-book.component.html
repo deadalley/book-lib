@@ -1,6 +1,6 @@
 <loading [visible]="isLoading"></loading>
 <page-navigator *ngIf="!isLoading">
-  <div class="card" [@cardbook]>
+  <div class="card" [@card]>
     <div class="header">
       <h4 class="title">{{book.title}}</h4>
       <p class="category" placement="bottom"><a href="javascript:void(0);" [routerLink]="authorRoute">

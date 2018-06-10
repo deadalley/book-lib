@@ -11,7 +11,6 @@ import { LibraryHomeComponent } from './library-home.component'
 import { LibraryBooksComponent } from './library-books/library-books.component'
 import { LibraryCollectionsComponent } from './library-collections/library-collections.component'
 import { LibraryNavbarComponent } from './library-navbar/library-navbar.component'
-import { LibraryTableComponent } from './library-table/library-table.component'
 import { LibraryNoBooksComponent } from './library-no-books/library-no-books.component'
 import { LibraryImportFileComponent } from './library-import-file/library-import-file.component'
 
@@ -44,7 +43,6 @@ const libraryHomeRoutes: Routes = [
     LibraryBooksComponent,
     LibraryCollectionsComponent,
     LibraryNavbarComponent,
-    LibraryTableComponent,
     LibraryNoBooksComponent,
     LibraryImportFileComponent,
     BookOrderPipe,

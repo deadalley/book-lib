@@ -1,37 +1,18 @@
-import { Component, OnInit, Output, ViewChild, EventEmitter, trigger, transition, style, animate, group, state, OnDestroy } from '@angular/core'
-import { FormControl , FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { Component, OnInit, OnDestroy } from '@angular/core'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Location } from '@angular/common'
-import { Collection } from '../../../../interfaces/collection'
-import { LibraryService } from '../library.service'
 import { Router } from '@angular/router'
-import { formatDate } from '../../../../utils/helpers'
+import { Collection } from 'interfaces/collection'
+import { formatDate } from 'utils/helpers'
+import { ANIMATIONS } from 'utils/constans'
+import { LibraryService } from '../library.service'
 
 @Component({
   moduleId: module.id,
   selector: 'library-edit-collection',
   templateUrl: 'library-edit-collection.component.html',
   styleUrls: ['./library-edit-collection.component.css'],
-  animations: [
-    trigger('cardaddbook', [
-      state('*', style({
-        '-ms-transform': 'translate3D(0px, 0px, 0px)',
-        '-webkit-transform': 'translate3D(0px, 0px, 0px)',
-        '-moz-transform': 'translate3D(0px, 0px, 0px)',
-        '-o-transform': 'translate3D(0px, 0px, 0px)',
-        transform: 'translate3D(0px, 0px, 0px)',
-        opacity: 1})),
-        transition('void => *', [
-          style({opacity: 0,
-            '-ms-transform': 'translate3D(0px, 150px, 0px)',
-            '-webkit-transform': 'translate3D(0px, 150px, 0px)',
-            '-moz-transform': 'translate3D(0px, 150px, 0px)',
-            '-o-transform': 'translate3D(0px, 150px, 0px)',
-            transform: 'translate3D(0px, 150px, 0px)',
-          }),
-          animate('0.3s 0s ease-out')
-        ])
-    ])
-  ]
+  animations: [ANIMATIONS.CARD]
 })
 
 export class LibraryEditCollectionComponent implements OnInit, OnDestroy {

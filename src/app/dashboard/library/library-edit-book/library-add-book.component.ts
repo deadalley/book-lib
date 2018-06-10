@@ -1,41 +1,22 @@
-import { Component, OnInit, ViewChild, trigger, transition, style, animate, state, OnDestroy } from '@angular/core'
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Location } from '@angular/common'
 import { Router } from '@angular/router'
-import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
 import { Book } from 'interfaces/book'
+import { Author } from 'interfaces/author'
 import Languages from 'utils/languages'
+import { ANIMATIONS } from 'utils/constans'
 import { cleanFormValues, parseBook, parseAuthor } from 'utils/helpers'
+import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
 import { LibraryService } from '../library.service'
 import { GoodreadsService } from 'services/goodreads.service'
-import { Author } from 'interfaces/author'
 
 @Component({
   moduleId: module.id,
   selector: 'library-add-book',
   templateUrl: 'library-edit-book.component.html',
   styleUrls: ['./library-edit-book.component.css'],
-  animations: [
-    trigger('card', [
-      state('*', style({
-        '-ms-transform': 'translate3D(0px, 0px, 0px)',
-        '-webkit-transform': 'translate3D(0px, 0px, 0px)',
-        '-moz-transform': 'translate3D(0px, 0px, 0px)',
-        '-o-transform': 'translate3D(0px, 0px, 0px)',
-        transform: 'translate3D(0px, 0px, 0px)',
-        opacity: 1})),
-        transition('void => *', [
-          style({opacity: 0,
-            '-ms-transform': 'translate3D(0px, 150px, 0px)',
-            '-webkit-transform': 'translate3D(0px, 150px, 0px)',
-            '-moz-transform': 'translate3D(0px, 150px, 0px)',
-            '-o-transform': 'translate3D(0px, 150px, 0px)',
-            transform: 'translate3D(0px, 150px, 0px)',
-          }),
-          animate('0.3s 0s ease-out')
-        ])
-    ])
-  ]
+  animations: [ANIMATIONS.CARD]
 })
 
 export class LibraryAddBookComponent implements OnInit, OnDestroy {

@@ -1,10 +1,11 @@
-import { Component, OnInit, trigger, transition, style, animate, state, OnDestroy } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router } from '@angular/router'
 import { Book } from 'interfaces/book'
 import { Author } from 'interfaces/author'
 import { GoodreadsService } from 'services/goodreads.service'
 import { LibraryService } from '../library.service'
 import { parseBook } from 'utils/helpers'
+import { ANIMATIONS } from 'utils/constans'
 import * as _ from 'lodash'
 
 @Component({
@@ -12,27 +13,7 @@ import * as _ from 'lodash'
   selector: 'library-author',
   templateUrl: 'library-author.component.html',
   styleUrls: ['./library-author.component.css'],
-  animations: [
-    trigger('card', [
-      state('*', style({
-        '-ms-transform': 'translate3D(0px, 0px, 0px)',
-        '-webkit-transform': 'translate3D(0px, 0px, 0px)',
-        '-moz-transform': 'translate3D(0px, 0px, 0px)',
-        '-o-transform': 'translate3D(0px, 0px, 0px)',
-        transform: 'translate3D(0px, 0px, 0px)',
-        opacity: 1})),
-        transition('void => *', [
-          style({opacity: 0,
-            '-ms-transform': 'translate3D(0px, 150px, 0px)',
-            '-webkit-transform': 'translate3D(0px, 150px, 0px)',
-            '-moz-transform': 'translate3D(0px, 150px, 0px)',
-            '-o-transform': 'translate3D(0px, 150px, 0px)',
-            transform: 'translate3D(0px, 150px, 0px)',
-          }),
-          animate('0.3s 0s ease-out')
-        ])
-    ])
-  ]
+  animations: [ANIMATIONS.CARD]
 })
 
 export class LibraryAuthorComponent implements OnInit, OnDestroy {

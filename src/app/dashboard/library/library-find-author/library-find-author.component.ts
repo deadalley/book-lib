@@ -1,37 +1,18 @@
-import { Component, OnInit, trigger, transition, style, animate, state, OnDestroy } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router } from '@angular/router'
 import { Author } from 'interfaces/author'
 import { Book } from 'interfaces/book'
 import { GoodreadsService } from 'services/goodreads.service'
 import { LibraryService } from '../library.service'
 import { parseAuthor } from 'utils/helpers'
+import { ANIMATIONS } from 'utils/constans'
 
 @Component({
   moduleId: module.id,
   selector: 'library--findauthor',
   templateUrl: 'library-find-author.component.html',
   styleUrls: ['./library-find-author.component.css'],
-  animations: [
-    trigger('card', [
-      state('*', style({
-        '-ms-transform': 'translate3D(0px, 0px, 0px)',
-        '-webkit-transform': 'translate3D(0px, 0px, 0px)',
-        '-moz-transform': 'translate3D(0px, 0px, 0px)',
-        '-o-transform': 'translate3D(0px, 0px, 0px)',
-        transform: 'translate3D(0px, 0px, 0px)',
-        opacity: 1})),
-        transition('void => *', [
-          style({opacity: 0,
-            '-ms-transform': 'translate3D(0px, 150px, 0px)',
-            '-webkit-transform': 'translate3D(0px, 150px, 0px)',
-            '-moz-transform': 'translate3D(0px, 150px, 0px)',
-            '-o-transform': 'translate3D(0px, 150px, 0px)',
-            transform: 'translate3D(0px, 150px, 0px)',
-          }),
-          animate('0.3s 0s ease-out')
-        ])
-    ])
-  ]
+  animations: [ANIMATIONS.CARD]
 })
 
 export class LibraryFindAuthorComponent implements OnInit, OnDestroy {
