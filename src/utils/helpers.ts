@@ -1,6 +1,4 @@
 import * as _ from 'lodash'
-import { Book } from 'interfaces/book'
-import { AuthorCardComponent } from 'app/dashboard/core/author-card/author-card.component';
 
 export const cleanFormValues = (formValues): object => {
   // tslint:disable-next-line:prefer-const

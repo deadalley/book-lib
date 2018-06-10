@@ -63,7 +63,7 @@ export class LibraryAuthorComponent implements OnInit, OnDestroy {
         this.subscription = this.libraryService.books$.subscribe((ownBooks) => {
           if (!ownBooks) { return }
           books.forEach((book) =>
-            book.inLibrary = ownBooks.map((ownBook) => ownBook.goodreadsId).includes(book.goodreadsId))
+            book.canBeSelected = ownBooks.map((ownBook) => ownBook.goodreadsId).includes(book.goodreadsId))
         })
 
         this.author = {

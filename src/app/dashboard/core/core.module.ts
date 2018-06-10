@@ -16,6 +16,7 @@ import { LoadingComponent } from './loading/loading.component'
 import { BooksSectionComponent } from './books-section/books-section.component'
 import { BooksDisplayComponent } from './books-display/books-display.component'
 import { TagsListComponent } from './tags-list/tags-list.component'
+import { GridComponent } from './grid/grid.component'
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { TagsListComponent } from './tags-list/tags-list.component'
     LoadingComponent,
     BooksSectionComponent,
     BooksDisplayComponent,
-    TagsListComponent
+    TagsListComponent,
+    GridComponent
   ],
   imports: [
     LoadingModule.forRoot({
@@ -53,7 +55,8 @@ import { TagsListComponent } from './tags-list/tags-list.component'
     LoadingComponent,
     BooksSectionComponent,
     BooksDisplayComponent,
-    TagsListComponent
+    TagsListComponent,
+    GridComponent
   ]
 })
 export class CoreModule { }
