@@ -1,5 +1,6 @@
 import * as _ from 'lodash'
 import { Book } from 'interfaces/book'
+import { AuthorCardComponent } from 'app/dashboard/core/author-card/author-card.component';
 
 export const cleanFormValues = (formValues): object => {
   // tslint:disable-next-line:prefer-const
@@ -81,9 +82,21 @@ export const formatDate = (date: string) => {
   return new Date(date).toLocaleDateString()
 }
 
+const parseAuthorName = (book) => {
+  if (book.authors) {
+    if (Array.isArray(book.authors.author)) {
+      return book.authors.author[0].name
+    } else {
+      return book.authors.author.name
+    }
+  }
+
+  return book.author.name
+}
+
 export const parseBook = (book) => ({
   title: book.title,
-  author: book.authors ? book.authors.author.name : book.author.name,
+  author: parseAuthorName(book),
   isbn: book.isbn,
   publisher: book.publisher,
   year: book.publication_year,

@@ -16,7 +16,7 @@ import { Author } from 'interfaces/author'
   templateUrl: 'library-edit-book.component.html',
   styleUrls: ['./library-edit-book.component.css'],
   animations: [
-    trigger('cardaddbook', [
+    trigger('card', [
       state('*', style({
         '-ms-transform': 'translate3D(0px, 0px, 0px)',
         '-webkit-transform': 'translate3D(0px, 0px, 0px)',
@@ -149,18 +149,21 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
   }
 
   selectBook(book: Book) {
-    this.form.patchValue({
-      title: book.title,
-      author: book.author,
-      publisher: book.publisher,
-      year: book.year,
-      pages: book.pages,
-      image_large: book.image_large,
-      image_small: book.image_small
-    })
-    this.goodreadsId = book.goodreadsId
-    this.goodreadsAuthorId = book.goodreadsAuthorId
-    this.suggestedBooks = []
+    this.goodreadsService.getBook((grBook) => {
+      book = { ...book, ...parseBook(grBook) }
+      this.form.patchValue({
+        title: book.title,
+        author: book.author,
+        publisher: book.publisher,
+        year: book.year,
+        pages: book.pages,
+        image_large: book.image_large,
+        image_small: book.image_small
+      })
+      this.goodreadsId = book.goodreadsId
+      this.goodreadsAuthorId = book.goodreadsAuthorId
+      this.suggestedBooks = []
+    }, +this.suggestedBooks[0].goodreadsId)
   }
 
   searchAuthorOnGoodreads(name: string) {

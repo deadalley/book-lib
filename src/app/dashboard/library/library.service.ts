@@ -37,8 +37,10 @@ export class LibraryService {
   set setBooksToImport(books: Book[]) { this.booksToImport.next(books) }
 
   constructor(private database: DatabaseService, private auth: AuthService) {
+    console.log('construct')
     this.auth.userRef.subscribe((userRef) => {
       if (!userRef || userRef === this.userRef) { return }
+      console.log(userRef)
       this.userRef = userRef
       this.loadBooks()
       this.loadCollections()
@@ -56,7 +58,8 @@ export class LibraryService {
   }
 
   private loadCollections() {
-    this.database.getCollectionsForUser(this.userRef, (collections) => this.collections.next(collections) )
+    console.log('loadingCollections')
+    this.database.getCollectionsForUser(this.userRef, (collections) => {console.log(collections); this.collections.next(collections)} )
   }
 
   toggleTilesDisplay(toggle: boolean) {

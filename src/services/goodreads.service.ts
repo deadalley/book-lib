@@ -45,7 +45,7 @@ export class GoodreadsService {
   getBook(cb, id: number) {
     const url = `${this.domain}/book/show/${id}`
 
-    HttpGet(this.http, this.parseUrl(url), this.defaultParams, cb)
+    HttpGet(this.http, this.parseUrl(url), this.defaultParams, (response) => cb(response.book))
   }
 
   getAuthor(cb, id: number) {
