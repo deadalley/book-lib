@@ -116,12 +116,15 @@ export class LibraryService {
   }
 
   addCollection(collection: Collection) {
-    return this.database.postCollectionForUser(this.userRef, {
+    const id = this.database.postCollectionForUser(this.userRef, {
       owner: '',
       title: collection.title,
       books: collection.books.map((book) => book.id),
       description: collection.description
     })
+
+    this.addBooksToCollection(collection, collection.books)
+    return id
   }
 
   findCollection(id: string) {

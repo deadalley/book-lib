@@ -45,21 +45,12 @@ export class LibraryAddCollectionComponent implements OnInit, OnDestroy {
       id: '',
       title: formValues.title,
       description: formValues.description,
-      books: []
+      books: this.books.filter((book) => book.isSelected)
     }
 
     console.log('Adding collection', this.collection)
-    const id = this.libraryService.addCollection(this.collection)
-    this.collection.id = id
+    this.collection.id = this.libraryService.addCollection(this.collection)
 
-    this.libraryService.addBooksToCollection(
-      this.collection,
-      this.books.filter((book) => book.inCollection && !book.wasInCollection)
-    )
-    this.libraryService.removeBooksFromCollection(
-      this.collection,
-      this.books.filter((book) => !book.inCollection && book.wasInCollection)
-    )
     this.location.back()
   }
 
@@ -68,6 +59,7 @@ export class LibraryAddCollectionComponent implements OnInit, OnDestroy {
       if (!books) { return }
       this.isLoadingBooks = false
       this.books = books
+      this.books.forEach((book) => book.canBeSelected = true)
     })
   }
 }
