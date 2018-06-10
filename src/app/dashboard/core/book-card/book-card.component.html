@@ -73,12 +73,12 @@
     <div class="row" *ngIf="selectable">
       <div class="col-xs-12">
         <hr>
-        <button type="button" class="btn btn-default" (click)="select()" [disabled]="book.canBeSelected">
-          <ng-container *ngIf="!book.canBeSelected">
-            <span [ngClass]="{'ti-check-box': book.isSelected, 'ti.ti-control-stop': !book.isSelected}"></span>
+        <button type="button" class="btn btn-default" (click)="select()" [disabled]="!book.canBeSelected">
+          <ng-container *ngIf="book.canBeSelected">
+            <span [ngClass]="{'ti-check-box': book.isSelected, 'ti-control-stop': !book.isSelected}"></span>
             {{selectBtnContent}}
           </ng-container>
-          {{book.canBeSelected ? selectBtnContentDisabled : ''}}
+          {{book.canBeSelected ? '' : selectBtnContentDisabled}}
         </button>
       </div>
     </div>

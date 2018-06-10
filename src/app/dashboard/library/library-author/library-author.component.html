@@ -27,32 +27,18 @@
           </div>
         </div>
       </div>
-      <books-section
-        [sectionTitle]="'Books'"
-        [books]="author.books.slice(0,4)"
+
+      <books-display
+        [books]="author.books"
         [selectable]="true"
+        [statusIncluded]="'Book will be added to library'"
+        [statusNotIncluded]="'Book will not be added to library'"
+        [statusCannotBeSelected]="'Book already in library'"
         [selectBtnContent]="'Add to library'"
         [selectBtnContentDisabled]="'Already in library'"
         (selectedBooks)="updateSelectedBooks($event)"
-      ></books-section>
-      <div class="row">
-        <div class="col-xs-12">
-          <a href="#displayBooks" data-toggle="collapse">
-            <label style="padding:0;">Display all books </label>
-            <i class="pe-7s-angle-down" style="font-size: 1.3em;"></i>
-          </a>
-          <hr style="margin-top: 0;">
-        </div>
-      </div>
-      <div class="collapse" id="displayBooks">
-        <books-section
-          [books]="author.books.slice(4)"
-          [selectable]="true"
-          [selectBtnContent]="'Add to library'"
-          [selectBtnContentDisabled]="'Already in library'"
-          (selectedBooks)="updateSelectedBooks($event)"
-        ></books-section>
-      </div>
+      ></books-display>
+
       <hr>
       <div style="text-align: center;">
         <button

@@ -92,6 +92,18 @@ const parseAuthorName = (book) => {
   return book.author.name
 }
 
+const parseBookId = (book) => {
+  if (book.work) {
+    if (book.work.id._) {
+      return book.work.id._
+    } else {
+      return book.work.id
+    }
+  } else {
+    return book.id._
+  }
+}
+
 export const parseBook = (book) => ({
   title: book.title,
   author: parseAuthorName(book),
@@ -102,7 +114,7 @@ export const parseBook = (book) => ({
   image_large: book.large_image_url ? book.large_image_url : book.image_url,
   image_small: book.small_image_url,
   goodreadsLink: book.link,
-  goodreadsId: book.id._,
+  goodreadsId: parseBookId(book),
   goodreadsAuthorId: book.authors ? book.authors.author.id : book.author.id._
 })
 

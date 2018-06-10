@@ -30,20 +30,26 @@
           </grid>
         </div>
       </div>
+
       <div *ngIf="selectedAuthor" class="row" style="text-align: left">
         <div class="col-xs-12">
           <h5>Select books associated to {{selectedAuthor.name}}</h5>
           <hr>
         </div>
+
         <div class="col-xs-12">
-          <books-section
-            [selectable]="true"
-            [selectBtnContent]="'Select'"
-            (selectedBooks)="updateSelectedBooks($event)"
+          <books-display
             [books]="books"
-          >
-          </books-section>
+            [selectable]="true"
+            [statusIncluded]="'Book will be associated to this author'"
+            [statusNotIncluded]="'Book will not be associated to this author'"
+            [statusCannotBeSelected]="'Book already in library'"
+            [selectBtnContent]="'Associate to author'"
+            [selectBtnContentDisabled]="'Already in library'"
+            (selectedBooks)="updateSelectedBooks($event)"
+          ></books-display>
         </div>
+
         <div class="col-xs-12" style="text-align: center;">
           <hr>
           <button

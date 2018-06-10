@@ -20,6 +20,7 @@ export interface Book {
   image_large?: string
   rating?: number
   isSelected?: boolean
+  canBeSelected?: boolean
   goodreadsLink?: string
   goodreadsId?: number
   goodreadsAuthorId?: number

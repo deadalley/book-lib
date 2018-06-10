@@ -19,7 +19,10 @@ export class LibraryImportFileComponent implements OnInit, OnDestroy {
   constructor(private libraryService: LibraryService) {
     this.subscription = libraryService.booksToImport$.subscribe((books) => {
       if (!books) { return }
-      books.forEach((book) => book.isSelected = true)
+      books.forEach((book) => {
+        book.canBeSelected = true
+        book.isSelected = true
+      })
       this.hasSelectedBooks = true
       this.books = books
     })

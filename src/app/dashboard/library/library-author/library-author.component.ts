@@ -44,7 +44,7 @@ export class LibraryAuthorComponent implements OnInit, OnDestroy {
         this.subscription = this.libraryService.books$.subscribe((ownBooks) => {
           if (!ownBooks) { return }
           books.forEach((book) =>
-            book.canBeSelected = ownBooks.map((ownBook) => ownBook.goodreadsId).includes(book.goodreadsId))
+            book.canBeSelected = !ownBooks.map((ownBook) => ownBook.goodreadsId).includes(book.goodreadsId))
         })
 
         this.author = {
@@ -70,7 +70,6 @@ export class LibraryAuthorComponent implements OnInit, OnDestroy {
   }
 
   importBooks() {
-    // TODO: Add owned, read, favorite
     const booksToAdd = this.author.books
       .filter((book) => book.isSelected)
       .map((book) => ({
@@ -82,5 +81,6 @@ export class LibraryAuthorComponent implements OnInit, OnDestroy {
         date: (new Date()).toISOString().substring(0, 10),
       }))
     this.libraryService.addBooks(booksToAdd)
+    this.router.navigate(['dashboard/library'])
   }
 }

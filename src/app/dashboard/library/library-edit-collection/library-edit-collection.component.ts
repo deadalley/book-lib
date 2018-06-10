@@ -92,6 +92,7 @@ export class LibraryEditCollectionComponent implements OnInit, OnDestroy {
       this.isLoadingBooks = false
       this.books = books
       this.books.forEach((book) => {
+        book.canBeSelected = true
         book.isSelected = book.collections && book.collections.includes(this.collection.title)
         book.wasInCollection = book.collections && book.collections.includes(this.collection.title)
       })

@@ -1,4 +1,4 @@
-<div *ngIf="books && books.length > 0" class="row" style="margin-left: -23px">
+<div *ngIf="books && books.length > 0" class="row">
   <div class="col-xs-12 text-left text-muted">
     <a *ngIf="selectable" href="javascript:void(0);" (click)="selectAll(true)">
       Select all
@@ -17,7 +17,7 @@
 
 <ng-container *ngIf="tilesDisplay">
   <books-section
-    [books]="books.slice(0, 4)"
+    [books]="(books || []).slice(0, 4)"
     [withButtons]="withButtons"
     [clickable]="clickable"
     [selectable]="selectable"
@@ -38,7 +38,7 @@
 
   <div class="collapse" id="displayMore">
     <books-section
-      [books]="books.slice(4)"
+      [books]="(books || []).slice(4)"
       [withButtons]="withButtons"
       [clickable]="clickable"
       [selectable]="selectable"
@@ -57,6 +57,9 @@
   [clickable]="clickable"
   [selectable]="selectable"
   [linkable]="linkable"
+  [statusIncluded]="statusIncluded"
+  [statusNotIncluded]="statusNotIncluded"
+  [statusCannotBeSelected]="statusCannotBeSelected"
   (selectedBooks)="selectedBooks.emit($event)"
   (selectedBook)="selectedBook.emit($event)"
 ></books-table>

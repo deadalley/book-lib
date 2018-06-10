@@ -17,6 +17,9 @@ export class BooksDisplayComponent implements OnInit {
   @Input() linkable: boolean
   @Input() selectable: boolean
 
+  @Input() statusIncluded: string
+  @Input() statusNotIncluded: string
+  @Input() statusCannotBeSelected: string
   @Input() selectBtnContent: string
   @Input() selectBtnContentDisabled: string
 
@@ -27,9 +30,7 @@ export class BooksDisplayComponent implements OnInit {
   displayAll = false
   removeSpaces = removeSpaces
 
-  ngOnInit() {
-    this.books = []
-  }
+  ngOnInit() { }
 
   selectAll(selection: boolean) {
     this.books.forEach((book) => book.isSelected = selection)

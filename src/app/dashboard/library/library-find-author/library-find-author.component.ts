@@ -42,7 +42,7 @@ export class LibraryFindAuthorComponent implements OnInit, OnDestroy {
 
     this.subscription = this.libraryService.books$.subscribe((books) => {
       if (!books) { return }
-      this.books = books
+      this.books = books.map((book) => ({ ...book, canBeSelected: true }))
     })
   }
 

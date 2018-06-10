@@ -21,6 +21,9 @@ export class BooksTableComponent implements OnInit {
   @Input() linkable: boolean
   @Input() selectable: boolean
 
+  @Input() statusIncluded: string
+  @Input() statusNotIncluded: string
+  @Input() statusCannotBeSelected: string
   @Input() selectBtnContent: string
   @Input() selectBtnContentDisabled: string
 
@@ -29,6 +32,10 @@ export class BooksTableComponent implements OnInit {
 
   formatDate = formatDate
 
+  get hasAuthor() {
+    return this.books.some((book) => !!book.author)
+  }
+
   get hasDate() {
     return this.books.some((book) => !!book.date)
   }
@@ -36,6 +43,7 @@ export class BooksTableComponent implements OnInit {
   ngOnInit() { }
 
   updateSelectedBooks(selectedBook: Book) {
+    selectedBook.isSelected = !selectedBook.isSelected
     this.selectedBook.emit(selectedBook)
     this.selectedBooks.emit(this.books.filter((book) => book.isSelected))
   }
