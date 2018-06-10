@@ -33,45 +33,10 @@
           </div>
         </div>
         <div class="collapse" id="addBooks">
-          <table class="table table-hover table-striped">            
-            <thead>
-              <tr>
-                <th class="col">Title</th>
-                <th class="col">Author</th>
-                <th class="col">Added on</th>
-                <th class="col">Status</th>
-                <th class="col"></th>
-              </tr>
-              <tbody>
-                <tr *ngFor="let book of books">
-                  <td class="col-xs-2">{{book.title}}</td>
-                  <td class="col-xs-2">{{book.author}}</td>
-                  <td class="col-xs-2">{{formatDate(book.date)}}</td>
-                  <td class="col-xs-3">
-                    <div class="text-muted" style="font-style: italic">
-                      <i style="font-size: 0.9em" [ngClass]="{'ti-check': book.inCollection, 'ti-close': !book.inCollection}"></i>
-                      {{book.inCollection ? 'Book in collection' : 'Book not in collection'}}
-                    </div>
-                  </td>
-                  <td class="col-xs-3">
-                    <button
-                      *ngIf="!book.inCollection"
-                      style="text-align: center"
-                      class="btn btn-default"
-                      type="button"
-                      (click)="book.inCollection = true"
-                    >Add</button>
-                    <button
-                      *ngIf="book.inCollection"
-                      style="text-align: center"
-                      class="btn btn-default"
-                      type="button"
-                      (click)="book.inCollection = false"
-                    >Remove</button>
-                  </td>
-                </tr>
-              </tbody>
-          </table>
+          <books-table
+            [books]="books"
+            [selectable]="true"
+          ></books-table>
         </div>
         <div>
           <div >

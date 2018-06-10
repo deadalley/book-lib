@@ -96,11 +96,11 @@ export class LibraryEditCollectionComponent implements OnInit, OnDestroy {
 
     this.libraryService.addBooksToCollection(
       this.collection,
-      this.books.filter((book) => book.inCollection && !book.wasInCollection)
+      this.books.filter((book) => book.isSelected && !book.wasInCollection)
     )
     this.libraryService.removeBooksFromCollection(
       this.collection,
-      this.books.filter((book) => !book.inCollection && book.wasInCollection)
+      this.books.filter((book) => !book.isSelected && book.wasInCollection)
     )
     this.location.back()
   }
@@ -111,7 +111,7 @@ export class LibraryEditCollectionComponent implements OnInit, OnDestroy {
       this.isLoadingBooks = false
       this.books = books
       this.books.forEach((book) => {
-        book.inCollection = book.collections && book.collections.includes(this.collection.title)
+        book.isSelected = book.collections && book.collections.includes(this.collection.title)
         book.wasInCollection = book.collections && book.collections.includes(this.collection.title)
       })
     })

@@ -1,13 +1,13 @@
-.book-image {
-  display: block;
-  margin: auto;
-  border-radius: 0;
-  width: 30%;
-  height:auto;
+i.tile-icon {
+  font-size: 1.4em;
 }
 
-.author-image {
-  border-radius: 0;
+i.active {
+  color: #333;
+}
+
+i.inactive {
+  color: #c9c9c9;
 }
 
 .btn::-moz-placeholder {

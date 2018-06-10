@@ -21,14 +21,23 @@
   </ng-container>
   <!-- Table -->
   <ng-container *ngSwitchCase="false">
-    <library-table *ngIf="!orderingMethod" [books]="books"></library-table>
+    <books-table
+      *ngIf="!orderingMethod"
+      [books]="books"
+      [withButtons]="true"
+      [linkable]="true"
+    ></books-table>
     <ng-container *ngFor="let item of books | bookOrdering: orderingMethod | iterable">
       <div class="row">
         <div class="col-md-12">
           <h4 class="title">{{item.key}}</h4>
           <hr>
         </div>
-        <library-table [books]="item.value"></library-table>
+        <books-table
+          [books]="item.value"
+          [withButtons]="true"
+          [linkable]="true"
+        ></books-table>
       </div>
     </ng-container>
   </ng-container>

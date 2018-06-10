@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="content table-responsive table-full-width">
+        <table class="table table-hover table-striped" [@card]>
+          
+          <thead>
+            <tr>
+              <th class="col">Title</th>
+              <th class="col">Author</th>
+              <th class="col">Added on</th>
+              <th *ngIf="withButtons" class="col-md-1"></th>
+              <th *ngIf="selectable" class="col">Status</th>
+              <th *ngIf="selectable" class="col"></th>
+            </tr>
+          
+          <tbody>
+            <tr *ngFor="let book of books">
+              <td class="col">
+                <a *ngIf="linkable" href="#" routerLink="../books/{{book.id}}">{{book.title}}</a>
+                {{linkable ? '' : book.title}}
+              </td>
+              
+              <td class="col">
+                <a *ngIf="linkable" href="#" [routerLink]="authorRoute(book)">{{book.author}}</a>
+                {{linkable ? '' : book.author}}
+              </td>
+              
+              <td class="col">{{formatDate(book.date)}}</td>
+              
+              <td *ngIf="withButtons" class="col-md-2">
+                <i class="pe-7s-check tile-icon"
+                  [ngClass] = "{'pe-7s-check': book.owned, 'pe-7s-gift': !book.owned, 'active': true}"
+                  tooltip="{{book.owned ? 'Owned' : 'Wishlist'}}"
+                        [tooltipDisabled]="false"
+                        [tooltipAnimation]="true"
+                        tooltipPlacement="bottom"></i>
+                <i class="pe-7s-glasses tile-icon"
+                  [ngClass] = "{'inactive': !book.read, 'active': book.read}"
+                  tooltip="{{book.read ? 'Read' : 'Unread'}}"
+                        [tooltipDisabled]="false"
+                        [tooltipAnimation]="true"
+                        tooltipPlacement="bottom"></i>
+                <i class="pe-7s-like tile-icon"
+                  [ngClass] = "{'inactive': !book.favorite, 'active': book.favorite}"
+                  tooltip="{{book.favorite ? 'Favorite' : 'Not a favorite'}}"
+                        [tooltipDisabled]="false"
+                        [tooltipAnimation]="true"
+                        tooltipPlacement="bottom"></i>
+              </td>
+
+              <td *ngIf="selectable" class="col-xs-3">
+                <div class="text-muted" style="font-style: italic">
+                  <i style="font-size: 0.9em" [ngClass]="{'ti-check': book.isSelected, 'ti-close': !book.isSelected}"></i>
+                  {{book.isSelected ? 'Book in collection' : 'Book not in collection'}}
+                </div>
+              </td>
+
+              <td *ngIf="selectable" class="col-xs-3">
+                <button
+                  style="text-align: center"
+                  class="btn btn-default"
+                  type="button"
+                  (click)="book.isSelected = !book.isSelected"
+                >{{book.isSelected ? 'Remove' : 'Add'}}</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

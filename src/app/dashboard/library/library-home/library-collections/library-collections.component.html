@@ -34,11 +34,24 @@
     </div>
   </div>
   <div *ngIf="!collection.books || collection.books.length === 0">
-    <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 0">This collection is empty :(</h5>
+    <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 0">
+      You currently don't have any books in this collection. You can click the editing icon above
+      and add books to it, or you can delete it.
+    </h5>
   </div>
   <div *ngIf="collection.books && collection.books.length > 0" [ngSwitch]="tilesDisplay">
-    <books-section *ngSwitchCase="true" [books]="collection.books" [withButtons]="true" [linkable]="true"></books-section>
-    <library-table *ngSwitchCase="false" [books]="collection.books"></library-table>
+    <books-section
+      *ngSwitchCase="true"
+      [books]="collection.books"
+      [withButtons]="true"
+      [linkable]="true"
+    ></books-section>
+    <books-table
+      *ngSwitchCase="false"
+      [books]="collection.books"
+      [withButtons]="true"
+      [linkable]="true"
+      ></books-table>
   </div>
 </ng-container>
 
