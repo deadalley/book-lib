@@ -24,7 +24,9 @@
 							<div style="display: flex">
 								<div style="width: 100%">
 									<input [(ngModel)]="bookTitle" type="text" class="form-control" placeholder="Your version title" formControlName="title">
-									<span class="help-block" *ngIf="!form.controls['title'].valid && form.controls['title'].touched">Please enter a valid book title.</span>
+									<span class="help-block" *ngIf="!form.controls['title'].valid && form.controls['title'].touched">
+										Please enter a valid book title.
+									</span>
 								</div>
 								<button type="button"
 									(click)="searchBookOnGoodreads(bookTitle)"
@@ -84,7 +86,9 @@
 								<div style="display: flex">
 									<div style="width: 100%">
 										<input [(ngModel)]="authorName" type="text" class="form-control" placeholder="Author name" formControlName="author">
-										<span class="help-block" *ngIf="!form.controls['author'].valid && form.controls['author'].touched">Please enter a valid author name.</span>
+										<span class="help-block" *ngIf="!form.controls['author'].valid && form.controls['author'].touched">
+											Please enter a valid author name.
+										</span>
 									</div>								
 									<button type="button"
 										(click)="searchAuthorOnGoodreads(authorName)"
@@ -115,27 +119,28 @@
 						</div>
 					</div>
 
+					<!-- Suggested authors -->
 					<div *ngIf="suggestedAuthors && suggestedAuthors.length > 0" class="row">
 						<div class="col-xs-12">
-							<label style="padding:0;">Authors found</label>
+							<label style="padding:0">Authors found</label>
 							<a href="javascript:void(0);" (click)="suggestedAuthors=[]">
 								<i class="pe-7s-close-circle" style="font-size: 100%"></i>
 							</a>
 						</div>
 					</div>
 					<div class="row">
-						<ng-container *ngFor="let author of suggestedAuthors; let i = index;">
-							<div class="clearfix" *ngIf="i % 4 == 0"></div>
-							<div class="col-md-3">
+						<grid [items]="(suggestedAuthors || []).slice(0,4)">
+							<ng-template let-author>
 								<author-card
-								[author]="author"
-								(selected)="selectAuthor($event)"
+									[author]="author"
+									(selected)="selectAuthor($event)"
 								></author-card>
-							</div>
-						</ng-container>
+							</ng-template>
+						</grid>
 					</div>
 				</div>
 
+				<!-- Other form values -->
 				<div class="row">
 					<div class="col-md-8">
 						<!-- Publisher -->
@@ -180,11 +185,11 @@
 						<div class="form-group">
 							<label>Collections</label>
 							<div class="dropdown">
-								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
 									Add book to a collection
 									<span class="caret"></span>
 								</button>
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+								<ul class="dropdown-menu">
 									<li *ngFor="let collection of allCollections; let i = index">
 										<a href="javascript:void(0);" (click)="moveCollection(allCollections, collections, i)">
 											{{collection}}
@@ -266,14 +271,22 @@
                 </a>
               </label>
 							<input type="text" class="form-control" placeholder="Link to the book cover" formControlName="image_large">
-							<span class="help-block" *ngIf="!form.controls['image_large'].valid && form.controls['image_large'].touched">Please enter a valid link to your book cover.</span>
+							<span class="help-block" *ngIf="!form.controls['image_large'].valid && form.controls['image_large'].touched">
+								Please enter a valid link to your book cover.
+							</span>
 						</div>
           </div>
 				</div>
 				<!-- Notes -->
 				<div class="form-group">
 					<label>Notes</label>
-					<textarea formControlName="notes" rows="5" class="form-control" placeholder="Leave notes, thoughts, or a full review of the book here :)" value=""></textarea>
+					<textarea
+						formControlName="notes"
+						rows="5"
+						class="form-control"
+						placeholder="Leave notes, thoughts, or a full review of the book here :)"
+						value=""
+					></textarea>
 				</div>
 				<hr>
 				<div style="text-align: center;">

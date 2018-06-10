@@ -20,15 +20,14 @@
       </div>
       <div *ngIf="!isLoading" class="row">
         <div class="col-xs-12">
-          <ng-container *ngFor="let author of authors; let i = index;">
-            <div class="clearfix" *ngIf="i % 4 == 0"></div>
-            <div class="col-md-3">
+          <grid [items]="authors">
+            <ng-template let-author>
               <author-card
                 [author]="author"
                 (selected)="selectAuthor($event)"
               ></author-card>
-            </div>
-          </ng-container>
+            </ng-template>
+          </grid>
         </div>
       </div>
       <div *ngIf="selectedAuthor" class="row" style="text-align: left">

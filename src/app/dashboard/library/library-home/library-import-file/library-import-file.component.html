@@ -18,19 +18,17 @@
         </div>
       </div>
       <div class="row">
-        <ng-container *ngFor="let book of books; let i = index;">
-          <div class="clearfix" *ngIf="i % 4 == 0"></div>
-          <div class="col-md-3">
+        <grid [items]="books">
+          <ng-template let-book>
             <book-card
               [book]="book"
-              [withButtons]="false"
               [selectable]="true"
               [selectBtnContent]="'Add to library'"
               [selectBtnContentDisabled]="'Already in library'"
               (selectedChanged)="updateSelectedBooks()"
-          ></book-card>
-          </div>
-        </ng-container>
+            ></book-card>
+          </ng-template>
+        </grid>
       </div>
       <hr>
       <div style="text-align: center;">
