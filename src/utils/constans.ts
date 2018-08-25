@@ -1,4 +1,4 @@
-import { trigger, transition, style, animate, state } from '@angular/core'
+import { trigger, transition, style, animate, state } from '@angular/animations'
 
 export const ANIMATIONS = {
   CARD: trigger('card', [
