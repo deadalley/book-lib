@@ -65,7 +65,7 @@ export class AuthService {
           this.database.updateUser(localUser.id, { goodreadsId: goodreadsId })
         })
       } else if (error) {
-        console.log('Could not log in ')
+        console.log('Could not log in on Goodreads')
         console.log(error)
       }
     })
@@ -142,21 +142,7 @@ export class AuthService {
   loginEmail({ email, password}, onError) {
     this.fireAuth.auth.signInWithEmailAndPassword(email, password)
       .then((response) => {
-        console.log('Successfully logged in')
-        localStorage.setItem('userLoginCredentials', JSON.stringify(response))
-
-        this.database.findUserById(response.uid, (_user) => {
-          const _ref = Object.keys(_user)[0]
-          _user = {
-            ...(_user[_ref]),
-            ref: _ref
-          } as LocalUser
-
-          localStorage.setItem('user', JSON.stringify(_user))
-          this._userRef.next(_user.ref)
-          this.router.navigate(['library'])
-        })
-
+        this.processResponse(response.user)
       })
       .catch((error) => {
         console.log('Could not login with e-mail and password')
