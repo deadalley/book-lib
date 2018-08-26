@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
-import Languages from 'utils/languages'
+import { LANGUAGES } from 'utils/constants'
 
 @Component({
   selector: 'language-selector',
@@ -8,8 +8,9 @@ import Languages from 'utils/languages'
 })
 
 export class LanguageSelectorComponent implements OnInit {
-  languages = ['Languages', 'la', 'als']
-  selectedLanguage = 'AAAA'
+  languages = LANGUAGES
+  @Input() selectedLanguage
+  @Output() select = new EventEmitter<string>()
 
   ngOnInit() { }
 }

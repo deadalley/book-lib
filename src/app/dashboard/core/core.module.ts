@@ -18,6 +18,7 @@ import { BooksTableComponent } from './books-table/books-table.component'
 import { BooksDisplayComponent } from './books-display/books-display.component'
 import { TagsListComponent } from './tags-list/tags-list.component'
 import { GridComponent } from './grid/grid.component'
+import { LanguageSelectorComponent } from './language-selector/language-selector.component'
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { GridComponent } from './grid/grid.component'
     BooksTableComponent,
     BooksDisplayComponent,
     TagsListComponent,
-    GridComponent
+    GridComponent,
+    LanguageSelectorComponent
   ],
   imports: [
     LoadingModule.forRoot({
@@ -59,7 +61,8 @@ import { GridComponent } from './grid/grid.component'
     BooksTableComponent,
     BooksDisplayComponent,
     TagsListComponent,
-    GridComponent
+    GridComponent,
+    LanguageSelectorComponent
   ]
 })
 export class CoreModule { }

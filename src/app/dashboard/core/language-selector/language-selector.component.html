@@ -1,12 +1,12 @@
 <label>Language</label>
 <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownLanguage" data-toggle="dropdown">
     {{selectedLanguage}}
     <span class="caret"></span>
   </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+  <ul class="dropdown-menu" aria-labelledby="dropdownLanguage">
     <li *ngFor="let language of languages; let i = index">
-      <a href="javascript:void(0);" (click)="selectedLanguage = languages[i]">
+      <a href="javascript:void(0);" (click)="select.emit(languages[i])">
         {{language}}
       </a>
     </li>

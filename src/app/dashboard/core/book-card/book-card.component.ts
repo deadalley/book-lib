@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { Book } from 'interfaces/book'
 import { formatDate } from 'utils/helpers'
-import { ANIMATIONS } from 'utils/constans'
+import { ANIMATIONS } from 'utils/constants'
 
 @Component({
   selector: 'book-card',

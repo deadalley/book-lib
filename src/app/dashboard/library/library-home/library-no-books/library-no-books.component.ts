@@ -5,7 +5,6 @@ import { BookButtonsComponent } from '../../../core/book-buttons/book-buttons.co
 import { Book } from 'interfaces/book'
 import { LibraryService } from '../../library.service'
 import { AuthService } from 'services/auth.service'
-import Languages from 'utils/languages'
 import { cleanFormValues } from 'utils/helpers'
 
 @Component({
@@ -17,7 +16,6 @@ import { cleanFormValues } from 'utils/helpers'
 
 export class LibraryNoBooksComponent implements OnInit {
   form: FormGroup
-  languages: string[]
   genres: string[]
   tags: string[]
   selectedLanguage: string
@@ -45,7 +43,6 @@ export class LibraryNoBooksComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.languages = Languages
     this.genres = []
     this.selectedLanguage = 'Select a language'
   }

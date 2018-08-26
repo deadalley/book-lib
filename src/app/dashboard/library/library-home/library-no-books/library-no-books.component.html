@@ -29,16 +29,7 @@
               <div class="row">
                 <div class="col-xs-6">
                   <div class="form-group">
-                    <label>Language</label>
-                    <div class="dropdown">
-                      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        {{selectedLanguage}}
-                        <span class="caret"></span>
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li *ngFor="let language of languages; let i = index"><a href="javascript:void(0);" (click)="selectedLanguage = languages[i]">{{language}}</a></li>
-                      </ul>
-                    </div>
+                    <language-selector [selectedLanguage]="selectedLanguage" (select)="selectedLanguage = $event"></language-selector>
                   </div>
                 </div>
                 <div class="col-xs-6">

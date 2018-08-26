@@ -5,7 +5,7 @@ import { Author } from 'interfaces/author'
 import { GoodreadsService } from 'services/goodreads.service'
 import { LibraryService } from '../library.service'
 import { parseBook } from 'utils/helpers'
-import { ANIMATIONS } from 'utils/constans'
+import { ANIMATIONS } from 'utils/constants'
 import * as _ from 'lodash'
 
 @Component({

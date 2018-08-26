@@ -4,7 +4,7 @@ import { Location } from '@angular/common'
 import { Collection } from 'interfaces/collection'
 import { LibraryService } from '../library.service'
 import { formatDate } from 'utils/helpers'
-import { ANIMATIONS } from 'utils/constans'
+import { ANIMATIONS } from 'utils/constants'
 
 @Component({
   moduleId: module.id,

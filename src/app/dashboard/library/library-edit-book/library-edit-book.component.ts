@@ -5,9 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router'
 import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
 import { Book } from 'interfaces/book'
 import { Author } from 'interfaces/author'
-import Languages from 'utils/languages'
 import { cleanFormValues, parseBook, parseAuthor } from 'utils/helpers'
-import { ANIMATIONS } from 'utils/constans'
+import { ANIMATIONS } from 'utils/constants'
 import { LibraryService } from '../library.service'
 import { GoodreadsService } from 'services/goodreads.service'
 
@@ -23,7 +22,6 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
   form: FormGroup
   allCollections: string[]
   collections: string[]
-  languages: string[]
   genres: string[]
   tags: string[]
   selectedLanguage: string
@@ -103,7 +101,6 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
         rating: this.book.rating
       })
 
-      this.languages = Languages
       this.genres = this.book.genres ? this.book.genres : []
       this.tags = this.book.tags ? this.book.tags : []
       this.selectedLanguage = this.book.language ? this.book.language : 'Select a language'

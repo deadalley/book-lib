@@ -53,3 +53,9 @@ i.inactive {
   outline: 0 !important;
   color: #333333;
 }
+
+.dropdown-menu {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}

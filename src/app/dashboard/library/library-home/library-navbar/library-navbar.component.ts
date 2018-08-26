@@ -4,7 +4,7 @@ import { LibraryService } from '../../library.service'
 import { upperCaseFirstLetter } from 'utils/helpers'
 import * as XLSX from 'xlsx'
 import { Book } from 'interfaces/book'
-import Languages from 'utils/languages'
+import { LANGUAGES } from 'utils/constants'
 
 type AOA = Array<Array<any>>
 
@@ -108,7 +108,7 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
       publisher: row[3] !== '-' ? row[3] : '',
       pages: row[4] !== '-' ? row[4] : 0,
       year: row[5] !== '-' ? row[5] : 0,
-      ...(Languages.includes(row[6]) ? { language: row[6] } : {}),
+      ...(LANGUAGES.includes(row[6]) ? { language: row[6] } : {}),
       rating: row[7] !== '-' ? row[7] : 0,
       owned: row[8].toLocaleLowerCase() === 'x',
       read: row[9].toLocaleLowerCase() === 'x',

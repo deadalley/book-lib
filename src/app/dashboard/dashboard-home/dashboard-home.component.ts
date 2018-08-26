@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { ANIMATIONS } from 'utils/constans'
+import { ANIMATIONS } from 'utils/constants'
 
 @Component({
   selector: 'app-dashboard-home',

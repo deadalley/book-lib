@@ -5,7 +5,7 @@ import { Book } from 'interfaces/book'
 import { GoodreadsService } from 'services/goodreads.service'
 import { LibraryService } from '../library.service'
 import { parseAuthor } from 'utils/helpers'
-import { ANIMATIONS } from 'utils/constans'
+import { ANIMATIONS } from 'utils/constants'
 
 @Component({
   moduleId: module.id,

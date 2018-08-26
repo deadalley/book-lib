@@ -4,7 +4,7 @@ import { Location } from '@angular/common'
 import { Router } from '@angular/router'
 import { Collection } from 'interfaces/collection'
 import { formatDate } from 'utils/helpers'
-import { ANIMATIONS } from 'utils/constans'
+import { ANIMATIONS } from 'utils/constants'
 import { LibraryService } from '../library.service'
 
 @Component({

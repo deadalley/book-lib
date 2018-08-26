@@ -4,8 +4,7 @@ import { Location } from '@angular/common'
 import { Router } from '@angular/router'
 import { Book } from 'interfaces/book'
 import { Author } from 'interfaces/author'
-import Languages from 'utils/languages'
-import { ANIMATIONS } from 'utils/constans'
+import { ANIMATIONS } from 'utils/constants'
 import { cleanFormValues, parseBook, parseAuthor } from 'utils/helpers'
 import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
 import { LibraryService } from '../library.service'
@@ -23,7 +22,6 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
   form: FormGroup
   allCollections: string[]
   collections: string[]
-  languages: string[]
   genres: string[]
   tags: string[]
   selectedLanguage: string
@@ -71,7 +69,6 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.collections = []
-    this.languages = Languages
     this.genres = []
     this.tags = []
     this.selectedLanguage = 'Select a language'

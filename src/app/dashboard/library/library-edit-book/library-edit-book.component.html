@@ -210,30 +210,7 @@
 					<div class="col-md-3">
 						<!-- Language -->
 						<div class="form-group">
-								<div class="dropdown">
-										<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											Dropdown button
-										</button>
-										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-											<a class="dropdown-item" href="#">Action</a>
-											<a class="dropdown-item" href="#">Another action</a>
-											<a class="dropdown-item" href="#">Something else here</a>
-										</div>
-									</div>
-							<label>Language</label>
-							<div class="dropdown">
-								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-									{{selectedLanguage}}
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-									<li *ngFor="let language of languages; let i = index">
-										<a href="javascript:void(0);" (click)="selectedLanguage = languages[i]">
-											{{language}}
-										</a>
-									</li>
-								</ul>
-							</div>
+							<language-selector [selectedLanguage]="selectedLanguage" (select)="selectedLanguage = $event"></language-selector>
 						</div>
 					</div>
 				</div>
