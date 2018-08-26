@@ -1,6 +1,6 @@
 import * as Factory from 'factory.ts'
 import { Book } from '../interfaces/book'
-import { company, date, internet, lorem, name, random, seed } from 'faker'
+import { company, date, lorem, name, random, seed } from 'faker'
 
 const BookFactory = Factory.makeFactory<Book>({
   id: random.number(),

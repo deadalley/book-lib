@@ -20,7 +20,7 @@ describe('Book', () => {
   })
 })
 
-describe('Collection', ()=> {
+describe('Collection', () => {
   it('should create a collection of books', () => {
     const props = {
       title: string(),
@@ -28,6 +28,22 @@ describe('Collection', ()=> {
     }
     const collection = CollectionFactory.build()
     assertThat(collection, hasProperties(props))
+  })
+})
+
+describe('Author', () => {
+  it('should create an author with required properties', () => {
+    const props = {
+      id: number(),
+      name: string(),
+      about: string(),
+      books: array(),
+      image_small: string(),
+      image_large: string(),
+      goodreadsLink: string()
+    }
+    const book = BookFactory.build()
+    assertThat(book, hasProperties(props))
   })
 })
 

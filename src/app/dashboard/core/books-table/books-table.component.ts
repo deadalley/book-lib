@@ -24,8 +24,6 @@ export class BooksTableComponent implements OnInit {
   @Input() statusIncluded: string
   @Input() statusNotIncluded: string
   @Input() statusCannotBeSelected: string
-  @Input() selectBtnContent: string
-  @Input() selectBtnContentDisabled: string
 
   @Output() selectedBooks = new EventEmitter<Array<Book>>()
   @Output() selectedBook = new EventEmitter<Book>()

@@ -66,6 +66,7 @@
                   style="text-align: center"
                   class="btn btn-default"
                   type="button"
+                  [disabled]="!book.canBeSelected"
                   (click)="updateSelectedBooks(book)"
                 >{{book.isSelected ? 'Remove' : 'Add'}}</button>
               </td>

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ContentChild, TemplateRef } from '@angular/co
 
 @Component({
   moduleId: module.id,
+  // tslint:disable-next-line:component-selector
   selector: 'grid',
   templateUrl: 'grid.component.html',
   styleUrls: []
