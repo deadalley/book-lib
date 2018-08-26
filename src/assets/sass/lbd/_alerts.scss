@@ -4,10 +4,10 @@
     color: #FFFFFF;
     padding: 10px 15px;
     font-size: 14px;
-    
+
     .container &{
         border-radius: 4px;
-    
+
     }
     .navbar &{
         border-radius: 0;
@@ -21,7 +21,7 @@
     .navbar:not(.navbar-transparent) &{
         top: 70px;
     }
-    
+
     span[data-notify="icon"]{
         font-size: 30px;
         display: block;
@@ -30,11 +30,13 @@
         top: 50%;
         margin-top: -15px;
     }
-    
+    [data-notify="icon"][class*="pe-"] ~ [data-notify="message"]{
+        padding-left: 50px;
+    }
     button.close{
         position: absolute;
         right: 10px;
-        top: 50%;
+        top: 50%!important;
         margin-top: -13px;
         z-index: 1033;
         background-color: #FFFFFF;
@@ -48,22 +50,22 @@
         text-align: center;
         padding: 3px;
         font-weight: 300;
-        
+
         &:hover{
             opacity: .55;
         }
     }
-    
+
     .close ~ span{
         display: block;
         max-width: 89%;
     }
-    
+
     &[data-notify="container"]{
         padding: 10px 10px 10px 20px;
         border-radius: $border-radius-base;
     }
-    
+
     &.alert-with-icon{
         padding-left: 65px;
     }
