@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
-import { TooltipModule } from 'ngx-tooltip'
+import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { storiesOf, moduleMetadata } from '@storybook/angular'
 import { BooksTableComponent } from './books-table.component'
@@ -15,7 +15,7 @@ storiesOf('Books Table', module)
       imports: [
         CommonModule,
         RouterModule,
-        TooltipModule,
+        TooltipModule.forRoot(),
         BrowserAnimationsModule
       ],
     })

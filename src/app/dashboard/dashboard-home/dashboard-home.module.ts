@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { TooltipModule } from 'ngx-tooltip'
-import { RatingModule } from 'ngx-rating'
 
 import { CoreModule } from '../core/core.module'
 
@@ -19,10 +17,8 @@ import { LibraryService } from '../library/library.service'
   imports: [
     CommonModule,
     CoreModule,
-    TooltipModule,
     FormsModule,
-    ReactiveFormsModule,
-    RatingModule
+    ReactiveFormsModule
   ],
   providers: [
     LibraryService

@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
-import { TooltipModule } from 'ngx-tooltip'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { storiesOf, moduleMetadata } from '@storybook/angular'
 import AuthorFactory from 'factories/author'
@@ -14,7 +13,6 @@ storiesOf('Author Card', module)
       imports: [
         CommonModule,
         RouterModule,
-        TooltipModule,
         BrowserAnimationsModule
       ],
     })

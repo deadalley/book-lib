@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { RouterModule, Routes, Route } from '@angular/router'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { TooltipModule } from 'ngx-tooltip'
-import { RatingModule } from 'ngx-rating'
+import { RatingModule } from 'ngx-bootstrap/rating'
 
 import { CoreModule } from '../../core/core.module'
 
@@ -34,8 +33,7 @@ const libraryHomeRoutes: Routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    TooltipModule,
-    RatingModule,
+    RatingModule.forRoot(),
     CoreModule
   ],
   declarations: [

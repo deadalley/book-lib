@@ -47,25 +47,25 @@
         <i class="pe-7s-check tile-icon"
           [ngClass] = "{'pe-7s-check': book.owned, 'pe-7s-gift': !book.owned, 'active': true}"
           tooltip="{{book.owned ? 'Owned' : 'Wishlist'}}"
-                [tooltipDisabled]="false"
+                [isDisabled]="false"
                 [tooltipAnimation]="true"
-                tooltipPlacement="bottom"></i>
+                placement="bottom"></i>
       </div>
       <div class="col-xs-4">
         <i class="pe-7s-glasses tile-icon"
           [ngClass] = "{'inactive': !book.read, 'active': book.read}"
           tooltip="{{book.read ? 'Read' : 'Unread'}}"
-                [tooltipDisabled]="false"
+                [isDisabled]="false"
                 [tooltipAnimation]="true"
-                tooltipPlacement="bottom"></i>
+                placement="bottom"></i>
       </div>
       <div class="col-xs-4">
         <i class="pe-7s-like tile-icon"
           [ngClass] = "{'inactive': !book.favorite, 'active': book.favorite}"
           tooltip="{{book.favorite ? 'Favorite' : 'Not a favorite'}}"
-                [tooltipDisabled]="false"
+                [isDisabled]="false"
                 [tooltipAnimation]="true"
-                tooltipPlacement="bottom"></i>
+                placement="bottom"></i>
       </div>
     </div>
 

@@ -4,36 +4,36 @@
     (click) = "owned = !owned"
     class="btn btn-default" [ngClass]="{'active': owned}"
     tooltip="Owned"
-    [tooltipDisabled]="false"
+    [isDisabled]="false"
     [tooltipAnimation]="true"
-    tooltipPlacement="bottom">
+    placement="bottom">
     <i class="pe-7s-check" style="font-size: 1.3em;"></i>
   </button>
   <button type="button"
     (click) = "owned = !owned"
     class="btn btn-default" [ngClass]="{'active': !owned}"
     tooltip="Wishlist"
-    [tooltipDisabled]="false"
+    [isDisabled]="false"
     [tooltipAnimation]="true"
-    tooltipPlacement="bottom">
+    placement="bottom">
     <i class="pe-7s-gift" style="font-size: 1.3em;"></i>
   </button>
   <button type="button"
     (click) = "read = !read"
     class="btn btn-default" [ngClass]="{'active': read}"
     tooltip="Read"
-    [tooltipDisabled]="false"
+    [isDisabled]="false"
     [tooltipAnimation]="true"
-    tooltipPlacement="bottom">
+    placement="bottom">
     <i class="pe-7s-glasses" style="font-size: 1.3em;"></i>
   </button>
   <button type="button"
     (click) = "favorite = !favorite"
     class="btn btn-default" [ngClass]="{'active': favorite}"
     tooltip="Favorite"
-    [tooltipDisabled]="false"
+    [isDisabled]="false"
     [tooltipAnimation]="true"
-    tooltipPlacement="bottom">
+    placement="bottom">
     <i class="pe-7s-like" style="font-size: 1.3em;"></i>
   </button>
 </div>

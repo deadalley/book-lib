@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 
-import { TooltipModule } from 'ngx-tooltip'
+import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { ModalModule } from 'ngx-bootstrap/modal'
 import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading'
 
@@ -45,7 +45,7 @@ import { LanguageSelectorComponent } from './language-selector/language-selector
       tertiaryColour: '#ffffff'
     }),
     CommonModule,
-    TooltipModule,
+    TooltipModule.forRoot(),
     ModalModule.forRoot(),
     RouterModule
   ],

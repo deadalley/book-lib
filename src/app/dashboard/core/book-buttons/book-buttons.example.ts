@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
-import { TooltipModule } from 'ngx-tooltip'
+import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { storiesOf, moduleMetadata } from '@storybook/angular'
 import { BookButtonsComponent } from './book-buttons.component'
 
@@ -9,8 +9,8 @@ storiesOf('Book Buttons', module)
     moduleMetadata({
       imports: [
         CommonModule,
-        RouterModule,
-        TooltipModule
+        TooltipModule.forRoot(),
+        RouterModule
       ],
     })
   )
