@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core'
 import { Location } from '@angular/common'
 import { Book } from 'interfaces/book'
 import { ANIMATIONS } from 'utils/constants'
@@ -20,6 +20,8 @@ export class LibraryBookComponent implements OnInit, OnDestroy {
   subscription
 
   removeSpaces = removeSpaces
+
+  @ViewChild('deleteBookModal') modal
 
   get localUrlPath(): string {
     const splitUrl = this.router.url.split('/')

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core'
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { Collection } from 'interfaces/collection'
 import { scrollToAnchor, removeSpaces } from 'utils/helpers'
@@ -22,6 +22,8 @@ export class LibraryCollectionsComponent implements OnInit, OnDestroy, AfterView
   subscriptions = []
 
   removeSpaces = removeSpaces
+
+  @ViewChild('deleteCollectionModal') modal
 
   constructor(private libraryService: LibraryService, private route: ActivatedRoute) {
     this.subscriptions.push(libraryService.collections$.subscribe((collections) => {
@@ -47,6 +49,11 @@ export class LibraryCollectionsComponent implements OnInit, OnDestroy, AfterView
 
   ngOnDestroy() {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe())
+  }
+
+  confirmDeleteCollection(collection: Collection) {
+    this.selectedCollection = collection
+    this.modal.openModal()
   }
 
   deleteCollection() {

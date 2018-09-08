@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router'
 
 import { TooltipModule } from 'ngx-tooltip'
 import { RatingModule } from 'ngx-rating'
+import { ModalModule } from 'ngx-bootstrap/modal'
 import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading'
 
 import { AuthorCardComponent } from './author-card/author-card.component'
@@ -47,6 +48,7 @@ import { LanguageSelectorComponent } from './language-selector/language-selector
     CommonModule,
     TooltipModule,
     RatingModule,
+    ModalModule.forRoot(),
     RouterModule
   ],
   exports: [

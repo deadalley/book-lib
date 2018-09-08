@@ -149,7 +149,7 @@
           <button type="button" class="btn btn-default" style="width: 100%" routerLink="./edit">Edit</button>
         </div>
         <div class="col-xs-12 col-md-6" style="padding-top: 2px; padding-bottom: 2px">
-          <button type="button" class="btn btn-default" style="width: 100%" data-toggle="modal" data-target="#deleteBook">Delete</button>
+          <button type="button" class="btn btn-default" style="width: 100%" (click)="this.modal.openModal()">Delete</button>
         </div>
       </div>
     </div>
@@ -157,7 +157,7 @@
 </page-navigator>
 
 <modal
-  identifier="deleteBook"
+  #deleteBookModal
   title="Are you sure you want to delete {{book.title}}?"
   content="This book will be removed permanently from your library."
   cancel="Cancel"
