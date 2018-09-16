@@ -71,14 +71,13 @@ export class AuthService {
     })
   }
 
-  private createUserInDatabase(user) {
+  private createUserInDatabase(user, params: object = {}) {
     this.database.findUserById(user.uid, (_user) => {
       if (_user === null) {
         console.log('User does not exist')
-        console.log(_user)
 
         _user = {
-          name: user.displayName,
+          name: user.displayName || params['displayName'],
           id: user.uid,
           email: user.email
         } as DBUser
@@ -103,11 +102,11 @@ export class AuthService {
     })
   }
 
-  private processResponse(user: object) {
+  private processResponse(user: object, params: object = {}) {
     console.log('Successfully logged in')
     localStorage.setItem('userLoginCredentials', JSON.stringify(user))
 
-    this.createUserInDatabase(user)
+    this.createUserInDatabase(user, params)
   }
 
   loginGoodreads(redirectUri?: string) {
@@ -154,7 +153,7 @@ export class AuthService {
   signUpWithEmail({ email, password, name }) {
     this.fireAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((response) => {
-        this.processResponse({ ...(response), displayName: name })
+        this.processResponse(response.user, { displayName: name })
       })
       .catch((error) => {
         console.log('Could not sign up with e-mail and password')
