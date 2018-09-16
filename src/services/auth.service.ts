@@ -109,10 +109,11 @@ export class AuthService {
     this.createUserInDatabase(user, params)
   }
 
-  loginGoodreads(redirectUri?: string) {
-    this.auth0 = new auth0.WebAuth({
-      ...this.defaultParams,
-      redirectUri: `${this.localDomain}/${redirectUri}` || this.redirectURI })
+  loginGoodreads(redirectPath?: string) {
+    const redirectUri = redirectPath ? `${this.localDomain}/${redirectPath}` : this.redirectURI
+
+    this.auth0 = new auth0.WebAuth({ ...this.defaultParams, redirectUri })
+
     this.auth0.authorize({ connection: 'goodreads' })
   }
 
