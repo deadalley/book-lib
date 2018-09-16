@@ -17,6 +17,10 @@
   height:auto;
 }
 
+.image {
+  height: auto;
+}
+
 div > img.tile-icon {
   -webkit-transform: translate(-15%, -15%);
 }
