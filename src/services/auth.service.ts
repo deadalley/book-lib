@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core'
 import { AngularFireAuth } from 'angularfire2/auth'
-import { AngularFireDatabase } from 'angularfire2/database'
 import { Router } from '@angular/router'
-import { HttpClient } from '@angular/common/http'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import * as firebase from 'firebase/app'
 import * as auth0 from 'auth0-js'
 import { DatabaseService } from './database.service'
+import { SessionService } from './session.service'
 import { User as LocalUser } from '../interfaces/user'
 import { User as DBUser } from '../models/user'
 import { environment } from 'environments/environment'
@@ -35,12 +34,11 @@ export class AuthService {
   userRef = this._userRef.asObservable()
   goodreadsId = this._goodreadsId.asObservable()
 
-  constructor (
+  constructor(
     public fireAuth: AngularFireAuth,
-    private fireDb: AngularFireDatabase,
     private router: Router,
-    private http: HttpClient,
-    private database: DatabaseService
+    private database: DatabaseService,
+    private session: SessionService
   ) {
     const user = JSON.parse(localStorage.getItem('user'))
     if (user) {
@@ -72,40 +70,34 @@ export class AuthService {
   }
 
   private createUserInDatabase(user, params: object = {}) {
-    return this.database.findUserById(user.uid).then((_user) => {
-      if (_user === null) {
-        console.log('User does not exist')
+    return this.database.findUserById(user.uid).then(async (userInDatabase) => {
+      if (userInDatabase === null) {
+        console.log('Creating user')
 
-        _user = {
+        const newUser = {
           name: user.displayName || params['displayName'],
           id: user.uid,
           email: user.email
         } as DBUser
 
-        this.database.postUser(_user).then((res) => {
-          localStorage.setItem('user', JSON.stringify({ ...(_user), ref: res.ref.key }))
-        })
-        this._userRef.next(_user.ref)
-
-        this.router.navigate(['library'])
+        return await this.database.postUser(newUser).then((res) => ({ ...newUser, ref: res.ref.key }))
       } else {
-        const _ref = Object.keys(_user)[0]
-        _user = {
-          ...(_user[_ref]),
-          ref: _ref
+        const ref = Object.keys(userInDatabase)[0]
+        return {
+          ...(userInDatabase[ref]),
+          ref: ref
         } as LocalUser
-
-        localStorage.setItem('user', JSON.stringify(_user))
-        this._userRef.next(_user.ref)
       }
     })
   }
 
   private processResponse(user: object, params: object = {}) {
-    console.log('Successfully logged in')
-    localStorage.setItem('userLoginCredentials', JSON.stringify(user))
-
-    this.createUserInDatabase(user, params).then(() => this.router.navigate(['library']))
+    this.createUserInDatabase(user, params).then((userInDatabase) => {
+      localStorage.setItem('userLoginCredentials', JSON.stringify(user))
+      this.database.isLoggedIn$.next(true)
+      this.session.buildSession(userInDatabase)
+      this.router.navigate(['library'])
+    })
   }
 
   loginGoodreads(redirectPath?: string) {
@@ -122,7 +114,7 @@ export class AuthService {
         this.processResponse(response.user)
       })
       .catch((error) => {
-        console.log('Could not login')
+        console.log('Could not login with Google')
         console.log(error)
       })
   }
@@ -133,7 +125,7 @@ export class AuthService {
         this.processResponse(response.user)
       })
       .catch((error) => {
-        console.log('Could not login')
+        console.log('Could not login with Facebook')
         console.log(error)
       })
   }
@@ -162,14 +154,13 @@ export class AuthService {
   }
 
   logout() {
-    this.database.isLoggedIn$.next(false)
     this.fireAuth.auth.signOut()
-      .then((response) => {
+      .then(() => {
         console.log('Sucessefully signed out')
 
         localStorage.removeItem('userLoginCredentials')
-        localStorage.removeItem('user')
-
+        this.database.isLoggedIn$.next(false)
+        this.session.destroySession()
         this.router.navigate(['home'])
       })
       .catch((error) => {

@@ -34,14 +34,10 @@ export class DatabaseService {
     return this.db.list(`users/${userRef}/collections`)
   }
 
-  constructor (private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase) {
     this.books = db.list('books')
     this.users = db.list('users')
     this.collections = db.list('collections')
-
-    if (!!localStorage.getItem('userLocalCredentials')) {
-      this.isLoggedIn$.next(true)
-    }
   }
 
   /** USER **/

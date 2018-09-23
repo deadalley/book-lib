@@ -15,6 +15,7 @@ import { AuthGuardService } from '../services/auth.guard'
 import { DatabaseService } from '../services/database.service'
 import { LibraryService } from '../services/library.service'
 import { GoodreadsService } from '../services/goodreads.service'
+import { SessionService } from '../services/session.service'
 import { environment } from 'environments/environment'
 
 @NgModule({
@@ -26,7 +27,8 @@ import { environment } from 'environments/environment'
     AuthGuardService,
     DatabaseService,
     LibraryService,
-    GoodreadsService
+    GoodreadsService,
+    SessionService
   ],
   imports: [
     RouterModule.forRoot(AppRoutes),
