@@ -11,6 +11,17 @@ export class SessionService {
   userRef = this._userRef.asObservable()
   goodreadsId = this._goodreadsId.asObservable()
 
+  get userId() {
+    return JSON.parse(localStorage.getItem('user')).id
+  }
+
+  set setGoodreadsId(id: string) {
+    const localUser = JSON.parse(localStorage.getItem('user'))
+    localStorage.setItem('user', JSON.stringify({ ...(localUser), goodreadsId: id }))
+
+    this._goodreadsId.next(id)
+  }
+
   constructor(private library: LibraryService) { }
 
   buildSession(user: User = null) {

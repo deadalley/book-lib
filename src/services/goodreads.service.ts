@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { HttpGet, HttpGetAll } from 'utils/http'
 import { environment } from 'environments/environment'
-import { AuthService } from './auth.service'
+import { SessionService } from './session.service'
 import * as _ from 'lodash'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 
@@ -19,13 +19,13 @@ export class GoodreadsService {
   goodreadsId = this.id.asObservable()
   defaultParams = new HttpParams().set('key', this.key)
 
-  constructor(private http: HttpClient, private auth: AuthService) {
+  constructor(private http: HttpClient, private sessionService: SessionService) {
     const user = JSON.parse(localStorage.getItem('user'))
     if (user) {
       this.id.next(JSON.parse(localStorage.getItem('user')).goodreadsId)
     }
 
-    this.auth.goodreadsId.subscribe((goodreadsId) => {
+    this.sessionService.goodreadsId.subscribe((goodreadsId) => {
       if (!goodreadsId || goodreadsId === this.id.getValue()) { return }
       this.id.next(goodreadsId)
     })

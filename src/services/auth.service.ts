@@ -55,12 +55,9 @@ export class AuthService {
 
         this.auth0.client.userInfo(result.accessToken, (err, user) => {
           const goodreadsId = user.sub.split('|')[2]
-          const localUser = JSON.parse(localStorage.getItem('user'))
+          this.session.setGoodreadsId = goodreadsId
 
-          localStorage.setItem('user', JSON.stringify({ ...(localUser), goodreadsId: goodreadsId }))
-          this._goodreadsId.next(goodreadsId)
-
-          this.database.updateUser(localUser.id, { goodreadsId: goodreadsId })
+          this.database.updateUser(this.session.userId, { goodreadsId: goodreadsId })
         })
       } else if (error) {
         console.log('Could not log in on Goodreads')
