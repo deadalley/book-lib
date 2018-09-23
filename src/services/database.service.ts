@@ -13,6 +13,9 @@ import {
   filterByParam
 } from '../utils/helpers'
 import { Subject } from 'rxjs/Subject'
+import { forkJoin } from 'rxjs/observable/forkJoin'
+import 'rxjs/add/operator/mergeMap'
+import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/takeUntil'
 
 @Injectable()
@@ -84,34 +87,34 @@ export class DatabaseService {
   }
 
   private getBooksByIds(cb, ids?: string[]) {
-    this.books.valueChanges().takeUntil(this.isLoggedIn$).subscribe((books) => {
-      cb(filterByParam(books, ids, 'id'))
-    })
+    return this.books.query.once('value').then((snap) => filterByParam(objectToArray(snap.val()), ids, 'id'))
   }
 
   private getBooksForUserByIds(userRef: string, cb, ids?: string[]) {
-    this.userBooksRef(userRef).valueChanges().takeUntil(this.isLoggedIn$).subscribe((books) => {
-      cb(filterByParam(books, ids, 'id'))
-    })
+    return this.userBooksRef(userRef)
+      .valueChanges()
+      .takeUntil(this.isLoggedIn$)
+      .map(books => filterByParam(books, ids, 'id'))
   }
 
   getBooksForUser(userRef: string, cb, bookIds?: string[]) {
     // Join books and user books
-    this.getBooksForUserByIds(userRef, (userBooks) => {
-      this.getBooksByIds((books) => {
-        const mappedBooks = arrayToObjectWithId(userBooks)
-        const mergedBooks = books.map((book) => ({ ...(book), ...(mappedBooks[book.id]) }))
-        if (mergedBooks.some((book) => book.collections)) {
-          this.getCollectionsByIds((collections) => {
-            mergedBooks.forEach((book) => {
-              if (!book.collections) { return }
-              book.collections = filterByParam(collections, objectToArray(book.collections), 'id').map((collection) => collection.title)
-            })
-            cb(mergedBooks)
-          })
-        } else { cb(mergedBooks) }
-      }, userBooks.map((book) => book.id))
-    }, bookIds)
+    this.getBooksForUserByIds(userRef, null).subscribe(async (userBooks) => {
+      const books = await this.getBooksByIds(null, userBooks.map((book) => book.id))
+
+      const mappedBooks = arrayToObjectWithId(userBooks)
+      const mergedBooks = books.map((book) => ({ ...(book), ...(mappedBooks[book.id]) }))
+
+      const collectionIds = mergedBooks.map((book) => book.collections).filter((c) => c)
+      if (collectionIds.length) {
+        const collections = await this.getCollectionsByIds(null, collectionIds)
+        mergedBooks.forEach((book) => {
+          if (!book.collections) { return }
+          book.collections = filterByParam(collections, book.collections, 'id').map((collection) => collection.title)
+        })
+      }
+      cb(mergedBooks)
+    })
   }
 
   private updateBook(book) {
@@ -223,13 +226,18 @@ export class DatabaseService {
   }
 
   getCollectionsByIds(cb, ids?: string[]) {
-    this.collections.valueChanges().takeUntil(this.isLoggedIn$).subscribe((collections) => {
-      cb(filterByParam(collections, ids, 'id'))
-    })
+    return this.collections.query.once('value').then((snap) => objectToArray(snap.val()))
+    // this.collections.valueChanges().takeUntil(this.isLoggedIn$).subscribe((collections) => {
+    //   cb(filterByParam(collections, ids, 'id'))
+    // })
   }
 
   getCollectionsForUser(userRef: string, cb, collectionIds?: string[]) {
     // Map collections and books for user
+    // const userCollections = this.userCollectionsRef(userRef).valueChanges().takeUntil(this.isLoggedIn$)
+    // const userBooks = this.getBooksForUser(userRef)
+
+    // forkJoin(userCollections, userBooks)
     this.userCollectionsRef(userRef).valueChanges().takeUntil(this.isLoggedIn$).subscribe((userCollections) => {
       this.getBooksForUser(userRef, (books) => {
         this.getCollectionsByIds((collections) => {
