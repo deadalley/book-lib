@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
-import { Book } from '../../../../interfaces/book'
-import { LibraryService } from '../../library/library.service'
+import { Book } from 'interfaces/book'
+import { LibraryService } from 'services/library.service'
 
 @Component({
   moduleId: module.id,

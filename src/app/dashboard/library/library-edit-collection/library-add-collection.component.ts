@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Location } from '@angular/common'
 import { Collection } from 'interfaces/collection'
-import { LibraryService } from '../library.service'
+import { LibraryService } from 'services/library.service'
 import { formatDate } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
 

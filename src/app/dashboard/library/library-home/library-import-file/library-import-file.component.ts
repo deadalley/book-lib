@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
-import { LibraryService } from '../../library.service'
+import { LibraryService } from 'services/library.service'
 import { Book } from 'interfaces/book'
 import { ANIMATIONS } from 'utils/constants'
 

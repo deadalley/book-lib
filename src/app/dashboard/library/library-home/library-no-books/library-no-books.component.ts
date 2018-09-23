@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { BookButtonsComponent } from '../../../core/book-buttons/book-buttons.component'
 import { Book } from 'interfaces/book'
-import { LibraryService } from '../../library.service'
+import { LibraryService } from 'services/library.service'
 import { AuthService } from 'services/auth.service'
 import { cleanFormValues } from 'utils/helpers'
 

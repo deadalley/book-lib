@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router, ActivatedRoute, Params } from '@angular/router'
-import { LibraryService } from '../library.service'
+import { LibraryService } from 'services/library.service'
 import * as _ from 'lodash'
 
 @Component({

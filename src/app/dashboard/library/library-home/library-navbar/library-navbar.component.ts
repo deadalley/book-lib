@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core'
 import { Router, ActivatedRoute, Params } from '@angular/router'
-import { LibraryService } from '../../library.service'
+import { LibraryService } from 'services/library.service'
 import { upperCaseFirstLetter } from 'utils/helpers'
 import * as XLSX from 'xlsx'
 import { Book } from 'interfaces/book'

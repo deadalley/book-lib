@@ -7,7 +7,7 @@ import { Book } from 'interfaces/book'
 import { Author } from 'interfaces/author'
 import { cleanFormValues, parseBook, parseAuthor } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
-import { LibraryService } from '../library.service'
+import { LibraryService } from 'services/library.service'
 import { GoodreadsService } from 'services/goodreads.service'
 
 @Component({

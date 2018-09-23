@@ -18,8 +18,6 @@ import { LibraryFindAuthorComponent } from './library-find-author/library-find-a
 
 import { TruncatePipe } from 'pipes/truncate.pipe'
 
-import { LibraryService } from './library.service'
-
 const libraryRoutes: Routes = [
   { path: '', component: LibraryComponent, children: [
     { path: '', loadChildren: './library-home/library-home.module#LibraryHomeModule' },
@@ -55,9 +53,6 @@ const libraryRoutes: Routes = [
     LibraryAuthorComponent,
     LibraryFindAuthorComponent,
     TruncatePipe
-  ],
-  providers: [
-    LibraryService
   ],
   exports: [ LibraryComponent ],
 })

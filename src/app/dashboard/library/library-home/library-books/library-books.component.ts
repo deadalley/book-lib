@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { Book } from 'interfaces/book'
-import { LibraryService } from '../../library.service'
+import { LibraryService } from 'services/library.service'
 import { scrollToAnchor } from 'utils/helpers'
 
 @Component({

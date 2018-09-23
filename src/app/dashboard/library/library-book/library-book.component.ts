@@ -3,7 +3,7 @@ import { Location } from '@angular/common'
 import { Book } from 'interfaces/book'
 import { ANIMATIONS } from 'utils/constants'
 import { removeSpaces } from 'utils/helpers'
-import { LibraryService } from '../library.service'
+import { LibraryService } from 'services/library.service'
 import { Router, ActivatedRoute } from '@angular/router'
 
 @Component({

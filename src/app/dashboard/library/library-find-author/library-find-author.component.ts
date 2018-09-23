@@ -3,7 +3,7 @@ import { Router } from '@angular/router'
 import { Author } from 'interfaces/author'
 import { Book } from 'interfaces/book'
 import { GoodreadsService } from 'services/goodreads.service'
-import { LibraryService } from '../library.service'
+import { LibraryService } from 'services/library.service'
 import { parseAuthor } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
 

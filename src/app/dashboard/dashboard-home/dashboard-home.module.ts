@@ -7,8 +7,6 @@ import { CoreModule } from '../core/core.module'
 import { DashboardHomeComponent } from './dashboard-home.component'
 import { LastAddedBooksComponent } from './last-added-books/last-added-books.component'
 
-import { LibraryService } from '../library/library.service'
-
 @NgModule({
   declarations: [
     DashboardHomeComponent,
@@ -19,9 +17,6 @@ import { LibraryService } from '../library/library.service'
     CoreModule,
     FormsModule,
     ReactiveFormsModule
-  ],
-  providers: [
-    LibraryService
   ],
   exports: [ DashboardHomeComponent ]
 })

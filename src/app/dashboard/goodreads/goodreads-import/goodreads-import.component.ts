@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { GoodreadsService } from 'services/goodreads.service'
-import { LibraryService } from '../../library/library.service'
+import { LibraryService } from 'services/library.service'
 import { Book } from 'interfaces/book'
 import { ANIMATIONS } from 'utils/constants'
 import { parseBook } from 'utils/helpers'

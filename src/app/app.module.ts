@@ -13,6 +13,7 @@ import { AppRoutes } from './app.routing'
 import { AuthService } from '../services/auth.service'
 import { AuthGuardService } from '../services/auth.guard'
 import { DatabaseService } from '../services/database.service'
+import { LibraryService } from '../services/library.service'
 import { GoodreadsService } from '../services/goodreads.service'
 import { environment } from 'environments/environment'
 
@@ -24,6 +25,7 @@ import { environment } from 'environments/environment'
     AuthService,
     AuthGuardService,
     DatabaseService,
+    LibraryService,
     GoodreadsService
   ],
   imports: [
