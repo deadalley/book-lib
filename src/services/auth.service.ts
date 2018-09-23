@@ -72,7 +72,7 @@ export class AuthService {
   }
 
   private createUserInDatabase(user, params: object = {}) {
-    this.database.findUserById(user.uid, (_user) => {
+    return this.database.findUserById(user.uid).then((_user) => {
       if (_user === null) {
         console.log('User does not exist')
 
@@ -97,7 +97,6 @@ export class AuthService {
 
         localStorage.setItem('user', JSON.stringify(_user))
         this._userRef.next(_user.ref)
-        this.router.navigate(['library'])
       }
     })
   }
@@ -106,7 +105,7 @@ export class AuthService {
     console.log('Successfully logged in')
     localStorage.setItem('userLoginCredentials', JSON.stringify(user))
 
-    this.createUserInDatabase(user, params)
+    this.createUserInDatabase(user, params).then(() => this.router.navigate(['library']))
   }
 
   loginGoodreads(redirectPath?: string) {

@@ -49,14 +49,14 @@ export class DatabaseService {
     return this.users.push(user)
   }
 
-  findUserById(id: string, cb) {
-    this.users.query.orderByChild('id').equalTo(id).once('value', (snap) => cb(snap.val()))
+  findUserById(id: string) {
+    return this.users.query.orderByChild('id').equalTo(id).once('value').then((snap) => snap.val())
   }
 
   updateUser(id: string, params: object) {
-    this.findUserById(id, (user) => {
+    this.findUserById(id).then((user) => {
       const ref = Object.keys(user)[0]
-      this.db.object(`users/${ref}`).set({ ...(user[ref]), ...(params) })
+      this.db.object(`users/${ref}`).update(params)
     })
   }
 
