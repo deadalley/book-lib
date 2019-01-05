@@ -33,24 +33,33 @@ export class LibraryService {
   private book$ = this.book.asObservable()
   private collection$ = this.collection.asObservable()
 
-  set setUserRef(ref) { this.userRef = ref}
-  set setBooksToImport(books: Book[]) { this.booksToImport.next(books) }
+  set setUserRef(ref) {
+    this.userRef = ref
+  }
+  set setBooksToImport(books: Book[]) {
+    this.booksToImport.next(books)
+  }
 
-  constructor(private database: DatabaseService) { }
+  constructor(private database: DatabaseService) {}
 
   private mapCollectionTitleToId(book) {
-    book.collections = _.compact(this.collections.getValue().map((collection) => {
-      if (book.collections.includes(collection.title)) { return collection.id }
-    }))
+    book.collections = _.compact(
+      this.collections.getValue().map(collection => {
+        if (book.collections.includes(collection.title)) {
+          return collection.id
+        }
+      })
+    )
   }
 
   loadBooks() {
-    console.log('called loadBooks', this.userRef)
-    this.database.getBooksForUser(this.userRef, (books) => this.books.next(books))
+    this.database.getBooksForUser(this.userRef, books => this.books.next(books))
   }
 
   loadCollections() {
-    this.database.getCollectionsForUser(this.userRef, (collections) => this.collections.next(collections) )
+    this.database.getCollectionsForUser(this.userRef, collections =>
+      this.collections.next(collections)
+    )
   }
 
   toggleTilesDisplay(toggle: boolean) {
@@ -75,21 +84,27 @@ export class LibraryService {
   }
 
   addBook(book: Book) {
-    if (book.collections) { this.mapCollectionTitleToId(book) }
+    if (book.collections) {
+      this.mapCollectionTitleToId(book)
+    }
     this.database.postBookForUser(this.userRef, book)
   }
 
   addBooks(books: Book[]) {
-    books.forEach((book) => this.addBook(book))
+    books.forEach(book => this.addBook(book))
   }
 
   findBook(id: string) {
-    this.database.findBookForUserById(this.userRef, id, (book) => this.book.next(book))
+    this.database.findBookForUserById(this.userRef, id, book =>
+      this.book.next(book)
+    )
     return this.book$
   }
 
   updateBook(book) {
-    if (book.collections) { this.mapCollectionTitleToId(book) }
+    if (book.collections) {
+      this.mapCollectionTitleToId(book)
+    }
     this.database.updateBookForUser(this.userRef, book)
   }
 
@@ -98,10 +113,13 @@ export class LibraryService {
   }
 
   getLatestBooks() {
-    this.books$.subscribe((books) => {
-      if (!books) { return }
-      const filteredBooks = this.books.getValue()
-        .filter((book) => isAfter(book.date, subDays(new Date(), this.MAX_DATE)))
+    this.books$.subscribe(books => {
+      if (!books) {
+        return
+      }
+      const filteredBooks = this.books
+        .getValue()
+        .filter(book => isAfter(book.date, subDays(new Date(), this.MAX_DATE)))
         .reverse()
 
       this.latestBooks.next(filteredBooks.slice(0, 4))
@@ -113,8 +131,8 @@ export class LibraryService {
     const id = this.database.postCollectionForUser(this.userRef, {
       owner: '',
       title: collection.title,
-      books: collection.books.map((book) => book.id),
-      description: collection.description
+      books: collection.books.map(book => book.id),
+      description: collection.description,
     })
 
     this.addBooksToCollection(collection, collection.books)
@@ -122,7 +140,9 @@ export class LibraryService {
   }
 
   findCollection(id: string) {
-    this.database.findCollectionById(id, (collection) => this.collection.next(collection))
+    this.database.findCollectionById(id, collection =>
+      this.collection.next(collection)
+    )
     return this.collection$
   }
 
@@ -135,20 +155,32 @@ export class LibraryService {
   }
 
   addBooksToCollection(collection, books) {
-    this.database.postBooksForCollections(books.map((book) => ({
-      id: book.id,
-      collections: [collection.id]
-    })))
+    this.database.postBooksForCollections(
+      books.map(book => ({
+        id: book.id,
+        collections: [collection.id],
+      }))
+    )
 
-    this.database.postCollectionForBooks(this.userRef, collection.id, books.map((book) => book.id))
+    this.database.postCollectionForBooks(
+      this.userRef,
+      collection.id,
+      books.map(book => book.id)
+    )
   }
 
   removeBooksFromCollection(collection, books) {
-    this.database.deleteBooksFromCollection(books.map((book) => ({
-      id: book.id,
-      collections: [collection.id]
-    })))
+    this.database.deleteBooksFromCollection(
+      books.map(book => ({
+        id: book.id,
+        collections: [collection.id],
+      }))
+    )
 
-    this.database.deleteCollectionFromBooks(this.userRef, collection.id, books.map((book) => book.id))
+    this.database.deleteCollectionFromBooks(
+      this.userRef,
+      collection.id,
+      books.map(book => book.id)
+    )
   }
 }

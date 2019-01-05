@@ -23,7 +23,7 @@ export class AuthService {
     responseType: 'token id_token',
     audience: `https://${this.domain}/userinfo`,
     redirectUri: this.redirectURI,
-    scope: 'openid'
+    scope: 'openid',
   }
 
   private auth0 = new auth0.WebAuth(this.defaultParams)
@@ -40,7 +40,7 @@ export class AuthService {
     private database: DatabaseService,
     private session: SessionService
   ) {
-    const user = JSON.parse(localStorage.getItem('user'))
+    const user = this.session.localUser
     if (user) {
       this._userRef.next(user.ref)
       this._goodreadsId.next(user.goodreadsId)
@@ -55,9 +55,11 @@ export class AuthService {
 
         this.auth0.client.userInfo(result.accessToken, (err, user) => {
           const goodreadsId = user.sub.split('|')[2]
-          this.session.setGoodreadsId = goodreadsId
+          this.session.setGoodreadsId(goodreadsId)
 
-          this.database.updateUser(this.session.userId, { goodreadsId: goodreadsId })
+          this.database.updateUser(this.session.userId, {
+            goodreadsId: goodreadsId,
+          })
         })
       } else if (error) {
         console.log('Could not log in on Goodreads')
@@ -67,29 +69,32 @@ export class AuthService {
   }
 
   private createUserInDatabase(user, params: object = {}) {
-    return this.database.findUserById(user.uid).then(async (userInDatabase) => {
+    return this.database.findUserById(user.uid).then(async userInDatabase => {
       if (userInDatabase === null) {
-        console.log('Creating user')
+        console.log('User not found in database')
+        console.log('Creating user in database')
 
         const newUser = {
           name: user.displayName || params['displayName'],
           id: user.uid,
-          email: user.email
+          email: user.email,
         } as DBUser
 
-        return await this.database.postUser(newUser).then((res) => ({ ...newUser, ref: res.ref.key }))
+        return await this.database
+          .postUser(newUser)
+          .then(res => ({ ...newUser, ref: res.ref.key }))
       } else {
         const ref = Object.keys(userInDatabase)[0]
         return {
-          ...(userInDatabase[ref]),
-          ref: ref
+          ...userInDatabase[ref],
+          ref: ref,
         } as LocalUser
       }
     })
   }
 
   private processResponse(user: object, params: object = {}) {
-    this.createUserInDatabase(user, params).then((userInDatabase) => {
+    this.createUserInDatabase(user, params).then(userInDatabase => {
       localStorage.setItem('userLoginCredentials', JSON.stringify(user))
       this.database.isLoggedIn$.next(true)
       this.session.buildSession(userInDatabase)
@@ -98,7 +103,9 @@ export class AuthService {
   }
 
   loginGoodreads(redirectPath?: string) {
-    const redirectUri = redirectPath ? `${this.localDomain}/${redirectPath}` : this.redirectURI
+    const redirectUri = redirectPath
+      ? `${this.localDomain}/${redirectPath}`
+      : this.redirectURI
 
     this.auth0 = new auth0.WebAuth({ ...this.defaultParams, redirectUri })
 
@@ -106,33 +113,36 @@ export class AuthService {
   }
 
   loginGoogle() {
-    this.fireAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider)
-      .then((response) => {
+    this.fireAuth.auth
+      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .then(response => {
         this.processResponse(response.user)
       })
-      .catch((error) => {
+      .catch(error => {
         console.log('Could not login with Google')
         console.log(error)
       })
   }
 
   loginFacebook() {
-    this.fireAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider)
-      .then((response) => {
+    this.fireAuth.auth
+      .signInWithPopup(new firebase.auth.FacebookAuthProvider())
+      .then(response => {
         this.processResponse(response.user)
       })
-      .catch((error) => {
+      .catch(error => {
         console.log('Could not login with Facebook')
         console.log(error)
       })
   }
 
-  loginEmail({ email, password}, onError) {
-    this.fireAuth.auth.signInWithEmailAndPassword(email, password)
-      .then((response) => {
+  loginEmail({ email, password }, onError) {
+    this.fireAuth.auth
+      .signInWithEmailAndPassword(email, password)
+      .then(response => {
         this.processResponse(response.user)
       })
-      .catch((error) => {
+      .catch(error => {
         console.log('Could not login with e-mail and password')
         console.log(error.code, error.message)
         onError(error)
@@ -140,18 +150,20 @@ export class AuthService {
   }
 
   signUpWithEmail({ email, password, name }) {
-    this.fireAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then((response) => {
+    this.fireAuth.auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(response => {
         this.processResponse(response.user, { displayName: name })
       })
-      .catch((error) => {
+      .catch(error => {
         console.log('Could not sign up with e-mail and password')
         console.log(error.code, error.message)
       })
   }
 
   logout() {
-    this.fireAuth.auth.signOut()
+    this.fireAuth.auth
+      .signOut()
       .then(() => {
         console.log('Sucessefully signed out')
 
@@ -160,7 +172,7 @@ export class AuthService {
         this.session.destroySession()
         this.router.navigate(['home'])
       })
-      .catch((error) => {
+      .catch(error => {
         console.log('Could not sign out')
         console.log(error.code, error.message)
       })
