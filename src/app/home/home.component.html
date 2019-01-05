@@ -1,9 +1,12 @@
 <div class="page-header clear-filter" filter-color="custom">
-  <div class="page-header-image" data-parallax="true" style="background-image: url('/assets/img/background-01.jpg');">
-  </div>
+  <div
+    class="page-header-image"
+    data-parallax="true"
+    style="background-image: url('/assets/img/background-01.jpg');"
+  ></div>
   <div class="container">
     <div class="content-center brand">
-      <img class="n-logo" src="./assets/img/angular2-logo.png" alt="">
+      <img class="n-logo" src="./assets/img/angular2-logo.png" alt="" />
       <h1 class="h1-seo">Book Lib</h1>
       <h3>Your personal library. Everywhere you go.</h3>
     </div>
@@ -13,7 +16,7 @@
   <div class="section section-basic">
     <div class="container">
       <h1 style="text-align: center">Welcome to Book Lib</h1>
-      <hr>
+      <hr />
       <div class="row">
         <div class="col-md-2"></div>
         <div class="col-xs-12 col-md-8">
@@ -33,6 +36,11 @@
           </ng-container>
         </div>
         <div class="col-md-2"></div>
+      </div>
+      <div *ngIf="!environment.production" class="row">
+        <div class="col-xs-12" style="text-align: center">
+          <debug-button></debug-button>
+        </div>
       </div>
     </div>
   </div>

@@ -69,32 +69,29 @@ export class AuthService {
   }
 
   private createUserInDatabase(user, params: object = {}) {
-    return this.database.findUserById(user.uid).then(async userInDatabase => {
-      if (userInDatabase === null) {
-        console.log('User not found in database')
-        console.log('Creating user in database')
+    return this.database
+      .findUserByParam('uid', user.uid)
+      .then(async userInDatabase => {
+        if (userInDatabase === null) {
+          console.log('User not found in database')
+          console.log('Creating user in database')
 
-        const newUser = {
-          name: user.displayName || params['displayName'],
-          id: user.uid,
-          email: user.email,
-        } as DBUser
+          const newUser = {
+            uid: user.uid,
+            name: user.displayName || params['displayName'],
+            email: user.email,
+          } as DBUser
 
-        return this.database
-          .postUser(newUser)
-          .then(res => ({ ...newUser, ref: res.ref.key }))
-      } else {
-        const ref = Object.keys(userInDatabase)[0]
-        return {
-          ...userInDatabase[ref],
-          ref,
-        } as LocalUser
-      }
-    })
+          return this.database.createUser(newUser)
+        } else {
+          return userInDatabase as LocalUser
+        }
+      })
   }
 
   private processResponse(user: object, params: object = {}) {
     this.createUserInDatabase(user, params).then(userInDatabase => {
+      console.log(this.createUserInDatabase)
       localStorage.setItem('userLoginCredentials', JSON.stringify(user))
       this.database.isLoggedIn$.next(true)
       this.session.buildSession(userInDatabase)

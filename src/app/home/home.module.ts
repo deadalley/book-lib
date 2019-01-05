@@ -8,26 +8,25 @@ import { FooterComponent } from './footer/footer.component'
 import { GetStartedComponent } from './get-started/get-started.component'
 import { SignUpComponent } from './sign-up/sign-up.component'
 import { SignInComponent } from './sign-in/sign-in.component'
+import { DebugButtonComponent } from './debug-button/debug-button.component'
 
-const homeRoutes: Routes = [
-  { path: '', component: HomeComponent }
-]
+const homeRoutes: Routes = [{ path: '', component: HomeComponent }]
 
 @NgModule({
   imports: [
     RouterModule.forChild(homeRoutes),
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [
     HomeComponent,
     FooterComponent,
     GetStartedComponent,
     SignUpComponent,
-    SignInComponent
+    SignInComponent,
+    DebugButtonComponent,
   ],
-  exports: [ HomeComponent ],
+  exports: [HomeComponent],
 })
-
-export class HomeModule { }
+export class HomeModule {}
