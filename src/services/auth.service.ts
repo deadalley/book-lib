@@ -58,7 +58,7 @@ export class AuthService {
           this.session.setGoodreadsId(goodreadsId)
 
           this.database.updateUser(this.session.userId, {
-            goodreadsId: goodreadsId,
+            goodreadsId,
           })
         })
       } else if (error) {

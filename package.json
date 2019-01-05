@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "storybook": "NODE_PATH=src start-storybook -p 9001 -c src/.storybook"
+    "storybook": "NODE_PATH=src start-storybook -p 9001 -c src/.storybook",
+    "tslint-check": "tslint-config-prettier-check ./tslint.json"
   },
   "private": true,
   "dependencies": {
