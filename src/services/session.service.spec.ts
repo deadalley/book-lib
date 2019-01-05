@@ -52,7 +52,7 @@ describe('SessionService', () => {
 
     it('throws error when no user found', () => {
       expect(() => sessionService.buildSession()).toThrow(
-        new TypeError("Cannot read property 'ref' of null")
+        new TypeError('Cannot read property \'ref\' of null')
       )
     })
   })

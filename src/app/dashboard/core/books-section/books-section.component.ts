@@ -24,7 +24,7 @@ export class BooksSectionComponent implements OnInit {
   @Input() selectBtnContent: string
   @Input() selectBtnContentDisabled: string
 
-  @Output() selectedBooks = new EventEmitter<Array<Book>>()
+  @Output() selectedBooks = new EventEmitter<Book[]>()
   @Output() selectedBook = new EventEmitter<Book>()
 
   removeSpaces = removeSpaces

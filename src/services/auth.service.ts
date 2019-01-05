@@ -80,14 +80,14 @@ export class AuthService {
           email: user.email,
         } as DBUser
 
-        return await this.database
+        return this.database
           .postUser(newUser)
           .then(res => ({ ...newUser, ref: res.ref.key }))
       } else {
         const ref = Object.keys(userInDatabase)[0]
         return {
           ...userInDatabase[ref],
-          ref: ref,
+          ref,
         } as LocalUser
       }
     })

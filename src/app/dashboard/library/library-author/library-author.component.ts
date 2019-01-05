@@ -51,7 +51,7 @@ export class LibraryAuthorComponent implements OnInit, OnDestroy {
           id: author.id,
           name: author.name,
           about: author.about,
-          books: books,
+          books,
           image_small: author.small_image_url,
           image_large: author.large_image_url ? author.large_image_url : author.image_url,
           goodreadsLink: author.link

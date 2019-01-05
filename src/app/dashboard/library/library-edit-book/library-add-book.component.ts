@@ -100,11 +100,11 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
     this.location.back()
   }
 
-  getGenres(genres: Array<string>) {
+  getGenres(genres: string[]) {
     this.genres = genres
   }
 
-  getTags(tags: Array<string>) {
+  getTags(tags: string[]) {
     this.tags = tags
   }
 

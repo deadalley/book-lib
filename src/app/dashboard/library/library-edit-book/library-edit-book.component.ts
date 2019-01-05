@@ -134,11 +134,11 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
     this.router.navigate(['../../'], { relativeTo: this.route })
   }
 
-  getGenres(genres: Array<string>) {
+  getGenres(genres: string[]) {
     this.genres = genres
   }
 
-  getTags(tags: Array<string>) {
+  getTags(tags: string[]) {
     this.tags = tags
   }
 

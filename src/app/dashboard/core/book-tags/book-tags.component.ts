@@ -11,9 +11,9 @@ export class BookTagsComponent implements OnInit {
   @Input() title: string
   @Input() placeholder: string
   @Input() iconClass: string
-  @Input() items: Array<string>
+  @Input() items: string[]
 
-  @Output() getItems = new EventEmitter<Array<string>>()
+  @Output() getItems = new EventEmitter<string[]>()
 
   constructor() { }
 

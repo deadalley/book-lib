@@ -45,6 +45,6 @@ export class LibraryHomeComponent implements OnInit, OnDestroy {
 
   filterBooksForTag(tag: string) {
     const queryParams: Params = { ..._.omit(this.activatedRoute.snapshot.queryParams, ['grouping']), tag, }
-    this.router.navigate(['.'], { relativeTo: this.activatedRoute, queryParams: queryParams })
+    this.router.navigate(['.'], { relativeTo: this.activatedRoute, queryParams })
   }
 }

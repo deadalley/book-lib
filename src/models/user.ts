@@ -7,7 +7,7 @@ export class User {
   goodreadsId: string
 }
 
-export module User {
+export namespace User {
   export class Book {
     id: string
     owned: boolean

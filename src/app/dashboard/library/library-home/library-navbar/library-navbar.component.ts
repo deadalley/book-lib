@@ -6,7 +6,7 @@ import * as XLSX from 'xlsx'
 import { Book } from 'interfaces/book'
 import { LANGUAGES } from 'utils/constants'
 
-type AOA = Array<Array<any>>
+type AOA = any[][]
 
 @Component({
   moduleId: module.id,
@@ -90,7 +90,7 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
 
       const workSheet: XLSX.WorkSheet = workBook.Sheets[workBook.SheetNames[0]]
 
-      const file = <AOA>(XLSX.utils.sheet_to_json(workSheet, { header: 1 }))
+      const file = (XLSX.utils.sheet_to_json(workSheet, { header: 1 })) as AOA
       this.parseFile(file)
     }
 

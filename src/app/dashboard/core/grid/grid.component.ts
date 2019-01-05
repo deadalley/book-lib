@@ -9,7 +9,7 @@ import { Component, OnInit, Input, ContentChild, TemplateRef } from '@angular/co
 })
 
 export class GridComponent implements OnInit {
-  @Input() items: Array<any>
+  @Input() items: any[]
   @Input() itemsInRow = 4
 
   @ContentChild(TemplateRef) contentTemplate

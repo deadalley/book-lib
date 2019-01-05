@@ -1,7 +1,7 @@
 import * as Factory from 'factory.ts'
-import { lorem, random, seed } from 'faker'
+import { lorem, random } from 'faker'
 
-export const FactoryArray = (factory, n = 10): Array<any> => {
+export const FactoryArray = (factory, n = 10): any[] => {
   const _ret = new Array()
   for (let i = 0; i < n; i++) {
     _ret.push(factory.build())

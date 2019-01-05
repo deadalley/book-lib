@@ -30,7 +30,7 @@ export const objectToArray = (object: object) => {
   return Object.keys(object).map((key) => object[key])
 }
 
-export const arrayToObjectWithId = (array: Array<any>) => {
+export const arrayToObjectWithId = (array: any[]) => {
   if (!array) { return }
   return array.reduce((obj, item) => (obj[item.id] = item, obj), {})
 }
@@ -72,7 +72,7 @@ export const filterBookForUser = (book) =>
     'rating'
   ])
 
-export const filterByParam = (array: Array<any>, filter: Array<any>, param: string) => {
+export const filterByParam = (array: any[], filter: any[], param: string) => {
   return filter ? array.filter((item) => filter.includes(item[param])) : array
 }
 
@@ -122,7 +122,7 @@ export const parseAuthor = (author, books?) => ({
   id: author.id,
   name: author.name,
   about: author.about,
-  books: books,
+  books,
   image_small: author.small_image_url,
   image_large: author.large_image_url ? author.large_image_url : author.image_url,
   goodreadsLink: author.link

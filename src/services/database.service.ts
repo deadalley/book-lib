@@ -13,7 +13,6 @@ import {
   filterByParam
 } from '../utils/helpers'
 import { Subject } from 'rxjs/Subject'
-import { forkJoin } from 'rxjs/observable/forkJoin'
 import 'rxjs/add/operator/mergeMap'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/takeUntil'

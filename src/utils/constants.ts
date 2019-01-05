@@ -197,10 +197,10 @@ export const _LANGUAGES = {
   'oj': 'ᐊᓂᔑᓈᐯᒧᐎᓐ',
   'cr': 'ᓀᐦᐃᔭᐍᐏᐣ',
   'km': 'ខ្មែរ',
-  'zh': '中文 (Zhōngwén)',
-  'ja': '日本語 (にほんご)',
+  'zh': '中文 (Zhōngwén)',
+  'ja': '日本語 (にほんご)',
   'ii': 'ꆈꌠ꒿ Nuosuhxop',
-  'ko': '한국어 (韓國語)'
+  'ko': '한국어 (韓國語)'
 }
 
 export const LANGUAGES = objectToArray(_LANGUAGES).map((language) => upperCaseFirstLetter(language))

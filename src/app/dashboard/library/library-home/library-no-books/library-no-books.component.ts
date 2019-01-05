@@ -47,7 +47,7 @@ export class LibraryNoBooksComponent implements OnInit {
     this.selectedLanguage = 'Select a language'
   }
 
-  getGenres(genres: Array<string>) {
+  getGenres(genres: string[]) {
     this.genres = genres
   }
 

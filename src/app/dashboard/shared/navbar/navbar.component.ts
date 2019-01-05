@@ -1,7 +1,7 @@
 import { Component, OnInit, Renderer, ViewChild, ElementRef } from '@angular/core'
 import { ROUTES } from '../../sidebar/sidebar.component'
-import { Router, ActivatedRoute } from '@angular/router'
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common'
+import { Router } from '@angular/router'
+import { Location } from '@angular/common'
 
 @Component({
   moduleId: module.id,
@@ -38,7 +38,7 @@ export class NavbarComponent implements OnInit {
     const body = document.getElementsByTagName('body')[0]
 
     if (this.sidebarVisible === false) {
-      setTimeout(function(){
+      setTimeout(function() {
         toggleButton.classList.add('toggled')
       }, 500)
       body.classList.add('nav-open')
