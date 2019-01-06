@@ -61,7 +61,6 @@ describe('User', () => {
   it('should create a user', () => {
     const props = {
       id: string(),
-      ref: string(),
       name: string(),
       email: string(),
       goodreadsId: string(),

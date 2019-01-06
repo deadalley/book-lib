@@ -4,7 +4,6 @@ import { name, random, internet } from 'faker'
 
 const UserFactory = Factory.makeFactory<User>({
   id: random.uuid(),
-  ref: random.uuid(),
   name: `${name.firstName()} ${name.lastName()}`,
   email: internet.email(),
   goodreadsId: random.uuid(),

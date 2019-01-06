@@ -9,6 +9,7 @@ import { GetStartedComponent } from './home/get-started/get-started.component'
 import { FooterComponent } from './home/footer/footer.component'
 import { SignUpComponent } from './home/sign-up/sign-up.component'
 import { SignInComponent } from './home/sign-in/sign-in.component'
+import { DebugButtonComponent } from './home/debug-button/debug-button.component'
 
 import { AppRoutes } from './app.routing'
 
@@ -22,6 +23,7 @@ describe('AppComponent', () => {
         GetStartedComponent,
         SignUpComponent,
         SignInComponent,
+        DebugButtonComponent,
       ],
       imports: [
         RouterTestingModule.withRoutes(AppRoutes),
