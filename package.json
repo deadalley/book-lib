@@ -45,7 +45,6 @@
     "firebase": "^5.4.1",
     "i": "^0.3.6",
     "jquery": "^3.3.1",
-    "lodash.pick": "^4.4.0",
     "moment": "^2.22.2",
     "ncu": "^0.2.1",
     "ngx-bootstrap": "^3.0.1",

@@ -8,7 +8,7 @@ import { DatabaseService } from './database.service'
 import { LibraryService } from './library.service'
 import { SessionService } from './session.service'
 
-import UserFactory from '../factories/user'
+import UserFactory from '../database/factories/user.factory'
 
 describe('SessionService', () => {
   let sessionService: SessionService
@@ -52,7 +52,7 @@ describe('SessionService', () => {
 
     it('throws error when no user found', () => {
       expect(() => sessionService.buildSession()).toThrow(
-        new TypeError('Cannot read property \'ref\' of null')
+        new TypeError("Cannot read property 'id' of null")
       )
     })
   })

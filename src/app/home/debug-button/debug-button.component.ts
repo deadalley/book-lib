@@ -12,7 +12,7 @@ export class DebugButtonComponent implements OnInit {
 
   ngOnInit() {}
 
-  async execute() {
+  async testUser() {
     const user = {
       uid: 'uid',
       name: 'a name',
@@ -30,5 +30,21 @@ export class DebugButtonComponent implements OnInit {
       books: ['aaa'],
     })
     console.log(updatedUser)
+  }
+
+  async testBook() {
+    const pushBook = this.database
+      .userBooksRef('-LVURxjSOGjpXGf2DYgZ')
+      .push('aaaaaa')
+    const books = await this.database
+      .userBooksRef('-LVURxjSOGjpXGf2DYgZ')
+      .query.once('value')
+      .then(snap => snap.val())
+    console.log(pushBook)
+    console.log(books)
+  }
+
+  execute() {
+    this.testBook()
   }
 }

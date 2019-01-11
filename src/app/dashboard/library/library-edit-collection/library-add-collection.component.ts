@@ -11,9 +11,8 @@ import { ANIMATIONS } from 'utils/constants'
   selector: 'library-add-collection',
   templateUrl: 'library-edit-collection.component.html',
   styleUrls: ['./library-edit-collection.component.css'],
-  animations: [ANIMATIONS.CARD]
+  animations: [ANIMATIONS.CARD],
 })
-
 export class LibraryAddCollectionComponent implements OnInit, OnDestroy {
   form: FormGroup
   collection: Collection
@@ -26,40 +25,49 @@ export class LibraryAddCollectionComponent implements OnInit, OnDestroy {
   formatDate = formatDate
   subscription
 
-  constructor(private fb: FormBuilder, private location: Location, private libraryService: LibraryService) {
+  constructor(
+    private fb: FormBuilder,
+    private location: Location,
+    private libraryService: LibraryService
+  ) {
     this.form = this.fb.group({
       title: ['', Validators.required],
-      description: ''
+      description: '',
     })
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   ngOnDestroy() {
-    if (!this.subscription) { return }
+    if (!this.subscription) {
+      return
+    }
     this.subscription.unsubscribe()
   }
 
   submit(formValues) {
     this.collection = {
-      id: '',
       title: formValues.title,
       description: formValues.description,
-      books: this.books.filter((book) => book.isSelected)
-    }
+      books: this.books.filter(book => book.isSelected),
+    } as Collection
 
     console.log('Adding collection', this.collection)
-    this.collection.id = this.libraryService.addCollection(this.collection)
+    this.libraryService
+      .addCollection(this.collection)
+      .then(collection => (this.collection.id = collection.id))
 
     this.location.back()
   }
 
   loadBooks() {
-    this.subscription = this.libraryService.books$.subscribe((books) => {
-      if (!books) { return }
+    this.subscription = this.libraryService.books$.subscribe(books => {
+      if (!books) {
+        return
+      }
       this.isLoadingBooks = false
       this.books = books
-      this.books.forEach((book) => book.canBeSelected = true)
+      this.books.forEach(book => (book.canBeSelected = true))
     })
   }
 }

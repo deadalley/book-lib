@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { User } from 'interfaces/user'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
-import { LibraryService } from './library.service'
+// import { LibraryService } from './library.service'
 
 @Injectable()
 export class SessionService {
@@ -11,11 +11,11 @@ export class SessionService {
   userRef = this._userRef.asObservable()
   goodreadsId = this._goodreadsId.asObservable()
 
-  get localUser() {
+  get localUser(): User {
     return JSON.parse(localStorage.getItem('user'))
   }
 
-  set localUser(user) {
+  set localUser(user: User) {
     localStorage.setItem('user', JSON.stringify(user))
   }
 
@@ -23,7 +23,7 @@ export class SessionService {
     return JSON.parse(localStorage.getItem('user')).id
   }
 
-  constructor(private library: LibraryService) {}
+  // constructor(private library: LibraryService) {}
 
   setGoodreadsId(id: string) {
     this.localUser = { ...this.localUser, goodreadsId: id }
@@ -38,15 +38,14 @@ export class SessionService {
       user = this.localUser
     }
 
-    this._userRef.next(user.ref)
-    this.library.setUserRef = user.ref
-    this.library.loadBooks()
-    this.library.loadCollections()
+    this._userRef.next(user.id)
+    // this.library.setUserRef = user.id
+    // this.library.loadLibrary()
   }
 
   destroySession() {
     localStorage.removeItem('user')
     this._userRef.next(null)
-    this.library.setUserRef = null
+    // this.library.setUserRef = null
   }
 }

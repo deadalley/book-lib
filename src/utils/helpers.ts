@@ -2,9 +2,9 @@ import * as _ from 'lodash'
 
 export const cleanFormValues = (formValues): object => {
   // tslint:disable-next-line:prefer-const
-  let cleanValues = { }
+  let cleanValues = {}
 
-  Object.keys(formValues).forEach((prop) => {
+  Object.keys(formValues).forEach(prop => {
     if (typeof formValues[prop] !== 'undefined') {
       cleanValues[prop] = formValues[prop]
     }
@@ -26,21 +26,30 @@ export const parseFirebaseAuthError = (error): string => {
 }
 
 export const objectToArray = (object: object) => {
-  if (!object) { return }
-  return Object.keys(object).map((key) => object[key])
+  if (!object) {
+    return
+  }
+  return Object.keys(object).map(key => object[key])
 }
 
 export const arrayToObjectWithId = (array: any[]) => {
-  if (!array) { return }
-  return array.reduce((obj, item) => (obj[item.id] = item, obj), {})
+  if (!array) {
+    return
+  }
+  return array.reduce((obj, item) => ((obj[item.id] = item), obj), {})
 }
 
 export const objectToArrayWithRef = (object: object) => {
-  if (!object) { return }
-  return Object.keys(object).map((key) => ({ ...(object[key]), ref: key }))
+  if (!object) {
+    return
+  }
+  return Object.keys(object).map(key => ({ ...object[key], ref: key }))
 }
 
-export const filterBook = (book) =>
+export const findKeyByValue = (object: object, value: any) =>
+  _.findKey(object, _value => _value === value)
+
+export const filterBook = book =>
   _.pick(book, [
     'id',
     'title',
@@ -55,10 +64,10 @@ export const filterBook = (book) =>
     'image_large',
     'goodreadsLink',
     'goodreadsId',
-    'goodreadsAuthorId'
+    'goodreadsAuthorId',
   ])
 
-export const filterBookForUser = (book) =>
+export const filterBookForUser = book =>
   _.pick(book, [
     'id',
     'owned',
@@ -69,18 +78,18 @@ export const filterBookForUser = (book) =>
     'collections',
     'tags',
     'notes',
-    'rating'
+    'rating',
   ])
 
 export const filterByParam = (array: any[], filter: any[], param: string) => {
-  return filter ? array.filter((item) => filter.includes(item[param])) : array
+  return filter ? array.filter(item => filter.includes(item[param])) : array
 }
 
 export const formatDate = (date: string) => {
   return new Date(date).toLocaleDateString()
 }
 
-const parseAuthorName = (book) => {
+const parseAuthorName = book => {
   if (book.authors) {
     if (Array.isArray(book.authors.author)) {
       return book.authors.author[0].name
@@ -92,7 +101,7 @@ const parseAuthorName = (book) => {
   return book.author.name
 }
 
-const parseBookId = (book) => {
+const parseBookId = book => {
   if (book.work) {
     if (book.work.id._) {
       return book.work.id._
@@ -104,7 +113,7 @@ const parseBookId = (book) => {
   }
 }
 
-export const parseBook = (book) => ({
+export const parseBook = book => ({
   title: book.title,
   author: parseAuthorName(book),
   isbn: book.isbn,
@@ -115,7 +124,7 @@ export const parseBook = (book) => ({
   image_small: book.small_image_url,
   goodreadsLink: book.link,
   goodreadsId: parseBookId(book),
-  goodreadsAuthorId: book.authors ? book.authors.author.id : book.author.id._
+  goodreadsAuthorId: book.authors ? book.authors.author.id : book.author.id._,
 })
 
 export const parseAuthor = (author, books?) => ({
@@ -124,19 +133,28 @@ export const parseAuthor = (author, books?) => ({
   about: author.about,
   books,
   image_small: author.small_image_url,
-  image_large: author.large_image_url ? author.large_image_url : author.image_url,
-  goodreadsLink: author.link
+  image_large: author.large_image_url
+    ? author.large_image_url
+    : author.image_url,
+  goodreadsLink: author.link,
 })
 
 export const scrollToAnchor = (location: string, wait: number): void => {
   const element = document.querySelector('#' + location)
   if (element) {
     setTimeout(() => {
-      element.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'})
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest',
+      })
     }, wait)
   }
 }
 
-export const upperCaseFirstLetter = (string: string) => string.charAt(0).toUpperCase() + string.slice(1)
+export const upperCaseFirstLetter = (string: string) =>
+  string.charAt(0).toUpperCase() + string.slice(1)
 
 export const removeSpaces = (string: string) => string.replace(/\s/g, '')
+
+export const unique = array => _.uniq(array)

@@ -69,6 +69,7 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
     })
 
     this.subscriptions.push(this.libraryService.findBook(this.bookId).subscribe((book) => {
+      console.log(book)
       if (!book) { return }
       this.book = book
       this.collections = this.book.collections ? this.book.collections : []

@@ -1,5 +1,6 @@
 export interface Book {
   id: string
+  ownerId: string
   title: string
   author: string
   owned: boolean
@@ -21,7 +22,7 @@ export interface Book {
   rating?: number
   isSelected?: boolean
   canBeSelected?: boolean
-  goodreadsLink?: string
   goodreadsId?: number
+  goodreadsLink?: string
   goodreadsAuthorId?: number
 }
