@@ -353,7 +353,6 @@ export class DatabaseService {
       const collectionsForBook = book.collections.filter(
         collectionId => !collectionIds.includes(collectionId)
       )
-      console.log(book, collectionsForBook)
       return this.books
         .update(id, {
           collections: collectionsForBook,

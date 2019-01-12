@@ -70,16 +70,4 @@ describe('Factories', () => {
       assertThat(user, hasProperties(props))
     })
   })
-
-  describe('Utils', () => {
-    xit('should return an array of factories', () => {
-      const factories = FactoryArray(GenericFactory, 5)
-      factories.forEach((item, idx) => {
-        if (idx === factories.length - 1) {
-          return
-        }
-        assertThat(item, not(equalTo(factories[idx + 1])))
-      })
-    })
-  })
 })
