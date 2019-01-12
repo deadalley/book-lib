@@ -26,7 +26,6 @@ import CollectionFactory from '../database/factories/collection.factory'
 describe('DatabaseService', () => {
   let database: DatabaseService
   let auth: AuthService
-  let session: SessionService
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -46,15 +45,43 @@ describe('DatabaseService', () => {
 
     database = TestBed.get(DatabaseService)
     auth = TestBed.get(AuthService)
-    session = TestBed.get(SessionService)
     await auth.loginEmail(environment.testConfig)
   })
 
-  afterEach(() => {
-    // database.cleanTestBed()
+  afterAll(() => {
+    database.cleanTestBed()
     auth.logout()
     localStorage.clear()
   })
+
+  let user = UserFactory.build()
+  let book = BookFactory.build()
+  let collection = CollectionFactory.build()
+
+  const createBook = (ownerId, { collections = [] } = {}) => {
+    const newBook = BookFactory.build({
+      ownerId,
+      collections,
+    })
+    return database.createBookForUser(ownerId, newBook)
+  }
+
+  const createCollection = (ownerId, { books = [] } = {}) => {
+    const newCollection = CollectionFactory.build({
+      ownerId,
+      books,
+    })
+    return database.createCollectionForUser(ownerId, newCollection)
+  }
+
+  const createBooksForUser = ownerId => {
+    const newBook = BookFactory.build()
+    return Promise.all([
+      database.createBookForUser(ownerId, newBook),
+      database.createBookForUser(ownerId, newBook),
+      database.createBookForUser(ownerId, newBook),
+    ])
+  }
 
   it('should be created', inject(
     [DatabaseService],
@@ -110,10 +137,6 @@ describe('DatabaseService', () => {
   })
 
   describe('Book', () => {
-    let user = UserFactory.build()
-    let book = BookFactory.build()
-    let collection = CollectionFactory.build()
-
     beforeEach(async () => {
       user = await database.createUser(user)
       book = await database.createBookForUser(user.id, book)
@@ -121,19 +144,17 @@ describe('DatabaseService', () => {
     })
 
     it('creates a book for a user', done => {
-      const newBook = BookFactory.build({
-        ownerId: user.id,
-        collections: [collection.id],
-      })
-      database.createBookForUser(user.id, newBook).then(value => {
-        expect(value.title).toEqual(newBook.title)
-        expect(value.ownerId).toEqual(newBook.ownerId)
+      createBook(user.id, { collections: [collection.id] }).then(value => {
+        expect(value.title).toEqual(book.title)
+        expect(value.ownerId).toEqual(book.ownerId)
         expect(value.collections).toContain(collection.id)
 
-        database.findCollectionById(collection.id).then(collectionForBook => {
-          expect(collectionForBook.books).toContain(value.id)
-          done()
-        })
+        return database
+          .findCollectionById(collection.id)
+          .then(collectionForBook => {
+            expect(collectionForBook.books).toContain(value.id)
+            done()
+          })
       })
     })
 
@@ -142,7 +163,40 @@ describe('DatabaseService', () => {
         expect(value.id).toEqual(book.id)
         expect(value.title).toEqual(book.title)
         expect(value.ownerId).toEqual(book.ownerId)
+        expect(value.collections).toEqual(book.collections)
         done()
+      })
+    })
+
+    it('get books for user', done => {
+      createBooksForUser(user.id).then(books => {
+        books.push(book)
+        database.getBooksForUser(user.id).then(value => {
+          expect(value.length).toEqual(books.length)
+          books.forEach(book => expect(value).toContain(book))
+          done()
+        })
+      })
+    })
+
+    it('get books for collection', done => {
+      createBooksForUser(user.id).then(books => {
+        const bookIds = books.map(book => book.id)
+        createCollection(user.id, { books: bookIds }).then(newCollection => {
+          database
+            .addCollectionsToBooks(bookIds, [newCollection.id])
+            .then(() => {
+              database
+                .getBooksForCollection(newCollection.id, user.id)
+                .then(value => {
+                  expect(value.length).toEqual(books.length)
+                  value.forEach(bookFromDb =>
+                    expect(bookIds).toContain(bookFromDb.id)
+                  )
+                  done()
+                })
+            })
+        })
       })
     })
 
@@ -176,19 +230,18 @@ describe('DatabaseService', () => {
         })
     })
 
-    it('deletes a book for a user', done => {
-      const newBook = BookFactory.build({ collections: [collection.id] })
-      database.createBookForUser(user.id, newBook).then(bookDb => {
-        database.deleteBook(user.id, bookDb as Book).then(() => {
+    it('delete book', done => {
+      createBook(user.id, { collections: [collection.id] }).then(bookFromDb => {
+        database.deleteBook(user.id, bookFromDb as Book).then(() => {
           Promise.all([
-            database.findBookById(bookDb.id).then(value => {
+            database.findBookById(bookFromDb.id).then(value => {
               expect(value).toBeNull()
             }),
             database.findCollectionById(collection.id).then(value => {
-              expect(value.books).not.toContain(bookDb.id)
+              expect(value.books).not.toContain(bookFromDb.id)
             }),
             database.findUserById(user.id).then(value => {
-              expect(value.books).not.toContain(bookDb.id)
+              expect(value.books).not.toContain(bookFromDb.id)
             }),
           ]).then(() => done())
         })
@@ -197,71 +250,159 @@ describe('DatabaseService', () => {
   })
 
   describe('Collection', () => {
-    let user = UserFactory.build()
-    let book = BookFactory.build()
-    let collection = CollectionFactory.build()
-
     beforeEach(async () => {
       user = await database.createUser(user)
       book = await database.createBookForUser(user.id, book)
       collection = await database.createCollectionForUser(user.id, collection)
     })
 
-    const addBooksToCollection = () => {
-      const newBook = BookFactory.build()
-      return Promise.all([
-        database.createBookForUser(user.id, newBook),
-        database.createBookForUser(user.id, newBook),
-        database.createBookForUser(user.id, newBook),
-      ]).then(books => {
-        database.addBooksToCollection(collection.id, books)
-        return books
-      })
-    }
-
     it('adds books to collection', done => {
-      addBooksToCollection().then(books => {
-        database.addBooksToCollection(collection.id, books).then(() => {
-          database.findCollectionById(collection.id).then(value => {
-            expect(value.books).toContain(books[0].id)
-            expect(value.books).toContain(books[1].id)
-            expect(value.books).toContain(books[2].id)
-            done()
-          })
-        })
-      })
-    })
-
-    fit('removes books from a collection', done => {
-      addBooksToCollection().then(books => {
+      createBooksForUser(user.id).then(books => {
         database
-          .removeBooksFromCollection(collection.id, [books[0], books[1]])
-          .then(() => {
+          .addBooksToCollection(collection.id, books.map(book => book.id))
+          .then(bookIds => {
             database.findCollectionById(collection.id).then(value => {
-              expect(value.books).not.toContain(books[0].id)
-              expect(value.books).not.toContain(books[1].id)
-              expect(value.books).toContain(books[2].id)
+              expect(value.books).toContain(bookIds[0])
+              expect(value.books).toContain(bookIds[1])
+              expect(value.books).toContain(bookIds[2])
               done()
             })
           })
       })
     })
 
-    // it('creates a collection for a user', done => {
-    //   const newBook = BookFactory.build({
-    //     ownerId: user.id,
-    //     collections: [collection.id],
-    //   })
-    //   database.createBookForUser(user.id, newBook).then(value => {
-    //     expect(value.title).toEqual(newBook.title)
-    //     expect(value.ownerId).toEqual(newBook.ownerId)
-    //     expect(value.collections).toContain(collection.id)
+    it('add collections to book', done => {
+      createBook(user.id, { collections: [collection.id] }).then(book => {
+        database
+          .addCollectionsToBook(book.id, [collection.id])
+          .then(collectionIds => {
+            database.findBookById(book.id).then(value => {
+              expect(value.collections).toContain(collectionIds[0])
+              done()
+            })
+          })
+      })
+    })
 
-    //     database.findCollectionById(collection.id).then(collectionForBook => {
-    //       expect(collectionForBook.books).toContain(value.id)
-    //       done()
-    //     })
-    //   })
-    // })
+    it('removes books from collection', done => {
+      createBooksForUser(user.id).then(books => {
+        createCollection(user.id, { books: books.map(book => book.id) }).then(
+          collection => {
+            database
+              .removeBooksFromCollection(collection.id, [
+                books[0].id,
+                books[1].id,
+              ])
+              .then(bookIds => {
+                database.findCollectionById(collection.id).then(value => {
+                  bookIds.forEach(bookId =>
+                    expect(value.books).not.toContain(bookId)
+                  )
+                  expect(value.books).toContain(books[2].id)
+                  done()
+                })
+              })
+          }
+        )
+      })
+    })
+
+    it('removes collections from book', done => {
+      createBook(user.id, { collections: [collection.id] }).then(newBook => {
+        database
+          .removeCollectionsFromBook(newBook.id, [collection.id])
+          .then(collectionIds => {
+            database.findBookById(newBook.id).then(value => {
+              collectionIds.forEach(collectionId =>
+                expect(value.collections).not.toContain(collectionId)
+              )
+              done()
+            })
+          })
+      })
+    })
+
+    it('creates a collection for a user', done => {
+      createBooksForUser(user.id).then(books => {
+        const bookIds = books.map(book => book.id)
+        createCollection(user.id, { books: bookIds }).then(value => {
+          expect(value.title).toEqual(collection.title)
+          expect(value.description).toEqual(collection.description)
+          expect(value.ownerId).toEqual(collection.ownerId)
+          expect(value.books).toEqual(bookIds)
+
+          database
+            .getBooksForCollection(value.id, user.id)
+            .then(booksFromDb => {
+              expect(booksFromDb.length).toEqual(bookIds.length)
+              booksFromDb.forEach(book =>
+                expect(book.collections).toContain(value.id)
+              )
+              done()
+            })
+        })
+      })
+    })
+
+    it('find a collection by id', done => {
+      database.findCollectionById(collection.id).then(value => {
+        expect(value.id).toEqual(collection.id)
+        expect(value.title).toEqual(collection.title)
+        expect(value.ownerId).toEqual(collection.ownerId)
+        expect(value.books).toEqual(collection.books)
+        done()
+      })
+    })
+
+    it('get collections for user', done => {
+      database.getCollectionsForUser(user.id).then(value => {
+        expect(value.length).toEqual(1)
+        expect(value).toContain(collection)
+        done()
+      })
+    })
+
+    it('update collection', done => {
+      const updateParams = {
+        title: 'A new title',
+        description: 'A new description',
+        books: [book.id],
+      }
+
+      database
+        .updateCollectionForUser(user.id, { ...collection, ...updateParams })
+        .then(() => {
+          Promise.all([
+            database.findCollectionById(collection.id).then(value => {
+              expect(value.title).toEqual(updateParams.title)
+              expect(value.description).toEqual(updateParams.description)
+              expect(value.books).toContain(book.id)
+            }),
+            database.findBookById(book.id).then(value => {
+              expect(value.collections).toContain(collection.id)
+            }),
+          ]).then(() => done())
+        })
+    })
+
+    it('delete collection', done => {
+      createCollection(user.id, { books: [book.id] }).then(collectionFromDb => {
+        database
+          .deleteCollection(user.id, collectionFromDb as Collection)
+          .then(() => {
+            Promise.all([
+              database.findCollectionById(collectionFromDb.id).then(value => {
+                expect(value).toBeNull()
+              }),
+              database.findBookById(book.id).then(value => {
+                expect(value.collections).not.toContain(collectionFromDb.id)
+              }),
+              database.findUserById(user.id).then(value => {
+                expect(value.collections).not.toContain(collectionFromDb.id)
+              }),
+            ]).then(() => done())
+          })
+      })
+    })
   })
 })
