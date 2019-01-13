@@ -6,7 +6,7 @@ import * as firebase from 'firebase/app'
 import * as auth0 from 'auth0-js'
 import { DatabaseService } from './database.service'
 import { SessionService } from './session.service'
-import { User as LocalUser } from '../interfaces/user'
+import { User as LocalUser } from '../models/user.model'
 import { User as DBUser } from '../database/models/user.model'
 import { environment } from 'environments/environment'
 
@@ -42,7 +42,7 @@ export class AuthService {
   ) {
     const user = this.session.localUser
     if (user) {
-      this._userRef.next(user.ref)
+      this._userRef.next(user.id)
       this._goodreadsId.next(user.goodreadsId)
     }
     this.setupSessionForGoodreadsLogin()

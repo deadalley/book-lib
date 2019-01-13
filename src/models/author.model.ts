@@ -1,4 +1,4 @@
-import { Book } from 'interfaces/book'
+import { Book } from './book.model'
 
 export interface Author {
   id: number

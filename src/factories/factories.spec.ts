@@ -1,6 +1,6 @@
 import { assertThat, hasProperties, array, number, string, bool } from 'hamjest'
 import BookFactory from './book.factory'
-import AuthorFactory from './author'
+import AuthorFactory from './author.factory'
 import CollectionFactory from './collection.factory'
 import UserFactory from './user.factory'
 

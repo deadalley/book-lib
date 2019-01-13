@@ -1,12 +1,13 @@
 import * as Factory from 'factory.ts'
-import { Collection } from '../interfaces/collection'
+import { Collection } from '../models/collection.model'
 import { lorem, random } from 'faker'
 
 const CollectionFactory = Factory.makeFactory<Collection>({
-  id: random.number(),
+  id: random.uuid(),
+  ownerId: random.uuid(),
   title: lorem.word(),
   description: lorem.sentence(),
-  books: []
+  books: [],
 })
 
 export default CollectionFactory

@@ -10,9 +10,6 @@ import {
 } from '../utils/helpers'
 import { environment } from 'environments/environment'
 import { Subject } from 'rxjs/Subject'
-import 'rxjs/add/operator/mergeMap'
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/takeUntil'
 
 @Injectable()
 export class DatabaseService {
@@ -124,7 +121,7 @@ export class DatabaseService {
   }
 
   findUserByParam(key: string, value: string) {
-    return this.findByParam(key, value, this.users, this.parseUser)
+    return this.findByParam(key, value, this.users, this.parseUser).then(user => user as User)
   }
 
   updateUser(id: string, params: object) {
