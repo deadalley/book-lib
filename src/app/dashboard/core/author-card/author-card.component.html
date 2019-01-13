@@ -1,16 +1,22 @@
 <div class="card" style="text-align: center;" [@card]>
   <div class="header">
     <!-- Header -->
-    <h4 class="title">{{author.name}}</h4>
-    <hr>
+    <h4 class="title">{{ author.name }}</h4>
+    <hr />
   </div>
   <div class="content">
     <!-- Image -->
     <div class="image">
       <img
-        [src]="author.image_large ? author.image_large : (author.image_small ? author.image_small : '/assets/img/no-book-cover.png')"
+        [src]="
+          author.imageLarge
+            ? author.imageLarge
+            : author.imageSmall
+            ? author.imageSmall
+            : '/assets/img/no-book-cover.png'
+        "
         alt="Author photo"
-      >
+      />
     </div>
     <!-- Selectable -->
     <div class="row" style="margin-top: 10px">

@@ -6,10 +6,16 @@ import { storiesOf, moduleMetadata } from '@storybook/angular'
 import { GridComponent } from '../grid/grid.component'
 import { BookCardComponent } from '../book-card/book-card.component'
 import { BooksSectionComponent } from './books-section.component'
-import BookFactory from 'factories/book'
+import BookFactory from 'factories/book.factory'
 
-const books = BookFactory.buildList(5, { canBeSelected: true, isSelected: true })
-const bookInLibrary = BookFactory.build({ canBeSelected: false, isSelected: false })
+const books = BookFactory.buildList(5, {
+  canBeSelected: true,
+  isSelected: true,
+})
+const bookInLibrary = BookFactory.build({
+  canBeSelected: false,
+  isSelected: false,
+})
 
 storiesOf('Books Section', module)
   .addDecorator(
@@ -18,12 +24,9 @@ storiesOf('Books Section', module)
         CommonModule,
         RouterModule,
         TooltipModule.forRoot(),
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
       ],
-      declarations: [
-        GridComponent,
-        BookCardComponent
-      ]
+      declarations: [GridComponent, BookCardComponent],
     })
   )
   .add('default', () => ({
@@ -32,7 +35,7 @@ storiesOf('Books Section', module)
       books,
       sectionTitle: 'Section title',
       description: 'A description',
-      withButtons: true
+      withButtons: true,
     },
   }))
   .add('selectable', () => ({
@@ -44,7 +47,7 @@ storiesOf('Books Section', module)
       withButtons: true,
       selectable: true,
       selectBtnContent: 'Add to library',
-      selectBtnContentDisabled: 'Already in library'
+      selectBtnContentDisabled: 'Already in library',
     },
   }))
   .add('clickable', () => ({
@@ -54,7 +57,6 @@ storiesOf('Books Section', module)
       sectionTitle: 'Section title',
       description: 'A description',
       withButtons: true,
-      clickable: true
+      clickable: true,
     },
   }))
-

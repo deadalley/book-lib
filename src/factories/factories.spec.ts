@@ -1,15 +1,8 @@
-import {
-  assertThat,
-  hasProperties,
-  array,
-  number,
-  string,
-  bool,
-} from 'hamjest'
-import BookFactory from './book'
+import { assertThat, hasProperties, array, number, string, bool } from 'hamjest'
+import BookFactory from './book.factory'
 import AuthorFactory from './author'
-import CollectionFactory from './collection'
-import UserFactory from './user'
+import CollectionFactory from './collection.factory'
+import UserFactory from './user.factory'
 
 describe('Factories', () => {
   describe('Book', () => {
@@ -46,8 +39,8 @@ describe('Factories', () => {
         name: string(),
         about: string(),
         books: array(),
-        image_small: string(),
-        image_large: string(),
+        imageSmall: string(),
+        imageLarge: string(),
         goodreadsLink: string(),
       }
       const author = AuthorFactory.build()

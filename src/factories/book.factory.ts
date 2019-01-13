@@ -19,11 +19,14 @@ const BookFactory = Factory.makeFactory<Book>({
   collections: [lorem.word(), lorem.word()],
   tags: [lorem.word()],
   notes: lorem.text(),
-  image_small: random.image(),
-  image_large: random.image(),
+  imageSmall: random.image(),
+  imageLarge: random.image(),
   rating: random.number(),
-  date: date.past().toISOString().substring(0, 10),
-  isSelected: random.boolean()
+  date: date
+    .past()
+    .toISOString()
+    .substring(0, 10),
+  isSelected: random.boolean(),
 })
 
 export default BookFactory

@@ -4,10 +4,16 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { storiesOf, moduleMetadata } from '@storybook/angular'
 import { BooksTableComponent } from './books-table.component'
-import BookFactory from 'factories/book'
+import BookFactory from 'factories/book.factory'
 
-const books = BookFactory.buildList(5, { canBeSelected: true, isSelected: true })
-const bookInLibrary = BookFactory.build({ canBeSelected: false, isSelected: false })
+const books = BookFactory.buildList(5, {
+  canBeSelected: true,
+  isSelected: true,
+})
+const bookInLibrary = BookFactory.build({
+  canBeSelected: false,
+  isSelected: false,
+})
 
 storiesOf('Books Table', module)
   .addDecorator(
@@ -16,7 +22,7 @@ storiesOf('Books Table', module)
         CommonModule,
         RouterModule,
         TooltipModule.forRoot(),
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
       ],
     })
   )
@@ -26,7 +32,7 @@ storiesOf('Books Table', module)
       books,
       sectionTitle: 'Section title',
       description: 'A description',
-      withButtons: true
+      withButtons: true,
     },
   }))
   .add('selectable', () => ({

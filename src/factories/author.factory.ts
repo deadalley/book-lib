@@ -7,9 +7,9 @@ const AuthorFactory = Factory.makeFactory<Author>({
   name: `${name.firstName()} ${name.lastName()}`,
   about: lorem.text(),
   books: [],
-  image_small: random.image(),
-  image_large: random.image(),
-  goodreadsLink: internet.url()
+  imageSmall: random.image(),
+  imageLarge: random.image(),
+  goodreadsLink: internet.url(),
 })
 
 export default AuthorFactory

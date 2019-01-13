@@ -11,7 +11,7 @@
 				<!-- Image -->
 				<div class="image book-image" *ngIf="showImage">
           <img
-            [src]="book.image_large ? book.image_large : (book.image_small ? book.image_small : '/assets/img/no-book-cover.png')"
+            [src]="book.imageLarge ? book.imageLarge : (book.imageSmall ? book.imageSmall : '/assets/img/no-book-cover.png')"
             alt="Book cover"
           >
 				</div>
@@ -74,7 +74,7 @@
 							<!-- Author image -->
 							<div class="image author-image">
 								<img
-									[src]="author.image_large ? author.image_large : (author.image_small ? author.image_small : '/assets/img/no-book-cover.png')"
+									[src]="author.imageLarge ? author.imageLarge : (author.imageSmall ? author.imageSmall : '/assets/img/no-book-cover.png')"
 									alt="Author photo"
 								>
 							</div>
@@ -250,15 +250,15 @@
         <div class="row">
 					<div class="col-xs-12">
 						<!-- Title -->
-						<div class="form-group" [ngClass] = "{'has-error': !form.controls['image_large'].valid && form.controls['image_large'].touched}">
+						<div class="form-group" [ngClass] = "{'has-error': !form.controls['imageLarge'].valid && form.controls['imageLarge'].touched}">
 							<label>
                 Book Cover
-                <a href="javascript:void(0);" (click)="this.form.patchValue({ image_large: '', image_small: '' })">
+                <a href="javascript:void(0);" (click)="this.form.patchValue({ imageLarge: '', imageSmall: '' })">
                   <i class="pe-7s-close-circle" style="font-size: 100%"></i>
                 </a>
               </label>
-							<input type="text" class="form-control" placeholder="Link to the book cover" formControlName="image_large">
-							<span class="help-block" *ngIf="!form.controls['image_large'].valid && form.controls['image_large'].touched">
+							<input type="text" class="form-control" placeholder="Link to the book cover" formControlName="imageLarge">
+							<span class="help-block" *ngIf="!form.controls['imageLarge'].valid && form.controls['imageLarge'].touched">
 								Please enter a valid link to your book cover.
 							</span>
 						</div>

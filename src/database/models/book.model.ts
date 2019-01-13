@@ -17,8 +17,8 @@ export interface Book {
   collections?: string[]
   tags?: string[]
   notes?: string
-  image_small?: string
-  image_large?: string
+  imageSmall?: string
+  imageLarge?: string
   rating?: number
   goodreadsId?: number
   goodreadsLink?: string

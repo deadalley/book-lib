@@ -15,9 +15,8 @@ import { GoodreadsService } from 'services/goodreads.service'
   selector: 'library-add-book',
   templateUrl: 'library-edit-book.component.html',
   styleUrls: ['./library-edit-book.component.css'],
-  animations: [ANIMATIONS.CARD]
+  animations: [ANIMATIONS.CARD],
 })
-
 export class LibraryAddBookComponent implements OnInit, OnDestroy {
   form: FormGroup
   allCollections: string[]
@@ -25,7 +24,7 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
   genres: string[]
   tags: string[]
   selectedLanguage: string
-  book = { } as Book
+  book = {} as Book
   author: Author
   title = 'Add new book'
   description = 'Add a new book to your library or wishlist'
@@ -49,10 +48,14 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
     private goodreadsService: GoodreadsService,
     private router: Router
   ) {
-    this.subscription = this.libraryService.collections$.subscribe((collections) => {
-      if (!collections) { return }
-      this.allCollections = collections.map((collection) => collection.title)
-    })
+    this.subscription = this.libraryService.collections$.subscribe(
+      collections => {
+        if (!collections) {
+          return
+        }
+        this.allCollections = collections.map(collection => collection.title)
+      }
+    )
     this.form = this.fb.group({
       title: ['', Validators.required],
       original: '',
@@ -61,9 +64,9 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
       year: [0, Validators.min(0)],
       pages: [0, Validators.min(0)],
       notes: '',
-      image_large: '',
-      image_small: '',
-      rating: 0
+      imageLarge: '',
+      imageSmall: '',
+      rating: 0,
     })
   }
 
@@ -80,16 +83,20 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
 
   submit(formValues) {
     const newValues = {
-      date: (new Date()).toISOString().substring(0, 10),
-      ...(this.genres.length > 0) && { genres: this.genres },
-      ...(this.tags.length > 0) && { tags: this.tags },
-      ...(this.collections.length > 0) && { collections: this.collections },
-      ...(this.selectedLanguage !== 'Select a language') && { language: this.selectedLanguage },
+      date: new Date().toISOString().substring(0, 10),
+      ...(this.genres.length > 0 && { genres: this.genres }),
+      ...(this.tags.length > 0 && { tags: this.tags }),
+      ...(this.collections.length > 0 && { collections: this.collections }),
+      ...(this.selectedLanguage !== 'Select a language' && {
+        language: this.selectedLanguage,
+      }),
       ...cleanFormValues(formValues),
       ...this.buttonsComponent.getValues(),
-      ...(this.goodreadsAuthorId ? { goodreadsAuthorId: this.goodreadsAuthorId } : {}),
+      ...(this.goodreadsAuthorId
+        ? { goodreadsAuthorId: this.goodreadsAuthorId }
+        : {}),
       ...(this.author ? { goodreadsAuthorId: this.author.id } : {}),
-      ...(this.goodreadsId ? { goodreadsId: this.goodreadsId } : {})
+      ...(this.goodreadsId ? { goodreadsId: this.goodreadsId } : {}),
     }
 
     Object.assign(this.book, newValues)
@@ -113,21 +120,27 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
     target.push(collection)
 
     this.allCollections.sort((a, b) => {
-      if (a < b) { return -1 }
-      if (a > b) { return 1 }
+      if (a < b) {
+        return -1
+      }
+      if (a > b) {
+        return 1
+      }
       return 0
     })
   }
 
   searchBookOnGoodreads(title: string) {
-    if (!title) { return }
-    this.goodreadsService.searchBook((books) => {
-      this.suggestedBooks = books.map((book) => parseBook(book))
+    if (!title) {
+      return
+    }
+    this.goodreadsService.searchBook(books => {
+      this.suggestedBooks = books.map(book => parseBook(book))
     }, title)
   }
 
   selectBook(book: Book) {
-    this.goodreadsService.getBook((grBook) => {
+    this.goodreadsService.getBook(grBook => {
       book = { ...book, ...parseBook(grBook) }
       this.form.patchValue({
         title: book.title,
@@ -135,8 +148,8 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
         publisher: book.publisher,
         year: book.year,
         pages: book.pages,
-        image_large: book.image_large,
-        image_small: book.image_small
+        imageLarge: book.imageLarge,
+        imageSmall: book.imageSmall,
       })
       this.goodreadsId = book.goodreadsId
       this.goodreadsAuthorId = book.goodreadsAuthorId
@@ -145,16 +158,18 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
   }
 
   searchAuthorOnGoodreads(name: string) {
-    if (!name) { return }
-    this.goodreadsService.searchAuthor((authors) => {
-      this.suggestedAuthors = authors.map((author) => parseAuthor(author))
+    if (!name) {
+      return
+    }
+    this.goodreadsService.searchAuthor(authors => {
+      this.suggestedAuthors = authors.map(author => parseAuthor(author))
     }, name)
   }
 
   selectAuthor(author: Author) {
     this.author = author
     this.form.patchValue({
-      author: author.name
+      author: author.name,
     })
     this.suggestedAuthors = []
   }

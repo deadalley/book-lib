@@ -2,28 +2,37 @@
 <page-navigator *ngIf="!isLoading">
   <div class="card" [@card]>
     <div class="header">
-      <h4 class="title">{{author.name}}</h4>
+      <h4 class="title">{{ author.name }}</h4>
     </div>
     <div class="content">
       <div class="row">
         <div class="col-md-6">
           <div class="image author-photo">
             <img
-              [src]="author.image_large ? author.image_large : (author.image_small ? author.image_small : '/assets/img/no-book-cover.png')"
+              [src]="
+                author.imageLarge
+                  ? author.imageLarge
+                  : author.imageSmall
+                  ? author.imageSmall
+                  : '/assets/img/no-book-cover.png'
+              "
               alt="Author photo"
-            >
+            />
           </div>
         </div>
         <div class="col-md-6">
           <label>About:</label>
           <p *ngIf="showAllAbout" [innerHTML]="author.about"></p>
-          <p *ngIf="!showAllAbout" [innerHTML]="author.about | truncate: { paragraphs: 2 }"></p>
+          <p
+            *ngIf="!showAllAbout"
+            [innerHTML]="author.about | truncate: { paragraphs: 2 }"
+          ></p>
           <div *ngIf="!showAllAbout" class="text-right">
             <a (click)="showAllAbout = true">
               <label style="padding:0;">More </label>
               <i class="pe-7s-angle-down" style="font-size: 1.3em;"></i>
             </a>
-            <hr style="margin-top: 0;">
+            <hr style="margin-top: 0;" />
           </div>
         </div>
       </div>
@@ -39,14 +48,16 @@
         (selectedBooks)="updateSelectedBooks($event)"
       ></books-display>
 
-      <hr>
+      <hr />
       <div style="text-align: center;">
         <button
           type="button"
           class="btn btn-default"
           (click)="importBooks()"
           [disabled]="!hasSelectedBooks"
-        >Import books to your library</button>
+        >
+          Import books to your library
+        </button>
       </div>
     </div>
   </div>

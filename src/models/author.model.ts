@@ -5,7 +5,7 @@ export interface Author {
   name: string
   about: string
   books: Book[]
-  image_small?: string
-  image_large?: string
+  imageSmall?: string
+  imageLarge?: string
   goodreadsLink?: string
 }

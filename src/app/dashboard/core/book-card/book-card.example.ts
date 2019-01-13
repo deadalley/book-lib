@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router'
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { storiesOf, moduleMetadata } from '@storybook/angular'
-import BookFactory from 'factories/book'
+import BookFactory from 'factories/book.factory'
 import { BookCardComponent } from './book-card.component'
 
 const book = BookFactory.build({ canBeSelected: true })
@@ -16,7 +16,7 @@ storiesOf('Book Card', module)
         CommonModule,
         RouterModule,
         TooltipModule.forRoot(),
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
       ],
     })
   )
@@ -37,7 +37,7 @@ storiesOf('Book Card', module)
     component: BookCardComponent,
     props: {
       book,
-      clickable: true
+      clickable: true,
     },
   }))
   .add('selectable', () => ({
@@ -46,7 +46,7 @@ storiesOf('Book Card', module)
       book,
       selectable: true,
       selectBtnContent: 'Add to library',
-      selectBtnContentDisabled: 'Already in libray'
+      selectBtnContentDisabled: 'Already in libray',
     },
   }))
   .add('selectable and book cannot be selected', () => ({
@@ -55,6 +55,6 @@ storiesOf('Book Card', module)
       book: bookCannotBeSelected,
       selectable: true,
       selectBtnContent: 'Add to library',
-      selectBtnContentDisabled: 'Already in libray'
+      selectBtnContentDisabled: 'Already in libray',
     },
   }))

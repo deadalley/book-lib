@@ -2,83 +2,121 @@
   <div class="header">
     <!-- Header -->
     <h4 class="title">
-      <a *ngIf="linkable" href="#" routerLink="/dashboard/library/books/{{book.id}}">
-        {{book.title}}
-      </a>
-      {{linkable ? '' : book.title}}
-    </h4>
-    <hr>
-    <p class="category" placement="bottom">
       <a
         *ngIf="linkable"
         href="#"
-        [routerLink]="authorRoute"
-      >{{book.author}}</a>
-      {{linkable ? '' : book.author}}
+        routerLink="/dashboard/library/books/{{ book.id }}"
+      >
+        {{ book.title }}
+      </a>
+      {{ linkable ? '' : book.title }}
+    </h4>
+    <hr />
+    <p class="category" placement="bottom">
+      <a *ngIf="linkable" href="#" [routerLink]="authorRoute">{{
+        book.author
+      }}</a>
+      {{ linkable ? '' : book.author }}
     </p>
   </div>
 
   <div class="content">
     <!-- Image -->
     <div class="image">
-      <a *ngIf="linkable" href="javascript:void(0);" routerLink="/dashboard/library/books/{{book.id}}">
+      <a
+        *ngIf="linkable"
+        href="javascript:void(0);"
+        routerLink="/dashboard/library/books/{{ book.id }}"
+      >
         <img
-          [ngClass]="{'img-rounded': !book.date}"
-          [src]="book.image_large ? book.image_large : (book.image_small ? book.image_small : '/assets/img/no-book-cover.png')"
+          [ngClass]="{ 'img-rounded': !book.date }"
+          [src]="
+            book.imageLarge
+              ? book.imageLarge
+              : book.imageSmall
+              ? book.imageSmall
+              : '/assets/img/no-book-cover.png'
+          "
           alt="Book cover"
-        >
+        />
       </a>
       <img
         *ngIf="!linkable"
-        [ngClass]="{'img-rounded': !book.date}"
-        [src]="book.image_large ? book.image_large : (book.image_small ? book.image_small : '/assets/img/no-book-cover.png')"
+        [ngClass]="{ 'img-rounded': !book.date }"
+        [src]="
+          book.imageLarge
+            ? book.imageLarge
+            : book.imageSmall
+            ? book.imageSmall
+            : '/assets/img/no-book-cover.png'
+        "
         alt="Book cover"
-      >
+      />
     </div>
 
     <!-- Added date -->
     <div class="row" style="padding: 0 15px 0 15px;" *ngIf="!!book.date">
-      <p class="tile-date">Added on {{formatDate(book.date)}}</p>
+      <p class="tile-date">Added on {{ formatDate(book.date) }}</p>
     </div>
 
     <!-- Icons -->
     <div class="row" *ngIf="withButtons">
       <div class="col-xs-4">
-        <i class="pe-7s-check tile-icon"
-          [ngClass] = "{'pe-7s-check': book.owned, 'pe-7s-gift': !book.owned, 'active': true}"
-          tooltip="{{book.owned ? 'Owned' : 'Wishlist'}}"
-                [isDisabled]="false"
-                [tooltipAnimation]="true"
-                placement="bottom"></i>
+        <i
+          class="pe-7s-check tile-icon"
+          [ngClass]="{
+            'pe-7s-check': book.owned,
+            'pe-7s-gift': !book.owned,
+            active: true
+          }"
+          tooltip="{{ book.owned ? 'Owned' : 'Wishlist' }}"
+          [isDisabled]="false"
+          [tooltipAnimation]="true"
+          placement="bottom"
+        ></i>
       </div>
       <div class="col-xs-4">
-        <i class="pe-7s-glasses tile-icon"
-          [ngClass] = "{'inactive': !book.read, 'active': book.read}"
-          tooltip="{{book.read ? 'Read' : 'Unread'}}"
-                [isDisabled]="false"
-                [tooltipAnimation]="true"
-                placement="bottom"></i>
+        <i
+          class="pe-7s-glasses tile-icon"
+          [ngClass]="{ inactive: !book.read, active: book.read }"
+          tooltip="{{ book.read ? 'Read' : 'Unread' }}"
+          [isDisabled]="false"
+          [tooltipAnimation]="true"
+          placement="bottom"
+        ></i>
       </div>
       <div class="col-xs-4">
-        <i class="pe-7s-like tile-icon"
-          [ngClass] = "{'inactive': !book.favorite, 'active': book.favorite}"
-          tooltip="{{book.favorite ? 'Favorite' : 'Not a favorite'}}"
-                [isDisabled]="false"
-                [tooltipAnimation]="true"
-                placement="bottom"></i>
+        <i
+          class="pe-7s-like tile-icon"
+          [ngClass]="{ inactive: !book.favorite, active: book.favorite }"
+          tooltip="{{ book.favorite ? 'Favorite' : 'Not a favorite' }}"
+          [isDisabled]="false"
+          [tooltipAnimation]="true"
+          placement="bottom"
+        ></i>
       </div>
     </div>
 
     <!-- Selectable -->
     <div class="row" *ngIf="selectable">
       <div class="col-xs-12">
-        <hr>
-        <button type="button" class="btn btn-default" (click)="select()" [disabled]="!book.canBeSelected">
+        <hr />
+        <button
+          type="button"
+          class="btn btn-default"
+          (click)="select()"
+          [disabled]="!book.canBeSelected"
+        >
           <ng-container *ngIf="book.canBeSelected">
-            <span [ngClass]="{'ti-check-box': book.isSelected, 'ti-control-stop': !book.isSelected}"></span>
-            {{selectBtnContent}}
+            <span
+              [ngClass]="{
+                'ti-check-box': book.isSelected,
+                'ti-control-stop': !book.isSelected
+              }"
+            ></span>
+            {{ selectBtnContent }}
           </ng-container>
-          {{book.canBeSelected ? '' : selectBtnContentDisabled}}
+          {{ book.canBeSelected ? '' : selectBtnContentDisabled }}
         </button>
       </div>
     </div>
@@ -86,7 +124,7 @@
     <!-- Clickable -->
     <div class="row" *ngIf="clickable">
       <div class="col-xs-12">
-        <hr>
+        <hr />
         <button type="button" class="btn btn-default" (click)="select()">
           Select
         </button>

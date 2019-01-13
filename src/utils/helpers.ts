@@ -60,8 +60,8 @@ export const filterBook = book =>
     'publisher',
     'year',
     'pages',
-    'image_small',
-    'image_large',
+    'imageSmall',
+    'imageLarge',
     'goodreadsLink',
     'goodreadsId',
     'goodreadsAuthorId',
@@ -120,8 +120,8 @@ export const parseBook = book => ({
   publisher: book.publisher,
   year: book.publication_year,
   pages: book.num_pages,
-  image_large: book.large_image_url ? book.large_image_url : book.image_url,
-  image_small: book.small_image_url,
+  imageLarge: book.large_image_url ? book.large_image_url : book.image_url,
+  imageSmall: book.small_image_url,
   goodreadsLink: book.link,
   goodreadsId: parseBookId(book),
   goodreadsAuthorId: book.authors ? book.authors.author.id : book.author.id._,
@@ -132,8 +132,8 @@ export const parseAuthor = (author, books?) => ({
   name: author.name,
   about: author.about,
   books,
-  image_small: author.small_image_url,
-  image_large: author.large_image_url
+  imageSmall: author.small_image_url,
+  imageLarge: author.large_image_url
     ? author.large_image_url
     : author.image_url,
   goodreadsLink: author.link,

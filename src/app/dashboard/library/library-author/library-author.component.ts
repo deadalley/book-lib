@@ -13,11 +13,10 @@ import * as _ from 'lodash'
   selector: 'library-author',
   templateUrl: 'library-author.component.html',
   styleUrls: ['./library-author.component.css'],
-  animations: [ANIMATIONS.CARD]
+  animations: [ANIMATIONS.CARD],
 })
-
 export class LibraryAuthorComponent implements OnInit, OnDestroy {
-  author = { } as Author
+  author = {} as Author
   isLoading = true
   hasSelectedBooks = false
   showAllAbout = false
@@ -32,19 +31,27 @@ export class LibraryAuthorComponent implements OnInit, OnDestroy {
     private goodreadsService: GoodreadsService,
     private libraryService: LibraryService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.goodreadsService.getAuthor((author) => {
+    this.goodreadsService.getAuthor(author => {
       if (author) {
         this.isLoading = false
 
-        const books = author.books.book.map((book) => _.omit(parseBook(book), ['author']))
+        const books = author.books.book.map(book =>
+          _.omit(parseBook(book), ['author'])
+        )
 
-        this.subscription = this.libraryService.books$.subscribe((ownBooks) => {
-          if (!ownBooks) { return }
-          books.forEach((book) =>
-            book.canBeSelected = !ownBooks.map((ownBook) => ownBook.goodreadsId).includes(book.goodreadsId))
+        this.subscription = this.libraryService.books$.subscribe(ownBooks => {
+          if (!ownBooks) {
+            return
+          }
+          books.forEach(
+            book =>
+              (book.canBeSelected = !ownBooks
+                .map(ownBook => ownBook.goodreadsId)
+                .includes(book.goodreadsId))
+          )
         })
 
         this.author = {
@@ -52,12 +59,13 @@ export class LibraryAuthorComponent implements OnInit, OnDestroy {
           name: author.name,
           about: author.about,
           books,
-          image_small: author.small_image_url,
-          image_large: author.large_image_url ? author.large_image_url : author.image_url,
-          goodreadsLink: author.link
+          imageSmall: author.small_image_url,
+          imageLarge: author.large_image_url
+            ? author.large_image_url
+            : author.image_url,
+          goodreadsLink: author.link,
         }
       }
-
     }, +this.localUrlPath)
   }
 
@@ -66,19 +74,19 @@ export class LibraryAuthorComponent implements OnInit, OnDestroy {
   }
 
   updateSelectedBooks(books: Book[]) {
-    this.hasSelectedBooks = books.some((book) => book.isSelected)
+    this.hasSelectedBooks = books.some(book => book.isSelected)
   }
 
   importBooks() {
     const booksToAdd = this.author.books
-      .filter((book) => book.isSelected)
-      .map((book) => ({
-        ...(book),
+      .filter(book => book.isSelected)
+      .map(book => ({
+        ...book,
         author: this.author.name,
         owned: false,
         read: false,
         favorite: false,
-        date: (new Date()).toISOString().substring(0, 10),
+        date: new Date().toISOString().substring(0, 10),
       }))
     this.libraryService.addBooks(booksToAdd)
     this.router.navigate(['dashboard/library'])

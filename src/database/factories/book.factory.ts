@@ -20,8 +20,8 @@ const BookFactory = Factory.makeFactory<Book>({
   collections: [],
   tags: [lorem.word()],
   notes: lorem.text(),
-  image_small: random.image(),
-  image_large: random.image(),
+  imageSmall: random.image(),
+  imageLarge: random.image(),
   rating: random.number(),
   date: date
     .past()
