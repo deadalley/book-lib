@@ -2,7 +2,6 @@ import { TestBed, inject } from '@angular/core/testing'
 import { AngularFireModule } from 'angularfire2'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
 import { environment } from 'environments/environment'
-import { assertThat, equalTo } from 'hamjest'
 
 import { DatabaseService } from './database.service'
 import { LibraryService } from './library.service'
@@ -39,7 +38,7 @@ describe('SessionService', () => {
 
       sessionService.buildSession(user)
 
-      assertThat(sessionService.localUser, equalTo(user))
+      expect(sessionService.localUser).toEqual(user)
     })
 
     it('with local user present', () => {
@@ -47,12 +46,12 @@ describe('SessionService', () => {
 
       sessionService.localUser = user
       sessionService.buildSession()
-      assertThat(sessionService.localUser, equalTo(user))
+      expect(sessionService.localUser).toEqual(user)
     })
 
     it('throws error when no user found', () => {
       expect(() => sessionService.buildSession()).toThrow(
-        new TypeError("Cannot read property 'id' of null")
+        new TypeError('Cannot read property \'id\' of null')
       )
     })
   })
@@ -62,6 +61,6 @@ describe('SessionService', () => {
 
     sessionService.localUser = user
     sessionService.setGoodreadsId('goodreads id')
-    assertThat(sessionService.localUser.goodreadsId, equalTo('goodreads id'))
+    expect(sessionService.localUser.goodreadsId).toEqual('goodreads id')
   })
 })

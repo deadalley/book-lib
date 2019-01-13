@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core'
 import { DatabaseService } from 'services/database.service'
-import UserFactory from 'factories/user'
 
 @Component({
   selector: 'debug-button',

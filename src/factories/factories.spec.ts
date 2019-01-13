@@ -5,14 +5,11 @@ import {
   number,
   string,
   bool,
-  not,
-  equalTo,
 } from 'hamjest'
 import BookFactory from './book'
 import AuthorFactory from './author'
 import CollectionFactory from './collection'
 import UserFactory from './user'
-import { FactoryArray, GenericFactory } from './utils'
 
 describe('Factories', () => {
   describe('Book', () => {

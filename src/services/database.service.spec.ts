@@ -2,20 +2,15 @@ import { TestBed, inject } from '@angular/core/testing'
 import { APP_BASE_HREF } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { AngularFireModule } from 'angularfire2'
-import {
-  AngularFireDatabaseModule,
-  AngularFireDatabase,
-} from 'angularfire2/database'
+import { AngularFireDatabaseModule } from 'angularfire2/database'
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { environment } from 'environments/environment'
-import { assertThat, equalTo } from 'hamjest'
 import { AppRoutes } from '../app/app.routing'
 
 import { AuthService } from './auth.service'
 import { SessionService } from './session.service'
 import { DatabaseService } from './database.service'
 
-import { User } from '../database/models/user.model'
 import { Book } from '../database/models/book.model'
 import { Collection } from '../database/models/collection.model'
 

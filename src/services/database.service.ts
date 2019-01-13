@@ -5,8 +5,6 @@ import { Book } from '../database/models/book.model'
 import { Collection } from '../database/models/collection.model'
 import {
   objectToArray,
-  objectToArrayWithRef,
-  filterByParam,
   findKeyByValue,
   unique,
 } from '../utils/helpers'
