@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { isAfter, subDays } from 'date-fns'
 import { DatabaseService } from 'services/database.service'
-import { Book } from 'interfaces/book'
-import { Collection } from 'interfaces/collection'
+import { Book } from 'models/book.model'
+import { Collection } from 'models/collection.model'
 import * as _ from 'lodash'
 import { arrayToObjectWithId } from 'utils/helpers'
 
@@ -53,31 +53,28 @@ export class LibraryService {
     )
   }
 
-  async loadLibrary() {
-    const collections = await this.database.getCollectionsForUser(this.userRef)
-    const books = await this.database.getBooksForUser(this.userRef)
-
-    const collectionsObj = arrayToObjectWithId(collections)
-    const mappedBooks = books.map(book => ({
-      ...book,
-      collections: book.collections.map(
-        collectionId => collectionsObj[collectionId].title
-      ),
-    }))
-
-    const mappedCollections = collections.map(collection => {
-      const booksForCollection = books.filter(book =>
-        book.collections.includes(collection.id)
-      )
-
-      return {
-        ...collection,
-        books: booksForCollection,
-      } as Collection
-    })
-
-    this.collections.next(mappedCollections)
-    this.books.next(mappedBooks)
+  loadLibrary() {
+    this.books = this.database.getBooksForUser(this.userRef)
+    // const collections = await this.database.getCollectionsForUser(this.userRef)
+    // const books = await this.database.getBooksForUser(this.userRef)
+    // const collectionsObj = arrayToObjectWithId(collections)
+    // const mappedBooks = books.map(book => ({
+    //   ...book,
+    //   collections: book.collections.map(
+    //     collectionId => collectionsObj[collectionId].title
+    //   ),
+    // }))
+    // const mappedCollections = collections.map(collection => {
+    //   const booksForCollection = books.filter(book =>
+    //     book.collections.includes(collection.id)
+    //   )
+    //   return {
+    //     ...collection,
+    //     books: booksForCollection,
+    //   } as Collection
+    // })
+    // this.collections.next(mappedCollections)
+    // this.books.next(mappedBooks)
   }
 
   toggleTilesDisplay(toggle: boolean) {
@@ -140,7 +137,7 @@ export class LibraryService {
     if (book.collections) {
       this.mapCollectionTitleToId(book)
     }
-    this.database.deleteBook(this.userRef, book)
+    this.database.deleteBookForUser(this.userRef, book)
   }
 
   getLatestBooks() {

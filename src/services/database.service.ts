@@ -96,6 +96,10 @@ export class DatabaseService {
       )
   }
 
+  private subscribeTo(userRef: string) {
+    return this.db.list(`${this.rootUrl}/books`, ref => ref.orderByChild('ownerId').equalTo(userRef))
+  }
+
   private removeFromUser(collection: AngularFireList<string>, id: string) {
     collection.query.once('value').then(ids => {
       const ref = findKeyByValue(ids, id)
@@ -167,6 +171,10 @@ export class DatabaseService {
 
   private removeBookFromUser(userRef: string, id: string) {
     return this.removeFromUser(this.userBooksRef(userRef), id)
+  }
+
+  subscribeToBooksFromUser(userRef: string) {
+    return this.subscribeTo(userRef)
   }
 
   createBookForUser(userRef: string, book) {

@@ -1,9 +1,11 @@
 import { TestBed, inject } from '@angular/core/testing'
+import { cold, getTestScheduler } from 'jasmine-marbles'
 import { APP_BASE_HREF } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { AngularFireModule } from 'angularfire2'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
 import { AngularFireAuthModule } from 'angularfire2/auth'
+import { map } from 'rxjs/operators/map'
 import { environment } from 'environments/environment'
 import { AppRoutes } from '../app/app.routing'
 
@@ -136,6 +138,19 @@ describe('DatabaseService', () => {
       user = await database.createUser(user)
       book = await database.createBookForUser(user.id, book)
       collection = await database.createCollectionForUser(user.id, collection)
+    })
+
+    fit('subscribes to books for the user', () => {
+      // const values = { a: 1, b: 2, c: 3, x: 3, y: 7, z: 1 }
+      // const source = cold('-a-b-c-|', values)
+      // const expected = cold('-x-y-z-|', values)
+      // const result = source.pipe(map(x => x * 2))
+      // const source = cold()
+      const result = database.subscribeToBooksFromUser(user.id).valueChanges()
+      expect(result).toBeObservable({})
+      // createBooksForUser(user.id).then(() => {
+      //   database.subscribeToBooksFromUser(user.id).valueChanges(())
+      // })
     })
 
     it('creates a book for a user', done => {
