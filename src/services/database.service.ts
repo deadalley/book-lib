@@ -3,11 +3,7 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database'
 import { User } from '../database/models/user.model'
 import { Book } from '../database/models/book.model'
 import { Collection } from '../database/models/collection.model'
-import {
-  objectToArray,
-  findKeyByValue,
-  unique,
-} from '../utils/helpers'
+import { objectToArray, findKeyByValue, unique } from '../utils/helpers'
 import { environment } from 'environments/environment'
 import { Subject } from 'rxjs/Subject'
 
@@ -100,6 +96,13 @@ export class DatabaseService {
       )
   }
 
+  private removeFromUser(collection: AngularFireList<string>, id: string) {
+    collection.query.once('value').then(ids => {
+      const ref = findKeyByValue(ids, id)
+      return collection.remove(ref)
+    })
+  }
+
   /** USER **/
   private parseUser(user: User, id: string) {
     return {
@@ -121,7 +124,9 @@ export class DatabaseService {
   }
 
   findUserByParam(key: string, value: string) {
-    return this.findByParam(key, value, this.users, this.parseUser).then(user => user as User)
+    return this.findByParam(key, value, this.users, this.parseUser).then(
+      user => user as User
+    )
   }
 
   updateUser(id: string, params: object) {
@@ -130,7 +135,7 @@ export class DatabaseService {
   }
 
   /** BOOK **/
-  private parseBook(book: Book, id: string) {
+  private parseBook(book: Book, id: string): Book {
     return {
       ...book,
       id,
@@ -141,11 +146,27 @@ export class DatabaseService {
   }
 
   private createBook(book: Book) {
-    return this.books.push(book).then(res => this.parseBook(book, res.ref.key))
+    return this.books
+      .push(book)
+      .then(res => this.parseBook(book, res.ref.key)) as Promise<Book>
   }
 
   private getBooksByParam(key: string, value: string) {
-    return this.getByParams(key, value, this.books, this.parseBook)
+    return this.getByParams(key, value, this.books, this.parseBook) as Promise<
+      Book[]
+    >
+  }
+
+  private updateBook(book: Book) {
+    return this.books.update(book.id, book).then(() => book)
+  }
+
+  private deleteBook(book: Book) {
+    return this.books.remove(book.id).then(() => book)
+  }
+
+  private removeBookFromUser(userRef: string, id: string) {
+    return this.removeFromUser(this.userBooksRef(userRef), id)
   }
 
   createBookForUser(userRef: string, book) {
@@ -190,29 +211,18 @@ export class DatabaseService {
       )
 
       return Promise.all([
-        this.books.update(book.id, { ...oldBook, ...book }),
-        ...collectionsToAdd.map(collectionId =>
-          this.addBooksToCollection(collectionId, [book.id])
-        ),
-        ...collectionsToRemove.map(collectionId =>
-          this.removeBooksFromCollection(collectionId, [book.id])
-        ),
-      ])
+        this.updateBook({ ...oldBook, ...book }),
+        this.addBooksToCollections(collectionsToAdd, [book.id]),
+        this.removeBooksFromCollections(collectionsToRemove, [book.id]),
+      ]).then(() => book)
     })
   }
 
-  deleteBook(userRef: string, book: Book) {
+  deleteBookForUser(userRef: string, book: Book) {
     return Promise.all([
-      this.books.remove(book.id),
-      this.userBooksRef(userRef)
-        .query.once('value')
-        .then(bookIds => {
-          const bookRef = findKeyByValue(bookIds, book.id)
-          return this.userBooksRef(userRef).remove(bookRef)
-        }),
-      ...book.collections.map(collectionId =>
-        this.removeBooksFromCollection(collectionId, [book.id])
-      ),
+      this.deleteBook(book),
+      this.removeBookFromUser(userRef, book.id),
+      this.removeBooksFromCollections(book.collections, [book.id]),
     ])
   }
 
@@ -228,11 +238,23 @@ export class DatabaseService {
   private createCollection(collection: Collection) {
     return this.collections
       .push(collection)
-      .then(res => this.parseCollection(collection, res.ref.key))
+      .then(res => this.parseCollection(collection, res.ref.key)) as Promise<Collection>
   }
 
   private getCollectionsByParam(key: string, value: string) {
-    return this.getByParams(key, value, this.collections, this.parseCollection)
+    return this.getByParams(key, value, this.collections, this.parseCollection) as Promise<Collection[]>
+  }
+
+  private updateCollection(collection: Collection) {
+    return this.collections.update(collection.id, collection).then(() => collection)
+  }
+
+  private deleteCollection(collection: Collection) {
+    return this.collections.remove(collection.id).then(() => collection)
+  }
+
+  private removeCollectionFromUser(userRef: string, id: string) {
+    return this.removeFromUser(this.userCollectionsRef(userRef), id)
   }
 
   createCollectionForUser(userRef: string, collection) {
@@ -267,40 +289,26 @@ export class DatabaseService {
       const booksToRemove = oldBooks.filter(book => !newBooks.includes(book))
 
       return Promise.all([
-        this.collections.update(collection.id, {
-          ...oldCollection,
-          ...collection,
-        }),
-        ...booksToAdd.map(bookId =>
-          this.addCollectionsToBook(bookId, [collection.id])
-        ),
-        ...booksToRemove.map(bookId =>
-          this.removeCollectionsFromBook(bookId, [collection.id])
-        ),
+        this.updateCollection({ ...oldCollection, ...collection }),
+        this.addCollectionsToBooks(booksToAdd, [collection.id]),
+        this.removeCollectionsFromBooks(booksToRemove, [collection.id]),
       ])
     })
   }
 
-  deleteCollection(userRef: string, collection: Collection) {
+  deleteCollectionForUser(userRef: string, collection: Collection) {
     return Promise.all([
-      this.collections.remove(collection.id),
-      this.userCollectionsRef(userRef)
-        .query.once('value')
-        .then(collectionIds => {
-          const collectionRef = findKeyByValue(collectionIds, collection.id)
-          return this.userCollectionsRef(userRef).remove(collectionRef)
-        }),
-      ...collection.books.map(bookId =>
-        this.removeCollectionsFromBook(bookId, [collection.id])
-      ),
+      this.deleteCollection(collection),
+      this.removeCollectionFromUser(userRef, collection.id),
+      this.removeCollectionsFromBooks(collection.books, [collection.id]),
     ])
   }
 
-  addBooksToCollection(id: string, bookIds: string[]) {
-    return this.findCollectionById(id).then(collection => {
+  addBooksToCollection(collectionId: string, bookIds: string[]) {
+    return this.findCollectionById(collectionId).then(collection => {
       const booksForCollection = [...bookIds, ...collection.books]
       return this.collections
-        .update(id, {
+        .update(collectionId, {
           books: unique(booksForCollection),
         } as Collection)
         .then(() => booksForCollection)
@@ -309,21 +317,29 @@ export class DatabaseService {
 
   addBooksToCollections(collectionIds: string[], bookIds: string[]) {
     return Promise.all([
-      collectionIds.map(id => this.addBooksToCollection(id, bookIds)),
+      ...collectionIds.map(id => this.addBooksToCollection(id, bookIds)),
     ])
   }
 
-  removeBooksFromCollection(id: string, bookIds: string[]) {
-    return this.findCollectionById(id).then(collection => {
+  removeBooksFromCollection(collectionId: string, bookIds: string[]) {
+    return this.findCollectionById(collectionId).then(collection => {
       const booksForCollection = collection.books.filter(
         bookId => !bookIds.includes(bookId)
       )
       return this.collections
-        .update(id, {
+        .update(collectionId, {
           books: booksForCollection,
         } as Collection)
         .then(() => bookIds)
     })
+  }
+
+  removeBooksFromCollections(collectionsIds: string[], bookIds: string[]) {
+    return Promise.all([
+      ...collectionsIds.map(collectionId =>
+        this.removeBooksFromCollection(collectionId, bookIds)
+      ),
+    ])
   }
 
   addCollectionsToBook(id: string, collectionIds: string[]) {
@@ -339,7 +355,7 @@ export class DatabaseService {
 
   addCollectionsToBooks(bookIds: string[], collectionIds: string[]) {
     return Promise.all([
-      bookIds.map(id => this.addCollectionsToBook(id, collectionIds)),
+      ...bookIds.map(id => this.addCollectionsToBook(id, collectionIds)),
     ])
   }
 
@@ -354,5 +370,13 @@ export class DatabaseService {
         } as Book)
         .then(() => collectionIds)
     })
+  }
+
+  removeCollectionsFromBooks(bookIds: string[], collectionIds: string[]) {
+    return Promise.all([
+      ...bookIds.map(bookId =>
+        this.removeCollectionsFromBook(bookId, collectionIds)
+      ),
+    ])
   }
 }

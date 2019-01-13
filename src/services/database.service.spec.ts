@@ -227,7 +227,7 @@ describe('DatabaseService', () => {
 
     it('delete book', done => {
       createBook(user.id, { collections: [collection.id] }).then(bookFromDb => {
-        database.deleteBook(user.id, bookFromDb as Book).then(() => {
+        database.deleteBookForUser(user.id, bookFromDb as Book).then(() => {
           Promise.all([
             database.findBookById(bookFromDb.id).then(value => {
               expect(value).toBeNull()
@@ -383,7 +383,7 @@ describe('DatabaseService', () => {
     it('delete collection', done => {
       createCollection(user.id, { books: [book.id] }).then(collectionFromDb => {
         database
-          .deleteCollection(user.id, collectionFromDb as Collection)
+          .deleteCollectionForUser(user.id, collectionFromDb as Collection)
           .then(() => {
             Promise.all([
               database.findCollectionById(collectionFromDb.id).then(value => {
