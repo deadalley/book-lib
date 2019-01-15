@@ -6,7 +6,7 @@ import { Collection } from '../database/models/collection.model'
 import { objectToArray, findKeyByValue, unique } from '../utils/helpers'
 import { environment } from 'environments/environment'
 import { Subject } from 'rxjs/Subject'
-
+import { Observable } from 'rxjs'
 @Injectable()
 export class DatabaseService {
   users: AngularFireList<User>
@@ -96,8 +96,14 @@ export class DatabaseService {
       )
   }
 
-  private subscribeTo(userRef: string) {
-    return this.db.list(`${this.rootUrl}/books`, ref => ref.orderByChild('ownerId').equalTo(userRef))
+  private subscribeTo(
+    userRef: string,
+    model: string,
+    child: string = 'ownerId'
+  ) {
+    return this.db.list(`${this.rootUrl}/${model}`, ref =>
+      ref.orderByChild(child).equalTo(userRef)
+    )
   }
 
   private removeFromUser(collection: AngularFireList<string>, id: string) {
@@ -174,7 +180,7 @@ export class DatabaseService {
   }
 
   subscribeToBooksFromUser(userRef: string) {
-    return this.subscribeTo(userRef)
+    return <Observable<Book[]>>this.subscribeTo(userRef, 'books').valueChanges()
   }
 
   createBookForUser(userRef: string, book) {
@@ -185,7 +191,9 @@ export class DatabaseService {
           ...book.collections.map(collectionId => {
             return this.addBooksToCollection(collectionId, [bookInDatabase.id])
           }),
-        ]).then(() => bookInDatabase)
+        ])
+          .then(() => this.updateBook(bookInDatabase))
+          .then(() => bookInDatabase)
       }
     )
   }
@@ -246,15 +254,24 @@ export class DatabaseService {
   private createCollection(collection: Collection) {
     return this.collections
       .push(collection)
-      .then(res => this.parseCollection(collection, res.ref.key)) as Promise<Collection>
+      .then(res => this.parseCollection(collection, res.ref.key)) as Promise<
+      Collection
+    >
   }
 
   private getCollectionsByParam(key: string, value: string) {
-    return this.getByParams(key, value, this.collections, this.parseCollection) as Promise<Collection[]>
+    return this.getByParams(
+      key,
+      value,
+      this.collections,
+      this.parseCollection
+    ) as Promise<Collection[]>
   }
 
   private updateCollection(collection: Collection) {
-    return this.collections.update(collection.id, collection).then(() => collection)
+    return this.collections
+      .update(collection.id, collection)
+      .then(() => collection)
   }
 
   private deleteCollection(collection: Collection) {
@@ -265,6 +282,12 @@ export class DatabaseService {
     return this.removeFromUser(this.userCollectionsRef(userRef), id)
   }
 
+  subscribeToCollectionsFromUser(userRef: string) {
+    return <Observable<Collection[]>>(
+      this.subscribeTo(userRef, 'collections').valueChanges()
+    )
+  }
+
   createCollectionForUser(userRef: string, collection) {
     return this.createCollection({ ...collection, ownerId: userRef }).then(
       collectionInDatabase => {
@@ -273,7 +296,9 @@ export class DatabaseService {
           ...collectionInDatabase.books.map(bookId =>
             this.addCollectionsToBook(bookId, [collectionInDatabase.id])
           ),
-        ]).then(() => collectionInDatabase)
+        ])
+          .then(() => this.updateCollection(collectionInDatabase))
+          .then(() => collectionInDatabase)
       }
     )
   }

@@ -6,6 +6,8 @@ import { AngularFireDatabaseModule } from 'angularfire2/database'
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { environment } from 'environments/environment'
 import { AppRoutes } from '../app/app.routing'
+import { Subject } from 'rxjs/Subject'
+import { takeUntil } from 'rxjs/operators'
 
 import { AuthService } from './auth.service'
 import { SessionService } from './session.service'
@@ -18,11 +20,23 @@ import { Collection } from '../database/models/collection.model'
 import UserFactory from '../database/factories/user.factory'
 import BookFactory from '../database/factories/book.factory'
 import CollectionFactory from '../database/factories/collection.factory'
+import { Subscription } from 'rxjs'
+import { getUrlScheme } from '@angular/compiler'
 
-describe('LibraryService', () => {
+fdescribe('LibraryService', () => {
   let library: LibraryService
   let database: DatabaseService
   let auth: AuthService
+
+  let subscriptions: Subscription[] = []
+
+  const push = (subscription: Subscription) => {
+    subscriptions.push(subscription)
+  }
+
+  const flush = () => {
+    subscriptions.forEach(subscription => subscription.unsubscribe())
+  }
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -47,15 +61,19 @@ describe('LibraryService', () => {
     await auth.loginEmail(environment.testConfig)
   })
 
+  afterEach(() => {
+    flush()
+  })
+
   afterAll(() => {
     database.cleanTestBed()
     auth.logout()
     localStorage.clear()
   })
 
-  const user = UserFactory.build()
-  const book = BookFactory.build()
-  const collection = CollectionFactory.build()
+  let user = UserFactory.build()
+  let book = BookFactory.build()
+  let collection = CollectionFactory.build()
 
   const createBook = (ownerId, { collections = [] } = {}) => {
     const newBook = BookFactory.build({
@@ -90,23 +108,59 @@ describe('LibraryService', () => {
   ))
 
   describe('Library', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
+      user = await database.createUser(user)
+      book = await database.createBookForUser(user.id, book)
+      collection = await database.createCollectionForUser(user.id, collection)
+      library.userRef = user.id
       library.loadLibrary()
     })
 
-    it('triggers observable when book added', done => {
-      library.books$.subscribe(books => {
-        expect(books).toBeDefined()
-        expect(books.length).toEqual(1)
-        done()
-      })
+    it('loads books', done => {
+      push(
+        library.books$.subscribe(books => {
+          expect(books).toBeDefined()
+          expect(books.length).toEqual(1)
+          done()
+        })
+      )
+    })
+
+    it('loads collections', done => {
+      push(
+        library.collections$.subscribe(collections => {
+          expect(collections).toBeDefined()
+          expect(collections.length).toEqual(1)
+          done()
+        })
+      )
     })
   })
 
-  xdescribe('Book', () => {
-    xit('adds a book for a user', () => {
-      const newBook = BookFactory.build({ collections: [collection.title] })
-      library.addBook(newBook)
+  describe('Book', () => {
+    beforeEach(async () => {
+      user = await database.createUser(user)
+      book = await database.createBookForUser(user.id, book)
+      collection = await database.createCollectionForUser(user.id, collection)
+      library.userRef = user.id
+      library.loadLibrary()
+    })
+
+    fit('adds a book for a user', done => {
+      const newBook = BookFactory.build({
+        ownerId: user.id,
+        collections: [collection.title],
+      })
+      library.addBook(newBook).then(() => {
+        push(
+          library.books$.subscribe(books => {
+            expect(books).toBeDefined()
+            expect(books.length).toEqual(2)
+            expect(books[1].collections).toContain(collection.title)
+            done()
+          })
+        )
+      })
     })
   })
 })

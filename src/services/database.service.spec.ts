@@ -140,19 +140,6 @@ describe('DatabaseService', () => {
       collection = await database.createCollectionForUser(user.id, collection)
     })
 
-    fit('subscribes to books for the user', () => {
-      // const values = { a: 1, b: 2, c: 3, x: 3, y: 7, z: 1 }
-      // const source = cold('-a-b-c-|', values)
-      // const expected = cold('-x-y-z-|', values)
-      // const result = source.pipe(map(x => x * 2))
-      // const source = cold()
-      const result = database.subscribeToBooksFromUser(user.id).valueChanges()
-      expect(result).toBeObservable({})
-      // createBooksForUser(user.id).then(() => {
-      //   database.subscribeToBooksFromUser(user.id).valueChanges(())
-      // })
-    })
-
     it('creates a book for a user', done => {
       createBook(user.id, { collections: [collection.id] }).then(value => {
         expect(value.title).toEqual(book.title)
