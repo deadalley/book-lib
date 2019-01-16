@@ -67,58 +67,52 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
       rating: 0,
     })
 
+    // this.subscriptions.push(
+    // this.libraryService.findBook(this.bookId).subscribe(book => {
+    this.book = this.libraryService.findBook(this.bookId)
+    this.collections = this.book.collections ? this.book.collections : []
+    if (!this.book.collections) {
+      this.isLoading = false
+    }
+
     this.subscriptions.push(
-      this.libraryService.findBook(this.bookId).subscribe(book => {
-        console.log(book)
-        if (!book) {
+      this.libraryService.collections$.subscribe(collections => {
+        if (!collections) {
           return
         }
-        this.book = book
-        this.collections = this.book.collections ? this.book.collections : []
-        if (!this.book.collections) {
-          this.isLoading = false
-        }
-
-        this.subscriptions.push(
-          this.libraryService.collections$.subscribe(collections => {
-            if (!collections) {
-              return
-            }
-            this.isLoading = false
-            this.allCollections = collections
-              .filter(
-                collection => !this.collections.includes(collection.title)
-              )
-              .map(collection => collection.title)
-          })
-        )
-
-        if (this.book.goodreadsAuthorId) {
-          this.goodreadsService.getAuthor(author => {
-            this.author = parseAuthor(author)
-          }, this.book.goodreadsAuthorId)
-        }
-
-        this.form.patchValue({
-          title: this.book.title,
-          original: this.book.original,
-          author: this.book.author,
-          publisher: this.book.publisher,
-          year: this.book.year,
-          pages: this.book.pages,
-          notes: this.book.notes,
-          imageLarge: this.book.imageLarge,
-          imageSmall: this.book.imageSmall,
-          rating: this.book.rating,
-        })
-
-        this.genres = this.book.genres ? this.book.genres : []
-        this.tags = this.book.tags ? this.book.tags : []
-        this.selectedLanguage = this.book.language
-          ? this.book.language
-          : 'Select a language'
+        this.isLoading = false
+        this.allCollections = collections
+          .filter(collection => !this.collections.includes(collection.title))
+          .map(collection => collection.title)
       })
     )
+
+    if (this.book.goodreadsAuthorId) {
+      this.goodreadsService.getAuthor(author => {
+        this.author = parseAuthor(author)
+      }, this.book.goodreadsAuthorId)
+    }
+
+    this.form.patchValue({
+      title: this.book.title,
+      original: this.book.original,
+      author: this.book.author,
+      publisher: this.book.publisher,
+      year: this.book.year,
+      pages: this.book.pages,
+      notes: this.book.notes,
+      imageLarge: this.book.imageLarge,
+      imageSmall: this.book.imageSmall,
+      rating: this.book.rating,
+    })
+
+    this.genres = this.book.genres ? this.book.genres : []
+    this.tags = this.book.tags ? this.book.tags : []
+    this.selectedLanguage = this.book.language
+      ? this.book.language
+      : 'Select a language'
+    // })
+    // )
   }
 
   ngOnInit() {}

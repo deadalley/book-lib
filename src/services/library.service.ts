@@ -7,6 +7,7 @@ import { Book } from 'models/book.model'
 import { Collection } from 'models/collection.model'
 import { map, mergeMap } from 'rxjs/operators'
 import { Observable } from 'rxjs'
+import { omit } from 'lodash'
 @Injectable()
 export class LibraryService {
   private MAX_DATE = 7
@@ -157,7 +158,7 @@ export class LibraryService {
 
   deleteBook(book: Book) {
     this.database.deleteBookForUser(this._userRef, {
-      ...book,
+      ...omit(book, ['isSelected']),
       collections: this.mapCollectionTitleToId(book, this.collections.value),
     })
   }

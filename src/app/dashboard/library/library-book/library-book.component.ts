@@ -41,14 +41,15 @@ export class LibraryBookComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.subscription = this.libraryService
-      .findBook(this.localUrlPath)
-      .subscribe(book => {
-        if (book) {
-          this.isLoading = false
-          this.book = book
-        }
-      })
+    this.book = this.libraryService.findBook(this.localUrlPath)
+    // this.subscription = this.libraryService
+    //   .findBook(this.localUrlPath)
+    //   .subscribe(book => {
+    //     if (book) {
+    //       this.isLoading = false
+    //       this.book = book
+    //     }
+    //   })
   }
 
   deleteBook() {
