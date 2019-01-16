@@ -1,11 +1,9 @@
 import { TestBed, inject } from '@angular/core/testing'
-import { cold, getTestScheduler } from 'jasmine-marbles'
 import { APP_BASE_HREF } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { AngularFireModule } from 'angularfire2'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
 import { AngularFireAuthModule } from 'angularfire2/auth'
-import { map } from 'rxjs/operators/map'
 import { environment } from 'environments/environment'
 import { AppRoutes } from '../app/app.routing'
 

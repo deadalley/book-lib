@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms'
 import { ANIMATIONS } from 'utils/constants'
 import { DatabaseService } from 'services/database.service'
 import { AuthService } from 'services/auth.service'
-import { User } from 'interfaces/user'
+import { User } from 'models/user.model'
 
 @Component({
   moduleId: module.id,
@@ -11,9 +11,8 @@ import { User } from 'interfaces/user'
   selector: 'profile',
   templateUrl: 'profile.component.html',
   styleUrls: ['./profile.component.css'],
-  animations: [ANIMATIONS.CARD]
+  animations: [ANIMATIONS.CARD],
 })
-
 export class ProfileComponent implements OnInit, OnDestroy {
   form: FormGroup
   user: User
@@ -33,12 +32,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       name: this.user.name,
     })
-
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
-  ngOnDestroy() { }
+  ngOnDestroy() {}
 
   submit(formValues) {
     console.log('Updating user', formValues)

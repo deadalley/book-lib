@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
-import { Author } from 'interfaces/author'
+import { Author } from 'models/author.model'
 import { formatDate } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
 
@@ -7,17 +7,16 @@ import { ANIMATIONS } from 'utils/constants'
   selector: 'author-card',
   templateUrl: './author-card.component.html',
   styleUrls: ['./author-card.component.css'],
-  animations: [ANIMATIONS.CARD]
+  animations: [ANIMATIONS.CARD],
 })
-
 export class AuthorCardComponent implements OnInit {
   @Input() author: Author
   @Output() selected = new EventEmitter<Author>()
   formatDate = formatDate
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   select() {
     this.selected.emit(this.author)

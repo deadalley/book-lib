@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Location } from '@angular/common'
 import { Router } from '@angular/router'
-import { Collection } from 'interfaces/collection'
+import { Collection } from 'models/collection.model'
 import { formatDate } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
 import { LibraryService } from 'services/library.service'
@@ -12,9 +12,8 @@ import { LibraryService } from 'services/library.service'
   selector: 'library-edit-collection',
   templateUrl: 'library-edit-collection.component.html',
   styleUrls: ['./library-edit-collection.component.css'],
-  animations: [ANIMATIONS.CARD]
+  animations: [ANIMATIONS.CARD],
 })
-
 export class LibraryEditCollectionComponent implements OnInit, OnDestroy {
   form: FormGroup
   collection: Collection
@@ -41,21 +40,25 @@ export class LibraryEditCollectionComponent implements OnInit, OnDestroy {
   ) {
     this.form = this.fb.group({
       title: ['', Validators.required],
-      description: ''
+      description: '',
     })
-    this.subscription = this.libraryService.findCollection(this.collectionId).subscribe((collection) => {
-      if (!collection) { return }
-      this.collection = collection
-      this.isLoading = false
+    this.subscription = this.libraryService
+      .findCollection(this.collectionId)
+      .subscribe(collection => {
+        if (!collection) {
+          return
+        }
+        this.collection = collection
+        this.isLoading = false
 
-      this.form.patchValue({
-        title: this.collection.title,
-        description: this.collection.description
+        this.form.patchValue({
+          title: this.collection.title,
+          description: this.collection.description,
+        })
       })
-    })
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   ngOnDestroy() {
     this.subscription.unsubscribe()
@@ -69,7 +72,7 @@ export class LibraryEditCollectionComponent implements OnInit, OnDestroy {
       id: this.collection.id,
       title: formValues.title,
       description: formValues.description,
-      books: []
+      books: [],
     }
 
     console.log('Updating collection', this.collection)
@@ -77,24 +80,28 @@ export class LibraryEditCollectionComponent implements OnInit, OnDestroy {
 
     this.libraryService.addBooksToCollection(
       this.collection,
-      this.books.filter((book) => book.isSelected && !book.wasInCollection)
+      this.books.filter(book => book.isSelected && !book.wasInCollection)
     )
     this.libraryService.removeBooksFromCollection(
       this.collection,
-      this.books.filter((book) => !book.isSelected && book.wasInCollection)
+      this.books.filter(book => !book.isSelected && book.wasInCollection)
     )
     this.location.back()
   }
 
   loadBooks() {
-    this.bookSubscription = this.libraryService.books$.subscribe((books) => {
-      if (!books) { return }
+    this.bookSubscription = this.libraryService.books$.subscribe(books => {
+      if (!books) {
+        return
+      }
       this.isLoadingBooks = false
       this.books = books
-      this.books.forEach((book) => {
+      this.books.forEach(book => {
         book.canBeSelected = true
-        book.isSelected = book.collections && book.collections.includes(this.collection.title)
-        book.wasInCollection = book.collections && book.collections.includes(this.collection.title)
+        book.isSelected =
+          book.collections && book.collections.includes(this.collection.title)
+        book.wasInCollection =
+          book.collections && book.collections.includes(this.collection.title)
       })
     })
   }

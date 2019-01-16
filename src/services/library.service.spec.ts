@@ -6,29 +6,24 @@ import { AngularFireDatabaseModule } from 'angularfire2/database'
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { environment } from 'environments/environment'
 import { AppRoutes } from '../app/app.routing'
-import { Subject } from 'rxjs/Subject'
-import { takeUntil } from 'rxjs/operators'
 
 import { AuthService } from './auth.service'
 import { SessionService } from './session.service'
 import { DatabaseService } from './database.service'
 import { LibraryService } from './library.service'
 
-import { Book } from '../database/models/book.model'
-import { Collection } from '../database/models/collection.model'
 
 import UserFactory from '../database/factories/user.factory'
 import BookFactory from '../database/factories/book.factory'
 import CollectionFactory from '../database/factories/collection.factory'
-import { Subscription, of } from 'rxjs'
-import { getUrlScheme } from '@angular/compiler'
+import { Subscription } from 'rxjs'
 
 fdescribe('LibraryService', () => {
   let library: LibraryService
   let database: DatabaseService
   let auth: AuthService
 
-  let subscriptions: Subscription[] = []
+  const subscriptions: Subscription[] = []
 
   const push = (subscription: Subscription) => {
     subscriptions.push(subscription)

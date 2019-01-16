@@ -180,7 +180,7 @@ export class DatabaseService {
   }
 
   subscribeToBooksFromUser(userRef: string) {
-    return <Observable<Book[]>>this.subscribeTo(userRef, 'books').valueChanges()
+    return this.subscribeTo(userRef, 'books').valueChanges() as Observable<Book[]>
   }
 
   createBookForUser(userRef: string, book) {
@@ -283,9 +283,9 @@ export class DatabaseService {
   }
 
   subscribeToCollectionsFromUser(userRef: string) {
-    return <Observable<Collection[]>>(
+    return (
       this.subscribeTo(userRef, 'collections').valueChanges()
-    )
+    ) as Observable<Collection[]>
   }
 
   createCollectionForUser(userRef: string, collection) {

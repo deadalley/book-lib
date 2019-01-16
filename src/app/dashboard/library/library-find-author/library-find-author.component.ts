@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Router } from '@angular/router'
-import { Author } from 'interfaces/author'
-import { Book } from 'interfaces/book'
+import { Author } from 'models/author.model'
+import { Book } from 'models/book.model'
 import { GoodreadsService } from 'services/goodreads.service'
 import { LibraryService } from 'services/library.service'
 import { parseAuthor } from 'utils/helpers'
@@ -12,11 +12,10 @@ import { ANIMATIONS } from 'utils/constants'
   selector: 'library--findauthor',
   templateUrl: 'library-find-author.component.html',
   styleUrls: ['./library-find-author.component.css'],
-  animations: [ANIMATIONS.CARD]
+  animations: [ANIMATIONS.CARD],
 })
-
 export class LibraryFindAuthorComponent implements OnInit, OnDestroy {
-  authors = { } as Author[]
+  authors = {} as Author[]
   books: Book[]
   selectedAuthor: Author
   isLoading = true
@@ -32,17 +31,19 @@ export class LibraryFindAuthorComponent implements OnInit, OnDestroy {
     private libraryService: LibraryService,
     private goodreadsService: GoodreadsService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.goodreadsService.searchAuthor((authors) => {
+    this.goodreadsService.searchAuthor(authors => {
       this.isLoading = false
-      this.authors = authors.map((author) => parseAuthor(author))
+      this.authors = authors.map(author => parseAuthor(author))
     }, this.localUrlPath)
 
-    this.subscription = this.libraryService.books$.subscribe((books) => {
-      if (!books) { return }
-      this.books = books.map((book) => ({ ...book, canBeSelected: true }))
+    this.subscription = this.libraryService.books$.subscribe(books => {
+      if (!books) {
+        return
+      }
+      this.books = books.map(book => ({ ...book, canBeSelected: true }))
     })
   }
 
@@ -55,16 +56,18 @@ export class LibraryFindAuthorComponent implements OnInit, OnDestroy {
   }
 
   updateSelectedBooks(books: Book[]) {
-    this.hasSelectedBooks = books.some((book) => book.isSelected)
+    this.hasSelectedBooks = books.some(book => book.isSelected)
   }
 
   updateBooks() {
-    const selectedBooks = this.books.filter((book) => book.isSelected)
-    const hasGoodreadsAuthorId = selectedBooks.filter((book) => book.goodreadsAuthorId)
+    const selectedBooks = this.books.filter(book => book.isSelected)
+    const hasGoodreadsAuthorId = selectedBooks.filter(
+      book => book.goodreadsAuthorId
+    )
     if (hasGoodreadsAuthorId) {
       // open modal
     }
-    selectedBooks.forEach((book) => {
+    selectedBooks.forEach(book => {
       book.goodreadsAuthorId = this.selectedAuthor.id
       book.author = this.selectedAuthor.name
       this.libraryService.updateBook(book)

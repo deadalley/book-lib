@@ -1,5 +1,5 @@
 import * as Factory from 'factory.ts'
-import { Author } from '../interfaces/author'
+import { Author } from '../models/author.model'
 import { internet, lorem, name, random } from 'faker'
 
 const AuthorFactory = Factory.makeFactory<Author>({

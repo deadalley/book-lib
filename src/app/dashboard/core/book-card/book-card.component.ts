@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
-import { Book } from 'interfaces/book'
+import { Book } from 'models/book.model'
 import { formatDate } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
 
@@ -7,9 +7,8 @@ import { ANIMATIONS } from 'utils/constants'
   selector: 'book-card',
   templateUrl: './book-card.component.html',
   styleUrls: ['./book-card.component.css'],
-  animations: [ANIMATIONS.CARD]
+  animations: [ANIMATIONS.CARD],
 })
-
 export class BookCardComponent implements OnInit {
   @Input() book: Book
 
@@ -31,9 +30,9 @@ export class BookCardComponent implements OnInit {
       : `/dashboard/library/authors/find/${this.book.author}`
   }
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   select() {
     this.book.isSelected = !this.book.isSelected

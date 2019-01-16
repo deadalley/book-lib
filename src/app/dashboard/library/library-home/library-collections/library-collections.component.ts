@@ -1,6 +1,12 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild } from '@angular/core'
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  AfterViewInit,
+  ViewChild,
+} from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { Collection } from 'interfaces/collection'
+import { Collection } from 'models/collection.model'
 import { scrollToAnchor, removeSpaces } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
 import { LibraryService } from 'services/library.service'
@@ -10,13 +16,13 @@ import { LibraryService } from 'services/library.service'
   selector: 'library-collections',
   templateUrl: 'library-collections.component.html',
   styleUrls: [],
-  animations: [ANIMATIONS.CARD]
+  animations: [ANIMATIONS.CARD],
 })
-
-export class LibraryCollectionsComponent implements OnInit, OnDestroy, AfterViewInit {
+export class LibraryCollectionsComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   orderingMethod: string
   collections = [] as Collection[]
-  selectedCollection = { } as Collection
+  selectedCollection = {} as Collection
   isLoading = true
   tilesDisplay = true
   subscriptions = []
@@ -25,30 +31,47 @@ export class LibraryCollectionsComponent implements OnInit, OnDestroy, AfterView
 
   @ViewChild('deleteCollectionModal') modal
 
-  constructor(private libraryService: LibraryService, private route: ActivatedRoute) {
-    this.subscriptions.push(libraryService.collections$.subscribe((collections) => {
-      if (!collections) { return }
-      this.isLoading = false
-      this.collections = collections
-    }))
-    this.subscriptions.push(libraryService.tilesDisplay$.subscribe((tilesDisplay) => this.tilesDisplay = tilesDisplay))
-    this.subscriptions.push(this.route.fragment.subscribe(fragment => {
-      if (!fragment) { return }
-      scrollToAnchor(fragment, 100)
-    }))
-    this.subscriptions.push(this.route.queryParams.subscribe(params => {
-      this.orderingMethod = params['grouping']
-    }))
+  constructor(
+    private libraryService: LibraryService,
+    private route: ActivatedRoute
+  ) {
+    this.subscriptions.push(
+      libraryService.collections$.subscribe(collections => {
+        if (!collections) {
+          return
+        }
+        this.isLoading = false
+        this.collections = collections
+      })
+    )
+    this.subscriptions.push(
+      libraryService.tilesDisplay$.subscribe(
+        tilesDisplay => (this.tilesDisplay = tilesDisplay)
+      )
+    )
+    this.subscriptions.push(
+      this.route.fragment.subscribe(fragment => {
+        if (!fragment) {
+          return
+        }
+        scrollToAnchor(fragment, 100)
+      })
+    )
+    this.subscriptions.push(
+      this.route.queryParams.subscribe(params => {
+        this.orderingMethod = params['grouping']
+      })
+    )
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   ngAfterViewInit() {
     scrollToAnchor(this.route.snapshot.fragment, 100)
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe())
+    this.subscriptions.forEach(subscription => subscription.unsubscribe())
   }
 
   confirmDeleteCollection(collection: Collection) {

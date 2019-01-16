@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router'
 import { LibraryService } from 'services/library.service'
 import { upperCaseFirstLetter } from 'utils/helpers'
 import * as XLSX from 'xlsx'
-import { Book } from 'interfaces/book'
+import { Book } from 'models/book.model'
 import { LANGUAGES } from 'utils/constants'
 
 type AOA = any[][]

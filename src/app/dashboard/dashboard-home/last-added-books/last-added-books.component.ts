@@ -1,14 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
-import { Book } from 'interfaces/book'
+import { Book } from 'models/book.model'
 import { LibraryService } from 'services/library.service'
 
 @Component({
   moduleId: module.id,
   selector: 'last-added-books',
   templateUrl: 'last-added-books.component.html',
-  styleUrls: ['./last-added-books.component.css']
+  styleUrls: ['./last-added-books.component.css'],
 })
-
 export class LastAddedBooksComponent implements OnInit, OnDestroy {
   latestBooks: Book[]
   isLoading = true
@@ -16,8 +15,10 @@ export class LastAddedBooksComponent implements OnInit, OnDestroy {
   hasBooks = false
 
   constructor(private libraryService: LibraryService) {
-    this.subscription = libraryService.getLatestBooks().subscribe((books) => {
-      if (!books) { return }
+    this.subscription = libraryService.getLatestBooks().subscribe(books => {
+      if (!books) {
+        return
+      }
 
       this.isLoading = false
       this.latestBooks = books
@@ -25,7 +26,7 @@ export class LastAddedBooksComponent implements OnInit, OnDestroy {
     })
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   ngOnDestroy() {
     this.subscription.unsubscribe()

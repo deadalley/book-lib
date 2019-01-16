@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
-import { Book } from 'interfaces/book'
+import { Book } from 'models/book.model'
 import { ANIMATIONS } from 'utils/constants'
 import { formatDate } from 'utils/helpers'
 
@@ -8,9 +8,8 @@ import { formatDate } from 'utils/helpers'
   selector: 'books-table',
   templateUrl: 'books-table.component.html',
   styleUrls: ['./books-table.component.css'],
-  animations: [ANIMATIONS.CARD]
+  animations: [ANIMATIONS.CARD],
 })
-
 export class BooksTableComponent implements OnInit {
   @Input() sectionTitle: string
   @Input() description: string
@@ -31,19 +30,19 @@ export class BooksTableComponent implements OnInit {
   formatDate = formatDate
 
   get hasAuthor() {
-    return this.books.some((book) => !!book.author)
+    return this.books.some(book => !!book.author)
   }
 
   get hasDate() {
-    return this.books.some((book) => !!book.date)
+    return this.books.some(book => !!book.date)
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   updateSelectedBooks(selectedBook: Book) {
     selectedBook.isSelected = !selectedBook.isSelected
     this.selectedBook.emit(selectedBook)
-    this.selectedBooks.emit(this.books.filter((book) => book.isSelected))
+    this.selectedBooks.emit(this.books.filter(book => book.isSelected))
   }
 
   authorRoute(book: Book) {

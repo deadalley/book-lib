@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { BookButtonsComponent } from '../../../core/book-buttons/book-buttons.component'
-import { Book } from 'interfaces/book'
+import { Book } from 'models/book.model'
 import { LibraryService } from 'services/library.service'
 import { AuthService } from 'services/auth.service'
 import { cleanFormValues } from 'utils/helpers'
@@ -11,15 +11,14 @@ import { cleanFormValues } from 'utils/helpers'
   moduleId: module.id,
   selector: 'library-no-books',
   templateUrl: 'library-no-books.component.html',
-  styleUrls: ['library-no-books.component.css']
+  styleUrls: ['library-no-books.component.css'],
 })
-
 export class LibraryNoBooksComponent implements OnInit {
   form: FormGroup
   genres: string[]
   tags: string[]
   selectedLanguage: string
-  book = { } as Book
+  book = {} as Book
 
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
@@ -38,7 +37,7 @@ export class LibraryNoBooksComponent implements OnInit {
       year: 0,
       pages: 0,
       notes: '',
-      rating: 0
+      rating: 0,
     })
   }
 
@@ -55,7 +54,7 @@ export class LibraryNoBooksComponent implements OnInit {
     const newValues = {
       date: new Date().toISOString().substring(0, 10),
       ...cleanFormValues(values),
-      ...this.buttonsComponent.getValues()
+      ...this.buttonsComponent.getValues(),
     }
 
     Object.assign(this.book, newValues)
@@ -65,7 +64,7 @@ export class LibraryNoBooksComponent implements OnInit {
   }
 
   loginGoodreads() {
-    this.authService.goodreadsId.subscribe((goodreadsId) => {
+    this.authService.goodreadsId.subscribe(goodreadsId => {
       if (goodreadsId) {
         this.router.navigate(['dashboard/goodreads/import'])
       } else {

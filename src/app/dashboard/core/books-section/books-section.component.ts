@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
-import { Book } from 'interfaces/book'
+import { Book } from 'models/book.model'
 import { ANIMATIONS } from 'utils/constants'
 import { removeSpaces } from 'utils/helpers'
 
@@ -8,9 +8,8 @@ import { removeSpaces } from 'utils/helpers'
   selector: 'books-section',
   templateUrl: 'books-section.component.html',
   styleUrls: [],
-  animations: [ANIMATIONS.CARD]
+  animations: [ANIMATIONS.CARD],
 })
-
 export class BooksSectionComponent implements OnInit {
   @Input() sectionTitle: string
   @Input() description: string
@@ -29,10 +28,10 @@ export class BooksSectionComponent implements OnInit {
 
   removeSpaces = removeSpaces
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   updateSelectedBooks(selectedBook: Book) {
     this.selectedBook.emit(selectedBook)
-    this.selectedBooks.emit(this.books.filter((book) => book.isSelected))
+    this.selectedBooks.emit(this.books.filter(book => book.isSelected))
   }
 }

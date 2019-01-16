@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
-import { Book } from 'interfaces/book'
+import { Book } from 'models/book.model'
 import { removeSpaces } from 'utils/helpers'
 
 @Component({
@@ -8,7 +8,6 @@ import { removeSpaces } from 'utils/helpers'
   templateUrl: 'books-display.component.html',
   styleUrls: [],
 })
-
 export class BooksDisplayComponent implements OnInit {
   @Input() books: Book[]
 
@@ -30,10 +29,10 @@ export class BooksDisplayComponent implements OnInit {
   displayAll = false
   removeSpaces = removeSpaces
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   selectAll(selection: boolean) {
-    this.books.forEach((book) => book.isSelected = selection)
-    this.selectedBooks.emit(this.books.filter((book) => book.isSelected))
+    this.books.forEach(book => (book.isSelected = selection))
+    this.selectedBooks.emit(this.books.filter(book => book.isSelected))
   }
 }

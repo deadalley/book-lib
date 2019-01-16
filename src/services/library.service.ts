@@ -5,7 +5,6 @@ import { DatabaseService } from 'services/database.service'
 import { Collection as RawCollection } from 'database/models/collection.model'
 import { Book } from 'models/book.model'
 import { Collection } from 'models/collection.model'
-import * as _ from 'lodash'
 import { map, mergeMap } from 'rxjs/operators'
 import { Observable } from 'rxjs'
 @Injectable()
