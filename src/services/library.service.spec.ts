@@ -20,7 +20,7 @@ import { Collection } from '../database/models/collection.model'
 import UserFactory from '../database/factories/user.factory'
 import BookFactory from '../database/factories/book.factory'
 import CollectionFactory from '../database/factories/collection.factory'
-import { Subscription } from 'rxjs'
+import { Subscription, of } from 'rxjs'
 import { getUrlScheme } from '@angular/compiler'
 
 fdescribe('LibraryService', () => {
@@ -35,6 +35,7 @@ fdescribe('LibraryService', () => {
   }
 
   const flush = () => {
+    console.log('Flushing')
     subscriptions.forEach(subscription => subscription.unsubscribe())
   }
 
@@ -134,33 +135,6 @@ fdescribe('LibraryService', () => {
           done()
         })
       )
-    })
-  })
-
-  describe('Book', () => {
-    beforeEach(async () => {
-      user = await database.createUser(user)
-      book = await database.createBookForUser(user.id, book)
-      collection = await database.createCollectionForUser(user.id, collection)
-      library.userRef = user.id
-      library.loadLibrary()
-    })
-
-    fit('adds a book for a user', done => {
-      const newBook = BookFactory.build({
-        ownerId: user.id,
-        collections: [collection.title],
-      })
-      library.addBook(newBook).then(() => {
-        push(
-          library.books$.subscribe(books => {
-            expect(books).toBeDefined()
-            expect(books.length).toEqual(2)
-            expect(books[1].collections).toContain(collection.title)
-            done()
-          })
-        )
-      })
     })
   })
 })
