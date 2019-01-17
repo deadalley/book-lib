@@ -12,13 +12,12 @@ import { SessionService } from './session.service'
 import { DatabaseService } from './database.service'
 import { LibraryService } from './library.service'
 
-
 import UserFactory from '../database/factories/user.factory'
 import BookFactory from '../database/factories/book.factory'
 import CollectionFactory from '../database/factories/collection.factory'
 import { Subscription } from 'rxjs'
 
-fdescribe('LibraryService', () => {
+describe('LibraryService', () => {
   let library: LibraryService
   let database: DatabaseService
   let auth: AuthService
@@ -30,7 +29,6 @@ fdescribe('LibraryService', () => {
   }
 
   const flush = () => {
-    console.log('Flushing')
     subscriptions.forEach(subscription => subscription.unsubscribe())
   }
 
