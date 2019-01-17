@@ -73,6 +73,7 @@ export class LibraryService {
   }
 
   loadLibrary() {
+    console.log('Loading library...')
     const booksObservable = this.database.subscribeToBooksFromUser(
       this._userRef
     )
@@ -164,18 +165,8 @@ export class LibraryService {
   }
 
   getLatestBooks() {
-    this.books$.subscribe(books => {
-      if (!books) {
-        return
-      }
-      const filteredBooks = this.books
-        .getValue()
-        .filter(book => isAfter(book.date, subDays(new Date(), this.MAX_DATE)))
-        .reverse()
-
-      this.latestBooks.next(filteredBooks.slice(0, 4))
-    })
-    return this.latestBooks$
+    console.log('Loading latest books', this._userRef, this.MAX_DATE)
+    return this.database.subscribeToLatestBooks(this._userRef, this.MAX_DATE)
   }
 
   addCollection(collection: Collection) {

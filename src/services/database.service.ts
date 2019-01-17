@@ -180,7 +180,20 @@ export class DatabaseService {
   }
 
   subscribeToBooksFromUser(userRef: string) {
-    return this.subscribeTo(userRef, 'books').valueChanges() as Observable<Book[]>
+    return this.subscribeTo(userRef, 'books').valueChanges() as Observable<
+      Book[]
+    >
+  }
+
+  subscribeToLatestBooks(userRef: string, limit: number) {
+    return this.db
+      .list(`${this.rootUrl}/books`, ref =>
+        ref
+          .orderByChild('ownerId')
+          .equalTo(userRef)
+          .limitToLast(limit)
+      )
+      .valueChanges() as Observable<Book[]>
   }
 
   createBookForUser(userRef: string, book) {
@@ -283,9 +296,10 @@ export class DatabaseService {
   }
 
   subscribeToCollectionsFromUser(userRef: string) {
-    return (
-      this.subscribeTo(userRef, 'collections').valueChanges()
-    ) as Observable<Collection[]>
+    return this.subscribeTo(
+      userRef,
+      'collections'
+    ).valueChanges() as Observable<Collection[]>
   }
 
   createCollectionForUser(userRef: string, collection) {

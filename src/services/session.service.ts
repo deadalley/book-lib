@@ -38,12 +38,14 @@ export class SessionService {
       user = this.localUser
     }
 
+    console.log('Building session...')
     this._userRef.next(user.id)
     this.library.userRef = user.id
     this.library.loadLibrary()
   }
 
   destroySession() {
+    console.log('Destroying session...')
     localStorage.removeItem('user')
     this._userRef.next(null)
     this.library.userRef = null
