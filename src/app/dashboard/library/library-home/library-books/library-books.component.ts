@@ -27,9 +27,10 @@ export class LibraryBooksComponent implements OnInit, OnDestroy, AfterViewInit {
     private route: ActivatedRoute
   ) {
     this.subscriptions.push(
-      libraryService.books$.subscribe(
-        books => (this.allBooks = books as Book[])
-      )
+      libraryService.books$.subscribe(books => {
+        this.allBooks = books
+        this.books = books
+      })
     )
     this.subscriptions.push(
       libraryService.tilesDisplay$.subscribe(
