@@ -29,7 +29,6 @@
         routerLink="/dashboard/library/books/{{ book.id }}"
       >
         <img
-          [ngClass]="{ 'img-rounded': !book.date }"
           [src]="
             book.imageLarge
               ? book.imageLarge
@@ -42,7 +41,6 @@
       </a>
       <img
         *ngIf="!linkable"
-        [ngClass]="{ 'img-rounded': !book.date }"
         [src]="
           book.imageLarge
             ? book.imageLarge
@@ -52,11 +50,6 @@
         "
         alt="Book cover"
       />
-    </div>
-
-    <!-- Added date -->
-    <div class="row" style="padding: 0 15px 0 15px;" *ngIf="!!book.date">
-      <p class="tile-date">Added on {{ formatDate(book.date) }}</p>
     </div>
 
     <!-- Icons -->
@@ -79,7 +72,7 @@
         <i
           class="pe-7s-glasses tile-icon"
           [ngClass]="{ inactive: !book.read, active: book.read }"
-          tooltip="{{ book.read ? 'Read' : 'Unread' }}"
+          tooltip="{{ book.read ? 'Read' : 'Not read' }}"
           [isDisabled]="false"
           [tooltipAnimation]="true"
           placement="bottom"
