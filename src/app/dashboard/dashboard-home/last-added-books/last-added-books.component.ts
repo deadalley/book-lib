@@ -16,20 +16,20 @@ export class LastAddedBooksComponent implements OnInit, OnDestroy {
 
   constructor(private libraryService: LibraryService) {
     this.isLoading = false
-    this.subscription = libraryService.getLatestBooks().subscribe(books => {
-      if (!books) {
-        return
-      }
+    // this.subscription = libraryService.getLatestBooks().subscribe(books => {
+    //   if (!books) {
+    //     return
+    //   }
 
-      this.isLoading = false
-      this.latestBooks = books
-      this.hasBooks = this.latestBooks.length > 0
-    })
+    //   this.isLoading = false
+    //   this.latestBooks = books
+    //   this.hasBooks = this.latestBooks.length > 0
+    // })
   }
 
   ngOnInit() {}
 
   ngOnDestroy() {
-    this.subscription.unsubscribe()
+    // this.subscription.unsubscribe()
   }
 }

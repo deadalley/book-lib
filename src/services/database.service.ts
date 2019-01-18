@@ -13,7 +13,7 @@ export class DatabaseService {
   books: AngularFireList<Book>
   collections: AngularFireList<Collection>
   isLoggedIn$ = new Subject<boolean>()
-  rootUrl = environment.name === 'development' ? 'test' : ''
+  rootUrl = '' // environment.name === 'development' ? 'test' : ''
 
   private userBooksRef(userRef: string): AngularFireList<string> {
     return this.db.list(`${this.rootUrl}/users/${userRef}/books`)
@@ -186,12 +186,13 @@ export class DatabaseService {
   }
 
   subscribeToLatestBooks(userRef: string, limit: number) {
+    console.log(userRef)
+    return this.subscribeToBooksFromUser(userRef)
     return this.db
-      .list(`${this.rootUrl}/books`, ref =>
-        ref
-          .orderByChild('ownerId')
-          .equalTo(userRef)
-          .limitToLast(limit)
+      .list(
+        `${this.rootUrl}/books`,
+        ref => ref.orderByChild('ownerId').equalTo(userRef)
+        // .limitToLast(limit)
       )
       .valueChanges() as Observable<Book[]>
   }

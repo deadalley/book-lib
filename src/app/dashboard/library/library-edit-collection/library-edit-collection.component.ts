@@ -42,26 +42,21 @@ export class LibraryEditCollectionComponent implements OnInit, OnDestroy {
       title: ['', Validators.required],
       description: '',
     })
-    this.collection = this.libraryService.findCollection(this.collectionId)
-    this.form.patchValue({
-      title: this.collection.title,
-      description: this.collection.description,
-    })
 
-    // this.subscription = this.libraryService
-    //   .findCollection(this.collectionId)
-    //   .subscribe(collection => {
-    //     if (!collection) {
-    //       return
-    //     }
-    //     this.collection = collection
-    //     this.isLoading = false
+    this.subscription = this.libraryService
+      .findCollection(this.collectionId)
+      .subscribe(collection => {
+        if (!collection) {
+          return
+        }
+        this.collection = collection
+        this.isLoading = false
 
-    //     this.form.patchValue({
-    //       title: this.collection.title,
-    //       description: this.collection.description,
-    //     })
-    //   })
+        this.form.patchValue({
+          title: this.collection.title,
+          description: this.collection.description,
+        })
+      })
   }
 
   ngOnInit() {}
@@ -81,17 +76,7 @@ export class LibraryEditCollectionComponent implements OnInit, OnDestroy {
       books: this.books.filter(book => book.isSelected),
     }
 
-    console.log('Updating collection', this.collection)
     this.libraryService.updateCollection(this.collection)
-
-    // this.libraryService.addBooksToCollection(
-    //   this.collection,
-    //   this.books.filter(book => book.isSelected && !book.wasInCollection)
-    // )
-    // this.libraryService.removeBooksFromCollection(
-    //   this.collection,
-    //   this.books.filter(book => !book.isSelected && book.wasInCollection)
-    // )
     this.location.back()
   }
 

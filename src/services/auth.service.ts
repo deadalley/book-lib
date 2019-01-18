@@ -166,7 +166,7 @@ export class AuthService {
         localStorage.removeItem('userLoginCredentials')
         this.database.isLoggedIn$.next(false)
         this.session.destroySession()
-        this.router.navigate(['home'])
+        // this.router.navigate(['home'])
       })
       .catch(error => {
         console.log('Could not sign out')

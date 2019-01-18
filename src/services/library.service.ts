@@ -5,7 +5,7 @@ import { DatabaseService } from 'services/database.service'
 import { Collection as RawCollection } from 'database/models/collection.model'
 import { Book } from 'models/book.model'
 import { Collection } from 'models/collection.model'
-import { map, mergeMap } from 'rxjs/operators'
+import { map, mergeMap, find } from 'rxjs/operators'
 import { Observable } from 'rxjs'
 import { omit } from 'lodash'
 @Injectable()
@@ -147,7 +147,7 @@ export class LibraryService {
   }
 
   findBook(id: string) {
-    return this.books.value.find(book => book.id === id)
+    return this.books$.pipe(map(books => books.find(book => book.id === id)))
   }
 
   updateBook(book) {
@@ -177,15 +177,23 @@ export class LibraryService {
   }
 
   findCollection(id: string) {
-    return this.collections.value.find(collection => collection.id === id)
+    return this.collections$.pipe(
+      map(collections => collections.find(collection => collection.id === id))
+    )
   }
 
-  updateCollection(collection) {
-    return this.database.updateCollectionForUser(this._userRef, collection)
+  updateCollection(collection: Collection) {
+    return this.database.updateCollectionForUser(this._userRef, {
+      ...collection,
+      books: collection.books.map(book => book.id),
+    })
   }
 
-  deleteCollection(collection) {
-    return this.database.deleteCollectionForUser(this._userRef, collection)
+  deleteCollection(collection: Collection) {
+    return this.database.deleteCollectionForUser(this._userRef, {
+      ...collection,
+      books: collection.books.map(book => book.id),
+    })
   }
 
   addBooksToCollection(collection, books) {
