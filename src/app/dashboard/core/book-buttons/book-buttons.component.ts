@@ -4,15 +4,22 @@ import { Component, OnInit, Input } from '@angular/core'
   moduleId: module.id,
   selector: 'book-buttons',
   templateUrl: 'book-buttons.component.html',
-  styleUrls: ['./book-buttons.component.css']
+  styleUrls: ['./book-buttons.component.css'],
 })
-
 export class BookButtonsComponent implements OnInit {
   @Input() owned = false
   @Input() read = false
   @Input() favorite = false
+  @Input() wishlist = false
 
-  ngOnInit() { }
+  ngOnInit() {}
 
-  getValues() { return { owned: this.owned, read: this.read, favorite: this.favorite } }
+  getValues() {
+    return {
+      owned: this.owned,
+      read: this.read,
+      favorite: this.favorite,
+      wishlist: this.wishlist,
+    }
+  }
 }

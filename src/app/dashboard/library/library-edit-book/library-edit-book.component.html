@@ -237,9 +237,10 @@
 						<!-- About -->
 						<div class="form-group">
 							<book-buttons
-								[owned]="book.owned ? book.owned : false"
-								[read]="book.read ? book.read : false"
-								[favorite]="book.favorite ? book.favorite : false"
+								[owned]="!!book.owned"
+								[read]="!!book.read"
+								[favorite]="!!book.favorite"
+								[wishlist]="!!book.wishlist"
 							></book-buttons>
 						</div>
 					</div>

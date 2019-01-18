@@ -54,6 +54,24 @@ p {
   color: #333333;
 }
 
+.btn-danger {
+  color: #fff;
+  background-color: #e60e09;
+  border-color: #d43f3a;
+}
+
+.btn-danger.focus {
+  color: #fff;
+  background-color: #c9302c;
+  border-color: #761c19;
+}
+
+.btn-danger:hover {
+  color: #fff;
+  background-color: #dc3a36;
+  border-color: #ac2925;
+}
+
 .selected {
   background-color: rgb(230, 230, 230);
   -webkit-box-shadow: inset 0 6px 15px -6px #969696;
@@ -75,4 +93,20 @@ p {
 
 .about-icon-unavailable {
   color: #cacaca;
+}
+
+i.owned {
+  color: green;
+}
+
+i.wishlist {
+  color: royalblue;
+}
+
+i.read {
+  color: orangered;
+}
+
+i.favorite {
+  color: violet;
 }

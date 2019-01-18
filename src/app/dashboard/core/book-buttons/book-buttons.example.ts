@@ -7,11 +7,7 @@ import { BookButtonsComponent } from './book-buttons.component'
 storiesOf('Book Buttons', module)
   .addDecorator(
     moduleMetadata({
-      imports: [
-        CommonModule,
-        TooltipModule.forRoot(),
-        RouterModule
-      ],
+      imports: [CommonModule, TooltipModule.forRoot(), RouterModule],
     })
   )
   .add('default', () => ({
@@ -20,5 +16,6 @@ storiesOf('Book Buttons', module)
       owned: true,
       favorite: true,
       read: false,
+      wishlist: false,
     },
   }))

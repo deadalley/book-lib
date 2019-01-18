@@ -6,6 +6,7 @@ export interface Book {
   owned: boolean
   read: boolean
   favorite: boolean
+  wishlist: boolean
   date: string
   isbn?: number
   original?: string

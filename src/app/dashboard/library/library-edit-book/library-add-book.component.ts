@@ -32,8 +32,8 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
   fromGoodreads = false
   showImage = false
   subscription
-  loadingBook = true
-  loadingCollections = true
+  loadingBook = false
+  loadingCollections = false
   suggestedBooks: Book[]
   suggestedAuthors: Author[]
   goodreadsId: number
@@ -49,6 +49,7 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
     private goodreadsService: GoodreadsService,
     private router: Router
   ) {
+    this.allCollections = []
     this.subscription = this.libraryService.collections$.subscribe(
       collections => {
         if (!collections) {

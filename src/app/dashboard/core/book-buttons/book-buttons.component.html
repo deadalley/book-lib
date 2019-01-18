@@ -10,8 +10,8 @@
     <i class="pe-7s-check" style="font-size: 1.3em;"></i>
   </button>
   <button type="button"
-    (click) = "owned = !owned"
-    class="btn btn-default" [ngClass]="{'active': !owned}"
+    (click) = "wishlist = !wishlist"
+    class="btn btn-default" [ngClass]="{'active': wishlist}"
     tooltip="Wishlist"
     [isDisabled]="false"
     [tooltipAnimation]="true"

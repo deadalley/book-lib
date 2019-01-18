@@ -29,8 +29,20 @@ i.tile-icon {
   font-size: 1.4em;
 }
 
-i.active {
-  color: #333;
+i.owned {
+  color: green;
+}
+
+i.wishlist {
+  color: royalblue;
+}
+
+i.read {
+  color: orangered;
+}
+
+i.favorite {
+  color: violet;
 }
 
 i.inactive {

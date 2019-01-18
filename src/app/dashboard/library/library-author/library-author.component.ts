@@ -86,6 +86,7 @@ export class LibraryAuthorComponent implements OnInit, OnDestroy {
         owned: false,
         read: false,
         favorite: false,
+        wishlist: false,
         date: new Date().toISOString().substring(0, 10),
       }))
     this.libraryService.addBooks(booksToAdd)

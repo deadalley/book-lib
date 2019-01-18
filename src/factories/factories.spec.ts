@@ -14,6 +14,7 @@ describe('Factories', () => {
         owned: bool(),
         read: bool(),
         favorite: bool(),
+        wishlist: bool(),
         date: string(),
       }
       const book = BookFactory.build()

@@ -13,6 +13,7 @@ const BookFactory = Factory.makeFactory<Book>({
   owned: random.boolean(),
   read: random.boolean(),
   favorite: random.boolean(),
+  wishlist: random.boolean(),
   publisher: company.companyName(),
   year: date.past().getFullYear(),
   pages: random.number(),

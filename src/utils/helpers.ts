@@ -73,6 +73,7 @@ export const filterBookForUser = book =>
     'owned',
     'read',
     'favorite',
+    'wishlist',
     'date',
     'genres',
     'collections',

@@ -1,15 +1,9 @@
 <loading [visible]="isLoading"></loading>
 <page-navigator *ngIf="!isLoading">
   <div class="card" [@card]>
-    <div class="header">
-      <h4 class="title">{{book.title}}</h4>
-      <p class="category" placement="bottom"><a href="javascript:void(0);" [routerLink]="authorRoute">
-        {{book.author}}
-      </a></p>
-    </div>
     <div class="content">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="image book-image">
             <img
               [src]="book.imageLarge ? book.imageLarge : (book.imageSmall ? book.imageSmall : '/assets/img/no-book-cover.png')"
@@ -17,7 +11,20 @@
             >
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
+          <div class="row" style="padding-bottom: 10px">
+            <div class="header">
+              <h4 class="title">{{book.title}}</h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <label>Author:</label>
+                <p><a href="javascript:void(0);" [routerLink]="authorRoute">
+                  {{book.author}}
+                </a></p>
+            </div>
+          </div>
           <div class="row">
             <div class="col-xs-12">
               <label>Original title:</label>
@@ -59,20 +66,20 @@
               <label>About</label>
             </div>
             <div class="col-xs-3" style="text-align: center">
-              <i class="pe-7s-check about-icon" [ngClass]="{'about-icon-unavailable': !book.owned }"></i>
-              <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.owned }">Owned</div>
+              <i class="pe-7s-check about-icon" [ngClass]="{'about-icon-unavailable': !book.owned, 'owned': book.owned }"></i>
+              <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.owned, 'owned': book.owned }">Owned</div>
             </div>
             <div class="col-xs-3" style="text-align: center">
-              <i class="pe-7s-gift about-icon" [ngClass]="{'about-icon-unavailable': !!book.owned }"></i>
-              <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !!book.owned }">Wishlist</div>
+              <i class="pe-7s-gift about-icon" [ngClass]="{'about-icon-unavailable': !book.wishlist, 'wishlist': book.wishlist }"></i>
+              <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.wishlist, 'wishlist': book.wishlist }">Wishlist</div>
             </div>
             <div class="col-xs-3" style="text-align: center">
-              <i class="pe-7s-glasses about-icon" [ngClass]="{'about-icon-unavailable': !book.read }"></i>
-              <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.read }">Read</div>
+              <i class="pe-7s-glasses about-icon" [ngClass]="{'about-icon-unavailable': !book.read, 'read': book.read }"></i>
+              <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.read, 'read': book.read }">Read</div>
             </div>
             <div class="col-xs-3" style="text-align: center">
-              <i class="pe-7s-like about-icon" [ngClass]="{'about-icon-unavailable': !book.favorite }"></i>
-              <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.favorite }">Favorite</div>
+              <i class="pe-7s-like about-icon" [ngClass]="{'about-icon-unavailable': !book.favorite, 'favorite': book.favorite }"></i>
+              <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.favorite, 'favorite': book.favorite }">Favorite</div>
             </div>
           </div>
           <div class="row">
@@ -149,7 +156,7 @@
           <button type="button" class="btn btn-default" style="width: 100%" routerLink="./edit">Edit</button>
         </div>
         <div class="col-xs-12 col-md-6" style="padding-top: 2px; padding-bottom: 2px">
-          <button type="button" class="btn btn-default" style="width: 100%" (click)="this.modal.openModal()">Delete</button>
+          <button type="button" class="btn btn-danger" style="width: 100%" (click)="this.modal.openModal()">Delete</button>
         </div>
       </div>
     </div>
