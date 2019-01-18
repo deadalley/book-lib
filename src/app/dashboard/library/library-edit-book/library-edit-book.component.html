@@ -1,5 +1,5 @@
-<loading [visible]="isLoading"></loading>
-<page-navigator *ngIf="!isLoading">
+<loading [visible]="(loadingBook  || loadingCollections)"></loading>
+<page-navigator *ngIf="!(loadingBook  || loadingCollections)">
 	<div class="card" [@card]>
 		<div class="header">
 			<h4 class="title">{{title}}</h4>
@@ -23,7 +23,7 @@
 							<label>Book Title *</label>
 							<div style="display: flex">
 								<div style="width: 100%">
-									<input [(ngModel)]="bookTitle" type="text" class="form-control" placeholder="Your version title" formControlName="title">
+									<input type="text" class="form-control" placeholder="Your version title" formControlName="title">
 									<span class="help-block" *ngIf="!form.controls['title'].valid && form.controls['title'].touched">
 										Please enter a valid book title.
 									</span>
@@ -85,7 +85,7 @@
 								<label>Name *</label>
 								<div style="display: flex">
 									<div style="width: 100%">
-										<input [(ngModel)]="authorName" type="text" class="form-control" placeholder="Author name" formControlName="author">
+										<input type="text" class="form-control" placeholder="Author name" formControlName="author">
 										<span class="help-block" *ngIf="!form.controls['author'].valid && form.controls['author'].touched">
 											Please enter a valid author name.
 										</span>
@@ -190,11 +190,16 @@
 									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
-									<li *ngFor="let collection of allCollections; let i = index">
-										<a href="javascript:void(0);" (click)="moveCollection(allCollections, collections, i)">
-											{{collection}}
-										</a>
-									</li>
+									<ng-container *ngIf="allCollections.length" >
+										<li *ngFor="let collection of allCollections; let i = index">
+											<a href="javascript:void(0);" (click)="moveCollection(allCollections, collections, i)">
+												{{collection}}
+											</a>
+										</li>
+									</ng-container>
+										<li *ngIf="!allCollections.length">
+											<a><i>No collections</i></a>
+										</li>
 								</ul>
 							</div>
 							<ng-container *ngFor="let collection of collections; let i = index; let lastItem = last">
@@ -242,7 +247,7 @@
 						<!-- Rating -->
 						<div class="form-group">
 							<label>Rating</label><br>
-							<rating formControlName="rating" [titles]="['', '', '', '', '']"></rating>
+							<rating style="font-size: 20px" formControlName="rating" [titles]="['', '', '', '', '']"></rating>
 						</div>
 					</div>
         </div>

@@ -5,7 +5,7 @@ import { ANIMATIONS } from 'utils/constants'
 import { removeSpaces } from 'utils/helpers'
 import { LibraryService } from 'services/library.service'
 import { Router, ActivatedRoute } from '@angular/router'
-import { Observable } from 'rxjs'
+import { Subscription } from 'rxjs'
 
 @Component({
   moduleId: module.id,
@@ -17,7 +17,7 @@ import { Observable } from 'rxjs'
 export class LibraryBookComponent implements OnInit, OnDestroy {
   book = {} as Book
   isLoading = true
-  subscription
+  subscription: Subscription
 
   removeSpaces = removeSpaces
 
@@ -42,13 +42,14 @@ export class LibraryBookComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    const findBook = this.libraryService.findBook(this.localUrlPath)
-    this.subscription = findBook.subscribe(book => {
-      if (book) {
-        this.isLoading = false
-        this.book = book
-      }
-    })
+    this.subscription = this.libraryService
+      .findBook(this.localUrlPath)
+      .subscribe(book => {
+        if (book) {
+          this.isLoading = false
+          this.book = book
+        }
+      })
   }
 
   deleteBook() {

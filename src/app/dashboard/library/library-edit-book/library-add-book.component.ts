@@ -32,7 +32,8 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
   fromGoodreads = false
   showImage = false
   subscription
-  isLoading = false
+  loadingBook = true
+  loadingCollections = true
   suggestedBooks: Book[]
   suggestedAuthors: Author[]
   goodreadsId: number

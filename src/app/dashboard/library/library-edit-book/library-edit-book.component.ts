@@ -9,7 +9,7 @@ import { cleanFormValues, parseBook, parseAuthor } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
 import { LibraryService } from 'services/library.service'
 import { GoodreadsService } from 'services/goodreads.service'
-
+import { mergeMap, map, catchError, tap } from 'rxjs/operators'
 @Component({
   moduleId: module.id,
   selector: 'library-edit-book',
@@ -32,7 +32,8 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
   fromGoodreads = false
   showImage = true
   subscriptions = []
-  isLoading = true
+  loadingBook = true
+  loadingCollections = true
   suggestedBooks: Book[]
   suggestedAuthors: Author[]
   goodreadsId: number
@@ -53,7 +54,9 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
     private goodreadsService: GoodreadsService,
     private router: Router,
     private route: ActivatedRoute
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.form = this.fb.group({
       title: ['', Validators.required],
       original: '',
@@ -67,29 +70,39 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
       rating: 0,
     })
 
-    console.log(this.bookId)
+    this.loadCollections()
+    this.loadBook()
+  }
+
+  loadCollections() {
+    this.subscriptions.push(
+      this.libraryService.rawCollections$
+        .pipe(
+          mergeMap(collections =>
+            this.libraryService.rawBooks$.pipe(
+              map(books => {
+                const book = books.find(b => b.id === this.bookId)
+                this.loadingCollections = false
+                if (!book.collections) {
+                  return collections.map(c => c.title)
+                }
+                return collections
+                  .filter(c => !book.collections.includes(c.id))
+                  .map(c => c.title)
+              })
+            )
+          )
+        )
+        .subscribe(collections => (this.allCollections = collections))
+    )
+  }
+
+  loadBook() {
     this.subscriptions.push(
       this.libraryService.findBook(this.bookId).subscribe(book => {
         this.book = book
-        this.isLoading = false
-        this.collections = this.book.collections ? this.book.collections : []
-        if (!this.book.collections) {
-          this.isLoading = false
-        }
-
-        this.subscriptions.push(
-          this.libraryService.collections$.subscribe(collections => {
-            if (!collections) {
-              return
-            }
-            this.isLoading = false
-            this.allCollections = collections
-              .filter(
-                collection => !this.collections.includes(collection.title)
-              )
-              .map(collection => collection.title)
-          })
-        )
+        this.loadingBook = false
+        this.collections = this.book.collections || []
 
         if (this.book.goodreadsAuthorId) {
           this.goodreadsService.getAuthor(author => {
@@ -97,7 +110,6 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
           }, this.book.goodreadsAuthorId)
         }
 
-        console.log('waht', this.book)
         this.form.patchValue({
           title: this.book.title,
           original: this.book.original,
@@ -111,16 +123,14 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
           rating: this.book.rating,
         })
 
-        this.genres = this.book.genres ? this.book.genres : []
-        this.tags = this.book.tags ? this.book.tags : []
+        this.genres = this.book.genres || []
+        this.tags = this.book.tags || []
         this.selectedLanguage = this.book.language
           ? this.book.language
           : 'Select a language'
       })
     )
   }
-
-  ngOnInit() {}
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe())

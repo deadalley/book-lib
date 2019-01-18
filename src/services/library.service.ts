@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
-import { isAfter, subDays } from 'date-fns'
 import { DatabaseService } from 'services/database.service'
 import { Collection as RawCollection } from 'database/models/collection.model'
+import { Book as RawBook } from 'database/models/book.model'
 import { Book } from 'models/book.model'
 import { Collection } from 'models/collection.model'
 import { map, mergeMap, find } from 'rxjs/operators'
@@ -36,6 +36,9 @@ export class LibraryService {
   booksToImport$ = this.booksToImport.asObservable()
   private book$ = this.book.asObservable()
   private collection$ = this.collection.asObservable()
+
+  rawBooks$: Observable<RawBook[]>
+  rawCollections$: Observable<RawCollection[]>
 
   set userRef(ref) {
     this._userRef = ref
@@ -74,16 +77,14 @@ export class LibraryService {
 
   loadLibrary() {
     console.log('Loading library...')
-    const booksObservable = this.database.subscribeToBooksFromUser(
-      this._userRef
-    )
-    const collectionsObservable = this.database.subscribeToCollectionsFromUser(
+    this.rawBooks$ = this.database.subscribeToBooksFromUser(this._userRef)
+    this.rawCollections$ = this.database.subscribeToCollectionsFromUser(
       this._userRef
     )
 
-    this.books$ = collectionsObservable.pipe(
+    this.books$ = this.rawCollections$.pipe(
       mergeMap(_collections =>
-        booksObservable.pipe(
+        this.rawBooks$.pipe(
           map(_books =>
             _books.map(
               book =>
@@ -101,9 +102,9 @@ export class LibraryService {
     )
     this.books$.subscribe(this.books)
 
-    this.collections$ = booksObservable.pipe(
+    this.collections$ = this.rawBooks$.pipe(
       mergeMap(_books =>
-        collectionsObservable.pipe(
+        this.rawCollections$.pipe(
           map(_collections =>
             _collections.map(collection => ({
               ...collection,
