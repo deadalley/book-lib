@@ -1,11 +1,15 @@
 .card {
   margin-bottom: 30px;
   text-align: center;
-  height: 35vw;
-  max-height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+@media only screen and (min-width: 991px) {
+  .card {
+    height: 35vw;
+  }
 }
 
 .title {
