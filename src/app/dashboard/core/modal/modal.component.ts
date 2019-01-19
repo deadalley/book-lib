@@ -7,29 +7,30 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service'
   // tslint:disable-next-line:component-selector
   selector: 'modal',
   templateUrl: 'modal.component.html',
-  styleUrls: ['./modal.component.css']
+  styleUrls: ['./modal.component.css'],
 })
-
 export class ModalComponent implements OnInit {
   @Input() title: string
   @Input() content: string
   @Input() cancel: string
   @Input() accept: string
-  @Input() onAccept: Function
+  @Input() onAccept: () => {}
   modalRef: BsModalRef
 
   @ViewChild('modalTemplate') template: TemplateRef<any>
 
-  constructor(private modalService: BsModalService) { }
+  constructor(private modalService: BsModalService) {}
 
   openModal() {
     this.modalRef = this.modalService.show(this.template)
   }
 
-  closeModal(f: Function) {
+  closeModal(f: () => {}) {
     this.modalRef.hide()
-    if (f) { f() }
+    if (f) {
+      f()
+    }
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 }

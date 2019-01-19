@@ -7,7 +7,6 @@ import { objectToArray, findKeyByValue, unique } from '../utils/helpers'
 import { environment } from 'environments/environment'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { Observable } from 'rxjs'
-import { SessionService } from './session.service'
 @Injectable()
 export class DatabaseService {
   users: AngularFireList<User>
@@ -26,10 +25,7 @@ export class DatabaseService {
     return this.db.list(`${this.rootUrl}/users/${userRef}/collections`)
   }
 
-  constructor(
-    private db: AngularFireDatabase,
-    private session: SessionService
-  ) {
+  constructor(private db: AngularFireDatabase) {
     this.books = db.list(`${this.rootUrl}/books`)
     this.users = db.list(`${this.rootUrl}/users`)
     this.collections = db.list(`${this.rootUrl}/collections`)
