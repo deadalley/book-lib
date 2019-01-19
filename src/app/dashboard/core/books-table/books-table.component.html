@@ -1,8 +1,8 @@
-<div class="row">
+<div class="row" [@card]>
   <div class="col-md-12">
     <div class="card">
       <div class="content table-responsive table-full-width">
-        <table class="table table-hover table-striped" [@card]>
+        <table class="table table-hover table-striped">
           
           <thead>
             <tr>
@@ -29,21 +29,27 @@
               
               <td *ngIf="book.date" class="col">{{formatDate(book.date)}}</td>
               
-              <td *ngIf="withButtons" class="col-md-2">
+              <td *ngIf="withButtons" class="col-md-2 icons">
                 <i class="pe-7s-check tile-icon"
-                  [ngClass] = "{'pe-7s-check': book.owned, 'pe-7s-gift': !book.owned, 'active': true}"
-                  tooltip="{{book.owned ? 'Owned' : 'Wishlist'}}"
+                  [ngClass] = "{'inactive': !book.owned, 'owned': book.owned}"
+                  tooltip="{{book.owned ? 'Owned' : 'Not owned'}}"
                         [isDisabled]="false"
                         [tooltipAnimation]="true"
                         placement="bottom"></i>
+                <i class="pe-7s-gift tile-icon"
+                        [ngClass] = "{'inactive': !book.wishlist, 'wishlist': book.wishlist}"
+                        tooltip="{{book.wishlist ? 'In wishlist' : 'Not in wishlist'}}"
+                              [isDisabled]="false"
+                              [tooltipAnimation]="true"
+                              placement="bottom"></i>
                 <i class="pe-7s-glasses tile-icon"
-                  [ngClass] = "{'inactive': !book.read, 'active': book.read}"
+                  [ngClass] = "{'inactive': !book.read, 'read': book.read}"
                   tooltip="{{book.read ? 'Read' : 'read'}}"
                         [isDisabled]="false"
                         [tooltipAnimation]="true"
                         placement="bottom"></i>
                 <i class="pe-7s-like tile-icon"
-                  [ngClass] = "{'inactive': !book.favorite, 'active': book.favorite}"
+                  [ngClass] = "{'inactive': !book.favorite, 'favorite': book.favorite}"
                   tooltip="{{book.favorite ? 'Favorite' : 'Not a favorite'}}"
                         [isDisabled]="false"
                         [tooltipAnimation]="true"

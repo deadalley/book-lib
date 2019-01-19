@@ -30,10 +30,16 @@ export class BooksTableComponent implements OnInit {
   formatDate = formatDate
 
   get hasAuthor() {
+    if (!this.books) {
+      return
+    }
     return this.books.some(book => !!book.author)
   }
 
   get hasDate() {
+    if (!this.books) {
+      return
+    }
     return this.books.some(book => !!book.date)
   }
 
