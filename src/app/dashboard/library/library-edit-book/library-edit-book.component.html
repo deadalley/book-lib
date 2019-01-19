@@ -21,7 +21,7 @@
 					<!-- Title -->
 					<div class="col-md-6">
 						<div class="form-group" [ngClass] = "{'has-error': !form.controls['title'].valid && form.controls['title'].touched}">
-							<label>Book Title *</label>
+							<label>Book Title <span style="color: red">*</span></label>
 							<div style="display: flex">
 								<div style="width: 100%">
 									<input type="text" class="form-control" placeholder="Your version title" formControlName="title">
@@ -45,7 +45,7 @@
 					<!-- Author -->
 					<div class="col-md-6">
 						<div class="form-group" [ngClass] = "{'has-error': !form.controls['author'].valid && form.controls['author'].touched}">
-							<label>Author *</label>
+							<label>Author <span style="color: red">*</span></label>
 							<div style="display: flex">
 								<div style="width: 100%">
 										<input type="text" class="form-control" placeholder="Author name" formControlName="author">
@@ -237,6 +237,12 @@
 						placeholder="Leave notes, thoughts, or a full review of the book here :)"
 						value=""
 					></textarea>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12 required">
+						<span style="color: red">*</span> Required fields
+					</div>
 				</div>
 
 				<!-- Buttons -->

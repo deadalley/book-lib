@@ -89,3 +89,7 @@
   width: 100%;
   text-align: left;
 }
+
+.required {
+  color: #9A9A9A;
+}
