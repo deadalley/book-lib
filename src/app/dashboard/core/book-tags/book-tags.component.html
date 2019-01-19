@@ -17,7 +17,7 @@
     </span>
   </div>
   <div class="values">
-    <span *ngFor="let item of items; let lastItem = last; let i = index" [ngClass]="{tags: tags}">
+    <span *ngFor="let item of items; let lastItem = last; let i = index" class="value" [ngClass]="{tags: tags}">
       <i class="{{iconClass}} icon" *ngIf="iconClass"></i>
       {{item}}
       <a href="javascript:void(0);" (click)="removeItem(i)">

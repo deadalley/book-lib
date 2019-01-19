@@ -199,13 +199,14 @@
 										</li>
 								</ul>
 							</div>
-							<div class="item" *ngFor="let collection of collections; let i = index; let lastItem = last">
-								<i class="pe-7s-notebook"></i>
-								<a href="javascript:void(0);" (click)="moveCollection(collections, allCollections, i)">
-									<i class='pe-7s-close-circle'></i>
-								</a>
-								<a href="javascrip:void(0);"> {{collection}}</a>
-								{{lastItem ? '' : ', '}}
+							<div class="collections">
+								<span *ngFor="let collection of collections; let i = index; let lastItem = last" class="collection">
+									<i class="pe-7s-notebook icon"></i>
+									{{collection}}
+									<a href="javascript:void(0);" (click)="moveCollection(collections, allCollections, i)">
+										<i class='ti-close close-icon'></i>
+									</a>
+								</span>
 							</div>
 						</div>
 					</div>

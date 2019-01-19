@@ -99,3 +99,21 @@
   align-items: center;
   justify-content: left;
 }
+
+.collections {
+  padding: 5px 0;
+  font-size: 12px;
+}
+
+.collection {
+  margin: 0 4px;
+}
+
+.icon {
+  font-weight: bold;
+}
+
+.close-icon {
+  font-weight: bold;
+  font-size: 10px;
+}

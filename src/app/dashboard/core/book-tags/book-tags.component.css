@@ -3,6 +3,10 @@
   font-size: 12px;
 }
 
+.value {
+  margin: 0 4px;
+}
+
 .tags {
   background: #45cce8;
   border-radius: 4px;
