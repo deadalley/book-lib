@@ -27,7 +27,6 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
   author: Author
   title = 'Add new book'
   description = 'Add a new book to your library or wishlist'
-  button = 'Add book'
   fromGoodreads = false
   showImage = false
   subscription
@@ -37,9 +36,14 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
   suggestedAuthors: Author[]
   goodreadsId: number
   goodreadsAuthorId: number
+  _preventSubmit: boolean
 
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
+
+  set preventSubmit(value) {
+    this._preventSubmit = value
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -79,6 +83,10 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe()
+  }
+
+  enterKeyDown(event, formValues) {
+    this._preventSubmit ? event.preventDefault() : this.submit(formValues)
   }
 
   submit(formValues) {

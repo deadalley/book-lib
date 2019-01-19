@@ -1,19 +1,27 @@
 <label>{{title}}</label>
-<div class="input-group">
-  <input #tagInput type="text" class="form-control" placeholder="{{placeholder}}">
-  <span class="input-group-btn">
-    <button class="btn btn-default" type="button" (click)="pushItem(tagInput.value); tagInput.value = '';">
-      <i class="ti-plus"></i>
-    </button>
-  </span>
-</div>
-<div class="category">
-  <ng-container *ngFor="let item of items; let lastItem = last; let i = index">
-    <i class="{{iconClass}}" *ngIf="iconClass"></i>
-    {{item}}
-    <a href="javascript:void(0);" (click)="removeItem(i)">
-      <i class='pe-7s-close-circle' style="font-size: 1.1em"></i>
-    </a>
-    {{lastItem ? '' : ', '}}
-  </ng-container>
-</div>
+  <div class="input-group">
+    <input
+      #tagInput
+      type="text"
+      class="form-control"
+      placeholder="{{placeholder}}"
+      (keydown.enter)="pushItem(tagInput.value); tagInput.value = '';"
+      (focus)="hasFocus.emit(true)"
+      (blur)="hasFocus.emit(false)"
+    >
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="button" (click)="pushItem(tagInput.value); tagInput.value = '';">
+        <i class="ti-plus"></i>
+      </button>
+    </span>
+  </div>
+  <div class="category">
+    <ng-container *ngFor="let item of items; let lastItem = last; let i = index">
+      <i class="{{iconClass}}" *ngIf="iconClass"></i>
+      {{item}}
+      <a href="javascript:void(0);" (click)="removeItem(i)">
+        <i class='pe-7s-close-circle' style="font-size: 1.1em"></i>
+      </a>
+      {{lastItem ? '' : ', '}}
+    </ng-container>
+  </div>

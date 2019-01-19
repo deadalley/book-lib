@@ -4,9 +4,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
   moduleId: module.id,
   selector: 'book-tags',
   templateUrl: 'book-tags.component.html',
-  styleUrls: []
+  styleUrls: [],
 })
-
 export class BookTagsComponent implements OnInit {
   @Input() title: string
   @Input() placeholder: string
@@ -14,12 +13,11 @@ export class BookTagsComponent implements OnInit {
   @Input() items: string[]
 
   @Output() getItems = new EventEmitter<string[]>()
+  @Output() hasFocus = new EventEmitter<boolean>()
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-    this.items = []
-  }
+  ngOnInit() {}
 
   pushItem(value) {
     if (value !== '') {

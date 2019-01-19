@@ -7,7 +7,7 @@
 		</div>
 
 		<div class="content">
-			<form [formGroup]="form" (ngSubmit)="submit(form.value)">
+			<form (keydown.enter)="enterKeyDown($event, form.value)" [formGroup]="form">
 				<!-- Image -->
 				<div class="image book-image" *ngIf="showImage">
           <img
@@ -158,7 +158,8 @@
 								iconClass="pe-7s-folder"
 								[items]="genres"
 								(getItems)="getGenres($event)"
-							></book-tags>
+								(hasFocus)="preventSubmit = $event"
+								></book-tags>
 						</div>
 					</div>
 					<!-- Tags-->
@@ -170,7 +171,8 @@
 								placeholder="Add tags..."
 								iconClass="pe-7s-ticket"
 								[items]="tags"
-								(getItems)="getTags($event)"							
+								(getItems)="getTags($event)"
+								(hasFocus)="preventSubmit = $event"
 							></book-tags>
 						</div>
 					</div>
@@ -196,14 +198,14 @@
 										</li>
 								</ul>
 							</div>
-							<ng-container *ngFor="let collection of collections; let i = index; let lastItem = last">
+							<div class="item" *ngFor="let collection of collections; let i = index; let lastItem = last">
 								<i class="pe-7s-notebook"></i>
-								<a href="javascrip:void(0);"> {{collection}}</a>
 								<a href="javascript:void(0);" (click)="moveCollection(collections, allCollections, i)">
-									<i class='pe-7s-close-circle' style="font-size: 1.1em"></i>
+									<i class='pe-7s-close-circle'></i>
 								</a>
+								<a href="javascrip:void(0);"> {{collection}}</a>
 								{{lastItem ? '' : ', '}}
-							</ng-container>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -252,7 +254,7 @@
 						<button type="button" class="btn btn-default" style="width: 100%" (click)="this.router.navigate(['../../'], { relativeTo: this.route })">Cancel</button>
 					</div>
 					<div class="col-md-6">
-						<button type="submit" class="btn btn-success" style="width: 100%" [disabled]="!form.valid">{{button}}</button>
+						<button type="button" class="btn btn-success" style="width: 100%" (click)="submit(form.value)" [disabled]="!form.valid">Save</button>
 					</div>
 				</div>
 			</form>

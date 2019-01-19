@@ -27,7 +27,6 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
   author: Author
   title = 'Edit book'
   description = 'Edit book'
-  button = 'Update book'
   fromGoodreads = false
   showImage = true
   subscriptions = []
@@ -37,6 +36,7 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
   suggestedAuthors: Author[]
   goodreadsId: number
   goodreadsAuthorId: number
+  _preventSubmit: boolean
 
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
@@ -44,6 +44,10 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
   get bookId(): string {
     const splitUrl = this.router.url.split('/')
     return splitUrl[splitUrl.length - 2]
+  }
+
+  set preventSubmit(value) {
+    this._preventSubmit = value
   }
 
   constructor(
@@ -132,6 +136,10 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe())
+  }
+
+  enterKeyDown(event, formValues) {
+    this._preventSubmit ? event.preventDefault() : this.submit(formValues)
   }
 
   submit(formValues) {
