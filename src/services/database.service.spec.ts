@@ -49,9 +49,11 @@ describe('DatabaseService', () => {
     localStorage.clear()
   })
 
-  let user = UserFactory.build()
-  let book = BookFactory.build()
-  let collection = CollectionFactory.build()
+  const userModel = UserFactory.build()
+  const bookModel = BookFactory.build()
+  const collectionModel = CollectionFactory.build()
+
+  let user, book, collection
 
   const createBook = (ownerId, { collections = [] } = {}) => {
     const newBook = BookFactory.build({
@@ -86,10 +88,8 @@ describe('DatabaseService', () => {
   ))
 
   describe('User', () => {
-    let user = UserFactory.build()
-
     beforeEach(async () => {
-      user = await database.createUser(user)
+      user = await database.createUser(userModel)
     })
 
     it('creates a user', done => {
@@ -133,9 +133,12 @@ describe('DatabaseService', () => {
 
   describe('Book', () => {
     beforeEach(async () => {
-      user = await database.createUser(user)
-      book = await database.createBookForUser(user.id, book)
-      collection = await database.createCollectionForUser(user.id, collection)
+      user = await database.createUser(userModel)
+      book = await database.createBookForUser(user.id, bookModel)
+      collection = await database.createCollectionForUser(
+        user.id,
+        collectionModel
+      )
     })
 
     it('creates a book for a user', done => {
@@ -168,7 +171,7 @@ describe('DatabaseService', () => {
         books.push(book)
         database.getBooksForUser(user.id).then(value => {
           expect(value.length).toEqual(books.length)
-          books.forEach(book => expect(value).toContain(book))
+          books.forEach(_book => expect(value).toContain(_book))
           done()
         })
       })
@@ -176,7 +179,7 @@ describe('DatabaseService', () => {
 
     it('get books for collection', done => {
       createBooksForUser(user.id).then(books => {
-        const bookIds = books.map(book => book.id)
+        const bookIds = books.map(_book => _book.id)
         createCollection(user.id, { books: bookIds }).then(newCollection => {
           database
             .addCollectionsToBooks(bookIds, [newCollection.id])
@@ -254,7 +257,7 @@ describe('DatabaseService', () => {
     it('adds books to collection', done => {
       createBooksForUser(user.id).then(books => {
         database
-          .addBooksToCollection(collection.id, books.map(book => book.id))
+          .addBooksToCollection(collection.id, books.map(_book => _book.id))
           .then(bookIds => {
             database.findCollectionById(collection.id).then(value => {
               expect(value.books).toContain(bookIds[0])
@@ -267,11 +270,11 @@ describe('DatabaseService', () => {
     })
 
     it('add collections to book', done => {
-      createBook(user.id, { collections: [collection.id] }).then(book => {
+      createBook(user.id, { collections: [collection.id] }).then(_book => {
         database
-          .addCollectionsToBook(book.id, [collection.id])
+          .addCollectionsToBook(_book.id, [collection.id])
           .then(collectionIds => {
-            database.findBookById(book.id).then(value => {
+            database.findBookById(_book.id).then(value => {
               expect(value.collections).toContain(collectionIds[0])
               done()
             })
@@ -281,15 +284,15 @@ describe('DatabaseService', () => {
 
     it('removes books from collection', done => {
       createBooksForUser(user.id).then(books => {
-        createCollection(user.id, { books: books.map(book => book.id) }).then(
-          collection => {
+        createCollection(user.id, { books: books.map(_book => _book.id) }).then(
+          _collection => {
             database
-              .removeBooksFromCollection(collection.id, [
+              .removeBooksFromCollection(_collection.id, [
                 books[0].id,
                 books[1].id,
               ])
               .then(bookIds => {
-                database.findCollectionById(collection.id).then(value => {
+                database.findCollectionById(_collection.id).then(value => {
                   bookIds.forEach(bookId =>
                     expect(value.books).not.toContain(bookId)
                   )
@@ -319,7 +322,7 @@ describe('DatabaseService', () => {
 
     it('creates a collection for a user', done => {
       createBooksForUser(user.id).then(books => {
-        const bookIds = books.map(book => book.id)
+        const bookIds = books.map(_book => _book.id)
         createCollection(user.id, { books: bookIds }).then(value => {
           expect(value.title).toEqual(collection.title)
           expect(value.description).toEqual(collection.description)
@@ -330,8 +333,8 @@ describe('DatabaseService', () => {
             .getBooksForCollection(value.id, user.id)
             .then(booksFromDb => {
               expect(booksFromDb.length).toEqual(bookIds.length)
-              booksFromDb.forEach(book =>
-                expect(book.collections).toContain(value.id)
+              booksFromDb.forEach(_book =>
+                expect(_book.collections).toContain(value.id)
               )
               done()
             })

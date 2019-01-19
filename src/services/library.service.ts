@@ -6,7 +6,7 @@ import { Book as RawBook } from 'database/models/book.model'
 import { Book } from 'models/book.model'
 import { Collection } from 'models/collection.model'
 import { map, mergeMap } from 'rxjs/operators'
-import { Observable } from 'rxjs'
+import { Observable } from 'rxjs/Observable'
 import { omit } from 'lodash'
 import { SessionService } from './session.service'
 @Injectable()

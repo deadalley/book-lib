@@ -14,7 +14,6 @@ import { environment } from 'environments/environment'
 export class AuthService {
   private readonly localDomain = environment.localDomain
   private readonly clientID = environment.auth0Config.clientId
-  private readonly clientSecret = environment.auth0Config.clientSecret
   private readonly domain = environment.auth0Config.domain
   private readonly redirectURI = environment.auth0Config.redirectUri
   private readonly defaultParams = {

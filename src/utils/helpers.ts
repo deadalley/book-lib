@@ -36,6 +36,7 @@ export const arrayToObjectWithId = (array: any[]) => {
   if (!array) {
     return
   }
+  // tslint:disable-next-line:ban-comma-operator
   return array.reduce((obj, item) => ((obj[item.id] = item), obj), {})
 }
 

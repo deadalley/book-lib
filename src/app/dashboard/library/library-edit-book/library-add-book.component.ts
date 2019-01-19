@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Location } from '@angular/common'
-import { Router } from '@angular/router'
 import { Book } from 'models/book.model'
 import { Author } from 'models/author.model'
 import { ANIMATIONS } from 'utils/constants'
@@ -46,8 +45,7 @@ export class LibraryAddBookComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private location: Location,
     private libraryService: LibraryService,
-    private goodreadsService: GoodreadsService,
-    private router: Router
+    private goodreadsService: GoodreadsService
   ) {
     this.allCollections = []
     this.subscription = this.libraryService.collections$.subscribe(

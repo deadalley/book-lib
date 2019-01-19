@@ -4,8 +4,8 @@ import { Book } from 'models/book.model'
 import { ANIMATIONS } from 'utils/constants'
 import { removeSpaces } from 'utils/helpers'
 import { LibraryService } from 'services/library.service'
-import { Router, ActivatedRoute } from '@angular/router'
-import { Subscription } from 'rxjs'
+import { Router } from '@angular/router'
+import { Subscription } from 'rxjs/Subscription'
 
 @Component({
   moduleId: module.id,
@@ -37,8 +37,7 @@ export class LibraryBookComponent implements OnInit, OnDestroy {
   constructor(
     public libraryService: LibraryService,
     private location: Location,
-    private router: Router,
-    private route: ActivatedRoute
+    private router: Router
   ) {}
 
   ngOnInit() {

@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
-import { Location } from '@angular/common'
 import { Router, ActivatedRoute } from '@angular/router'
 import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
 import { Book } from 'models/book.model'
@@ -49,7 +48,6 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private location: Location,
     private libraryService: LibraryService,
     private goodreadsService: GoodreadsService,
     private router: Router,

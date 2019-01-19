@@ -6,7 +6,7 @@ import { Collection } from '../database/models/collection.model'
 import { objectToArray, findKeyByValue, unique } from '../utils/helpers'
 import { environment } from 'environments/environment'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
-import { Observable } from 'rxjs'
+import { Observable } from 'rxjs/Observable'
 @Injectable()
 export class DatabaseService {
   users: AngularFireList<User>

@@ -69,31 +69,6 @@ describe('LibraryService', () => {
   let book = BookFactory.build()
   let collection = CollectionFactory.build()
 
-  const createBook = (ownerId, { collections = [] } = {}) => {
-    const newBook = BookFactory.build({
-      ownerId,
-      collections,
-    })
-    return database.createBookForUser(ownerId, newBook)
-  }
-
-  const createCollection = (ownerId, { books = [] } = {}) => {
-    const newCollection = CollectionFactory.build({
-      ownerId,
-      books,
-    })
-    return database.createCollectionForUser(ownerId, newCollection)
-  }
-
-  const createBooksForUser = ownerId => {
-    const newBook = BookFactory.build()
-    return Promise.all([
-      database.createBookForUser(ownerId, newBook),
-      database.createBookForUser(ownerId, newBook),
-      database.createBookForUser(ownerId, newBook),
-    ])
-  }
-
   it('should be created', inject(
     [DatabaseService],
     (service: DatabaseService) => {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer, ViewChild, ElementRef } from '@angular/core'
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core'
 import { ROUTES } from '../../sidebar/sidebar.component'
 import { Router } from '@angular/router'
 import { Location } from '@angular/common'
@@ -6,9 +6,8 @@ import { Location } from '@angular/common'
 @Component({
   moduleId: module.id,
   selector: 'navbar-cmp',
-  templateUrl: 'navbar.component.html'
+  templateUrl: 'navbar.component.html',
 })
-
 export class NavbarComponent implements OnInit {
   private listTitles: any[]
   private nativeElement: Node
@@ -17,7 +16,11 @@ export class NavbarComponent implements OnInit {
 
   @ViewChild('navbar-cmp') button
 
-  constructor(location: Location, private router: Router, private renderer: Renderer, private element: ElementRef) {
+  constructor(
+    location: Location,
+    private router: Router,
+    private element: ElementRef
+  ) {
     this.nativeElement = element.nativeElement
     this.sidebarVisible = false
   }
@@ -30,7 +33,7 @@ export class NavbarComponent implements OnInit {
 
   getTitle() {
     const splitUrl = this.router.url.split('/')
-    return splitUrl[2].replace(/^\w/, (chr) => chr.toUpperCase())
+    return splitUrl[2].replace(/^\w/, chr => chr.toUpperCase())
   }
 
   sidebarToggle() {
@@ -38,7 +41,7 @@ export class NavbarComponent implements OnInit {
     const body = document.getElementsByTagName('body')[0]
 
     if (this.sidebarVisible === false) {
-      setTimeout(function() {
+      setTimeout(() => {
         toggleButton.classList.add('toggled')
       }, 500)
       body.classList.add('nav-open')
