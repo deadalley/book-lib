@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core'
 import { Router, ActivatedRoute, Params } from '@angular/router'
-import { LibraryService } from 'services/library.service'
+import { UiService } from 'services/ui.service'
 import { upperCaseFirstLetter } from 'utils/helpers'
 import * as XLSX from 'xlsx'
 import { Book } from 'models/book.model'
@@ -40,7 +40,7 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
   constructor(
     public router: Router,
     private route: ActivatedRoute,
-    private libraryService: LibraryService
+    private libraryService: UiService
   ) {
     this.subscriptions.push(
       this.libraryService.tagsDisplay$.subscribe(
@@ -68,11 +68,11 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
   }
 
   toggleTilesDisplay() {
-    this.libraryService.toggleTilesDisplay(!this.tilesDisplay)
+    this.libraryService.tilesDisplay = !this.tilesDisplay
   }
 
   toggleTagsDisplay() {
-    this.libraryService.toggleTagsDisplay()
+    this.libraryService.tagsDisplay = !this.tagsDisplay
   }
 
   setOrdering(order: string) {
@@ -137,11 +137,11 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
       )
       .filter(book => !!book.title && !!book.author)
 
-    this.libraryService.setBooksToImport = books
-    this.router.navigate(['books/import'], {
-      relativeTo: this.route,
-      queryParams: {},
-    })
+    // this.libraryService.setBooksToImport = books
+    // this.router.navigate(['books/import'], {
+    //   relativeTo: this.route,
+    //   queryParams: {},
+    // })
 
     // include Date when parsing book for uploading
   }

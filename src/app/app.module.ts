@@ -16,19 +16,19 @@ import { DatabaseService } from '../services/database.service'
 import { LibraryService } from '../services/library.service'
 import { GoodreadsService } from '../services/goodreads.service'
 import { SessionService } from '../services/session.service'
+import { UiService } from '../services/ui.service'
 import { environment } from 'environments/environment'
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   providers: [
     AuthService,
     AuthGuardService,
     DatabaseService,
     LibraryService,
     GoodreadsService,
-    SessionService
+    SessionService,
+    UiService,
   ],
   imports: [
     RouterModule.forRoot(AppRoutes),
@@ -37,8 +37,8 @@ import { environment } from 'environments/environment'
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

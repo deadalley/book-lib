@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router'
 import { Book } from 'models/book.model'
 import { LibraryService } from 'services/library.service'
 import { scrollToAnchor } from 'utils/helpers'
+import { UiService } from 'services/ui.service'
 
 @Component({
   moduleId: module.id,
@@ -24,6 +25,7 @@ export class LibraryBooksComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private libraryService: LibraryService,
+    private uiService: UiService,
     private route: ActivatedRoute
   ) {
     this.subscriptions.push(
@@ -33,7 +35,7 @@ export class LibraryBooksComponent implements OnInit, OnDestroy, AfterViewInit {
       })
     )
     this.subscriptions.push(
-      this.libraryService.tilesDisplay$.subscribe(
+      this.uiService.tilesDisplay$.subscribe(
         tilesDisplay => (this.tilesDisplay = tilesDisplay)
       )
     )

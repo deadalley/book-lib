@@ -9,18 +9,12 @@ import { map, mergeMap } from 'rxjs/operators'
 import { Observable } from 'rxjs/Observable'
 import { omit } from 'lodash'
 import { SessionService } from './session.service'
+
 @Injectable()
 export class LibraryService {
   private MAX_DATE = 7
-  private bookOrdering = new BehaviorSubject<string>('no grouping')
-  private collectionOrdering = new BehaviorSubject<string>('no grouping')
-  private tilesDisplay = new BehaviorSubject<boolean>(true)
-  private tagsDisplay = new BehaviorSubject<boolean>(false)
   private books = new BehaviorSubject<Book[]>(undefined)
-  private latestBooks = new BehaviorSubject<Book[]>(undefined)
   private collections = new BehaviorSubject<Collection[]>(undefined)
-  private book = new BehaviorSubject<Book>(undefined)
-  private collection = new BehaviorSubject<Collection>(undefined)
   private booksToImport = new BehaviorSubject<Book[]>(undefined)
 
   private _userRef: string
@@ -28,16 +22,7 @@ export class LibraryService {
   books$: Observable<Book[]>
   latestBooks$: Observable<Book[]>
   collections$: Observable<Collection[]>
-  // TODO: _tilesDisplay$
-  // and then create getters
-  tilesDisplay$ = this.tilesDisplay.asObservable()
-  tagsDisplay$ = this.tagsDisplay.asObservable()
-  // collections$ = this.collections.asObservable()
-  // books$ = this.books.asObservable()
-  // latestBooks$ = this.latestBooks.asObservable()
   booksToImport$ = this.booksToImport.asObservable()
-  private book$ = this.book.asObservable()
-  private collection$ = this.collection.asObservable()
 
   rawBooks$: Observable<RawBook[]>
   rawCollections$: Observable<RawCollection[]>
@@ -132,27 +117,6 @@ export class LibraryService {
       )
     )
     this.collections$.subscribe(this.collections)
-  }
-
-  toggleTilesDisplay(toggle: boolean) {
-    this.tilesDisplay.next(toggle)
-  }
-
-  toggleTagsDisplay(toggle?: boolean) {
-    if (toggle) {
-      this.tagsDisplay.next(toggle)
-    } else {
-      this.tagsDisplay.next(!this.tagsDisplay.getValue())
-    }
-  }
-
-  // TODO: setters
-  setBookOrderingMethod(method: string) {
-    this.bookOrdering.next(method)
-  }
-
-  setCollectionOrderingMethod(method: string) {
-    this.collectionOrdering.next(method)
   }
 
   addBook(book: Book) {

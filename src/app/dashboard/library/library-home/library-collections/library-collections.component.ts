@@ -10,6 +10,7 @@ import { Collection } from 'models/collection.model'
 import { scrollToAnchor, removeSpaces } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
 import { LibraryService } from 'services/library.service'
+import { UiService } from 'services/ui.service'
 
 @Component({
   moduleId: module.id,
@@ -33,10 +34,11 @@ export class LibraryCollectionsComponent
 
   constructor(
     private libraryService: LibraryService,
+    private uiService: UiService,
     private route: ActivatedRoute
   ) {
     this.subscriptions.push(
-      libraryService.collections$.subscribe(collections => {
+      this.libraryService.collections$.subscribe(collections => {
         if (!collections) {
           return
         }
@@ -45,7 +47,7 @@ export class LibraryCollectionsComponent
       })
     )
     this.subscriptions.push(
-      libraryService.tilesDisplay$.subscribe(
+      this.uiService.tilesDisplay$.subscribe(
         tilesDisplay => (this.tilesDisplay = tilesDisplay)
       )
     )
