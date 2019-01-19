@@ -5,9 +5,10 @@ import { Collection as RawCollection } from 'database/models/collection.model'
 import { Book as RawBook } from 'database/models/book.model'
 import { Book } from 'models/book.model'
 import { Collection } from 'models/collection.model'
-import { map, mergeMap, find } from 'rxjs/operators'
-import { Observable } from 'rxjs'
+import { map, mergeMap, find, takeUntil, takeWhile } from 'rxjs/operators'
+import { Observable, of } from 'rxjs'
 import { omit } from 'lodash'
+import { SessionService } from './session.service'
 @Injectable()
 export class LibraryService {
   private MAX_DATE = 7
@@ -25,6 +26,7 @@ export class LibraryService {
   private _userRef: string
 
   books$: Observable<Book[]>
+  latestBooks$: Observable<Book[]>
   collections$: Observable<Collection[]>
   // TODO: _tilesDisplay$
   // and then create getters
@@ -32,7 +34,7 @@ export class LibraryService {
   tagsDisplay$ = this.tagsDisplay.asObservable()
   // collections$ = this.collections.asObservable()
   // books$ = this.books.asObservable()
-  latestBooks$ = this.latestBooks.asObservable()
+  // latestBooks$ = this.latestBooks.asObservable()
   booksToImport$ = this.booksToImport.asObservable()
   private book$ = this.book.asObservable()
   private collection$ = this.collection.asObservable()
@@ -47,7 +49,17 @@ export class LibraryService {
     this.booksToImport.next(books)
   }
 
-  constructor(private database: DatabaseService) {}
+  constructor(
+    private database: DatabaseService,
+    private session: SessionService
+  ) {
+    this.session.userRef.subscribe(value => {
+      this._userRef = value
+      if (value) {
+        this.loadLibrary()
+      }
+    })
+  }
 
   private mapCollectionTitleToId(book: Book, collections: Collection[]) {
     if (!book.collections || !collections) {
@@ -101,6 +113,11 @@ export class LibraryService {
       )
     )
     this.books$.subscribe(this.books)
+
+    this.latestBooks$ = this.database.subscribeToLatestBooks(
+      this._userRef,
+      this.MAX_DATE
+    )
 
     this.collections$ = this.rawBooks$.pipe(
       mergeMap(_books =>
@@ -166,7 +183,6 @@ export class LibraryService {
   }
 
   getLatestBooks() {
-    console.log('Loading latest books', this._userRef, this.MAX_DATE)
     return this.database.subscribeToLatestBooks(this._userRef, this.MAX_DATE)
   }
 

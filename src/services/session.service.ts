@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
 import { User } from 'models/user.model'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
-import { LibraryService } from './library.service'
 
 @Injectable()
 export class SessionService {
@@ -23,8 +22,6 @@ export class SessionService {
     return JSON.parse(localStorage.getItem('user')).id
   }
 
-  constructor(private library: LibraryService) {}
-
   setGoodreadsId(id: string) {
     this.localUser = { ...this.localUser, goodreadsId: id }
 
@@ -40,14 +37,11 @@ export class SessionService {
 
     console.log('Building session...')
     this._userRef.next(user.id)
-    this.library.userRef = user.id
-    this.library.loadLibrary()
   }
 
   destroySession() {
     console.log('Destroying session...')
     localStorage.removeItem('user')
     this._userRef.next(null)
-    this.library.userRef = null
   }
 }

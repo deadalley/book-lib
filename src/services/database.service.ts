@@ -5,15 +5,19 @@ import { Book } from '../database/models/book.model'
 import { Collection } from '../database/models/collection.model'
 import { objectToArray, findKeyByValue, unique } from '../utils/helpers'
 import { environment } from 'environments/environment'
-import { Subject } from 'rxjs/Subject'
-import { Observable } from 'rxjs'
+import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { Observable, iif, of } from 'rxjs'
+import { mergeMap } from 'rxjs/operators'
+import { SessionService } from './session.service'
 @Injectable()
 export class DatabaseService {
   users: AngularFireList<User>
   books: AngularFireList<Book>
   collections: AngularFireList<Collection>
-  isLoggedIn$ = new Subject<boolean>()
+  isLoggedIn = new BehaviorSubject<boolean>(false)
   rootUrl = '' // environment.name === 'development' ? 'test' : ''
+
+  isLoggedIn$ = this.isLoggedIn.asObservable()
 
   private userBooksRef(userRef: string): AngularFireList<string> {
     return this.db.list(`${this.rootUrl}/users/${userRef}/books`)
@@ -23,7 +27,10 @@ export class DatabaseService {
     return this.db.list(`${this.rootUrl}/users/${userRef}/collections`)
   }
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(
+    private db: AngularFireDatabase,
+    private session: SessionService
+  ) {
     this.books = db.list(`${this.rootUrl}/books`)
     this.users = db.list(`${this.rootUrl}/users`)
     this.collections = db.list(`${this.rootUrl}/collections`)
@@ -186,13 +193,12 @@ export class DatabaseService {
   }
 
   subscribeToLatestBooks(userRef: string, limit: number) {
-    console.log(userRef)
-    return this.subscribeToBooksFromUser(userRef)
     return this.db
-      .list(
-        `${this.rootUrl}/books`,
-        ref => ref.orderByChild('ownerId').equalTo(userRef)
-        // .limitToLast(limit)
+      .list(`${this.rootUrl}/books`, ref =>
+        ref
+          .orderByChild('ownerId')
+          .equalTo(userRef)
+          .limitToLast(limit)
       )
       .valueChanges() as Observable<Book[]>
   }

@@ -92,7 +92,7 @@ export class AuthService {
   private processResponse(user: object, params: object = {}) {
     return this.createUserInDatabase(user, params).then(userInDatabase => {
       localStorage.setItem('userLoginCredentials', JSON.stringify(user))
-      this.database.isLoggedIn$.next(true)
+      this.database.isLoggedIn.next(true)
       this.session.buildSession(userInDatabase)
       this.router.navigate(['library'])
     })
@@ -164,9 +164,9 @@ export class AuthService {
         console.log('Sucessefully signed out')
 
         localStorage.removeItem('userLoginCredentials')
-        this.database.isLoggedIn$.next(false)
+        this.database.isLoggedIn.next(false)
         this.session.destroySession()
-        // this.router.navigate(['home'])
+        this.router.navigate(['home'])
       })
       .catch(error => {
         console.log('Could not sign out')
