@@ -9,6 +9,8 @@ import { ANIMATIONS } from 'utils/constants'
 import { LibraryService } from 'services/library.service'
 import { GoodreadsService } from 'services/goodreads.service'
 import { mergeMap, map } from 'rxjs/operators'
+import { DatabaseService } from 'services/database.service'
+import { SessionService } from 'services/session.service'
 @Component({
   moduleId: module.id,
   selector: 'library-edit-book',
@@ -17,6 +19,14 @@ import { mergeMap, map } from 'rxjs/operators'
   animations: [ANIMATIONS.CARD],
 })
 export class LibraryEditBookComponent implements OnInit, OnDestroy {
+  get bookId(): string {
+    const splitUrl = this.router.url.split('/')
+    return splitUrl[splitUrl.length - 2]
+  }
+
+  set preventSubmit(value) {
+    this._preventSubmit = value
+  }
   form: FormGroup
   allCollections: string[]
   collections: string[]
@@ -40,19 +50,15 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
 
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
+  @ViewChild('imageUpload') imageUpload
 
-  get bookId(): string {
-    const splitUrl = this.router.url.split('/')
-    return splitUrl[splitUrl.length - 2]
-  }
-
-  set preventSubmit(value) {
-    this._preventSubmit = value
-  }
+  trigger
 
   constructor(
     private fb: FormBuilder,
+    private sessionService: SessionService,
     private libraryService: LibraryService,
+    private databaseService: DatabaseService,
     private goodreadsService: GoodreadsService,
     private router: Router,
     private route: ActivatedRoute
@@ -165,6 +171,19 @@ export class LibraryEditBookComponent implements OnInit, OnDestroy {
 
     this.libraryService.updateBook(this.book)
     this.router.navigate(['../../'], { relativeTo: this.route })
+  }
+
+  uploadImage(event) {
+    this.databaseService
+      .uploadBookCover(
+        this.sessionService.userId,
+        this.book.id,
+        event.target.files[0]
+      )
+      .subscribe(imagePath => {
+        this.book.imageLarge = imagePath
+        this.form.patchValue({ imageLarge: imagePath, imageSmall: imagePath })
+      })
   }
 
   getGenres(genres: string[]) {

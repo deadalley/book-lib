@@ -8,14 +8,6 @@
 
 		<div class="content">
 			<form (keydown.enter)="enterKeyDown($event, form.value)" [formGroup]="form">
-				<!-- Image -->
-				<div class="image book-image" *ngIf="showImage">
-          <img
-            [src]="book.imageLarge ? book.imageLarge : (book.imageSmall ? book.imageSmall : '/assets/img/no-book-cover.png')"
-            alt="Book cover"
-          >
-				</div>
-
 				<!-- First row -->
 				<div class="row">
 					<!-- Title -->
@@ -54,13 +46,14 @@
 										</span>
 									</div>								
 									<button type="button"
-									(click)="searchAuthorOnGoodreads(authorName)"
-									class="btn btn-default"
-									style="margin-left: 13px"
-									tooltip="Search Goodreads"
-									[isDisabled]="false"
-									[tooltipAnimation]="true"
-									placement="bottom">
+										(click)="searchAuthorOnGoodreads(authorName)"
+										class="btn btn-default"
+										style="margin-left: 13px"
+										tooltip="Search Goodreads"
+										[isDisabled]="false"
+										[tooltipAnimation]="true"
+										placement="bottom"
+									>
 									<span class="pe-7s-search" aria-hidden="true" style="font-size: 1.2em;"></span>
 								</button>
 							</div>
@@ -212,37 +205,52 @@
 					</div>
 				</div>
 
-        <!-- Image -->
-        <div class="row">
-					<div class="col-xs-12">
-						<!-- Title -->
-						<div class="form-group" [ngClass] = "{'has-error': !form.controls['imageLarge'].valid && form.controls['imageLarge'].touched}">
-							<label>
-                Book Cover
-                <a href="javascript:void(0);" (click)="this.form.patchValue({ imageLarge: '', imageSmall: '' })">
-                  <i class="pe-7s-close-circle" style="font-size: 100%"></i>
-                </a>
-              </label>
-							<input type="text" class="form-control" placeholder="Link to the book cover" formControlName="imageLarge">
-							<span class="help-block" *ngIf="!form.controls['imageLarge'].valid && form.controls['imageLarge'].touched">
-								Please enter a valid link to your book cover.
-							</span>
+				<!-- Fifth row -->
+				<div class="row">
+					<div class="col-md-3">
+						<!-- Image -->
+						<div class="image book-image" *ngIf="showImage">
+							<img
+								class="book-image"
+								[src]="book.imageLarge ? book.imageLarge : (book.imageSmall ? book.imageSmall : '/assets/img/no-book-cover.png')"
+								alt="Book cover"
+								style="cursor: pointer"
+								(click)="imageUpload.click()"
+							>
+							<input style="display: none" [hidden]="true" #imageUpload type="file" (change)="uploadImage($event)">
 						</div>
-          </div>
-				</div>
-
+					</div>
+					<!-- Path -->
+					<div class="col-md-9">
+						<div class="row">
+							<div class="col-xs-12 form-group" [ngClass] = "{'has-error': !form.controls['imageLarge'].valid && form.controls['imageLarge'].touched}">
+								<label>
+									Book Cover
+									<a href="javascript:void(0);" (click)="this.form.patchValue({ imageLarge: '', imageSmall: '' })">
+										<i class="pe-7s-close-circle" style="font-size: 100%"></i>
+									</a>
+								</label>
+								<input type="text" class="form-control" placeholder="Link to the book cover" formControlName="imageLarge">
+								<span class="help-block" *ngIf="!form.controls['imageLarge'].valid && form.controls['imageLarge'].touched">
+									Please enter a valid link to your book cover.
+								</span>
+							</div>
+						</div>
 				<!-- Notes -->
-				<div class="form-group">
-					<label>Notes</label>
-					<textarea
-						formControlName="notes"
-						rows="5"
-						class="form-control"
-						placeholder="Leave notes, thoughts, or a full review of the book here :)"
-						value=""
-					></textarea>
+						<div class="row">
+							<div class="col-xs-12 form-group">
+								<label>Notes</label>
+								<textarea
+									formControlName="notes"
+									rows="8"
+									class="form-control"
+									placeholder="Leave notes, thoughts, or a full review of the book here :)"
+									value=""
+								></textarea>
+							</div>
+						</div>
+					</div>
 				</div>
-
 				<div class="row">
 					<div class="col-xs-12 required">
 						<span style="color: red">*</span> Required fields

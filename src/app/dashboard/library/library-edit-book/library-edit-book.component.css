@@ -2,14 +2,18 @@
   display: block;
   margin: auto;
   border-radius: 0;
-  width: 30%;
-  height:auto;
+  text-align: right;
 }
 
 @media only screen and (max-width: 991px) {
   .book-image {
-    width: 100%;
+    height: 100%;
   }
+}
+
+.book-image {
+  height: inherit;
+  width: auto;
 }
 
 .author-image {

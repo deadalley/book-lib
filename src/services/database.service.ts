@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database'
+import { AngularFireStorage } from 'angularfire2/storage'
 import { User } from '../database/models/user.model'
 import { Book } from '../database/models/book.model'
 import { Collection } from '../database/models/collection.model'
@@ -25,7 +26,10 @@ export class DatabaseService {
     return this.db.list(`${this.rootUrl}/users/${userRef}/collections`)
   }
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(
+    private db: AngularFireDatabase,
+    private storage: AngularFireStorage
+  ) {
     this.books = db.list(`${this.rootUrl}/books`)
     this.users = db.list(`${this.rootUrl}/users`)
     this.collections = db.list(`${this.rootUrl}/collections`)
@@ -427,5 +431,15 @@ export class DatabaseService {
         this.removeCollectionsFromBook(bookId, collectionIds)
       ),
     ])
+  }
+
+  private uploadFile(file, filePath: string) {
+    const path = this.storage.ref(filePath)
+    path.put(file)
+    return path.getDownloadURL()
+  }
+
+  uploadBookCover(userRef: string, bookId: string, file) {
+    return this.uploadFile(file, `images/${userRef}/${bookId}.jpg`)
   }
 }

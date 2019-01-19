@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { AngularFireModule } from 'angularfire2'
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
+import { AngularFireStorageModule } from 'angularfire2/storage'
 
 import { AppComponent } from './app.component'
 import { AppRoutes } from './app.routing'
@@ -38,6 +39,7 @@ import { environment } from 'environments/environment'
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
   ],
   bootstrap: [AppComponent],
 })
