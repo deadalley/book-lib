@@ -5,6 +5,7 @@
       type="text"
       class="form-control"
       placeholder="{{placeholder}}"
+      (keyup)="keyupHandle($event, tagInput.value)"
       (keydown.enter)="pushItem(tagInput.value); tagInput.value = '';"
       (focus)="hasFocus.emit(true)"
       (blur)="hasFocus.emit(false)"
@@ -15,13 +16,12 @@
       </button>
     </span>
   </div>
-  <div class="category">
-    <ng-container *ngFor="let item of items; let lastItem = last; let i = index">
-      <i class="{{iconClass}}" *ngIf="iconClass"></i>
+  <div class="values">
+    <span *ngFor="let item of items; let lastItem = last; let i = index" [ngClass]="{tags: tags}">
+      <i class="{{iconClass}} icon" *ngIf="iconClass"></i>
       {{item}}
       <a href="javascript:void(0);" (click)="removeItem(i)">
-        <i class='pe-7s-close-circle' style="font-size: 1.1em"></i>
+        <i class='ti-close close-icon' [ngClass]="{white: tags}"></i>
       </a>
-      {{lastItem ? '' : ', '}}
-    </ng-container>
+    </span>
   </div>

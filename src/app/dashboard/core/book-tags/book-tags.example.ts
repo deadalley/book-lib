@@ -6,10 +6,7 @@ import { BookTagsComponent } from './book-tags.component'
 storiesOf('Book Tags', module)
   .addDecorator(
     moduleMetadata({
-      imports: [
-        CommonModule,
-        RouterModule
-      ],
+      imports: [CommonModule, RouterModule],
     })
   )
   .add('default', () => ({
@@ -18,6 +15,16 @@ storiesOf('Book Tags', module)
       title: 'My tags',
       placeholder: 'placeholder',
       iconClass: 'ps-7s-ticket',
-      items: ['Item 1', 'Item 2']
+      items: ['Item 1', 'Item 2'],
+    },
+  }))
+  .add('tags', () => ({
+    component: BookTagsComponent,
+    props: {
+      tags: true,
+      title: 'My tags',
+      placeholder: 'placeholder',
+      iconClass: 'ps-7s-ticket',
+      items: ['Item 1', 'Item 2'],
     },
   }))

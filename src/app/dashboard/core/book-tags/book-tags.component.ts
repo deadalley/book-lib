@@ -1,19 +1,29 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+} from '@angular/core'
 
 @Component({
   moduleId: module.id,
   selector: 'book-tags',
   templateUrl: 'book-tags.component.html',
-  styleUrls: [],
+  styleUrls: ['book-tags.component.css'],
 })
 export class BookTagsComponent implements OnInit {
   @Input() title: string
   @Input() placeholder: string
   @Input() iconClass: string
   @Input() items: string[]
+  @Input() tags: boolean
 
   @Output() getItems = new EventEmitter<string[]>()
   @Output() hasFocus = new EventEmitter<boolean>()
+
+  @ViewChild('tagInput') tagInput
 
   constructor() {}
 
@@ -23,6 +33,13 @@ export class BookTagsComponent implements OnInit {
     if (value !== '') {
       this.items.push(value)
       this.getItems.emit(this.items)
+    }
+  }
+
+  keyupHandle(event, value) {
+    if (event.code === 'Comma' && value) {
+      this.pushItem(value.slice(0, -1))
+      this.tagInput.nativeElement.value = ''
     }
   }
 
