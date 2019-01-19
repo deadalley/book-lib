@@ -43,6 +43,8 @@ i.inactive {
   height: 40px;
   -webkit-box-shadow: none;
   box-shadow: none;
+  width: 100%;
+  text-align: left;
 }
 
 .btn:focus {

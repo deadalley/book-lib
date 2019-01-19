@@ -16,9 +16,10 @@
           >
 				</div>
 
+				<!-- First row -->
 				<div class="row">
+					<!-- Title -->
 					<div class="col-md-6">
-						<!-- Title -->
 						<div class="form-group" [ngClass] = "{'has-error': !form.controls['title'].valid && form.controls['title'].touched}">
 							<label>Book Title *</label>
 							<div style="display: flex">
@@ -41,11 +42,28 @@
 							</div>
 						</div>
 					</div>
-					<!-- Original title -->
+					<!-- Author -->
 					<div class="col-md-6">
-						<div class="form-group">
-							<label>Original Title</label>
-							<input type="text" class="form-control" placeholder="Original version title" formControlName="original">
+						<div class="form-group" [ngClass] = "{'has-error': !form.controls['author'].valid && form.controls['author'].touched}">
+							<label>Author *</label>
+							<div style="display: flex">
+								<div style="width: 100%">
+										<input type="text" class="form-control" placeholder="Author name" formControlName="author">
+										<span class="help-block" *ngIf="!form.controls['author'].valid && form.controls['author'].touched">
+											Please enter a valid author name.
+										</span>
+									</div>								
+									<button type="button"
+									(click)="searchAuthorOnGoodreads(authorName)"
+									class="btn btn-default"
+									style="margin-left: 13px"
+									tooltip="Search Goodreads"
+									[isDisabled]="false"
+									[tooltipAnimation]="true"
+									placement="bottom">
+									<span class="pe-7s-search" aria-hidden="true" style="font-size: 1.2em;"></span>
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -66,109 +84,72 @@
 					></books-display>
 				</div>
 
-				<!-- Author -->
-				<div class="form-group">
-					<label>Author</label>
-					<div class="row">
-						<div class="col-md-3" *ngIf="author">
-							<!-- Author image -->
-							<div class="image author-image">
-								<img
-									[src]="author.imageLarge ? author.imageLarge : (author.imageSmall ? author.imageSmall : '/assets/img/no-book-cover.png')"
-									alt="Author photo"
-								>
-							</div>
-						</div>
-						<div class="col-xs-12" [ngClass]="{'col-md-12': !author, 'col-md-9': !!author}">
-							<!-- Name -->
-							<div class="form-group" [ngClass] = "{'has-error': !form.controls['author'].valid && form.controls['author'].touched}">
-								<label>Name *</label>
-								<div style="display: flex">
-									<div style="width: 100%">
-										<input type="text" class="form-control" placeholder="Author name" formControlName="author">
-										<span class="help-block" *ngIf="!form.controls['author'].valid && form.controls['author'].touched">
-											Please enter a valid author name.
-										</span>
-									</div>								
-									<button type="button"
-										(click)="searchAuthorOnGoodreads(authorName)"
-										class="btn btn-default"
-										style="margin-left: 13px"
-										tooltip="Search Goodreads"
-										[isDisabled]="false"
-										[tooltipAnimation]="true"
-										placement="bottom">
-										<span class="pe-7s-search" aria-hidden="true" style="font-size: 1.2em;"></span>
-									</button>
-								</div>
-								<!-- Author Watch --
-								<button type="button"
-									(click)="form.controls['authorWatch'].setValue(!form.controls['authorWatch'].value)"
-									[ngClass] = "{'active': form.controls['authorWatch'].value}"
-									class="library-button btn btn-default"
-									style="vertical-align: center; font-size=1.2em"
-									tooltip="Add this author to your watch list"
-									[isDisabled]="false"
-									[tooltipAnimation]="true"
-									placement="bottom">
-									<span class="pe-7s-look" aria-hidden="true" style="font-size: 1.2em;"></span>
-								</button> -->
-							</div>
-							<!-- Author bio -->
-							<p *ngIf="author" [innerHTML]="author.about | truncate: { paragraphs: 1 }"></p>
+				<!-- Second row -->
+				<div class="row">
+					<!-- Original title -->
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Original Title</label>
+							<input type="text" class="form-control" placeholder="Original version title" formControlName="original">
 						</div>
 					</div>
-
-					<!-- Suggested authors -->
-					<div *ngIf="suggestedAuthors && suggestedAuthors.length > 0" class="row">
-						<div class="col-xs-12">
-							<label style="padding:0">Authors found</label>
-							<a href="javascript:void(0);" (click)="suggestedAuthors=[]">
-								<i class="pe-7s-close-circle" style="font-size: 100%"></i>
-							</a>
-						</div>
-					</div>
-					<div class="row">
-						<grid [items]="(suggestedAuthors || []).slice(0,4)">
-							<ng-template let-author>
-								<author-card
-									[author]="author"
-									(selected)="selectAuthor($event)"
-								></author-card>
-							</ng-template>
-						</grid>
+					<!-- Publisher -->
+					<div class="col-md-6">
+						<div class="form-group">
+								<label>Publisher</label>
+								<input type="text" class="form-control" placeholder="Publisher" formControlName="publisher">
+							</div>
 					</div>
 				</div>
 
-				<!-- Other form values -->
+				<!-- Third row -->
 				<div class="row">
-					<div class="col-md-8">
-						<!-- Publisher -->
-						<div class="form-group">
-							<label>Publisher</label>
-							<input type="text" class="form-control" placeholder="Publisher" formControlName="publisher">
-						</div>
-					</div>
+					<!-- Year -->
 					<div class="col-md-2">
-						<!-- Year -->
 						<div class="form-group" [ngClass] = "{'has-error': !form.controls['year'].valid && form.controls['year'].touched}">
 							<label>Year</label>
 							<input type="number" class="form-control" placeholder="Year" formControlName="year">
 							<span class="help-block" *ngIf="!form.controls['year'].valid && form.controls['year'].touched">Please enter a valid year.</span>
 						</div>
 					</div>
+					<!-- Pages -->
 					<div class="col-md-2">
-						<!-- Pages -->
 						<div class="form-group" [ngClass] = "{'has-error': !form.controls['pages'].valid && form.controls['pages'].touched}">
 							<label>Pages</label>
 							<input type="number" class="form-control" placeholder="Pages" formControlName="pages">
 							<span class="help-block" *ngIf="!form.controls['pages'].valid && form.controls['pages'].touched">Please enter a valid number of pages.</span>
 						</div>
 					</div>
+					<!-- Language -->
+					<div class="col-md-2">
+						<div class="form-group">
+							<language-selector [selectedLanguage]="selectedLanguage" (select)="selectedLanguage = $event"></language-selector>
+						</div>
+					</div>
+					<!-- About -->
+					<div class="col-md-2">
+						<div class="form-group">
+							<book-buttons
+								[owned]="!!book.owned"
+								[read]="!!book.read"
+								[favorite]="!!book.favorite"
+								[wishlist]="!!book.wishlist"
+							></book-buttons>
+						</div>
+					</div>
+					<!-- Rating -->
+					<div class="col-md-2">
+						<div class="form-group">
+							<label>Rating</label><br>
+							<rating style="font-size: 20px" formControlName="rating" [titles]="['', '', '', '', '']"></rating>
+						</div>
+					</div>
 				</div>
+
+				<!-- Fourth row -->
 				<div class="row">
-					<div class="col-md-6">
-						<!-- Genres -->
+					<!-- Genres -->
+					<div class="col-md-4">
 						<div class="form-group">
 							<!-- Genres -->
 							<book-tags
@@ -180,12 +161,25 @@
 							></book-tags>
 						</div>
 					</div>
-					<div class="col-md-3">
-						<!-- Collection -->
+					<!-- Tags-->
+					<div class="col-md-4">
+						<div class="form-group">
+							<!-- Tags -->
+							<book-tags
+								title="Tags"
+								placeholder="Add tags..."
+								iconClass="pe-7s-ticket"
+								[items]="tags"
+								(getItems)="getTags($event)"							
+							></book-tags>
+						</div>
+					</div>
+					<!-- Collection -->
+					<div class="col-md-4">
 						<div class="form-group">
 							<label>Collections</label>
 							<div class="dropdown">
-								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+								<button class="btn btn-default dropdown-toggle btn-collections" type="button" data-toggle="dropdown">
 									Add book to a collection
 									<span class="caret"></span>
 								</button>
@@ -212,46 +206,8 @@
 							</ng-container>
 						</div>
 					</div>
-					<div class="col-md-3">
-						<!-- Language -->
-						<div class="form-group">
-							<language-selector [selectedLanguage]="selectedLanguage" (select)="selectedLanguage = $event"></language-selector>
-						</div>
-					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-6">
-						<!-- Tags-->
-						<div class="form-group">
-							<!-- Tags -->
-							<book-tags
-								title="Tags"
-								placeholder="Add tags..."
-								iconClass="pe-7s-ticket"
-								[items]="tags"
-								(getItems)="getTags($event)"							
-							></book-tags>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<!-- About -->
-						<div class="form-group">
-							<book-buttons
-								[owned]="!!book.owned"
-								[read]="!!book.read"
-								[favorite]="!!book.favorite"
-								[wishlist]="!!book.wishlist"
-							></book-buttons>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<!-- Rating -->
-						<div class="form-group">
-							<label>Rating</label><br>
-							<rating style="font-size: 20px" formControlName="rating" [titles]="['', '', '', '', '']"></rating>
-						</div>
-					</div>
-        </div>
+
         <!-- Image -->
         <div class="row">
 					<div class="col-xs-12">
@@ -270,6 +226,7 @@
 						</div>
           </div>
 				</div>
+
 				<!-- Notes -->
 				<div class="form-group">
 					<label>Notes</label>

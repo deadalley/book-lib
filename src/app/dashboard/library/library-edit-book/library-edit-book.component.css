@@ -6,6 +6,12 @@
   height:auto;
 }
 
+@media only screen and (max-width: 991px) {
+  .book-image {
+    width: 100%;
+  }
+}
+
 .author-image {
   border-radius: 0;
 }
@@ -59,4 +65,9 @@
   -webkit-box-shadow: inset 0 6px 15px -6px #969696;
 	   -moz-box-shadow: inset 0 6px 15px -6px #969696;
 	        box-shadow: inset 0 6px 15px -6px #969696;
+}
+
+.btn-collections {
+  width: 100%;
+  text-align: left;
 }
