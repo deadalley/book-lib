@@ -1,4 +1,5 @@
-<div class="main-content">
+<loading [visible]="isLoading"></loading>
+<div *ngIf="!isLoading" class="main-content">
   <div class="container-fluid">
     <div class="card" [@card]>
       <div class="header">

@@ -6,8 +6,7 @@ import { Collection } from '../database/models/collection.model'
 import { objectToArray, findKeyByValue, unique } from '../utils/helpers'
 import { environment } from 'environments/environment'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
-import { Observable, iif, of } from 'rxjs'
-import { mergeMap } from 'rxjs/operators'
+import { Observable } from 'rxjs'
 import { SessionService } from './session.service'
 @Injectable()
 export class DatabaseService {

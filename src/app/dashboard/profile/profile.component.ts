@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
-import { FormGroup, FormBuilder } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { ANIMATIONS } from 'utils/constants'
 import { DatabaseService } from 'services/database.service'
 import { AuthService } from 'services/auth.service'
 import { User } from 'models/user.model'
+import { SessionService } from 'services/session.service'
 
 @Component({
   moduleId: module.id,
@@ -16,21 +17,23 @@ import { User } from 'models/user.model'
 export class ProfileComponent implements OnInit, OnDestroy {
   form: FormGroup
   user: User
+  isLoading = true
   connectedToGoodreads = false
 
   constructor(
     private fb: FormBuilder,
+    private sessionService: SessionService,
     private databaseService: DatabaseService,
     private authService: AuthService
   ) {
-    this.user = JSON.parse(localStorage.getItem('user'))
-    if (!this.user) {
-      console.log('Could not find local user')
-    }
-    this.connectedToGoodreads = !!this.user.goodreadsId
-
     this.form = this.fb.group({
-      name: this.user.name,
+      name: ['', Validators.required],
+    })
+    this.databaseService.findUserById(this.sessionService.userId).then(user => {
+      this.user = user
+      this.isLoading = false
+      this.connectedToGoodreads = !!user.goodreadsId
+      this.form.patchValue({ name: this.user.name })
     })
   }
 

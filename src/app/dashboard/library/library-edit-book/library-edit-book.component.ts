@@ -9,7 +9,7 @@ import { cleanFormValues, parseBook, parseAuthor } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
 import { LibraryService } from 'services/library.service'
 import { GoodreadsService } from 'services/goodreads.service'
-import { mergeMap, map, catchError, tap } from 'rxjs/operators'
+import { mergeMap, map } from 'rxjs/operators'
 @Component({
   moduleId: module.id,
   selector: 'library-edit-book',
