@@ -57,4 +57,8 @@ export class NavbarComponent implements OnInit {
   signOut() {
     this.authService.logout()
   }
+
+  navigateTo() {
+    this.router.navigate([`dashboard/${this.getTitle().toLowerCase()}`])
+  }
 }

@@ -21,13 +21,13 @@ const routes: Routes = [
     children: [
       { path: '', component: CollectionsHomeComponent },
       {
-        path: 'collections/new',
-        component: AddCollectionComponent,
+        path: ':id/edit',
+        component: EditCollectionComponent,
         pathMatch: 'full',
       },
       {
-        path: 'collections/:id/edit',
-        component: EditCollectionComponent,
+        path: 'new',
+        component: AddCollectionComponent,
         pathMatch: 'full',
       },
     ],
