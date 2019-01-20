@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core'
+import { Component, OnInit, OnDestroy, ViewChild, Input } from '@angular/core'
 import { Router, ActivatedRoute, Params } from '@angular/router'
 import { UiService } from 'services/ui.service'
 import { upperCaseFirstLetter } from 'utils/helpers'
@@ -19,18 +19,9 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
   tilesDisplay = true
   tagsDisplay = false
   selectedOrdering: string
+  @Input() orderings: string[]
+  @Input() addButtonContent: string
   @ViewChild('fileUpload') fileUpload
-  bookOrderings = [
-    'No grouping',
-    'Author',
-    'Date',
-    'Genre',
-    'Rating',
-    'Title',
-    'Year',
-  ]
-
-  collectionOrderings = ['No grouping', 'Size', 'Title']
 
   get localUrlPath(): string {
     const splitUrl = this.router.url.split('/')
@@ -40,15 +31,16 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
   constructor(
     public router: Router,
     private route: ActivatedRoute,
-    private libraryService: UiService
+    private uiService: UiService
   ) {
     this.subscriptions.push(
-      this.libraryService.tagsDisplay$.subscribe(
-        tagsDisplay => (this.tagsDisplay = tagsDisplay)
-      )
+      this.uiService.tagsDisplay$.subscribe(tagsDisplay => {
+        console.log('asd', tagsDisplay)
+        return (this.tagsDisplay = tagsDisplay)
+      })
     )
     this.subscriptions.push(
-      this.libraryService.tilesDisplay$.subscribe(
+      this.uiService.tilesDisplay$.subscribe(
         tilesDisplay => (this.tilesDisplay = tilesDisplay)
       )
     )
@@ -68,11 +60,11 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
   }
 
   toggleTilesDisplay() {
-    this.libraryService.tilesDisplay = !this.tilesDisplay
+    this.uiService.tilesDisplay = !this.tilesDisplay
   }
 
   toggleTagsDisplay() {
-    this.libraryService.tagsDisplay = !this.tagsDisplay
+    this.uiService.tagsDisplay = !this.tagsDisplay
   }
 
   setOrdering(order: string) {

@@ -3,51 +3,45 @@
   <div class="content">
     <nav class="navbar">
       <ul class="nav navbar-nav">
-        <li [ngClass]="{'active': localUrlPath === 'books', 'library-nav-btn': true, 'left': true}">
+        <!-- Buttons -->
+        <!-- <li [ngClass]="{'active': localUrlPath === 'books', 'library-nav-btn': true, 'left': true}">
           <a href="javascript:void(0);" routerLink="./books">
           <i class="pe-7s-bookmarks" style="vertical-align:middle; font-size: 1.4em;"></i> Books</a>
         </li>
         <li [ngClass]="{'active': localUrlPath === 'collections', 'library-nav-btn': true}">
           <a href="javascript:void(0);" routerLink="./collections">
           <i class="pe-7s-box1" style="vertical-align:middle; font-size: 1.4em;"></i> Collections</a>
+        </li> -->
+        <!-- Search -->
+        <li style="text-align: right">
+          <div class="input-group" style="width: 250px">
+            <input type="text" class="form-control" placeholder="Search">
+            <span class="input-group-addon" id="sizing-addon2">
+              <i class="pe-7s-search" style="vertical-align:middle; font-size: 1.4em;"></i>
+            </span>
+          </div>
+        </li>
+        <!-- Ordering -->
+        <li>
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              {{selectedOrdering}}
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li style="padding: 8px 16px">Select grouping</li>
+              <li role="separator" class="divider"></li>
+              <li *ngFor="let ordering of orderings">
+                <a href="javascript:void(0);" (click)="setOrdering(ordering)">
+                  {{ordering}}
+                </a>
+              </li>
+            </ul>
+          </div>
         </li>
         <li class="library-nav-right">
           <ul>
-            <li>
-              <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  {{selectedOrdering}}
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  <li style="padding: 8px 16px">Select grouping</li>
-                  <li role="separator" class="divider"></li>
-                  <li *ngFor="let ordering of (localUrlPath === 'books' ? bookOrderings : collectionOrderings)">
-                    <a href="javascript:void(0);" (click)="setOrdering(ordering)">
-                      {{ordering}}
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li style="text-align: right">
-              <div class="input-group" style="width: 250px">
-                <span class="input-group-addon" id="sizing-addon2">
-                  <i class="pe-7s-search" style="vertical-align:middle; font-size: 1.4em;"></i>
-                </span>
-                <input type="text" class="form-control" placeholder="Search">
-              </div>
-            </li>
             <li class="text-center">
-              <!-- Add book -->
-              <button type="button" class="btn btn-default library-nav-tile" routerLink="{{router.url}}/new" style="margin: 10px 5px">
-                <span class="ti-plus" aria-hidden="true"></span>
-              </button>
-              <!-- Tiles or Table -->
-              <button type="button" class="btn btn-default library-nav-tile" (click)="toggleTilesDisplay()" style="margin: 10px 5px">
-                <span *ngIf="tilesDisplay" class="ti-view-list" aria-hidden="true"></span>
-                <span *ngIf="!tilesDisplay" class="ti-layout-grid2" aria-hidden="true"></span>
-              </button>
               <!-- Tags -->
               <button type="button" class="btn btn-default library-nav-tile" (click)="toggleTagsDisplay()" style="margin: 10px 5px">
                 <span class="ti-tag" aria-hidden="true"></span>
@@ -56,6 +50,16 @@
               <button type="button" class="btn btn-default library-nav-tile" (click)="uploadFile()" style="margin: 10px 5px">
                 <span class="ti-cloud-up" aria-hidden="true"></span>
                 <input style="display: none" [hidden]="true" #fileUpload type="file" (change)="readFile($event)">
+              </button>
+              <!-- Tiles or Table -->
+              <button type="button" class="btn btn-default library-nav-tile" (click)="toggleTilesDisplay()" style="margin: 10px 5px">
+                <span *ngIf="tilesDisplay" class="ti-view-list" aria-hidden="true"></span>
+                <span *ngIf="!tilesDisplay" class="ti-layout-grid2" aria-hidden="true"></span>
+              </button>
+              <!-- Add book -->
+              <button type="button" class="btn btn-success library-nav-tile" routerLink="{{router.url}}/new" style="margin: 10px 5px">
+                <span class="ti-plus" aria-hidden="true"></span>
+                {{addButtonContent}}
               </button>
             </li>
           </ul>
