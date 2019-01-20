@@ -34,10 +34,9 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
     private uiService: UiService
   ) {
     this.subscriptions.push(
-      this.uiService.tagsDisplay$.subscribe(tagsDisplay => {
-        console.log('asd', tagsDisplay)
-        return (this.tagsDisplay = tagsDisplay)
-      })
+      this.uiService.tagsDisplay$.subscribe(
+        tagsDisplay => (this.tagsDisplay = tagsDisplay)
+      )
     )
     this.subscriptions.push(
       this.uiService.tilesDisplay$.subscribe(

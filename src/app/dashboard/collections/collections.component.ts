@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { COLLECTION_ORDERINGS } from 'utils/constants'
 
 @Component({
   moduleId: module.id,
@@ -7,5 +8,7 @@ import { Component, OnInit } from '@angular/core'
   styleUrls: [],
 })
 export class CollectionsComponent implements OnInit {
+  collectionOrderings = COLLECTION_ORDERINGS
+
   ngOnInit() {}
 }

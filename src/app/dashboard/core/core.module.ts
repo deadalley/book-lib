@@ -19,6 +19,7 @@ import { BooksDisplayComponent } from './books-display/books-display.component'
 import { TagsListComponent } from './tags-list/tags-list.component'
 import { GridComponent } from './grid/grid.component'
 import { LanguageSelectorComponent } from './language-selector/language-selector.component'
+import { LibraryNavbarComponent } from './library-navbar/library-navbar.component'
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { LanguageSelectorComponent } from './language-selector/language-selector
     BooksDisplayComponent,
     TagsListComponent,
     GridComponent,
-    LanguageSelectorComponent
+    LanguageSelectorComponent,
+    LibraryNavbarComponent,
   ],
   imports: [
     LoadingModule.forRoot({
@@ -42,12 +44,12 @@ import { LanguageSelectorComponent } from './language-selector/language-selector
       backdropBackgroundColour: 'rgba(0,0,0,0)',
       primaryColour: 'rgb(120, 216, 236)',
       secondaryColour: '#ffffff',
-      tertiaryColour: '#ffffff'
+      tertiaryColour: '#ffffff',
     }),
     CommonModule,
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
-    RouterModule
+    RouterModule,
   ],
   exports: [
     AuthorCardComponent,
@@ -62,7 +64,8 @@ import { LanguageSelectorComponent } from './language-selector/language-selector
     BooksDisplayComponent,
     TagsListComponent,
     GridComponent,
-    LanguageSelectorComponent
-  ]
+    LanguageSelectorComponent,
+    LibraryNavbarComponent,
+  ],
 })
-export class CoreModule { }
+export class CoreModule {}
