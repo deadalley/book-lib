@@ -13,12 +13,12 @@ import { DatabaseService } from 'services/database.service'
 import { SessionService } from 'services/session.service'
 @Component({
   moduleId: module.id,
-  selector: 'library-edit-book',
-  templateUrl: 'library-edit-book.component.html',
-  styleUrls: ['./library-edit-book.component.css'],
+  selector: 'edit-book',
+  templateUrl: 'edit-book.component.html',
+  styleUrls: ['./edit-book.component.css'],
   animations: [ANIMATIONS.CARD],
 })
-export class LibraryEditBookComponent implements OnInit, OnDestroy {
+export class EditBookComponent implements OnInit, OnDestroy {
   get bookId(): string {
     const splitUrl = this.router.url.split('/')
     return splitUrl[splitUrl.length - 2]

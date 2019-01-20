@@ -9,12 +9,12 @@ import { LibraryService } from 'services/library.service'
 
 @Component({
   moduleId: module.id,
-  selector: 'library-edit-collection',
-  templateUrl: 'library-edit-collection.component.html',
-  styleUrls: ['./library-edit-collection.component.css'],
+  selector: 'edit-collection',
+  templateUrl: 'edit-collection.component.html',
+  styleUrls: ['./edit-collection.component.css'],
   animations: [ANIMATIONS.CARD],
 })
-export class LibraryEditCollectionComponent implements OnInit, OnDestroy {
+export class EditCollectionComponent implements OnInit, OnDestroy {
   form: FormGroup
   collection: Collection
   title = 'Edit collection'

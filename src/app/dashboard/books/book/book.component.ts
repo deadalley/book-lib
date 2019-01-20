@@ -9,12 +9,12 @@ import { Subscription } from 'rxjs/Subscription'
 
 @Component({
   moduleId: module.id,
-  selector: 'library-book',
-  templateUrl: 'library-book.component.html',
-  styleUrls: ['./library-book.component.css'],
+  selector: 'book',
+  templateUrl: 'book.component.html',
+  styleUrls: ['./book.component.css'],
   animations: [ANIMATIONS.CARD],
 })
-export class LibraryBookComponent implements OnInit, OnDestroy {
+export class BookComponent implements OnInit, OnDestroy {
   book = {} as Book
   isLoading = true
   subscription: Subscription

@@ -11,12 +11,12 @@ import { GoodreadsService } from 'services/goodreads.service'
 
 @Component({
   moduleId: module.id,
-  selector: 'library-add-book',
-  templateUrl: 'library-edit-book.component.html',
-  styleUrls: ['./library-edit-book.component.css'],
+  selector: 'add-book',
+  templateUrl: 'edit-book.component.html',
+  styleUrls: ['./edit-book.component.css'],
   animations: [ANIMATIONS.CARD],
 })
-export class LibraryAddBookComponent implements OnInit, OnDestroy {
+export class AddBookComponent implements OnInit, OnDestroy {
   form: FormGroup
   allCollections: string[]
   collections: string[]

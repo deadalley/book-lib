@@ -14,12 +14,12 @@ import { UiService } from 'services/ui.service'
 
 @Component({
   moduleId: module.id,
-  selector: 'library-collections',
-  templateUrl: 'library-collections.component.html',
+  selector: 'collections-home',
+  templateUrl: 'collections-home.component.html',
   styleUrls: [],
   animations: [ANIMATIONS.CARD],
 })
-export class LibraryCollectionsComponent
+export class CollectionsHomeComponent
   implements OnInit, OnDestroy, AfterViewInit {
   orderingMethod: string
   collections = [] as Collection[]

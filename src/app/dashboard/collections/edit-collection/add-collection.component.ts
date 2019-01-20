@@ -8,12 +8,12 @@ import { ANIMATIONS } from 'utils/constants'
 
 @Component({
   moduleId: module.id,
-  selector: 'library-add-collection',
-  templateUrl: 'library-edit-collection.component.html',
-  styleUrls: ['./library-edit-collection.component.css'],
+  selector: 'add-collection',
+  templateUrl: 'edit-collection.component.html',
+  styleUrls: ['./edit-collection.component.css'],
   animations: [ANIMATIONS.CARD],
 })
-export class LibraryAddCollectionComponent implements OnInit, OnDestroy {
+export class AddCollectionComponent implements OnInit, OnDestroy {
   form: FormGroup
   collection: Collection
   title = 'Add new collection'

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
-import { BookButtonsComponent } from '../../../core/book-buttons/book-buttons.component'
+import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
 import { Book } from 'models/book.model'
 import { LibraryService } from 'services/library.service'
 import { AuthService } from 'services/auth.service'
@@ -9,11 +9,11 @@ import { cleanFormValues } from 'utils/helpers'
 
 @Component({
   moduleId: module.id,
-  selector: 'library-no-books',
-  templateUrl: 'library-no-books.component.html',
-  styleUrls: ['library-no-books.component.css'],
+  selector: 'no-books',
+  templateUrl: 'no-books.component.html',
+  styleUrls: ['no-books.component.css'],
 })
-export class LibraryNoBooksComponent implements OnInit {
+export class NoBooksComponent implements OnInit {
   form: FormGroup
   genres: string[]
   tags: string[]

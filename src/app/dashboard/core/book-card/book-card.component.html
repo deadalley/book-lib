@@ -5,7 +5,7 @@
       <a
         *ngIf="linkable"
         href="#"
-        routerLink="/dashboard/library/books/{{ book.id }}"
+        routerLink="/dashboard/books/{{ book.id }}"
       >
         {{ book.title }}
       </a>
@@ -26,7 +26,7 @@
       <a
         *ngIf="linkable"
         href="javascript:void(0);"
-        routerLink="/dashboard/library/books/{{ book.id }}"
+        routerLink="/dashboard/books/{{ book.id }}"
       >
         <img
           [src]="

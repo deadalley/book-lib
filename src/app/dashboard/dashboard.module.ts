@@ -6,30 +6,44 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { CoreModule } from './core/core.module'
 import { SidebarModule } from './sidebar/sidebar.module'
 import { FooterModule } from './shared/footer/footer.module'
-import { NavbarModule} from './shared/navbar/navbar.module'
+import { NavbarModule } from './shared/navbar/navbar.module'
 import { DashboardHomeModule } from './dashboard-home/dashboard-home.module'
 
 import { DashboardComponent } from './dashboard.component'
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component'
 import { ProfileComponent } from './profile/profile.component'
 
+import { TruncatePipe } from 'pipes/truncate.pipe'
+
 const dashboardRoutes: Routes = [
-  { path: '', component: DashboardComponent, children: [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'goodreads_login', redirectTo: 'profile', pathMatch: 'full' },
-    { path: 'goodreads_login/import', redirectTo: 'goodreads/import', pathMatch: 'full' },
-    { path: 'home', component: DashboardHomeComponent },
-    { path: 'library', loadChildren: './library/library.module#LibraryModule' },
-    { path: 'goodreads', loadChildren: './goodreads/goodreads.module#GoodreadsModule' },
-    { path: 'profile', component: ProfileComponent },
-  ]}
+  {
+    path: '',
+    component: DashboardComponent,
+    children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'goodreads_login', redirectTo: 'profile', pathMatch: 'full' },
+      {
+        path: 'goodreads_login/import',
+        redirectTo: 'goodreads/import',
+        pathMatch: 'full',
+      },
+      { path: 'home', component: DashboardHomeComponent },
+      { path: 'books', loadChildren: './books/books.module#BooksModule' },
+      {
+        path: 'collections',
+        loadChildren: './collections/collections.module#CollectionsModule',
+      },
+      {
+        path: 'goodreads',
+        loadChildren: './goodreads/goodreads.module#GoodreadsModule',
+      },
+      { path: 'profile', component: ProfileComponent },
+    ],
+  },
 ]
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    ProfileComponent
-  ],
+  declarations: [DashboardComponent, ProfileComponent, TruncatePipe],
   imports: [
     RouterModule.forChild(dashboardRoutes),
     CommonModule,
@@ -39,8 +53,8 @@ const dashboardRoutes: Routes = [
     SidebarModule,
     NavbarModule,
     FooterModule,
-    DashboardHomeModule
+    DashboardHomeModule,
   ],
-  exports: [ DashboardComponent ],
+  exports: [DashboardComponent],
 })
-export class DashboardModule { }
+export class DashboardModule {}

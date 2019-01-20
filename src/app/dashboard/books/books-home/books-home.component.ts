@@ -7,11 +7,11 @@ import { UiService } from 'services/ui.service'
 
 @Component({
   moduleId: module.id,
-  selector: 'library-books',
-  templateUrl: 'library-books.component.html',
+  selector: 'books-home',
+  templateUrl: 'books-home.component.html',
   styleUrls: [],
 })
-export class LibraryBooksComponent implements OnInit, OnDestroy, AfterViewInit {
+export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
   tilesDisplay = true
   orderingMethod: string
   allBooks: Book[]

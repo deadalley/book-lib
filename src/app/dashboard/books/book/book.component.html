@@ -93,7 +93,7 @@
                   <i class="pe-7s-notebook"></i>
                   <a
                     href="javascript:void(0);"
-                    routerLink="/dashboard/library/collections"
+                    routerLink="/dashboard/collections"
                     [fragment]="removeSpaces(collection)"
                   > {{collection}}</a>
                   {{lastItem ? '' : ', '}}
@@ -112,7 +112,7 @@
                   <i class="pe-7s-folder"></i>
                   <a
                     href="javascript:void(0);"
-                    routerLink="/dashboard/library/books"
+                    routerLink="/dashboard/books"
                     [queryParams]="{ grouping: 'genre' }"
                     [fragment]="removeSpaces(genre)"
                     queryParamsHandling="merge"                    
@@ -134,7 +134,7 @@
                   <a
                     href="javascript:void(0);"
                     (click)="libraryService.toggleTagsDisplay(true)"
-                    routerLink="/dashboard/library/books"
+                    routerLink="/dashboard/books"
                     [queryParams]="{ tag: tag }"
                     queryParamsHandling="merge"
                   > {{tag}}</a>

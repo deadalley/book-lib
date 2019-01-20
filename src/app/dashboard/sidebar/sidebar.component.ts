@@ -11,10 +11,17 @@ export interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-  { path: 'home', title: 'Home',  icon: 'pe-7s-home', class: '' },
-  { path: 'library', title: 'Library',  icon: 'pe-7s-notebook', class: '' },
-  { path: 'profile', title: 'Profile',  icon: 'pe-7s-user', class: '' },
-  { path: 'goodreads', title: 'Goodreads',  icon: 'pe-7s-science', class: '' },
+  { path: 'home', title: 'Home', icon: 'pe-7s-home', class: '' },
+  { path: 'books', title: 'Books', icon: 'pe-7s-notebook', class: '' },
+  {
+    path: 'collections',
+    title: 'Collections',
+    icon: 'pe-7s-albums',
+    class: '',
+  },
+  { path: 'library', title: 'Library', icon: 'pe-7s-notebook', class: '' },
+  { path: 'profile', title: 'Profile', icon: 'pe-7s-user', class: '' },
+  { path: 'goodreads', title: 'Goodreads', icon: 'pe-7s-science', class: '' },
 ]
 
 @Component({
@@ -22,11 +29,10 @@ export const ROUTES: RouteInfo[] = [
   selector: 'sidebar-cmp',
   templateUrl: 'sidebar.component.html',
 })
-
 export class SidebarComponent implements OnInit {
   public menuItems: any[]
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem)

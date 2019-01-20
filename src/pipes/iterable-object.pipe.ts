@@ -1,17 +1,23 @@
 import { Pipe, PipeTransform } from '@angular/core'
 
 @Pipe({
-  name: 'iterable'
+  name: 'iterable',
 })
-export class IterableObject implements PipeTransform {
+export class IterableObjectPipe implements PipeTransform {
   transform(object: any): any {
-    if (!object) { return null }
+    if (!object) {
+      return null
+    }
     return Object.keys(object)
-            .map((key) => ({ 'key': key, 'value': object[key]}) )
-            .sort((a, b) => {
-              if (a.key < b.key) { return -1 }
-              if (a.key > b.key) { return 1 }
-              return 0
-            })
+      .map(key => ({ key, value: object[key] }))
+      .sort((a, b) => {
+        if (a.key < b.key) {
+          return -1
+        }
+        if (a.key > b.key) {
+          return 1
+        }
+        return 0
+      })
   }
 }
