@@ -43,16 +43,26 @@
           <ul>
             <li class="text-center">
               <!-- Tags -->
-              <button type="button" class="btn btn-default library-nav-tile" (click)="toggleTagsDisplay()" style="margin: 10px 5px">
+              <button
+                type="button"
+                class="btn btn-default library-nav-tile"
+                (click)="toggleTagsDisplay()" style="margin: 10px 5px"
+                [tooltip]="tagsDisplay ? 'Display tags' : 'Hide tags'"
+                [tooltipAnimation]="true"
+                placement="top"
+              >
                 <span class="ti-tag" aria-hidden="true"></span>
               </button>
-              <!-- Import -->
-              <button type="button" class="btn btn-default library-nav-tile" (click)="uploadFile()" style="margin: 10px 5px">
-                <span class="ti-cloud-up" aria-hidden="true"></span>
-                <input style="display: none" [hidden]="true" #fileUpload type="file" (change)="readFile($event)">
-              </button>
               <!-- Tiles or Table -->
-              <button type="button" class="btn btn-default library-nav-tile" (click)="toggleTilesDisplay()" style="margin: 10px 5px">
+              <button
+                type="button"
+                class="btn btn-default library-nav-tile"
+                (click)="toggleTilesDisplay()"
+                style="margin: 10px 5px"
+                [tooltip]="tilesDisplay ? 'Display as tables' : 'Display as cards'"
+                [tooltipAnimation]="true"
+                placement="top"
+              >
                 <span *ngIf="tilesDisplay" class="ti-view-list" aria-hidden="true"></span>
                 <span *ngIf="!tilesDisplay" class="ti-layout-grid2" aria-hidden="true"></span>
               </button>
