@@ -22,6 +22,12 @@ export const ROUTES: RouteInfo[] = [
   { path: 'authors', title: 'Authors', icon: 'pe-7s-pen', class: '' },
   { path: 'wishlist', title: 'Wishlist', icon: 'pe-7s-gift', class: '' },
   { path: 'goodreads', title: 'Goodreads', icon: 'pe-7s-science', class: '' },
+  {
+    path: 'import',
+    title: 'Import library',
+    icon: 'pe-7s-cloud-upload',
+    class: '',
+  },
   { path: 'profile', title: 'Profile', icon: 'pe-7s-user', class: '' },
 ]
 
