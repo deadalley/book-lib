@@ -49,6 +49,7 @@ div > img.tile-icon {
 
 i.tile-icon {
   font-size: 1.4em;
+  cursor: pointer;
 }
 
 i.owned {

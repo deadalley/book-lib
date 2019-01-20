@@ -57,6 +57,7 @@
       <div class="col-xs-3">
         <i
           class="pe-7s-check tile-icon"
+          (click)="book.owned = !book.owned"
           [ngClass]="{ inactive: !book.owned, owned: book.owned }"
           tooltip="{{ book.owned ? 'Owned' : 'Not owned' }}"
           [isDisabled]="false"
@@ -67,6 +68,7 @@
       <div class="col-xs-3">
           <i
             class="pe-7s-gift tile-icon"
+            (click)="book.wishlist = !book.wishlist"
             [ngClass]="{ inactive: !book.wishlist, wishlist: book.wishlist }"
             tooltip="{{ book.wishlist ? 'In wishlist' : 'Not in wishlist' }}"
             [isDisabled]="false"
@@ -77,6 +79,7 @@
       <div class="col-xs-3">
         <i
           class="pe-7s-glasses tile-icon"
+          (click)="book.read = !book.read"
           [ngClass]="{ inactive: !book.read, read: book.read }"
           tooltip="{{ book.read ? 'Read' : 'Not read' }}"
           [isDisabled]="false"
@@ -87,6 +90,7 @@
       <div class="col-xs-3">
         <i
           class="pe-7s-like tile-icon"
+          (click)="book.favorite = !book.favorite"
           [ngClass]="{ inactive: !book.favorite, favorite: book.favorite }"
           tooltip="{{ book.favorite ? 'Favorite' : 'Not a favorite' }}"
           [isDisabled]="false"
