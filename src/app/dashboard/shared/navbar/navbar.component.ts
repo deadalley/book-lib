@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core'
 import { ROUTES } from '../../sidebar/sidebar.component'
 import { Router } from '@angular/router'
 import { Location } from '@angular/common'
+import { AuthService } from 'services/auth.service'
 
 @Component({
   moduleId: module.id,
@@ -17,7 +18,7 @@ export class NavbarComponent implements OnInit {
   @ViewChild('navbar-cmp') button
 
   constructor(
-    location: Location,
+    private authService: AuthService,
     private router: Router,
     private element: ElementRef
   ) {
@@ -51,5 +52,9 @@ export class NavbarComponent implements OnInit {
       this.sidebarVisible = false
       body.classList.remove('nav-open')
     }
+  }
+
+  signOut() {
+    this.authService.logout()
   }
 }
