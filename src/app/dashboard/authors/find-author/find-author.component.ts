@@ -9,12 +9,12 @@ import { ANIMATIONS } from 'utils/constants'
 
 @Component({
   moduleId: module.id,
-  selector: 'library--findauthor',
-  templateUrl: 'library-find-author.component.html',
-  styleUrls: ['./library-find-author.component.css'],
+  selector: 'find-author',
+  templateUrl: 'find-author.component.html',
+  styleUrls: ['./find-author.component.css'],
   animations: [ANIMATIONS.CARD],
 })
-export class LibraryFindAuthorComponent implements OnInit, OnDestroy {
+export class FindAuthorComponent implements OnInit, OnDestroy {
   authors = {} as Author[]
   books: Book[]
   selectedAuthor: Author

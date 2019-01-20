@@ -13,8 +13,8 @@ import { LibraryComponent } from './library.component'
 // import { LibraryAddCollectionComponent } from './library-edit-collection/library-add-collection.component'
 // import { LibraryEditCollectionComponent } from './library-edit-collection/library-edit-collection.component'
 // import { LibraryBookComponent } from './library-book/library-book.component'
-import { LibraryAuthorComponent } from './library-author/library-author.component'
-import { LibraryFindAuthorComponent } from './library-find-author/library-find-author.component'
+// import { LibraryAuthorComponent } from './library-author/library-author.component'
+// import { LibraryFindAuthorComponent } from './library-find-author/library-find-author.component'
 
 import { TruncatePipe } from 'pipes/truncate.pipe'
 
@@ -32,9 +32,9 @@ const libraryRoutes: Routes = [
       // { path: 'books/new', component: LibraryAddBookComponent, pathMatch: 'full' },
       // { path: 'books/:id', component: LibraryBookComponent },
       // { path: 'books/:id/edit', component: LibraryEditBookComponent },
-      { path: 'books/collections/new', redirectTo: 'collections/new' },
-      { path: 'authors/:id', component: LibraryAuthorComponent },
-      { path: 'authors/find/:name', component: LibraryFindAuthorComponent },
+      // { path: 'books/collections/new', redirectTo: 'collections/new' },
+      // { path: 'authors/:id', component: LibraryAuthorComponent },
+      // { path: 'authors/find/:name', component: LibraryFindAuthorComponent },
       // { path: '**', redirectTo: '', pathMatch: 'full' }
     ],
   },
@@ -57,8 +57,8 @@ const libraryRoutes: Routes = [
     // LibraryAddCollectionComponent,
     // LibraryEditCollectionComponent,
     // LibraryBookComponent,
-    LibraryAuthorComponent,
-    LibraryFindAuthorComponent,
+    // LibraryAuthorComponent,
+    // LibraryFindAuthorComponent,
     TruncatePipe,
   ],
   exports: [LibraryComponent],

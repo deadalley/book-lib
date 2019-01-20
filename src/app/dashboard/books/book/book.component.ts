@@ -30,8 +30,8 @@ export class BookComponent implements OnInit, OnDestroy {
 
   get authorRoute() {
     return this.book.goodreadsAuthorId
-      ? `/dashboard/library/authors/${this.book.goodreadsAuthorId}`
-      : `/dashboard/library/authors/find/${this.book.author}`
+      ? `/dashboard/authors/${this.book.goodreadsAuthorId}`
+      : `/dashboard/authors/find/${this.book.author}`
   }
 
   constructor(

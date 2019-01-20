@@ -53,7 +53,7 @@ export class BooksTableComponent implements OnInit {
 
   authorRoute(book: Book) {
     return book.goodreadsAuthorId
-      ? `/dashboard/library/authors/${book.goodreadsAuthorId}`
-      : `/dashboard/library/authors/find/${book.author}`
+      ? `/dashboard/authors/${book.goodreadsAuthorId}`
+      : `/dashboard/authors/find/${book.author}`
   }
 }

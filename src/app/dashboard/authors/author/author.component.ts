@@ -10,12 +10,12 @@ import * as _ from 'lodash'
 
 @Component({
   moduleId: module.id,
-  selector: 'library-author',
-  templateUrl: 'library-author.component.html',
-  styleUrls: ['./library-author.component.css'],
+  selector: 'author',
+  templateUrl: 'author.component.html',
+  styleUrls: ['./author.component.css'],
   animations: [ANIMATIONS.CARD],
 })
-export class LibraryAuthorComponent implements OnInit, OnDestroy {
+export class AuthorComponent implements OnInit, OnDestroy {
   author = {} as Author
   isLoading = true
   hasSelectedBooks = false

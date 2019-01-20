@@ -13,8 +13,6 @@ import { DashboardComponent } from './dashboard.component'
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component'
 import { ProfileComponent } from './profile/profile.component'
 
-import { TruncatePipe } from 'pipes/truncate.pipe'
-
 const dashboardRoutes: Routes = [
   {
     path: '',
@@ -34,6 +32,10 @@ const dashboardRoutes: Routes = [
         loadChildren: './collections/collections.module#CollectionsModule',
       },
       {
+        path: 'authors',
+        loadChildren: './authors/authors.module#AuthorsModule',
+      },
+      {
         path: 'goodreads',
         loadChildren: './goodreads/goodreads.module#GoodreadsModule',
       },
@@ -43,7 +45,7 @@ const dashboardRoutes: Routes = [
 ]
 
 @NgModule({
-  declarations: [DashboardComponent, ProfileComponent, TruncatePipe],
+  declarations: [DashboardComponent, ProfileComponent],
   imports: [
     RouterModule.forChild(dashboardRoutes),
     CommonModule,

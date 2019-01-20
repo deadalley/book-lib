@@ -19,9 +19,9 @@ export const ROUTES: RouteInfo[] = [
     icon: 'pe-7s-albums',
     class: '',
   },
-  { path: 'library', title: 'Library', icon: 'pe-7s-notebook', class: '' },
-  { path: 'profile', title: 'Profile', icon: 'pe-7s-user', class: '' },
+  { path: 'authors', title: 'Authors', icon: 'pe-7s-pen', class: '' },
   { path: 'goodreads', title: 'Goodreads', icon: 'pe-7s-science', class: '' },
+  { path: 'profile', title: 'Profile', icon: 'pe-7s-user', class: '' },
 ]
 
 @Component({
