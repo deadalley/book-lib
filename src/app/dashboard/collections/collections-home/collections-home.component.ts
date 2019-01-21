@@ -16,7 +16,7 @@ import { UiService } from 'services/ui.service'
   moduleId: module.id,
   selector: 'collections-home',
   templateUrl: 'collections-home.component.html',
-  styleUrls: [],
+  styleUrls: ['collections-home.component.css'],
   animations: [ANIMATIONS.CARD],
 })
 export class CollectionsHomeComponent

@@ -19,20 +19,31 @@
 <ng-container *ngFor="let collection of collections | collectionOrdering: orderingMethod">
   <!-- Separator -->
   <div class="row" id="{{removeSpaces(collection.title)}}">
-    <div class="col-md-12">
+    <div class="col-md-9">
+      <!-- Title -->
       <h4 class="title">
         {{collection.title}}
-        <a href="javascript:void(0);" routerLink="./{{collection.id}}/edit">
+        <!-- <a href="javascript:void(0);" routerLink="./{{collection.id}}/edit">
           <i class="pe-7s-note" style="font-size: 0.8em;"></i>
         </a>
         <a href="javascript:void(0);" (click)="confirmDeleteCollection(collection)">
           <i class="pe-7s-close-circle" style="font-size: 0.8em;"></i>
-        </a>
+        </a> -->
       </h4>
-      <p class="text-muted">{{collection.description}}</p>
-      <hr class="library-hr">
+    </div>
+    <div class="col-md-3 buttons">
+      <button class="btn btn-default btn-margin" routerLink="./{{collection.id}}/edit">
+        <i class="pe-7s-note"></i>
+        Edit
+      </button>
+      <button class="btn btn-danger btn-margin" (click)="confirmDeleteCollection(collection)">
+        <i class="pe-7s-trash"></i>
+        Delete
+      </button>
     </div>
   </div>
+  <hr class="library-hr">
+  <p class="text-muted">{{collection.description}}</p>
   <div *ngIf="!collection.books || collection.books.length === 0">
     <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 0">
       You currently don't have any books in this collection. You can click the editing icon above
