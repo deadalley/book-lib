@@ -1,8 +1,9 @@
 <loading [visible]="isLoading"></loading>
 <library-navbar [orderings]="collectionOrderings" addButtonContent="Add a new collection"></library-navbar>
 <!-- Collections -->
-<ng-container *ngIf="collections.length === 0">
-  <div class="card" style="text-align: center;" [@card]>
+<ng-container *ngIf="collections.length === 0 && !isLoading">
+  <!-- No collections -->
+  <div class="card" style="text-align: center;" [@card] *ngIf="!isLoading">
     <div class="header">
       <!-- Header -->
       <h4 class="title">
@@ -24,6 +25,9 @@
       <!-- Title -->
       <h4 class="title">
         {{collection.title}}
+        <a href="#{{collection.id}}" class="collapse-button" data-toggle="collapse" (click)="displayAll[collection.id] = !displayAll[collection.id]">
+          <i [ngClass]="{'pe-7s-angle-down': !displayAll[collection.id], 'pe-7s-angle-up': displayAll[collection.id]}"></i>
+        </a>
       </h4>
     </div>
     <div class="col-md-3 buttons">
@@ -39,13 +43,9 @@
   </div>
   <hr class="library-hr">
   <p class="text-muted">{{collection.description}}</p>
-  <div *ngIf="!collection.books || collection.books.length === 0 || isLoading">
-    <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 0">
-      You currently don't have any books in this collection. You can click the editing icon above
-      and add books to it, or you can delete it.
-    </h5>
-  </div>
-  <div *ngIf="collection.books && collection.books.length > 0" [ngSwitch]="tilesDisplay">
+
+  <!-- Books -->
+  <div *ngIf="collection.books && collection.books.length > 0" [ngSwitch]="tilesDisplay" class="collapsable in" id="{{collection.id}}">
     <books-section
       *ngSwitchCase="true"
       [books]="collection.books"
@@ -58,6 +58,13 @@
       [withButtons]="true"
       [linkable]="true"
       ></books-table>
+  </div>
+  <!-- No books -->
+  <div *ngIf="!collection.books || collection.books.length === 0">
+    <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 0">
+      You currently don't have any books in this collection. Click on the edit button above
+      to add books to it.
+    </h5>
   </div>
 </ng-container>
 

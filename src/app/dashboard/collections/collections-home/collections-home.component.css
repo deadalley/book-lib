@@ -62,6 +62,7 @@
 
 h4 {
   margin: 0;
+  display: flex;
 }
 
 hr {
@@ -74,4 +75,13 @@ hr {
 
 .btn-margin {
   margin: 0 4px;
+}
+
+.collapse-button {
+  display: flex;
+  align-items: center;
+}
+
+.collapse-button > i {
+  font-size: 28px;
 }

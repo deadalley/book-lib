@@ -26,6 +26,7 @@ export class CollectionsHomeComponent
   selectedCollection = {} as Collection
   isLoading = true
   tilesDisplay = true
+  displayAll = {}
   subscriptions = []
 
   removeSpaces = removeSpaces
@@ -44,6 +45,9 @@ export class CollectionsHomeComponent
         }
         this.isLoading = false
         this.collections = collections
+        collections.forEach(
+          collection => (this.displayAll[collection.id] = true)
+        )
       })
     )
     this.subscriptions.push(
