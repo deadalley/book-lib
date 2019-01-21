@@ -23,12 +23,6 @@
       <!-- Title -->
       <h4 class="title">
         {{collection.title}}
-        <!-- <a href="javascript:void(0);" routerLink="./{{collection.id}}/edit">
-          <i class="pe-7s-note" style="font-size: 0.8em;"></i>
-        </a>
-        <a href="javascript:void(0);" (click)="confirmDeleteCollection(collection)">
-          <i class="pe-7s-close-circle" style="font-size: 0.8em;"></i>
-        </a> -->
       </h4>
     </div>
     <div class="col-md-3 buttons">
@@ -44,7 +38,7 @@
   </div>
   <hr class="library-hr">
   <p class="text-muted">{{collection.description}}</p>
-  <div *ngIf="!collection.books || collection.books.length === 0">
+  <div *ngIf="!collection.books || collection.books.length === 0 || isLoading">
     <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 0">
       You currently don't have any books in this collection. You can click the editing icon above
       and add books to it, or you can delete it.
