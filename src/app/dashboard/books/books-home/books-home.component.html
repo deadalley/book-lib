@@ -1,16 +1,16 @@
 <!-- Books -->
-<library-navbar [orderings]="bookOrderings" addButtonContent="Add a new book"></library-navbar>
+<library-navbar [groupings]="bookGroupings" addButtonContent="Add a new book"></library-navbar>
 <div [ngSwitch]="tilesDisplay">
   <!-- Tiles -->
   <ng-container *ngSwitchCase="true">
       <books-section
-        *ngIf="!orderingMethod"
+        *ngIf="!groupingMethod"
         [books]="books"
         [withButtons]="true"
         [linkable]="true"
       ></books-section>
-    <ng-container *ngIf="orderingMethod !== 'no grouping'">
-      <ng-container *ngFor="let item of books | bookOrdering: orderingMethod | iterable | pushToBottom: PUSH_ORDERING[orderingMethod]">
+    <ng-container *ngIf="groupingMethod !== 'no grouping'">
+      <ng-container *ngFor="let item of books | bookGrouping: groupingMethod | iterable | pushToBottom: PUSH_GROUPING[groupingMethod]">
         <books-section
           [sectionTitle]="item.key"
           [books]="item.value"
@@ -23,12 +23,12 @@
   <!-- Table -->
   <ng-container *ngSwitchCase="false">
     <books-table
-      *ngIf="!orderingMethod"
+      *ngIf="!groupingMethod"
       [books]="books"
       [withButtons]="true"
       [linkable]="true"
     ></books-table>
-    <ng-container *ngFor="let item of books | bookOrdering: orderingMethod | iterable">
+    <ng-container *ngFor="let item of books | bookGrouping: groupingMethod | iterable">
       <div class="row">
         <div class="col-md-12">
           <h4 class="title">{{item.key}}</h4>

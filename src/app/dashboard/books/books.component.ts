@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-import { BOOK_ORDERINGS } from 'utils/constants'
 
 @Component({
   moduleId: module.id,
@@ -8,7 +7,5 @@ import { BOOK_ORDERINGS } from 'utils/constants'
   styleUrls: [],
 })
 export class BooksComponent implements OnInit {
-  bookOrderings = BOOK_ORDERINGS
-
   ngOnInit() {}
 }

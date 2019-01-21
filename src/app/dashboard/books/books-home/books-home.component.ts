@@ -4,6 +4,7 @@ import { Book } from 'models/book.model'
 import { LibraryService } from 'services/library.service'
 import { scrollToAnchor } from 'utils/helpers'
 import { UiService } from 'services/ui.service'
+import { BOOK_GROUPINGS } from 'utils/constants'
 
 @Component({
   moduleId: module.id,
@@ -13,13 +14,14 @@ import { UiService } from 'services/ui.service'
 })
 export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
   tilesDisplay = true
-  orderingMethod: string
+  groupingMethod: string
   allBooks: Book[]
   books: Book[]
   subscriptions = []
   tagFilter: string
+  bookGroupings = BOOK_GROUPINGS
 
-  readonly PUSH_ORDERING = {
+  readonly PUSH_GROUPING = {
     genre: 'No genre',
   }
 
@@ -45,7 +47,8 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
           return
         }
         this.tagFilter = params['tag']
-        this.orderingMethod = params['grouping']
+        this.groupingMethod = params['grouping']
+        console.log(this.groupingMethod)
 
         if (this.tagFilter) {
           this.books = this.allBooks.filter(

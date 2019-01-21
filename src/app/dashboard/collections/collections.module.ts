@@ -11,7 +11,7 @@ import { CollectionsComponent } from './collections.component'
 import { AddCollectionComponent } from './edit-collection/add-collection.component'
 import { EditCollectionComponent } from './edit-collection/edit-collection.component'
 
-import { CollectionOrderPipe } from 'pipes/collection-order.pipe'
+import { CollectionGroupingPipe } from 'pipes/collection-grouping.pipe'
 import { CollectionsHomeComponent } from './collections-home/collections-home.component'
 
 const routes: Routes = [
@@ -49,7 +49,7 @@ const routes: Routes = [
     CollectionsHomeComponent,
     AddCollectionComponent,
     EditCollectionComponent,
-    CollectionOrderPipe,
+    CollectionGroupingPipe,
   ],
   exports: [CollectionsComponent],
 })

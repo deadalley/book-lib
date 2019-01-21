@@ -13,8 +13,8 @@ import { LibraryHomeComponent } from './library-home.component'
 // import { LibraryNoBooksComponent } from './library-no-books/library-no-books.component'
 import { LibraryImportFileComponent } from './library-import-file/library-import-file.component'
 
-import { BookOrderPipe } from 'pipes/book-order.pipe'
-import { CollectionOrderPipe } from 'pipes/collection-order.pipe'
+// import { BookOrderPipe } from 'pipes/book-grouping.pipe'
+// import { CollectionOrderPipe } from 'pipes/collection-grouping.pipe'
 import { IterableObjectPipe } from 'pipes/iterable-object.pipe'
 import { PushToBottomPipe } from 'pipes/push-to-bottom.pipe'
 
@@ -51,8 +51,8 @@ const libraryHomeRoutes: Routes = [
     // LibraryNavbarComponent,
     // LibraryNoBooksComponent,
     LibraryImportFileComponent,
-    BookOrderPipe,
-    CollectionOrderPipe,
+    // BookOrderPipe,
+    // CollectionOrderPipe,
     IterableObjectPipe,
     PushToBottomPipe,
   ],

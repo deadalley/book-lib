@@ -16,7 +16,7 @@ import { BookComponent } from './book/book.component'
 
 import { PushToBottomPipe } from 'pipes/push-to-bottom.pipe'
 import { IterableObjectPipe } from 'pipes//iterable-object.pipe'
-import { BookOrderPipe } from 'pipes/book-order.pipe'
+import { BookGroupingPipe } from 'pipes/book-grouping.pipe'
 
 const routes: Routes = [
   {
@@ -49,7 +49,7 @@ const routes: Routes = [
     BookComponent,
     PushToBottomPipe,
     IterableObjectPipe,
-    BookOrderPipe,
+    BookGroupingPipe,
     NoBooksComponent,
   ],
   exports: [BooksComponent],

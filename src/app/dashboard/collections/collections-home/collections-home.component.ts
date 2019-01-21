@@ -11,6 +11,7 @@ import { scrollToAnchor, removeSpaces } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
 import { LibraryService } from 'services/library.service'
 import { UiService } from 'services/ui.service'
+import { COLLECTION_GROUPINGS } from 'utils/constants'
 
 @Component({
   moduleId: module.id,
@@ -21,13 +22,14 @@ import { UiService } from 'services/ui.service'
 })
 export class CollectionsHomeComponent
   implements OnInit, OnDestroy, AfterViewInit {
-  orderingMethod: string
+  groupingMethod: string
   collections = [] as Collection[]
   selectedCollection = {} as Collection
   isLoading = true
   tilesDisplay = true
   displayAll = {}
   subscriptions = []
+  collectionGroupings = COLLECTION_GROUPINGS
 
   removeSpaces = removeSpaces
 
@@ -65,7 +67,7 @@ export class CollectionsHomeComponent
     )
     this.subscriptions.push(
       this.route.queryParams.subscribe(params => {
-        this.orderingMethod = params['grouping']
+        this.groupingMethod = params['grouping']
       })
     )
   }

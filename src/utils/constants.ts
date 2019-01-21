@@ -22,17 +22,17 @@ export const ANIMATIONS = {
   ]),
 }
 
-export const BOOK_ORDERINGS = [
+export const BOOK_GROUPINGS = [
   'No grouping',
   'Author',
-  'Date',
+  'Date added',
   'Genre',
   'Rating',
   'Title',
   'Year',
 ]
 
-export const COLLECTION_ORDERINGS = ['No grouping', 'Size', 'Title']
+export const COLLECTION_GROUPINGS = ['No grouping', 'Size', 'Title']
 
 export const _LANGUAGES = {
   om: 'Afaan Oromoo',

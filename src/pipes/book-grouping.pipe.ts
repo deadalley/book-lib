@@ -2,16 +2,16 @@ import { Pipe, PipeTransform } from '@angular/core'
 import { Book } from 'models/book.model'
 
 @Pipe({
-  name: 'bookOrdering',
+  name: 'bookGrouping',
 })
-export class BookOrderPipe implements PipeTransform {
-  transform(books: Book[], orderingMethod?: any): any {
-    if (!orderingMethod || orderingMethod === 'no grouping') {
+export class BookGroupingPipe implements PipeTransform {
+  transform(books: Book[], groupingMethod?: any): any {
+    if (!groupingMethod || groupingMethod === 'no grouping') {
       return {}
     }
     const orderedItems = {}
 
-    if (orderingMethod === 'genre') {
+    if (groupingMethod === 'genre') {
       books.forEach(book => {
         if (!book.genres) {
           book.genres = ['No genre']
@@ -28,18 +28,18 @@ export class BookOrderPipe implements PipeTransform {
     }
 
     books.forEach(book => {
-      if (orderingMethod === 'date') {
+      if (groupingMethod === 'date') {
         book.date = new Date(book.date).toLocaleDateString()
       }
 
-      let order = book[orderingMethod]
-      if (orderingMethod === 'rating') {
+      let order = book[groupingMethod]
+      if (groupingMethod === 'rating') {
         order = `${book.rating || 0}`
       }
-      if (orderingMethod === 'year') {
+      if (groupingMethod === 'year') {
         order = `${book.year || 'Unknown year'}`
       }
-      if (orderingMethod === 'title') {
+      if (groupingMethod === 'title') {
         order = order[0].toLocaleUpperCase()
       }
 

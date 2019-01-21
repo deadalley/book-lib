@@ -2,23 +2,23 @@ import { Pipe, PipeTransform } from '@angular/core'
 import { Collection } from 'models/collection.model'
 
 @Pipe({
-  name: 'collectionOrdering',
+  name: 'collectionGrouping',
 })
-export class CollectionOrderPipe implements PipeTransform {
-  transform(collections: Collection[], orderingMethod?: any): any {
+export class CollectionGroupingPipe implements PipeTransform {
+  transform(collections: Collection[], groupingMethod?: any): any {
     const orderedCollections = Array.from(collections)
-    if (!orderingMethod || orderingMethod === 'no grouping') {
+    if (!groupingMethod || groupingMethod === 'no grouping') {
       return orderedCollections
     }
 
     orderedCollections.sort((a, b) => {
       let sortA, sortB
-      if (orderingMethod === 'size') {
+      if (groupingMethod === 'size') {
         sortA = a.books.length
         sortB = b.books.length
       } else {
-        sortA = a[orderingMethod]
-        sortB = b[orderingMethod]
+        sortA = a[groupingMethod]
+        sortB = b[groupingMethod]
       }
       if (sortA < sortB) {
         return -1

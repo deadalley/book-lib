@@ -18,8 +18,8 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
   subscriptions = []
   tilesDisplay = true
   tagsDisplay = false
-  selectedOrdering: string
-  @Input() orderings: string[]
+  selectedGrouping: string
+  @Input() groupings: string[]
   @Input() addButtonContent: string
   @ViewChild('fileUpload') fileUpload
 
@@ -45,7 +45,7 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
     )
     this.subscriptions.push(
       this.route.queryParams.subscribe(params => {
-        this.selectedOrdering = params['grouping']
+        this.selectedGrouping = params['grouping']
           ? upperCaseFirstLetter(params['grouping'])
           : 'No grouping'
       })
@@ -66,7 +66,7 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
     this.uiService.tagsDisplay = !this.tagsDisplay
   }
 
-  setOrdering(order: string) {
+  setGrouping(order: string) {
     if (order === 'No grouping') {
       this.router.navigate(['.'], { relativeTo: this.route })
       return
@@ -75,7 +75,7 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
       ...this.route.snapshot.queryParams,
       grouping: order.toLocaleLowerCase(),
     }
-    this.router.navigate([`./${this.localUrlPath}`], {
+    this.router.navigate([`.`], {
       relativeTo: this.route,
       queryParams,
     })

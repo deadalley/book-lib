@@ -1,5 +1,5 @@
 <loading [visible]="isLoading"></loading>
-<library-navbar [orderings]="collectionOrderings" addButtonContent="Add a new collection"></library-navbar>
+<library-navbar [groupings]="collectionGroupings" addButtonContent="Add a new collection"></library-navbar>
 <!-- Collections -->
 <ng-container *ngIf="collections.length === 0 && !isLoading">
   <!-- No collections -->
@@ -18,14 +18,14 @@
     </div>
   </div>
 </ng-container>
-<ng-container *ngFor="let collection of collections | collectionOrdering: orderingMethod">
+<ng-container *ngFor="let collection of collections | collectionGrouping: groupingMethod">
   <!-- Separator -->
   <div class="row" id="{{removeSpaces(collection.title)}}">
     <div class="col-md-9">
       <!-- Title -->
       <h4 class="title">
         {{collection.title}}
-        <a href="#{{collection.id}}" class="collapse-button" data-toggle="collapse" (click)="displayAll[collection.id] = !displayAll[collection.id]">
+        <a *ngIf="collection.books.length" href="#{{collection.id}}" class="collapse-button" data-toggle="collapse" (click)="displayAll[collection.id] = !displayAll[collection.id]">
           <i [ngClass]="{'pe-7s-angle-down': !displayAll[collection.id], 'pe-7s-angle-up': displayAll[collection.id]}"></i>
         </a>
       </h4>
@@ -61,7 +61,7 @@
   </div>
   <!-- No books -->
   <div *ngIf="!collection.books || collection.books.length === 0">
-    <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 0">
+    <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 4px 0;">
       You currently don't have any books in this collection. Click on the edit button above
       to add books to it.
     </h5>

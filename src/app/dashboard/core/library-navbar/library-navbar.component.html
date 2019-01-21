@@ -21,19 +21,19 @@
             </span>
           </div>
         </li>
-        <!-- Ordering -->
+        <!-- Grouping -->
         <li>
           <div class="dropdown">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              {{selectedOrdering}}
+              {{selectedGrouping}}
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
               <li style="padding: 8px 16px">Select grouping</li>
               <li role="separator" class="divider"></li>
-              <li *ngFor="let ordering of orderings">
-                <a href="javascript:void(0);" (click)="setOrdering(ordering)">
-                  {{ordering}}
+              <li *ngFor="let grouping of groupings">
+                <a href="javascript:void(0);" (click)="setGrouping(grouping)">
+                  {{grouping}}
                 </a>
               </li>
             </ul>

@@ -6,8 +6,8 @@ import { AppRoutes } from '../../../app.routing'
 import { UiService } from '../../../../services/ui.service'
 import { LibraryNavbarComponent } from './library-navbar.component'
 import {
-  BOOK_ORDERINGS,
-  COLLECTION_ORDERINGS,
+  BOOK_GROUPINGS,
+  COLLECTION_GROUPINGS,
 } from '../../../../utils/constants'
 
 storiesOf('Library Navbar', module)
@@ -24,14 +24,14 @@ storiesOf('Library Navbar', module)
   .add('Books', () => ({
     component: LibraryNavbarComponent,
     props: {
-      orderings: BOOK_ORDERINGS,
+      groupings: BOOK_GROUPINGS,
       addButtonContent: 'Add a new book',
     },
   }))
   .add('Collections', () => ({
     component: LibraryNavbarComponent,
     props: {
-      orderings: COLLECTION_ORDERINGS,
+      groupings: COLLECTION_GROUPINGS,
       addButtonContent: 'Add a new collection',
     },
   }))
