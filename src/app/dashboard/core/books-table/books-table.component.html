@@ -6,6 +6,7 @@
           
           <thead>
             <tr>
+              <th class="col-md-1"></th>
               <th class="col">Title</th>
               <th *ngIf="hasAuthor" class="col-md-2">Author</th>
               <th *ngIf="hasDate" class="col">Added on</th>
@@ -17,6 +18,35 @@
           
           <tbody>
             <tr *ngFor="let book of books">
+              <td>
+                <a
+                  *ngIf="linkable"
+                  href="javascript:void(0);"
+                  routerLink="/dashboard/books/{{ book.id }}"
+                >
+                  <img
+                    [src]="
+                      book.imageLarge
+                        ? book.imageLarge
+                        : book.imageSmall
+                        ? book.imageSmall
+                        : '/assets/img/no-book-cover.png'
+                    "
+                    alt="Book cover"
+                  />
+                </a>
+                <img
+                  *ngIf="!linkable"
+                  [src]="
+                    book.imageLarge
+                      ? book.imageLarge
+                      : book.imageSmall
+                      ? book.imageSmall
+                      : '/assets/img/no-book-cover.png'
+                  "
+                  alt="Book cover"
+                />
+              </td>
               <td class="col">
                 <a *ngIf="linkable" href="#" routerLink="../books/{{book.id}}">{{book.title}}</a>
                 {{linkable ? '' : book.title}}
@@ -29,31 +59,33 @@
               
               <td *ngIf="book.date" class="col">{{formatDate(book.date)}}</td>
               
-              <td *ngIf="withButtons" class="col-md-2 icons">
-                <i class="pe-7s-check tile-icon"
-                  [ngClass] = "{'inactive': !book.owned, 'owned': book.owned}"
-                  tooltip="{{book.owned ? 'Owned' : 'Not owned'}}"
-                        [isDisabled]="false"
-                        [tooltipAnimation]="true"
-                        placement="bottom"></i>
-                <i class="pe-7s-gift tile-icon"
-                        [ngClass] = "{'inactive': !book.wishlist, 'wishlist': book.wishlist}"
-                        tooltip="{{book.wishlist ? 'In wishlist' : 'Not in wishlist'}}"
-                              [isDisabled]="false"
-                              [tooltipAnimation]="true"
-                              placement="bottom"></i>
-                <i class="pe-7s-glasses tile-icon"
-                  [ngClass] = "{'inactive': !book.read, 'read': book.read}"
-                  tooltip="{{book.read ? 'Read' : 'read'}}"
-                        [isDisabled]="false"
-                        [tooltipAnimation]="true"
-                        placement="bottom"></i>
-                <i class="pe-7s-like tile-icon"
-                  [ngClass] = "{'inactive': !book.favorite, 'favorite': book.favorite}"
-                  tooltip="{{book.favorite ? 'Favorite' : 'Not a favorite'}}"
-                        [isDisabled]="false"
-                        [tooltipAnimation]="true"
-                        placement="bottom"></i>
+              <td *ngIf="withButtons" class="col-md-2">
+                <div class="icons">
+                  <i class="pe-7s-check tile-icon"
+                    [ngClass] = "{'inactive': !book.owned, 'owned': book.owned}"
+                    tooltip="{{book.owned ? 'Owned' : 'Not owned'}}"
+                          [isDisabled]="false"
+                          [tooltipAnimation]="true"
+                          placement="bottom"></i>
+                  <i class="pe-7s-gift tile-icon"
+                          [ngClass] = "{'inactive': !book.wishlist, 'wishlist': book.wishlist}"
+                          tooltip="{{book.wishlist ? 'In wishlist' : 'Not in wishlist'}}"
+                                [isDisabled]="false"
+                                [tooltipAnimation]="true"
+                                placement="bottom"></i>
+                  <i class="pe-7s-glasses tile-icon"
+                    [ngClass] = "{'inactive': !book.read, 'read': book.read}"
+                    tooltip="{{book.read ? 'Read' : 'read'}}"
+                          [isDisabled]="false"
+                          [tooltipAnimation]="true"
+                          placement="bottom"></i>
+                  <i class="pe-7s-like tile-icon"
+                    [ngClass] = "{'inactive': !book.favorite, 'favorite': book.favorite}"
+                    tooltip="{{book.favorite ? 'Favorite' : 'Not a favorite'}}"
+                          [isDisabled]="false"
+                          [tooltipAnimation]="true"
+                          placement="bottom"></i>
+                </div>
               </td>
 
               <td *ngIf="selectable" class="col-xs-3">

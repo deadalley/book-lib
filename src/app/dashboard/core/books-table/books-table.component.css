@@ -22,9 +22,19 @@ i.inactive {
   color: #c9c9c9;
 }
 
+table {
+  margin: 0;
+}
+
+img {
+  height: 160px;
+  width: auto;
+}
+
 .icons {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .btn::-moz-placeholder {
