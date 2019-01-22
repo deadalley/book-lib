@@ -48,9 +48,9 @@ export class CollectionsHomeComponent
         }
         this.isLoading = false
         this.collections = collections
-        collections.forEach(
-          collection => (this.displayAll[collection.id] = true)
-        )
+        collections.forEach(collection => {
+          this.displayAll[collection.id] = true
+        })
       })
     )
     this.subscriptions.push(

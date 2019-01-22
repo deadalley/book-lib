@@ -22,11 +22,6 @@
   border-radius: 0 0 4px 4px;
 }
 
-.tile-icon {
-  width: 16px;
-  height:auto;
-}
-
 .image {
   height: auto;
   border-radius: 4px;
@@ -49,6 +44,7 @@ div > img.tile-icon {
 
 i.tile-icon {
   font-size: 1.4em;
+  height:auto;
   cursor: pointer;
 }
 

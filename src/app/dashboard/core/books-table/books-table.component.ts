@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { Book } from 'models/book.model'
 import { ANIMATIONS } from 'utils/constants'
 import { formatDate } from 'utils/helpers'
+import { LibraryService } from 'services/library.service'
 
 @Component({
   moduleId: module.id,
@@ -24,12 +25,14 @@ export class BooksTableComponent implements OnInit {
   @Input() statusIncluded: string
   @Input() statusNotIncluded: string
   @Input() statusCannotBeSelected: string
-  @Input() displayItems: {}
+  @Input() displayItems = {}
 
   @Output() selectedBooks = new EventEmitter<Book[]>()
   @Output() selectedBook = new EventEmitter<Book>()
 
   formatDate = formatDate
+
+  constructor(private libraryService: LibraryService) {}
 
   ngOnInit() {}
 
@@ -43,5 +46,9 @@ export class BooksTableComponent implements OnInit {
     return book.goodreadsAuthorId
       ? `/dashboard/authors/${book.goodreadsAuthorId}`
       : `/dashboard/authors/find/${book.author}`
+  }
+
+  updateFavoriteIcon(book: Book, values: {}) {
+    this.libraryService.updateBook({ ...book, ...values })
   }
 }

@@ -41,7 +41,7 @@ export class LibraryService {
     this.loadLibrary()
   }
 
-  private mapCollectionTitleToId(book: Book, collections: Collection[]) {
+  mapCollectionTitleToId(book: Book, collections: Collection[]) {
     if (!book.collections || !collections) {
       return []
     }
@@ -52,7 +52,7 @@ export class LibraryService {
     )
   }
 
-  private mapCollectionIdToTitle(
+  mapCollectionIdToTitle(
     collectionIds: string[] = [],
     collections: RawCollection[] = []
   ) {
@@ -78,24 +78,7 @@ export class LibraryService {
       mergeMap(userRef => this.database.subscribeToCollectionsFromUser(userRef))
     )
 
-    this.books$ = this.rawCollections$.pipe(
-      mergeMap(_collections =>
-        this.rawBooks$.pipe(
-          map(_books =>
-            _books.map(
-              book =>
-                ({
-                  ...book,
-                  collections: this.mapCollectionIdToTitle(
-                    book.collections,
-                    _collections
-                  ),
-                } as Book)
-            )
-          )
-        )
-      )
-    )
+    this.books$ = this.rawBooks$
     this.books$.subscribe(this.books)
 
     this.latestBooks$ = this.session.userRef.pipe(
@@ -133,10 +116,13 @@ export class LibraryService {
     return this.books$.pipe(map(books => books.find(book => book.id === id)))
   }
 
-  updateBook(book) {
+  updateBook(book, mapCollections = true) {
+    console.log(book.collections)
     return this.database.updateBookForUser(this._userRef, {
       ...book,
-      collections: this.mapCollectionTitleToId(book, this.collections.value),
+      // collections: mapCollections
+      //   ? this.mapCollectionTitleToId(book, this.collections.value)
+      //   : book.collections,
     })
   }
 
