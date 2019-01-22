@@ -34,6 +34,15 @@ export const BOOK_GROUPINGS = [
 
 export const COLLECTION_GROUPINGS = ['No grouping', 'Size', 'Title']
 
+export const FILTERS = [
+  'No filter',
+  'Owned books',
+  'Read books',
+  'Wishlist',
+  'Favorites',
+  'Tags',
+]
+
 export const _LANGUAGES = {
   om: 'Afaan Oromoo',
   aa: 'Afaraf',

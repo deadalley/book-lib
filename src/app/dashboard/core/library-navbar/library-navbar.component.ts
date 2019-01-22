@@ -4,7 +4,7 @@ import { UiService } from 'services/ui.service'
 import { upperCaseFirstLetter } from 'utils/helpers'
 import * as XLSX from 'xlsx'
 import { Book } from 'models/book.model'
-import { LANGUAGES } from 'utils/constants'
+import { LANGUAGES, FILTERS } from 'utils/constants'
 
 type AOA = any[][]
 
@@ -19,7 +19,9 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
   tilesDisplay = true
   tagsDisplay = false
   selectedGrouping: string
+  selectedFilter: string
   @Input() groupings: string[]
+  @Input() filters = FILTERS
   @Input() addButtonContent: string
   @ViewChild('fileUpload') fileUpload
 
@@ -48,6 +50,10 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
         this.selectedGrouping = params['grouping']
           ? upperCaseFirstLetter(params['grouping'])
           : 'No grouping'
+
+        this.selectedFilter = params['filter']
+          ? upperCaseFirstLetter(params['filter'])
+          : 'No filter'
       })
     )
   }
@@ -66,16 +72,31 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
     this.uiService.tagsDisplay = !this.tagsDisplay
   }
 
-  setGrouping(order: string) {
-    if (order === 'No grouping') {
+  setGrouping(grouping: string) {
+    if (grouping === 'No grouping') {
       this.router.navigate(['.'], { relativeTo: this.route })
       return
     }
     const queryParams: Params = {
       ...this.route.snapshot.queryParams,
-      grouping: order.toLocaleLowerCase(),
+      grouping: grouping.toLocaleLowerCase(),
     }
     this.router.navigate([`.`], {
+      relativeTo: this.route,
+      queryParams,
+    })
+  }
+
+  setFilter(filter: string) {
+    if (filter === 'No filter') {
+      this.router.navigate(['.'], { relativeTo: this.route })
+      return
+    }
+    const queryParams: Params = {
+      ...this.route.snapshot.queryParams,
+      filter: filter.toLocaleLowerCase(),
+    }
+    this.router.navigate(['.'], {
       relativeTo: this.route,
       queryParams,
     })

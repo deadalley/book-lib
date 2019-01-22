@@ -39,6 +39,24 @@
             </ul>
           </div>
         </li>
+        <!-- Filtering -->
+        <li>
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              {{selectedFilter}}
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <li style="padding: 8px 16px">Select filter</li>
+              <li role="separator" class="divider"></li>
+              <li *ngFor="let filter of filters">
+                <a href="javascript:void(0);" (click)="setFilter(filter)">
+                  {{filter}}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
         <li class="library-nav-right">
           <ul>
             <li class="text-center">
