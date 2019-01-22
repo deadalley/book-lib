@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { Book } from 'models/book.model'
 import { formatDate } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
+import { LibraryService } from 'services/library.service'
 
 @Component({
   selector: 'book-card',
@@ -30,12 +31,16 @@ export class BookCardComponent implements OnInit {
       : `/dashboard/authors/find/${this.book.author}`
   }
 
-  constructor() {}
+  constructor(private libraryService: LibraryService) {}
 
   ngOnInit() {}
 
   select() {
     this.book.isSelected = !this.book.isSelected
     this.selectedChanged.emit(this.book)
+  }
+
+  updateFavoriteIcon(values: {}) {
+    this.libraryService.updateBook({ ...this.book, ...values })
   }
 }
