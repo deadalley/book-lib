@@ -72,7 +72,9 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {}
 
   ngAfterViewInit() {
-    scrollToAnchor(this.route.snapshot.fragment, 100)
+    if (this.route.snapshot.fragment) {
+      scrollToAnchor(this.route.snapshot.fragment, 100)
+    }
   }
 
   ngOnDestroy() {

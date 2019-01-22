@@ -5,7 +5,7 @@ import { Collection as RawCollection } from 'database/models/collection.model'
 import { Book as RawBook } from 'database/models/book.model'
 import { Book } from 'models/book.model'
 import { Collection } from 'models/collection.model'
-import { map, mergeMap } from 'rxjs/operators'
+import { map, mergeMap, filter } from 'rxjs/operators'
 import { Observable } from 'rxjs/Observable'
 import { omit } from 'lodash'
 import { SessionService } from './session.service'
@@ -38,12 +38,7 @@ export class LibraryService {
     private database: DatabaseService,
     private session: SessionService
   ) {
-    this.session.userRef.subscribe(value => {
-      this._userRef = value
-      if (value) {
-        this.loadLibrary()
-      }
-    })
+    this.loadLibrary()
   }
 
   private mapCollectionTitleToId(book: Book, collections: Collection[]) {
@@ -74,9 +69,13 @@ export class LibraryService {
 
   loadLibrary() {
     console.log('Loading library...')
-    this.rawBooks$ = this.database.subscribeToBooksFromUser(this._userRef)
-    this.rawCollections$ = this.database.subscribeToCollectionsFromUser(
-      this._userRef
+    this.rawBooks$ = this.session.userRef.pipe(
+      filter(userRef => !!userRef),
+      mergeMap(userRef => this.database.subscribeToBooksFromUser(userRef))
+    )
+    this.rawCollections$ = this.session.userRef.pipe(
+      filter(userRef => !!userRef),
+      mergeMap(userRef => this.database.subscribeToCollectionsFromUser(userRef))
     )
 
     this.books$ = this.rawCollections$.pipe(
@@ -99,9 +98,11 @@ export class LibraryService {
     )
     this.books$.subscribe(this.books)
 
-    this.latestBooks$ = this.database.subscribeToLatestBooks(
-      this._userRef,
-      this.MAX_DATE
+    this.latestBooks$ = this.session.userRef.pipe(
+      filter(userRef => !!userRef),
+      mergeMap(userRef =>
+        this.database.subscribeToLatestBooks(userRef, this.MAX_DATE)
+      )
     )
 
     this.collections$ = this.rawBooks$.pipe(

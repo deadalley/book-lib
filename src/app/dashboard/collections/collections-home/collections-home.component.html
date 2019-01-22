@@ -1,5 +1,5 @@
 <loading [visible]="isLoading"></loading>
-<library-navbar [groupings]="collectionGroupings" addButtonContent="Add a new collection"></library-navbar>
+<library-navbar *ngIf="!isLoading" [groupings]="collectionGroupings" addButtonContent="Add a new collection"></library-navbar>
 <!-- Collections -->
 <ng-container *ngIf="collections.length === 0 && !isLoading">
   <!-- No collections -->
