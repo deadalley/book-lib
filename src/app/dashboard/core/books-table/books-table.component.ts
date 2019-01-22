@@ -19,29 +19,17 @@ export class BooksTableComponent implements OnInit {
   @Input() clickable: boolean
   @Input() linkable: boolean
   @Input() selectable: boolean
+  @Input() withDisplayItems: boolean
 
   @Input() statusIncluded: string
   @Input() statusNotIncluded: string
   @Input() statusCannotBeSelected: string
+  @Input() displayItems: {}
 
   @Output() selectedBooks = new EventEmitter<Book[]>()
   @Output() selectedBook = new EventEmitter<Book>()
 
   formatDate = formatDate
-
-  get hasAuthor() {
-    if (!this.books) {
-      return
-    }
-    return this.books.some(book => !!book.author)
-  }
-
-  get hasDate() {
-    if (!this.books) {
-      return
-    }
-    return this.books.some(book => !!book.date)
-  }
 
   ngOnInit() {}
 

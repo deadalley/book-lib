@@ -6,11 +6,17 @@
           
           <thead>
             <tr>
-              <th class="col-md-1"></th>
+              <th *ngIf="displayItems['Cover']" class="col-md-1"></th>
               <th class="col">Title</th>
-              <th *ngIf="hasAuthor" class="col-md-2">Author</th>
-              <th *ngIf="hasDate" class="col">Added on</th>
-              <th *ngIf="withButtons" class="col-md-1"></th>
+              <th *ngIf="displayItems['Original title']" class="col-md-2">Original title</th>
+              <th *ngIf="displayItems['Author']" class="col-md-2">Author</th>
+              <th *ngIf="displayItems['Added on']" class="col">Added on</th>
+              <th *ngIf="displayItems['Year']" class="col">Year</th>
+              <th *ngIf="displayItems['Publisher']" class="col">Publisher</th>
+              <th *ngIf="displayItems['Language']" class="col">Language</th>
+              <th *ngIf="displayItems['Pages']" class="col">Pages</th>
+              <th *ngIf="displayItems['Rating']" class="col">Rating</th>
+              <th *ngIf="displayItems['Favorites'] && withButtons" class="col-md-1"></th>
               <th *ngIf="selectable" class="col">Status</th>
               <th *ngIf="selectable" class="col"></th>
               <th *ngIf="clickable" class="col"></th>
@@ -18,7 +24,8 @@
           
           <tbody>
             <tr *ngFor="let book of books">
-              <td>
+              <!-- Cover -->
+              <td *ngIf="displayItems['Cover']">
                 <a
                   *ngIf="linkable"
                   href="javascript:void(0);"
@@ -47,19 +54,32 @@
                   alt="Book cover"
                 />
               </td>
+              <!-- Title -->
               <td class="col">
-                <a *ngIf="linkable" href="#" routerLink="../books/{{book.id}}">{{book.title}}</a>
+                <a *ngIf="linkable" href="#" routerLink="{{book.id}}">{{book.title}}</a>
                 {{linkable ? '' : book.title}}
               </td>
-              
-              <td *ngIf="hasAuthor" class="col-md-2">
+              <!-- Original title -->
+              <td *ngIf="displayItems['Original title']" class="col-md-2">{{book.original}}</td>
+              <!-- Author -->
+              <td *ngIf="displayItems['Author']" class="col-md-2">
                 <a *ngIf="linkable" href="#" [routerLink]="authorRoute(book)">{{book.author}}</a>
                 {{linkable ? '' : book.author}}
               </td>
-              
-              <td *ngIf="book.date" class="col">{{formatDate(book.date)}}</td>
-              
-              <td *ngIf="withButtons" class="col-md-2">
+              <!-- Date -->
+              <td *ngIf="displayItems['Added on']" class="col">{{formatDate(book.date)}}</td>
+              <!-- Year -->
+              <td *ngIf="displayItems['Year']" class="col">{{book.year}}</td>
+              <!-- Publisher -->
+              <td *ngIf="displayItems['Publisher']" class="col">{{book.publisher}}</td>
+              <!-- Language -->
+              <td *ngIf="displayItems['Language']" class="col">{{book.language}}</td>
+              <!-- Pages -->
+              <td *ngIf="displayItems['Pages']" class="col">{{book.pages}}</td>
+              <!-- Rating -->
+              <td *ngIf="displayItems['Rating']" class="col">{{book.Rating || 0}}</td>
+              <!-- Favorites -->
+              <td *ngIf="displayItems['Favorites'] && withButtons" class="col-md-2">
                 <div class="icons">
                   <i class="pe-7s-check tile-icon"
                     [ngClass] = "{'inactive': !book.owned, 'owned': book.owned}"

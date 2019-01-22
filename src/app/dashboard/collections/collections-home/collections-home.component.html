@@ -18,54 +18,58 @@
     </div>
   </div>
 </ng-container>
-<ng-container *ngFor="let collection of collections | collectionGrouping: groupingMethod">
-  <!-- Separator -->
-  <div class="row" id="{{removeSpaces(collection.title)}}">
-    <div class="col-md-9">
-      <!-- Title -->
-      <h4 class="title">
-        {{collection.title}}
-        <a *ngIf="collection.books.length" href="#{{collection.id}}" class="collapse-button" data-toggle="collapse" (click)="displayAll[collection.id] = !displayAll[collection.id]">
-          <i [ngClass]="{'pe-7s-angle-down': !displayAll[collection.id], 'pe-7s-angle-up': displayAll[collection.id]}"></i>
-        </a>
-      </h4>
+<ng-container [ngSwitch]="tilesDisplay">
+  <table-items (displayItems)="tableDisplayItems=$event" *ngSwitchCase="false"></table-items>
+  <ng-container *ngFor="let collection of collections | collectionGrouping: groupingMethod">
+    <!-- Separator -->
+    <div class="row" id="{{removeSpaces(collection.title)}}">
+      <div class="col-md-9">
+        <!-- Title -->
+        <h4 class="title">
+          {{collection.title}}
+          <a *ngIf="collection.books.length" href="#{{collection.id}}" class="collapse-button" data-toggle="collapse" (click)="displayAll[collection.id] = !displayAll[collection.id]">
+            <i [ngClass]="{'pe-7s-angle-down': !displayAll[collection.id], 'pe-7s-angle-up': displayAll[collection.id]}"></i>
+          </a>
+        </h4>
+      </div>
+      <div class="col-md-3 buttons">
+        <button class="btn btn-default btn-margin" routerLink="./{{collection.id}}/edit">
+          <i class="pe-7s-note"></i>
+          Edit
+        </button>
+        <button class="btn btn-danger btn-margin" (click)="confirmDeleteCollection(collection)">
+          <i class="pe-7s-trash"></i>
+          Delete
+        </button>
+      </div>
     </div>
-    <div class="col-md-3 buttons">
-      <button class="btn btn-default btn-margin" routerLink="./{{collection.id}}/edit">
-        <i class="pe-7s-note"></i>
-        Edit
-      </button>
-      <button class="btn btn-danger btn-margin" (click)="confirmDeleteCollection(collection)">
-        <i class="pe-7s-trash"></i>
-        Delete
-      </button>
-    </div>
-  </div>
-  <hr class="library-hr">
-  <p class="text-muted">{{collection.description}}</p>
-
-  <!-- Books -->
-  <div *ngIf="collection.books && collection.books.length > 0" [ngSwitch]="tilesDisplay" class="collapsable in" id="{{collection.id}}">
-    <books-section
-      *ngSwitchCase="true"
-      [books]="collection.books"
-      [withButtons]="true"
-      [linkable]="true"
-    ></books-section>
-    <books-table
-      *ngSwitchCase="false"
-      [books]="collection.books"
-      [withButtons]="true"
-      [linkable]="true"
+    <hr class="library-hr">
+    <p class="text-muted">{{collection.description}}</p>
+  
+    <!-- Books -->
+    <div *ngIf="collection.books && collection.books.length > 0" class="collapsable in" id="{{collection.id}}">
+      <books-section
+        *ngSwitchCase="true"
+        [books]="collection.books"
+        [withButtons]="true"
+        [linkable]="true"
+      ></books-section>
+      <books-table
+        *ngSwitchCase="false"
+        [books]="collection.books"
+        [withButtons]="true"
+        [linkable]="true"
+        [displayItems]="tableDisplayItems"
       ></books-table>
-  </div>
-  <!-- No books -->
-  <div *ngIf="!collection.books || collection.books.length === 0">
-    <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 4px 0;">
-      You currently don't have any books in this collection. Click on the edit button above
-      to add books to it.
-    </h5>
-  </div>
+    </div>
+    <!-- No books -->
+    <div *ngIf="!collection.books || collection.books.length === 0">
+      <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 4px 0;">
+        You currently don't have any books in this collection. Click on the edit button above
+        to add books to it.
+      </h5>
+    </div>
+  </ng-container>
 </ng-container>
 
 <modal

@@ -22,11 +22,13 @@
   </ng-container>
   <!-- Table -->
   <ng-container *ngSwitchCase="false">
+    <table-items (displayItems)="tableDisplayItems=$event"></table-items>
     <books-table
       *ngIf="!groupingMethod"
       [books]="books"
       [withButtons]="true"
       [linkable]="true"
+      [displayItems]="tableDisplayItems"
     ></books-table>
     <ng-container *ngFor="let item of books | bookGrouping: groupingMethod | iterable">
       <div class="row">
@@ -38,6 +40,7 @@
           [books]="item.value"
           [withButtons]="true"
           [linkable]="true"
+          [displayItems]="tableDisplayItems"
         ></books-table>
       </div>
     </ng-container>

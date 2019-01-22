@@ -30,6 +30,7 @@ export class CollectionsHomeComponent
   displayAll = {}
   subscriptions = []
   collectionGroupings = COLLECTION_GROUPINGS
+  tableDisplayItems = {}
 
   removeSpaces = removeSpaces
 

@@ -20,6 +20,7 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
   subscriptions = []
   tagFilter: string
   bookGroupings = BOOK_GROUPINGS
+  tableDisplayItems = {}
 
   readonly PUSH_GROUPING = {
     genre: 'No genre',
@@ -48,7 +49,6 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
         }
         this.tagFilter = params['tag']
         this.groupingMethod = params['grouping']
-        console.log(this.groupingMethod)
 
         if (this.tagFilter) {
           this.books = this.allBooks.filter(

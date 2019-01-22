@@ -20,7 +20,7 @@ import { TagsListComponent } from './tags-list/tags-list.component'
 import { GridComponent } from './grid/grid.component'
 import { LanguageSelectorComponent } from './language-selector/language-selector.component'
 import { LibraryNavbarComponent } from './library-navbar/library-navbar.component'
-
+import { TableItemsComponent } from './table-items/table-items.component'
 @NgModule({
   declarations: [
     AuthorCardComponent,
@@ -37,6 +37,7 @@ import { LibraryNavbarComponent } from './library-navbar/library-navbar.componen
     GridComponent,
     LanguageSelectorComponent,
     LibraryNavbarComponent,
+    TableItemsComponent,
   ],
   imports: [
     LoadingModule.forRoot({
@@ -66,6 +67,7 @@ import { LibraryNavbarComponent } from './library-navbar/library-navbar.componen
     GridComponent,
     LanguageSelectorComponent,
     LibraryNavbarComponent,
+    TableItemsComponent,
   ],
 })
 export class CoreModule {}
