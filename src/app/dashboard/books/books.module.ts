@@ -17,6 +17,7 @@ import { BookComponent } from './book/book.component'
 import { PushToBottomPipe } from 'pipes/push-to-bottom.pipe'
 import { IterableObjectPipe } from 'pipes//iterable-object.pipe'
 import { BookGroupingPipe } from 'pipes/book-grouping.pipe'
+import { BookFilterPipe } from 'pipes/book-filter.pipe'
 
 const routes: Routes = [
   {
@@ -47,10 +48,11 @@ const routes: Routes = [
     AddBookComponent,
     EditBookComponent,
     BookComponent,
+    NoBooksComponent,
     PushToBottomPipe,
     IterableObjectPipe,
     BookGroupingPipe,
-    NoBooksComponent,
+    BookFilterPipe,
   ],
   exports: [BooksComponent],
 })

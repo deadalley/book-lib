@@ -10,7 +10,7 @@
         [linkable]="true"
       ></books-section>
     <ng-container *ngIf="groupingMethod !== 'no grouping'">
-      <ng-container *ngFor="let item of books | bookGrouping: groupingMethod | iterable | pushToBottom: PUSH_GROUPING[groupingMethod]">
+      <ng-container *ngFor="let item of books | bookFilter: filterMethod | bookGrouping: groupingMethod | iterable | pushToBottom: PUSH_GROUPING[groupingMethod]">
         <books-section
           [sectionTitle]="item.key"
           [books]="item.value"
@@ -30,7 +30,7 @@
       [linkable]="true"
       [displayItems]="tableDisplayItems"
     ></books-table>
-    <ng-container *ngFor="let item of books | bookGrouping: groupingMethod | iterable">
+    <ng-container *ngFor="let item of books | bookFilter: filterMethod | bookGrouping: groupingMethod | iterable">
       <div class="row">
         <div class="col-md-12">
           <h4 class="title">{{item.key}}</h4>

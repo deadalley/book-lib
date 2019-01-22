@@ -39,7 +39,7 @@ export const FILTERS = [
   'Owned books',
   'Read books',
   'Wishlist',
-  'Favorites',
+  'Favorite',
   'Tags',
 ]
 

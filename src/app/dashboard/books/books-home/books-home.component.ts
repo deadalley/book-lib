@@ -15,6 +15,7 @@ import { BOOK_GROUPINGS } from 'utils/constants'
 export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
   tilesDisplay = true
   groupingMethod: string
+  filterMethod: string
   allBooks: Book[]
   books: Book[]
   subscriptions = []
@@ -48,7 +49,8 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
           return
         }
         this.tagFilter = params['tag']
-        this.groupingMethod = params['grouping']
+        this.groupingMethod = (params['grouping'] || '').split(' ')[0]
+        this.filterMethod = (params['filter'] || '').split(' ')[0]
 
         if (this.tagFilter) {
           this.books = this.allBooks.filter(

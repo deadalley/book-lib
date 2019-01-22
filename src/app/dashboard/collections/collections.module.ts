@@ -13,6 +13,7 @@ import { EditCollectionComponent } from './edit-collection/edit-collection.compo
 
 import { CollectionGroupingPipe } from 'pipes/collection-grouping.pipe'
 import { CollectionsHomeComponent } from './collections-home/collections-home.component'
+import { BookFilterPipe } from 'pipes/book-filter.pipe'
 
 const routes: Routes = [
   {
@@ -50,6 +51,7 @@ const routes: Routes = [
     AddCollectionComponent,
     EditCollectionComponent,
     CollectionGroupingPipe,
+    // BookFilterPipe,
   ],
   exports: [CollectionsComponent],
 })
