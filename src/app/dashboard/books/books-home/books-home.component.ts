@@ -27,6 +27,7 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   readonly PUSH_GROUPING = {
     genre: 'No genre',
+    language: 'No language',
   }
 
   constructor(

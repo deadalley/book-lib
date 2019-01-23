@@ -138,7 +138,12 @@ export class LibraryService {
   }
 
   updateBook(book, mapCollections = true) {
-    return this.database.updateBookForUser(this._userRef, book)
+    return this.database.updateBookForUser(this._userRef, {
+      ...book,
+      collections: mapCollections
+        ? this.mapCollectionTitleToId(book, this.collections.value)
+        : book.collections,
+    })
   }
 
   deleteBook(book: Book) {

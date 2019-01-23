@@ -26,6 +26,7 @@ export const BOOK_GROUPINGS = [
   'No grouping',
   'Author',
   'Date added',
+  'Language',
   'Genre',
   'Rating',
   'Title',

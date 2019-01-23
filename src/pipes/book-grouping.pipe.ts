@@ -39,8 +39,10 @@ export class BookGroupingPipe implements PipeTransform {
         order = order[0].toLocaleUpperCase()
       }
       if (groupingMethod === 'date') {
-        console.log(book.date)
         order = new Date(book.date).toLocaleDateString()
+      }
+      if (groupingMethod === 'language') {
+        order = book.language || 'Unknown language'
       }
 
       if (Object.keys(orderedItems).includes(order)) {
