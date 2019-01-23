@@ -16,8 +16,7 @@ type AOA = any[][]
 })
 export class LibraryNavbarComponent implements OnInit, OnDestroy {
   subscriptions = []
-  tilesDisplay = true
-  tagsDisplay = false
+  tilesDisplay = false
   selectedGrouping: string
   selectedFilter: string
   @Input() groupings: string[]
@@ -25,26 +24,16 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
   @Input() addButtonContent: string
   @ViewChild('fileUpload') fileUpload
 
+  get viewQueryParam(): string {
+    return this.route.snapshot.queryParamMap.get('view')
+  }
+
   get localUrlPath(): string {
     const splitUrl = this.router.url.split('/')
     return splitUrl[splitUrl.length - 1].split('?')[0]
   }
 
-  constructor(
-    public router: Router,
-    private route: ActivatedRoute,
-    private uiService: UiService
-  ) {
-    this.subscriptions.push(
-      this.uiService.tagsDisplay$.subscribe(
-        tagsDisplay => (this.tagsDisplay = tagsDisplay)
-      )
-    )
-    this.subscriptions.push(
-      this.uiService.tilesDisplay$.subscribe(
-        tilesDisplay => (this.tilesDisplay = tilesDisplay)
-      )
-    )
+  constructor(public router: Router, private route: ActivatedRoute) {
     this.subscriptions.push(
       this.route.queryParams.subscribe(params => {
         this.selectedGrouping = params['grouping']
@@ -54,6 +43,7 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
         this.selectedFilter = params['filter']
           ? upperCaseFirstLetter(params['filter'])
           : 'No filter'
+        this.tilesDisplay = !params['view'] || params['view'] === 'tiles'
       })
     )
   }
@@ -65,11 +55,14 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
   }
 
   toggleTilesDisplay() {
-    this.uiService.tilesDisplay = !this.tilesDisplay
-  }
-
-  toggleTagsDisplay() {
-    this.uiService.tagsDisplay = !this.tagsDisplay
+    const queryParams: Params = {
+      ...this.route.snapshot.queryParams,
+      view:
+        !this.viewQueryParam || this.viewQueryParam === 'tiles'
+          ? 'list'
+          : 'tiles',
+    }
+    this.router.navigate(['.'], { relativeTo: this.route, queryParams })
   }
 
   setGrouping(grouping: string) {

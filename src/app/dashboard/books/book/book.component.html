@@ -124,27 +124,6 @@
           </div>
           <div class="row">
             <div class="col-xs-12">
-              <label>Tags</label>
-              <div>
-                <p *ngIf="!book.tags" [ngClass]="{'unavailable': !book.tags }">
-                  No tags
-                </p>
-                <ng-container *ngFor="let tag of book.tags; let lastItem = last">
-                  <i class="pe-7s-ticket"></i>
-                  <a
-                    href="javascript:void(0);"
-                    (click)="libraryService.toggleTagsDisplay(true)"
-                    routerLink="/dashboard/books"
-                    [queryParams]="{ tag: tag }"
-                    queryParamsHandling="merge"
-                  > {{tag}}</a>
-                  {{lastItem ? '' : ', '}}
-                </ng-container>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
               <label>Notes</label>
               <p [ngClass]="{'unavailable': !book.notes }">{{book.notes ? book.notes : 'Not available'}}</p>
             </div>

@@ -55,11 +55,6 @@ export class CollectionsHomeComponent
       })
     )
     this.subscriptions.push(
-      this.uiService.tilesDisplay$.subscribe(
-        tilesDisplay => (this.tilesDisplay = tilesDisplay)
-      )
-    )
-    this.subscriptions.push(
       this.route.fragment.subscribe(fragment => {
         if (!fragment) {
           return
@@ -69,6 +64,7 @@ export class CollectionsHomeComponent
     )
     this.subscriptions.push(
       this.route.queryParams.subscribe(params => {
+        this.tilesDisplay = !params['view'] || params['view'] === 'tiles'
         this.groupingMethod = (params['grouping'] || '').split(' ')[0]
         this.filterMethod = (params['filter'] || '').split(' ')[0]
       })

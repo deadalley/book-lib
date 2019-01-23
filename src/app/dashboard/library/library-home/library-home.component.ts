@@ -14,7 +14,6 @@ export class LibraryHomeComponent implements OnInit, OnDestroy {
   selectedTag: string
   hasBooks = false
   isLoading = true
-  tagsDisplay = false
   subscriptions = []
 
   constructor(
