@@ -121,7 +121,20 @@ export class LibraryService {
   }
 
   findBook(id: string) {
-    return this.books$.pipe(map(books => books.find(book => book.id === id)))
+    return this.rawCollections$.pipe(
+      mergeMap(collections =>
+        this.books$.pipe(
+          map(books => {
+            const book = books.find(book => book.id === id)
+            book.collections = this.mapCollectionIdToTitle(
+              book.collections,
+              collections
+            )
+            return book
+          })
+        )
+      )
+    )
   }
 
   updateBook(book, mapCollections = true) {
