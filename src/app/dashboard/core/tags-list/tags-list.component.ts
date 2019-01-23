@@ -8,7 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 })
 export class TagsListComponent implements OnInit {
   @Input() tags: string[]
-  @Output() selectedTags = new EventEmitter<object>()
+  @Output() selectedTags = new EventEmitter<string[]>()
   _selectedTags = {}
 
   ngOnInit() {
@@ -16,11 +16,17 @@ export class TagsListComponent implements OnInit {
       value[tag] = false
       return value
     }, {})
-    this.selectedTags.emit(this._selectedTags)
+    this.selectedTags.emit(this.filterSelectedTags())
   }
 
   onClick(tag: string) {
     this._selectedTags[tag] = !this._selectedTags[tag]
-    this.selectedTags.emit(this._selectedTags)
+    this.selectedTags.emit(this.filterSelectedTags())
+  }
+
+  filterSelectedTags() {
+    return Object.keys(this._selectedTags).filter(
+      tag => this._selectedTags[tag]
+    )
   }
 }

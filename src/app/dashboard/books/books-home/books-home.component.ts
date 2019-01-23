@@ -5,6 +5,7 @@ import { LibraryService } from 'services/library.service'
 import { scrollToAnchor } from 'utils/helpers'
 import { UiService } from 'services/ui.service'
 import { BOOK_GROUPINGS } from 'utils/constants'
+import { uniq, flatten, compact } from 'lodash'
 
 @Component({
   moduleId: module.id,
@@ -18,10 +19,11 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
   filterMethod: string
   books: Book[] = []
   subscriptions = []
-  tagFilter: string
+  tagFilter: string[]
   bookGroupings = BOOK_GROUPINGS
   tableDisplayItems = {}
   isLoading = true
+  tags = []
 
   readonly PUSH_GROUPING = {
     genre: 'No genre',
@@ -36,6 +38,7 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.libraryService.books$.subscribe(books => {
         this.books = books
         this.isLoading = false
+        this.tags = compact(uniq(flatten(books.map(book => book.tags))))
       })
     )
     this.subscriptions.push(
