@@ -22,6 +22,7 @@ export class LibraryService {
   books$: Observable<Book[]>
   latestBooks$: Observable<Book[]>
   collections$: Observable<Collection[]>
+  tags$: Observable<string[]>
   booksToImport$ = this.booksToImport.asObservable()
 
   rawBooks$: Observable<RawBook[]>
@@ -79,6 +80,10 @@ export class LibraryService {
     this.rawCollections$ = this.session.userRef.pipe(
       filter(userRef => !!userRef),
       mergeMap(userRef => this.database.subscribeToCollectionsFromUser(userRef))
+    )
+    this.tags$ = this.session.userRef.pipe(
+      filter(userRef => !!userRef),
+      mergeMap(userRef => this.database.subscribeToTagsFromUser(userRef))
     )
 
     this.books$ = this.rawBooks$

@@ -31,14 +31,17 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private libraryService: LibraryService,
-    private uiService: UiService,
     private route: ActivatedRoute
   ) {
     this.subscriptions.push(
       this.libraryService.books$.subscribe(books => {
         this.books = books
         this.isLoading = false
-        this.tags = compact(uniq(flatten(books.map(book => book.tags))))
+      })
+    )
+    this.subscriptions.push(
+      this.libraryService.tags$.subscribe(tags => {
+        this.tags = tags
       })
     )
     this.subscriptions.push(

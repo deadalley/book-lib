@@ -13,6 +13,7 @@ import { objectToArray, findKeyByValue, unique } from '../utils/helpers'
 import { environment } from 'environments/environment'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { Observable } from 'rxjs/Observable'
+import { map } from 'rxjs/operators'
 @Injectable()
 export class DatabaseService {
   users: AngularFireList<User>
@@ -498,6 +499,12 @@ export class DatabaseService {
         })
       })
     })
+  }
+
+  subscribeToTagsFromUser(userRef: string) {
+    return this.userTagsRef(userRef)
+      .valueChanges()
+      .pipe(map(value => Object.keys(value))) as Observable<string[]>
   }
 
   private uploadFile(file, filePath: string) {

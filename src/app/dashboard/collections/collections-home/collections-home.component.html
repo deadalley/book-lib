@@ -1,5 +1,6 @@
 <loading [visible]="isLoading"></loading>
 <library-navbar *ngIf="!isLoading" [groupings]="collectionGroupings" addButtonContent="Add a new collection"></library-navbar>
+<tags-list *ngIf="filterMethod === 'tags'" [tags]="tags" (selectedTags)="tagFilter=$event"></tags-list>
 <!-- Collections -->
 <ng-container *ngIf="collections.length === 0 && !isLoading">
   <!-- No collections -->
@@ -49,20 +50,20 @@
     <!-- Books -->
     <div *ngIf="collection.books && collection.books.length > 0" class="collapsable in" id="{{collection.id}}">
       <!-- No books -->
-      <div *ngIf="!(collection.books | bookFilter: filterMethod).length">
+      <div *ngIf="!(collection.books | bookFilter: filterMethod:tagFilter).length">
         <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 4px 0;">
           No books available for this filter.
         </h5>
       </div>
       <books-section
         *ngSwitchCase="true"
-        [books]="collection.books | bookFilter: filterMethod"
+        [books]="collection.books | bookFilter: filterMethod:tagFilter"
         [withButtons]="true"
         [linkable]="true"
       ></books-section>
       <books-table
         *ngSwitchCase="false"
-        [books]="collection.books | bookFilter: filterMethod"
+        [books]="collection.books | bookFilter: filterMethod:tagFilter"
         [withButtons]="true"
         [linkable]="true"
         [displayItems]="tableDisplayItems"

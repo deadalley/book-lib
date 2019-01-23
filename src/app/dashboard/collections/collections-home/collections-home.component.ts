@@ -10,7 +10,6 @@ import { Collection } from 'models/collection.model'
 import { scrollToAnchor, removeSpaces } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
 import { LibraryService } from 'services/library.service'
-import { UiService } from 'services/ui.service'
 import { COLLECTION_GROUPINGS } from 'utils/constants'
 
 @Component({
@@ -30,8 +29,10 @@ export class CollectionsHomeComponent
   tilesDisplay = true
   displayAll = {}
   subscriptions = []
+  tagFilter: string[]
   collectionGroupings = COLLECTION_GROUPINGS
   tableDisplayItems = {}
+  tags = []
 
   removeSpaces = removeSpaces
 
@@ -39,7 +40,6 @@ export class CollectionsHomeComponent
 
   constructor(
     private libraryService: LibraryService,
-    private uiService: UiService,
     private route: ActivatedRoute
   ) {
     this.subscriptions.push(
@@ -52,6 +52,11 @@ export class CollectionsHomeComponent
         collections.forEach(collection => {
           this.displayAll[collection.id] = true
         })
+      })
+    )
+    this.subscriptions.push(
+      this.libraryService.tags$.subscribe(tags => {
+        this.tags = tags
       })
     )
     this.subscriptions.push(
