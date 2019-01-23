@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core'
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database'
+import {
+  AngularFireDatabase,
+  AngularFireList,
+  AngularFireObject,
+} from 'angularfire2/database'
 import { AngularFireStorage } from 'angularfire2/storage'
+import { difference, intersection } from 'lodash'
 import { User } from '../database/models/user.model'
 import { Book } from '../database/models/book.model'
 import { Collection } from '../database/models/collection.model'
@@ -24,6 +29,10 @@ export class DatabaseService {
 
   private userCollectionsRef(userRef: string): AngularFireList<string> {
     return this.db.list(`${this.rootUrl}/users/${userRef}/collections`)
+  }
+
+  private userTagsRef(userRef: string): AngularFireObject<string> {
+    return this.db.object(`${this.rootUrl}/users/${userRef}/tags`)
   }
 
   constructor(
@@ -112,8 +121,14 @@ export class DatabaseService {
     )
   }
 
+  private getFromUser(collection: AngularFireList<string>) {
+    return collection.query.once('value').then(values => {
+      return objectToArray(values)
+    })
+  }
+
   private removeFromUser(collection: AngularFireList<string>, id: string) {
-    collection.query.once('value').then(ids => {
+    return collection.query.once('value').then(ids => {
       const ref = findKeyByValue(ids, id)
       return collection.remove(ref)
     })
@@ -207,6 +222,7 @@ export class DatabaseService {
       bookInDatabase => {
         return Promise.all([
           this.userBooksRef(userRef).push(bookInDatabase.id),
+          this.mergeTags(userRef, book.tags, []),
           ...book.collections.map(collectionId => {
             return this.addBooksToCollection(collectionId, [bookInDatabase.id])
           }),
@@ -238,6 +254,9 @@ export class DatabaseService {
       const oldCollections = oldBook.collections || []
       const newCollections = book.collections || []
 
+      const oldTags = oldBook.tags || []
+      const newTags = book.tags || []
+
       const collectionsToAdd = newCollections.filter(
         collection => !oldCollections.includes(collection)
       )
@@ -245,8 +264,12 @@ export class DatabaseService {
         collection => !newCollections.includes(collection)
       )
 
+      const tagsToAdd = difference(newTags, oldTags)
+      const tagsToRemove = difference(oldTags, newTags)
+
       return Promise.all([
         this.updateBook({ ...oldBook, ...book }),
+        this.mergeTags(userRef, tagsToAdd, tagsToRemove),
         this.addBooksToCollections(collectionsToAdd, [book.id]),
         this.removeBooksFromCollections(collectionsToRemove, [book.id]),
       ]).then(() => book)
@@ -256,6 +279,7 @@ export class DatabaseService {
   deleteBookForUser(userRef: string, book: Book) {
     return Promise.all([
       this.deleteBook(book),
+      this.mergeTags(userRef, [], book.tags),
       this.removeBookFromUser(userRef, book.id),
       this.removeBooksFromCollections(book.collections, [book.id]),
     ])
@@ -431,6 +455,49 @@ export class DatabaseService {
         this.removeCollectionsFromBook(bookId, collectionIds)
       ),
     ])
+  }
+
+  private userTagRef(userRef: string, tag: string) {
+    return this.db.object(`${this.rootUrl}/users/${userRef}/tags/${tag}`)
+  }
+
+  private findTagCount(userRef: string, tag: string) {
+    return this.userTagRef(userRef, tag)
+      .query.once('value')
+      .then(snap => snap.val())
+  }
+
+  private getTagsForUser(userRef: string) {
+    return this.userTagsRef(userRef)
+      .query.once('value')
+      .then(snap => snap.val() || {})
+  }
+
+  private mergeTags(
+    userRef: string,
+    tagsToAdd: string[],
+    tagsToRemove: string[]
+  ) {
+    return this.getTagsForUser(userRef).then(userTags => {
+      const newTags = difference(tagsToAdd, Object.keys(userTags))
+      const existingTags = intersection(tagsToAdd, Object.keys(userTags))
+
+      newTags.forEach(tag => this.userTagRef(userRef, tag).set(1))
+      existingTags.forEach(tag =>
+        this.findTagCount(userRef, tag).then(tagCount =>
+          this.userTagRef(userRef, tag).set(tagCount + 1)
+        )
+      )
+      tagsToRemove.forEach(tag => {
+        this.findTagCount(userRef, tag).then(tagCount => {
+          if (tagCount === 1) {
+            this.userTagRef(userRef, tag).remove()
+          } else {
+            this.userTagRef(userRef, tag).set(tagCount - 1)
+          }
+        })
+      })
+    })
   }
 
   private uploadFile(file, filePath: string) {

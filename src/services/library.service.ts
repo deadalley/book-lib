@@ -38,6 +38,9 @@ export class LibraryService {
     private database: DatabaseService,
     private session: SessionService
   ) {
+    this.session.userRef.subscribe(
+      userRefFromSession => (this._userRef = userRefFromSession)
+    )
     this.loadLibrary()
   }
 
