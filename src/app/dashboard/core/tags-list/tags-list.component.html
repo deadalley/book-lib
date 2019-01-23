@@ -1,9 +1,13 @@
-<div class="main-content">
-  <h5 class="text-muted">Tags</h5>
-  <hr>
-  <ng-container *ngFor="let tag of tags; let lastItem = last">
-    <i class="pe-7s-ticket"></i>
-    <a href="javascript:void(0);" (click)="selectedTag.emit(tag)"> {{tag}}</a>
-    {{lastItem ? '' : ', '}}
-  </ng-container>
+<div class="values">
+  <a
+    href="javascript:void(0);"
+    *ngFor="let tag of tags"
+    class="tags"
+    (click)="onClick(tag)"
+    [ngClass]="{selected: _selectedTags[tag]}"
+  >
+    <i class="pe-7s-ticket icon"></i>
+    {{tag}}
+    <i class='ti-plus close-icon' [ngClass]="{'ti-minus': _selectedTags[tag], 'ti-plus': !_selectedTags[tag]}"></i>
+  </a>
 </div>

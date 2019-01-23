@@ -1,0 +1,32 @@
+.values {
+  padding: 5px 0;
+  font-size: 12px;
+}
+
+.value {
+  margin: 0 4px;
+}
+
+.tags {
+  background: #45cce8;
+  border-radius: 4px;
+  margin: 0 2px;
+  padding: 4px;
+  color: #f9f9f9;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.icon {
+  font-weight: bold;
+}
+
+.close-icon {
+  font-weight: bold;
+  font-size: 10px;
+  color: #f9f9f9;
+}
+
+.selected {
+  background: #e83e3a;
+}
