@@ -21,6 +21,7 @@ import { GridComponent } from './grid/grid.component'
 import { LanguageSelectorComponent } from './language-selector/language-selector.component'
 import { LibraryNavbarComponent } from './library-navbar/library-navbar.component'
 import { TableItemsComponent } from './table-items/table-items.component'
+import { BookFilterPipe } from 'pipes/book-filter.pipe'
 @NgModule({
   declarations: [
     AuthorCardComponent,
@@ -38,6 +39,7 @@ import { TableItemsComponent } from './table-items/table-items.component'
     LanguageSelectorComponent,
     LibraryNavbarComponent,
     TableItemsComponent,
+    BookFilterPipe,
   ],
   imports: [
     LoadingModule.forRoot({
@@ -68,6 +70,7 @@ import { TableItemsComponent } from './table-items/table-items.component'
     LanguageSelectorComponent,
     LibraryNavbarComponent,
     TableItemsComponent,
+    BookFilterPipe,
   ],
 })
 export class CoreModule {}

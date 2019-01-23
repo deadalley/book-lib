@@ -73,13 +73,10 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
   }
 
   setGrouping(grouping: string) {
-    if (grouping === 'No grouping') {
-      this.router.navigate(['.'], { relativeTo: this.route })
-      return
-    }
     const queryParams: Params = {
       ...this.route.snapshot.queryParams,
-      grouping: grouping.toLocaleLowerCase(),
+      grouping:
+        grouping === 'No grouping' ? null : grouping.toLocaleLowerCase(),
     }
     this.router.navigate([`.`], {
       relativeTo: this.route,
@@ -88,13 +85,9 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
   }
 
   setFilter(filter: string) {
-    if (filter === 'No filter') {
-      this.router.navigate(['.'], { relativeTo: this.route })
-      return
-    }
     const queryParams: Params = {
       ...this.route.snapshot.queryParams,
-      filter: filter.toLocaleLowerCase(),
+      filter: filter === 'No filter' ? null : filter.toLocaleLowerCase(),
     }
     this.router.navigate(['.'], {
       relativeTo: this.route,

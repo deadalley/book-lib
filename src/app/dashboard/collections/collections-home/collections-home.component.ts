@@ -23,6 +23,7 @@ import { COLLECTION_GROUPINGS } from 'utils/constants'
 export class CollectionsHomeComponent
   implements OnInit, OnDestroy, AfterViewInit {
   groupingMethod: string
+  filterMethod: string
   collections = [] as Collection[]
   selectedCollection = {} as Collection
   isLoading = true
@@ -68,9 +69,13 @@ export class CollectionsHomeComponent
     )
     this.subscriptions.push(
       this.route.queryParams.subscribe(params => {
-        this.groupingMethod = params['grouping']
+        this.groupingMethod = (params['grouping'] || '').split(' ')[0]
+        this.filterMethod = (params['filter'] || '').split(' ')[0]
       })
     )
+
+    this.groupingMethod = this.getQueryParams('grouping')
+    this.filterMethod = this.getQueryParams('filter')
   }
 
   ngOnInit() {}
@@ -92,5 +97,9 @@ export class CollectionsHomeComponent
 
   deleteCollection() {
     this.libraryService.deleteCollection(this.selectedCollection)
+  }
+
+  getQueryParams(name: string) {
+    return (this.route.snapshot.queryParamMap.get(name) || '').split(' ')[0]
   }
 }

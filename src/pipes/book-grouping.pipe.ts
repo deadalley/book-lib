@@ -28,10 +28,6 @@ export class BookGroupingPipe implements PipeTransform {
     }
 
     books.forEach(book => {
-      if (groupingMethod === 'date') {
-        book.date = new Date(book.date).toLocaleDateString()
-      }
-
       let order = book[groupingMethod]
       if (groupingMethod === 'rating') {
         order = `${book.rating || 0}`
@@ -41,6 +37,10 @@ export class BookGroupingPipe implements PipeTransform {
       }
       if (groupingMethod === 'title') {
         order = order[0].toLocaleUpperCase()
+      }
+      if (groupingMethod === 'date') {
+        console.log(book.date)
+        order = new Date(book.date).toLocaleDateString()
       }
 
       if (Object.keys(orderedItems).includes(order)) {

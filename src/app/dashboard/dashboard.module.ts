@@ -12,6 +12,7 @@ import { DashboardHomeModule } from './dashboard-home/dashboard-home.module'
 import { DashboardComponent } from './dashboard.component'
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component'
 import { ProfileComponent } from './profile/profile.component'
+import { BookFilterPipe } from 'pipes/book-filter.pipe'
 
 const dashboardRoutes: Routes = [
   {

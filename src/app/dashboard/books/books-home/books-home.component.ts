@@ -16,12 +16,12 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
   tilesDisplay = true
   groupingMethod: string
   filterMethod: string
-  allBooks: Book[]
-  books: Book[]
+  books: Book[] = []
   subscriptions = []
   tagFilter: string
   bookGroupings = BOOK_GROUPINGS
   tableDisplayItems = {}
+  isLoading = true
 
   readonly PUSH_GROUPING = {
     genre: 'No genre',
@@ -34,8 +34,8 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
   ) {
     this.subscriptions.push(
       this.libraryService.books$.subscribe(books => {
-        this.allBooks = books
         this.books = books
+        this.isLoading = false
       })
     )
     this.subscriptions.push(
@@ -45,20 +45,8 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
     )
     this.subscriptions.push(
       this.route.queryParams.subscribe(params => {
-        if (!this.allBooks) {
-          return
-        }
-        this.tagFilter = params['tag']
         this.groupingMethod = (params['grouping'] || '').split(' ')[0]
         this.filterMethod = (params['filter'] || '').split(' ')[0]
-
-        if (this.tagFilter) {
-          this.books = this.allBooks.filter(
-            book => book.tags && book.tags.includes(this.tagFilter)
-          )
-        } else {
-          this.books = this.allBooks
-        }
       })
     )
     this.subscriptions.push(
@@ -69,6 +57,9 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
         scrollToAnchor(fragment, 100)
       })
     )
+
+    this.groupingMethod = this.getQueryParams('grouping')
+    this.filterMethod = this.getQueryParams('filter')
   }
 
   ngOnInit() {}
@@ -81,5 +72,9 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe())
+  }
+
+  getQueryParams(name: string) {
+    return (this.route.snapshot.queryParamMap.get(name) || '').split(' ')[0]
   }
 }

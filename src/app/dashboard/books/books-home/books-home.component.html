@@ -1,15 +1,21 @@
-<!-- Books -->
 <library-navbar [groupings]="bookGroupings" addButtonContent="Add a new book"></library-navbar>
-<div [ngSwitch]="tilesDisplay">
+<loading [visible]="isLoading"></loading>
+<!-- Books -->
+<div *ngIf="!isLoading" [ngSwitch]="tilesDisplay">
   <!-- Tiles -->
   <ng-container *ngSwitchCase="true">
+      <div *ngIf="!(books | bookFilter: filterMethod).length">
+        <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 4px 0;">
+          No books available for this filter.
+        </h5>
+      </div>
       <books-section
         *ngIf="!groupingMethod"
-        [books]="books"
+        [books]="books | bookFilter: filterMethod"
         [withButtons]="true"
         [linkable]="true"
       ></books-section>
-    <ng-container *ngIf="groupingMethod !== 'no grouping'">
+    <ng-container *ngIf="groupingMethod !== 'no grouping' && books.length">
       <ng-container *ngFor="let item of books | bookFilter: filterMethod | bookGrouping: groupingMethod | iterable | pushToBottom: PUSH_GROUPING[groupingMethod]">
         <books-section
           [sectionTitle]="item.key"
