@@ -43,7 +43,7 @@ export class GoodreadsImportComponent implements OnInit {
           read: false,
           favorite: false,
           wishlist: false,
-          date: new Date().toISOString().substring(0, 10),
+          date: new Date().toISOString(),
           isSelected: true,
           canBeSelected: true,
         }))

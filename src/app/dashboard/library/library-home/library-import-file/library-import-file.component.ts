@@ -45,9 +45,7 @@ export class LibraryImportFileComponent implements OnInit, OnDestroy {
   }
 
   importBooks() {
-    this.books.forEach(
-      book => (book.date = new Date().toISOString().substring(0, 10))
-    )
+    this.books.forEach(book => (book.date = new Date().toISOString()))
     this.libraryService.addBooks(this.books.filter(book => book.isSelected))
   }
 }

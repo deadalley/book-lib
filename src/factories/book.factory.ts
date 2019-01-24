@@ -24,10 +24,7 @@ const BookFactory = Factory.makeFactory<Book>({
   imageSmall: random.image(),
   imageLarge: random.image(),
   rating: random.number(),
-  date: date
-    .past()
-    .toISOString()
-    .substring(0, 10),
+  date: date.past().toISOString(),
   isSelected: random.boolean(),
   canBeSelected: true,
 })

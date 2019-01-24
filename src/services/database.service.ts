@@ -129,7 +129,8 @@ export class DatabaseService {
   }
 
   private removeFromUser(collection: AngularFireList<string>, id: string) {
-    return collection.query.once('value').then(ids => {
+    return collection.query.once('value').then(res => {
+      const ids = res.val()
       const ref = findKeyByValue(ids, id)
       return collection.remove(ref)
     })
@@ -482,8 +483,8 @@ export class DatabaseService {
 
   private mergeTags(
     userRef: string,
-    tagsToAdd: string[],
-    tagsToRemove: string[]
+    tagsToAdd: string[] = [],
+    tagsToRemove: string[] = []
   ) {
     return this.getTagsForUser(userRef).then(userTags => {
       const newTags = difference(tagsToAdd, Object.keys(userTags))
@@ -510,7 +511,9 @@ export class DatabaseService {
   subscribeToTagsFromUser(userRef: string) {
     return this.userTagsRef(userRef)
       .valueChanges()
-      .pipe(map(value => Object.keys(value))) as Observable<string[]>
+      .pipe(map(value => (value ? Object.keys(value) : null))) as Observable<
+      string[]
+    >
   }
 
   private uploadFile(file, filePath: string) {

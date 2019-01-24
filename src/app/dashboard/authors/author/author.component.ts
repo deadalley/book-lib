@@ -87,7 +87,7 @@ export class AuthorComponent implements OnInit, OnDestroy {
         read: false,
         favorite: false,
         wishlist: false,
-        date: new Date().toISOString().substring(0, 10),
+        date: new Date().toISOString(),
       }))
     this.libraryService.addBooks(booksToAdd)
     this.router.navigate(['dashboard/library'])

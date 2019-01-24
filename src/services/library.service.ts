@@ -126,6 +126,7 @@ export class LibraryService {
         this.books$.pipe(
           map(books => {
             const book = books.find(book => book.id === id)
+            if (!book) { return book }
             book.collections = this.mapCollectionIdToTitle(
               book.collections,
               collections

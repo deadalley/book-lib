@@ -91,7 +91,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
 
   submit(formValues) {
     const newValues = {
-      date: new Date().toISOString().substring(0, 10),
+      date: new Date().toISOString(),
       ...(this.genres.length > 0 && { genres: this.genres }),
       ...(this.tags.length > 0 && { tags: this.tags }),
       ...(this.collections.length > 0 && { collections: this.collections }),

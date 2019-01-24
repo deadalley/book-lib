@@ -74,7 +74,7 @@
                 <span *ngIf="!tilesDisplay" class="ti-layout-grid2" aria-hidden="true"></span>
               </button>
               <!-- Add book -->
-              <button type="button" class="btn btn-success library-nav-tile" routerLink="{{router.url}}/new" style="margin: 10px 5px">
+              <button type="button" class="btn btn-success library-nav-tile" routerLink="{{router.url.split('?')[0]}}/new" style="margin: 10px 5px">
                 <span class="ti-plus" aria-hidden="true"></span>
                 {{addButtonContent}}
               </button>

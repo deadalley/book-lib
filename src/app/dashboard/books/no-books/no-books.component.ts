@@ -52,7 +52,7 @@ export class NoBooksComponent implements OnInit {
 
   submit(values) {
     const newValues = {
-      date: new Date().toISOString().substring(0, 10),
+      date: new Date().toISOString(),
       ...cleanFormValues(values),
       ...this.buttonsComponent.getValues(),
     }

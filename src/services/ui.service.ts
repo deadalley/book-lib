@@ -7,6 +7,8 @@ import { Observable } from 'rxjs'
 
 @Injectable()
 export class UiService {
+  MAX_BOOKS = 16
+  MAX_BOOKS_LIST = 24
   private _bookGrouping = new BehaviorSubject<string>('no grouping')
   private _collectionGrouping = new BehaviorSubject<string>('no grouping')
 

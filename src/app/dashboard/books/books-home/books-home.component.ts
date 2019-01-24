@@ -5,7 +5,7 @@ import { LibraryService } from 'services/library.service'
 import { scrollToAnchor } from 'utils/helpers'
 import { UiService } from 'services/ui.service'
 import { BOOK_GROUPINGS } from 'utils/constants'
-import { tap } from 'rxjs/operators'
+import { tap, map, mergeMap } from 'rxjs/operators'
 
 @Component({
   moduleId: module.id,
@@ -17,6 +17,7 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
   tilesDisplay = true
   groupingMethod: string
   filterMethod: string
+  allBooks: Book[] = []
   books: Book[] = []
   subscriptions = []
   tagFilter: string[]
@@ -24,7 +25,9 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
   tableDisplayItems = {}
   isLoading = true
   tags = []
-  bookCount
+  bookCount: number
+  MAX_BOOKS = 0
+  MAX_BOOKS_LIST = 0
 
   readonly PUSH_GROUPING = {
     genre: 'No genre',
@@ -36,9 +39,11 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
     private uiSerivce: UiService,
     private route: ActivatedRoute
   ) {
+    this.MAX_BOOKS = this.uiSerivce.MAX_BOOKS
+    this.MAX_BOOKS_LIST = this.uiSerivce.MAX_BOOKS_LIST
     this.subscriptions.push(
       this.libraryService.books$.subscribe(books => {
-        this.books = books
+        this.allBooks = books
         this.isLoading = false
       })
     )
@@ -46,9 +51,6 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.libraryService.tags$.subscribe(tags => {
         this.tags = tags
       })
-    )
-    this.bookCount = this.uiSerivce.bookCount$.pipe(
-      tap(value => console.log(value))
     )
     this.subscriptions.push(
       this.route.queryParams.subscribe(params => {
@@ -65,6 +67,30 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
         scrollToAnchor(fragment, 100)
       })
     )
+
+    this.route.queryParams
+      .pipe(
+        mergeMap(params =>
+          this.uiSerivce.bookCount$.pipe(
+            map(bookCount => {
+              const page = params.page || 1
+              const view = params.view || 'tiles'
+              const max =
+                view === 'tiles' ? this.MAX_BOOKS : this.MAX_BOOKS_LIST
+              this.bookCount = Math.ceil(bookCount / max)
+              return { page, max }
+            })
+          )
+        ),
+        mergeMap(({ page, max }) =>
+          this.libraryService.books$.pipe(
+            map(books => {
+              return books.slice((page - 1) * max, page * max)
+            })
+          )
+        )
+      )
+      .subscribe(booksForPage => (this.books = booksForPage))
 
     this.groupingMethod = this.getQueryParams('grouping')
     this.filterMethod = this.getQueryParams('filter')
