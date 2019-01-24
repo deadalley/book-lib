@@ -9,6 +9,7 @@ import { Observable } from 'rxjs'
 export class UiService {
   MAX_BOOKS = 16
   MAX_BOOKS_LIST = 24
+  MAX_BOOKS_COLLECTION = 8
   private _bookGrouping = new BehaviorSubject<string>('no grouping')
   private _collectionGrouping = new BehaviorSubject<string>('no grouping')
 

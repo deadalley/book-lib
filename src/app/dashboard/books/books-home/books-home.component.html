@@ -5,19 +5,19 @@
 <div *ngIf="!isLoading" [ngSwitch]="tilesDisplay">
   <!-- Tiles -->
   <ng-container *ngSwitchCase="true">
-    <div *ngIf="!(books | bookFilter: filterMethod:tagFilter).length">
+    <div *ngIf="!(books | page: page:maxBooks | bookFilter: filterMethod:tagFilter).length">
       <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 4px 0;">
         No books available for this filter.
       </h5>
     </div>
     <books-section
       *ngIf="!groupingMethod"
-      [books]="books | bookFilter: filterMethod:tagFilter"
+      [books]="books | page: page:maxBooks | bookFilter: filterMethod:tagFilter"
       [withButtons]="true"
       [linkable]="true"
     ></books-section>
     <ng-container *ngIf="groupingMethod !== 'no grouping' && books.length">
-      <ng-container *ngFor="let item of books | bookFilter: filterMethod:tagFilter | bookGrouping: groupingMethod | iterable | pushToBottom: PUSH_GROUPING[groupingMethod]">
+      <ng-container *ngFor="let item of books | page: page:maxBooks | bookFilter: filterMethod:tagFilter | bookGrouping: groupingMethod | iterable | pushToBottom: PUSH_GROUPING[groupingMethod]">
         <books-section
           [sectionTitle]="item.key"
           [books]="item.value"
@@ -37,7 +37,7 @@
       [linkable]="true"
       [displayItems]="tableDisplayItems"
     ></books-table>
-    <ng-container *ngFor="let item of books | bookFilter: filterMethod:tagFilter | bookGrouping: groupingMethod | iterable">
+    <ng-container *ngFor="let item of books | page: page:maxBooks | bookFilter: filterMethod:tagFilter | bookGrouping: groupingMethod | iterable">
       <div class="row">
         <div class="col-md-12">
           <h4 class="title">{{item.key}}</h4>
@@ -52,6 +52,6 @@
       </div>
     </ng-container>
   </ng-container>
-  <pages [count]="bookCount"></pages>
+  <pages [count]="pageCount"></pages>
 </div>
   

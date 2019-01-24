@@ -25,9 +25,11 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
   tableDisplayItems = {}
   isLoading = true
   tags = []
-  bookCount: number
+  pageCount: number
   MAX_BOOKS = 0
   MAX_BOOKS_LIST = 0
+  page: number
+  maxBooks: number
 
   readonly PUSH_GROUPING = {
     genre: 'No genre',
@@ -44,6 +46,7 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subscriptions.push(
       this.libraryService.books$.subscribe(books => {
         this.allBooks = books
+        this.books = books
         this.isLoading = false
       })
     )
@@ -57,6 +60,7 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
         this.tilesDisplay = !params['view'] || params['view'] === 'tiles'
         this.groupingMethod = (params['grouping'] || '').split(' ')[0]
         this.filterMethod = (params['filter'] || '').split(' ')[0]
+        this.page = params['page'] || 1
       })
     )
     this.subscriptions.push(
@@ -72,25 +76,22 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
       .pipe(
         mergeMap(params =>
           this.uiSerivce.bookCount$.pipe(
-            map(bookCount => {
-              const page = params.page || 1
+            map(pageCount => {
               const view = params.view || 'tiles'
               const max =
                 view === 'tiles' ? this.MAX_BOOKS : this.MAX_BOOKS_LIST
-              this.bookCount = Math.ceil(bookCount / max)
-              return { page, max }
-            })
-          )
-        ),
-        mergeMap(({ page, max }) =>
-          this.libraryService.books$.pipe(
-            map(books => {
-              return books.slice((page - 1) * max, page * max)
+              return {
+                maxBooks: max,
+                pageCount: Math.ceil(pageCount / max),
+              }
             })
           )
         )
       )
-      .subscribe(booksForPage => (this.books = booksForPage))
+      .subscribe(({ maxBooks, pageCount }) => {
+        this.maxBooks = maxBooks
+        this.pageCount = pageCount
+      })
 
     this.groupingMethod = this.getQueryParams('grouping')
     this.filterMethod = this.getQueryParams('filter')

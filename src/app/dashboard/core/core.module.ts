@@ -23,6 +23,7 @@ import { LibraryNavbarComponent } from './library-navbar/library-navbar.componen
 import { TableItemsComponent } from './table-items/table-items.component'
 import { BookFilterPipe } from 'pipes/book-filter.pipe'
 import { PagesComponent } from './pages/pages.component'
+import { PagePipe } from 'pipes/page.pipe'
 @NgModule({
   declarations: [
     AuthorCardComponent,
@@ -42,6 +43,7 @@ import { PagesComponent } from './pages/pages.component'
     TableItemsComponent,
     PagesComponent,
     BookFilterPipe,
+    PagePipe,
   ],
   imports: [
     LoadingModule.forRoot({
@@ -74,6 +76,7 @@ import { PagesComponent } from './pages/pages.component'
     TableItemsComponent,
     PagesComponent,
     BookFilterPipe,
+    PagePipe,
   ],
 })
 export class CoreModule {}
