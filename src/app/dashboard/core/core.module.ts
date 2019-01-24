@@ -22,6 +22,7 @@ import { LanguageSelectorComponent } from './language-selector/language-selector
 import { LibraryNavbarComponent } from './library-navbar/library-navbar.component'
 import { TableItemsComponent } from './table-items/table-items.component'
 import { BookFilterPipe } from 'pipes/book-filter.pipe'
+import { PagesComponent } from './pages/pages.component'
 @NgModule({
   declarations: [
     AuthorCardComponent,
@@ -39,6 +40,7 @@ import { BookFilterPipe } from 'pipes/book-filter.pipe'
     LanguageSelectorComponent,
     LibraryNavbarComponent,
     TableItemsComponent,
+    PagesComponent,
     BookFilterPipe,
   ],
   imports: [
@@ -70,6 +72,7 @@ import { BookFilterPipe } from 'pipes/book-filter.pipe'
     LanguageSelectorComponent,
     LibraryNavbarComponent,
     TableItemsComponent,
+    PagesComponent,
     BookFilterPipe,
   ],
 })

@@ -5,7 +5,7 @@ import { LibraryService } from 'services/library.service'
 import { scrollToAnchor } from 'utils/helpers'
 import { UiService } from 'services/ui.service'
 import { BOOK_GROUPINGS } from 'utils/constants'
-import { uniq, flatten, compact } from 'lodash'
+import { tap } from 'rxjs/operators'
 
 @Component({
   moduleId: module.id,
@@ -24,6 +24,7 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
   tableDisplayItems = {}
   isLoading = true
   tags = []
+  bookCount
 
   readonly PUSH_GROUPING = {
     genre: 'No genre',
@@ -32,6 +33,7 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private libraryService: LibraryService,
+    private uiSerivce: UiService,
     private route: ActivatedRoute
   ) {
     this.subscriptions.push(
@@ -44,6 +46,9 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.libraryService.tags$.subscribe(tags => {
         this.tags = tags
       })
+    )
+    this.bookCount = this.uiSerivce.bookCount$.pipe(
+      tap(value => console.log(value))
     )
     this.subscriptions.push(
       this.route.queryParams.subscribe(params => {
