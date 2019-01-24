@@ -9,9 +9,10 @@ import { ActivatedRoute } from '@angular/router'
 import { Collection } from 'models/collection.model'
 import { scrollToAnchor, removeSpaces } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
+import { UiService } from 'services/ui.service'
 import { LibraryService } from 'services/library.service'
 import { COLLECTION_GROUPINGS } from 'utils/constants'
-
+import { map, mergeMap } from 'rxjs/operators'
 @Component({
   moduleId: module.id,
   selector: 'collections-home',
@@ -33,6 +34,9 @@ export class CollectionsHomeComponent
   collectionGroupings = COLLECTION_GROUPINGS
   tableDisplayItems = {}
   tags = []
+  maxBooks: number
+  collectionPages: object = {}
+  pageCount: number
 
   removeSpaces = removeSpaces
 
@@ -40,18 +44,24 @@ export class CollectionsHomeComponent
 
   constructor(
     private libraryService: LibraryService,
+    private uiService: UiService,
     private route: ActivatedRoute
   ) {
+    this.maxBooks = this.uiService.MAX_BOOKS_COLLECTION
     this.subscriptions.push(
       this.libraryService.collections$.subscribe(collections => {
         if (!collections) {
           return
         }
         this.isLoading = false
-        this.collections = collections
         collections.forEach(collection => {
           this.displayAll[collection.id] = true
+          this.collectionPages[collection.id] = {
+            page: 1,
+            pageCount: Math.ceil(collection.books.length / this.maxBooks),
+          }
         })
+        this.collections = collections
       })
     )
     this.subscriptions.push(
@@ -102,5 +112,9 @@ export class CollectionsHomeComponent
 
   getQueryParams(name: string) {
     return (this.route.snapshot.queryParamMap.get(name) || '').split(' ')[0]
+  }
+
+  changePage(collectionId: number, page: number) {
+    this.collectionPages[collectionId].page = page
   }
 }

@@ -5,7 +5,7 @@ import { LibraryService } from 'services/library.service'
 import { scrollToAnchor } from 'utils/helpers'
 import { UiService } from 'services/ui.service'
 import { BOOK_GROUPINGS } from 'utils/constants'
-import { tap, map, mergeMap } from 'rxjs/operators'
+import { map, mergeMap } from 'rxjs/operators'
 
 @Component({
   moduleId: module.id,
@@ -38,11 +38,11 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private libraryService: LibraryService,
-    private uiSerivce: UiService,
+    private uiService: UiService,
     private route: ActivatedRoute
   ) {
-    this.MAX_BOOKS = this.uiSerivce.MAX_BOOKS
-    this.MAX_BOOKS_LIST = this.uiSerivce.MAX_BOOKS_LIST
+    this.MAX_BOOKS = this.uiService.MAX_BOOKS
+    this.MAX_BOOKS_LIST = this.uiService.MAX_BOOKS_LIST
     this.subscriptions.push(
       this.libraryService.books$.subscribe(books => {
         this.allBooks = books
@@ -75,14 +75,15 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.route.queryParams
       .pipe(
         mergeMap(params =>
-          this.uiSerivce.bookCount$.pipe(
-            map(pageCount => {
+          this.uiService.bookCount$.pipe(
+            map(bookCount => {
               const view = params.view || 'tiles'
               const max =
                 view === 'tiles' ? this.MAX_BOOKS : this.MAX_BOOKS_LIST
+              const pageCount = Math.ceil(bookCount / max)
               return {
                 maxBooks: max,
-                pageCount: Math.ceil(pageCount / max),
+                pageCount: pageCount === 0 ? 1 : pageCount,
               }
             })
           )

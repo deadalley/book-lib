@@ -50,24 +50,25 @@
     <!-- Books -->
     <div *ngIf="collection.books && collection.books.length > 0" class="collapsable in" id="{{collection.id}}">
       <!-- No books -->
-      <div *ngIf="!(collection.books | bookFilter: filterMethod:tagFilter).length">
+      <div *ngIf="!(collection.books | page: collectionPages[collection.id].page:maxBooks | bookFilter: filterMethod:tagFilter).length">
         <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 4px 0;">
           No books available for this filter.
         </h5>
       </div>
       <books-section
         *ngSwitchCase="true"
-        [books]="collection.books | bookFilter: filterMethod:tagFilter"
+        [books]="collection.books | page: collectionPages[collection.id].page:maxBooks | bookFilter: filterMethod:tagFilter"
         [withButtons]="true"
         [linkable]="true"
       ></books-section>
       <books-table
         *ngSwitchCase="false"
-        [books]="collection.books | bookFilter: filterMethod:tagFilter"
+        [books]="collection.books | page: collectionPages[collection.id].page:maxBooks | bookFilter: filterMethod:tagFilter"
         [withButtons]="true"
         [linkable]="true"
         [displayItems]="tableDisplayItems"
       ></books-table>
+      <pages [count]="collectionPages[collection.id].pageCount" [withRoute]="false" (nextSelectedPage)="changePage(collection.id, $event)"></pages>
     </div>
     <!-- No books -->
     <div *ngIf="!collection.books || collection.books.length === 0">
