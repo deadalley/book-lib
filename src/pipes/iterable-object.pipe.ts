@@ -9,7 +9,15 @@ export class IterableObjectPipe implements PipeTransform {
       return null
     }
     return Object.keys(object)
-      .map(key => ({ key, value: object[key] }))
+      .map(key => {
+        const id = `id${key
+          .split(' ')
+          .join('_')
+          .split('/')
+          .join('_')
+          .toLowerCase()}`
+        return { id, key, value: object[key] }
+      })
       .sort((a, b) => {
         if (a.key < b.key) {
           return -1

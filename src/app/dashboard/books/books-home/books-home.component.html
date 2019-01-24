@@ -19,6 +19,7 @@
     <ng-container *ngIf="groupingMethod !== 'no grouping' && books.length">
       <ng-container *ngFor="let item of books | page: page:maxBooks | bookFilter: filterMethod:tagFilter | bookGrouping: groupingMethod | iterable | pushToBottom: PUSH_GROUPING[groupingMethod]">
         <books-section
+          [sectionId]="item.id"
           [sectionTitle]="item.key"
           [books]="item.value"
           [withButtons]="true"

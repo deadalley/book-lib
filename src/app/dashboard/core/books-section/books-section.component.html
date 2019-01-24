@@ -1,12 +1,17 @@
 <div class="row" *ngIf="!!sectionTitle" id="{{removeSpaces(sectionTitle)}}">
   <div class="col-md-12">
-    <h4 class="title">{{sectionTitle}}</h4>
+    <h4 class="title">
+      {{sectionTitle}}
+      <a href="#{{sectionId}}" class="collapse-button" data-toggle="collapse" (click)="displayAll = !displayAll">
+        <i [ngClass]="{'pe-7s-angle-down': !displayAll, 'pe-7s-angle-up': displayAll}"></i>
+      </a>
+    </h4>
     <p class="text-muted">{{description}}</p>
     <hr *ngIf="sectionTitle">
   </div>
 </div>
 
-<div class="row">
+<div class="row" class="collapsable in" id="{{sectionId}}">
   <grid [items]="books">
     <ng-template let-book>
       <book-card

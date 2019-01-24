@@ -7,10 +7,11 @@ import { removeSpaces } from 'utils/helpers'
   moduleId: module.id,
   selector: 'books-section',
   templateUrl: 'books-section.component.html',
-  styleUrls: [],
+  styleUrls: ['books-section.component.css'],
   animations: [ANIMATIONS.CARD],
 })
 export class BooksSectionComponent implements OnInit {
+  @Input() sectionId: string
   @Input() sectionTitle: string
   @Input() description: string
   @Input() books: Book[]
@@ -27,6 +28,7 @@ export class BooksSectionComponent implements OnInit {
   @Output() selectedBook = new EventEmitter<Book>()
 
   removeSpaces = removeSpaces
+  displayAll = true
 
   ngOnInit() {}
 

@@ -26,7 +26,7 @@ export class PagesComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.withRoute &&
       this.route.queryParams.subscribe(
-        params => (this.selectedPage = +params.page)
+        params => (this.selectedPage = params.page ? +params.page : 1)
       )
   }
 
