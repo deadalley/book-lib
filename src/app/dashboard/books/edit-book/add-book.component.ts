@@ -8,6 +8,7 @@ import { cleanFormValues, parseBook, parseAuthor } from 'utils/helpers'
 import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
 import { LibraryService } from 'services/library.service'
 import { GoodreadsService } from 'services/goodreads.service'
+import { Router } from '@angular/router'
 
 @Component({
   moduleId: module.id,
@@ -28,7 +29,6 @@ export class AddBookComponent implements OnInit, OnDestroy {
   title = 'Add new book'
   description = 'Add a new book to your library or wishlist'
   fromGoodreads = false
-  showImage = false
   subscription
   loadingBook = false
   loadingCollections = false
@@ -49,7 +49,8 @@ export class AddBookComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private location: Location,
     private libraryService: LibraryService,
-    private goodreadsService: GoodreadsService
+    private goodreadsService: GoodreadsService,
+    private router: Router
   ) {
     this.allCollections = []
     this.subscription = this.libraryService.collections$.subscribe(

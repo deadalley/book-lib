@@ -38,7 +38,6 @@ export class EditBookComponent implements OnInit, OnDestroy {
   title = 'Edit book'
   description = 'Edit book'
   fromGoodreads = false
-  showImage = true
   subscriptions = []
   loadingBook = true
   loadingCollections = true
