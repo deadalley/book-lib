@@ -14,7 +14,6 @@ export class TableItemsComponent implements OnInit {
   @Output() displayItems = new EventEmitter<object>()
 
   ngOnInit() {
-    console.log(this.items)
     this.itemNames = Object.keys(this.items)
     this.displayItems.emit(this.items)
   }

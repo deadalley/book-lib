@@ -1,19 +1,19 @@
 <div style="display: grid">
   <!-- Buttons -->
-  <div *ngIf="books && books.length > 0" class="row">
-    <div class="col-xs-12 text-left text-muted">
-      <a *ngIf="selectable" href="javascript:void(0);" (click)="selectAll(true)">
-        Select all
-      </a> {{selectable ? '|' : ''}}
-      <a *ngIf="selectable" href="javascript:void(0);" (click)="selectAll(false)">
-        Unselect all
-      </a> {{selectable ? '|' : ''}}
-      <a href="javascript:void(0);" (click)="tilesDisplay=true">
-        Tiles
-      </a> |
-      <a href="javascript:void(0);" (click)="tilesDisplay=false">
-        List
-      </a>
+  <div *ngIf="books && books.length > 0" class="row buttons">
+    <div class="col-md-12">
+      <button class="btn btn-default btn-margin" (click)="toggleTilesDisplay()">
+        <i [ngClass]="{'ti-view-list': tilesDisplay, 'ti-layout-grid2': !tilesDisplay}"></i>
+        {{tilesDisplay ? 'Table' : 'Tiles'}}
+      </button>
+      <button
+        *ngIf="selectable"
+        class="btn btn-margin"
+        [ngClass]="{'btn-success': !selectedAll, 'btn-danger': selectedAll}"
+        (click)="selectAll()"
+      >
+        {{selectedAll ? 'Deselect all' : 'Select all'}}
+      </button>
     </div>
   </div>
   <!-- Tiles -->
@@ -29,28 +29,6 @@
       (selectedBooks)="selectedBooks.emit($event)"
       (selectedBook)="selectedBook.emit($event)"
     ></books-section>
-  <!-- 
-    <div *ngIf="books && books.length > 4">
-      <a href="#displayMore" data-toggle="collapse" (click)="displayAll = !displayAll">
-        <label style="padding:0;">{{displayAll ? 'Display less ' : 'Display more '}}</label>
-        <i [ngClass]="{'pe-7s-angle-down': !displayAll, 'pe-7s-angle-up': displayAll}" style="font-size: 1.3em;"></i>
-      </a>
-      <hr style="margin-top: 0;">
-    </div>
-  
-    <div class="collapse" id="displayMore">
-      <books-section
-        [books]="(books || []).slice(4)"
-        [withButtons]="withButtons"
-        [clickable]="clickable"
-        [selectable]="selectable"
-        [linkable]="linkable"
-        [selectBtnContent]="selectBtnContent"
-        [selectBtnContentDisabled]="selectBtnContentDisabled"
-        (selectedBooks)="selectedBooks.emit($event)"
-        (selectedBook)="selectedBook.emit($event)"
-      ></books-section>
-    </div> -->
   </ng-container>
   <!-- Table -->
   <ng-container *ngIf="!tilesDisplay && books && books.length > 0">

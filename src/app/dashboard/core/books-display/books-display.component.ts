@@ -2,13 +2,17 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { Book } from 'models/book.model'
 import { removeSpaces } from 'utils/helpers'
 import { UiService } from 'services/ui.service'
-import { MAX_BOOKS_DISPLAY, DEFAULT_TABLE_ITEMS } from 'utils/constants'
+import {
+  MAX_BOOKS_DISPLAY,
+  DEFAULT_TABLE_ITEMS,
+  MAX_BOOKS_DISPLAY_LIST,
+} from 'utils/constants'
 
 @Component({
   moduleId: module.id,
   selector: 'books-display',
   templateUrl: 'books-display.component.html',
-  styleUrls: [],
+  styleUrls: ['books-display.component.css'],
 })
 export class BooksDisplayComponent implements OnInit {
   @Input() books: Book[]
@@ -30,6 +34,7 @@ export class BooksDisplayComponent implements OnInit {
 
   tilesDisplay = true
   displayAll = false
+  selectedAll = false
   maxBooks = 0
   page = 1
   pageCount = 1
@@ -44,8 +49,18 @@ export class BooksDisplayComponent implements OnInit {
 
   ngOnInit() {}
 
-  selectAll(selection: boolean) {
-    this.books.forEach(book => (book.isSelected = selection))
+  selectAll() {
+    this.selectedAll = !this.selectedAll
+    this.books.forEach(book => (book.isSelected = this.selectedAll))
     this.selectedBooks.emit(this.books.filter(book => book.isSelected))
+  }
+
+  toggleTilesDisplay() {
+    this.tilesDisplay = !this.tilesDisplay
+    if (this.tilesDisplay) {
+      this.maxBooks = MAX_BOOKS_DISPLAY
+    } else {
+      this.maxBooks = MAX_BOOKS_DISPLAY_LIST
+    }
   }
 }
