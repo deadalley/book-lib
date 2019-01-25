@@ -34,7 +34,10 @@ export class NavbarComponent implements OnInit {
 
   getTitle() {
     const splitUrl = this.router.url.split('/')
-    return splitUrl[2].replace(/^\w/, chr => chr.toUpperCase()).split('?')[0]
+    return splitUrl[2]
+      .split('#')[0]
+      .replace(/^\w/, chr => chr.toUpperCase())
+      .split('?')[0]
   }
 
   sidebarToggle() {
