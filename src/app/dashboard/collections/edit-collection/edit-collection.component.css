@@ -71,3 +71,21 @@
   background-color: #449d44;
   border-color: #398439;
 }
+
+.btn-danger {
+  color: #fff;
+  background-color: #e60e09;
+  border-color: #d43f3a;
+}
+
+.btn-danger:focus {
+  color: #fff;
+  background-color: #c9302c;
+  border-color: #761c19;
+}
+
+.btn-danger:hover {
+  color: #fff;
+  background-color: #dc3a36;
+  border-color: #ac2925;
+}

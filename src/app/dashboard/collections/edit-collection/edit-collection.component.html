@@ -40,10 +40,13 @@
         <!-- Buttons -->
 				<hr>
 				<div class="row">
-					<div class="col-md-6">
+          <div class="col-md-4">
+            <button type="button" class="btn btn-danger" style="width: 100%" (click)="deleteCollection()">Delete</button>
+          </div>
+					<div class="col-md-4">
 						<button type="button" class="btn btn-default" style="width: 100%" (click)="this.router.navigate(['../../'], { relativeTo: this.route })">Cancel</button>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<button type="button" class="btn btn-success" style="width: 100%" (click)="submit(form.value)" [disabled]="!form.valid">Save</button>
 					</div>
 				</div>
