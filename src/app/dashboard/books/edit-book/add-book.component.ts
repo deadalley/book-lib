@@ -27,11 +27,11 @@ export class AddBookComponent implements OnInit, OnDestroy {
   book = {} as Book
   author: Author
   title = 'Add new book'
-  description = 'Add a new book to your library or wishlist'
   fromGoodreads = false
   subscription
   loadingBook = false
   loadingCollections = false
+  displayDelete = false
   suggestedBooks: Book[]
   suggestedAuthors: Author[]
   goodreadsId: number

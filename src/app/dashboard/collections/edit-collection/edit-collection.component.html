@@ -3,7 +3,12 @@
   <div class="card" [@card]>
     <div class="header">
       <h4 class="title">{{title}}</h4>
-      <p class="category" placement="bottom">{{description}}</p>
+      <div>
+        <button *ngIf="displayDelete" type="button" class="btn btn-danger" style="width: 100%" (click)="this.modal.openModal()">
+          <i class="pe-7s-trash"></i>
+          Delete
+        </button>
+      </div>
     </div>
     <div class="content">
       <form [formGroup]="form" (ngSubmit)="submit(form.value)">
@@ -40,13 +45,10 @@
         <!-- Buttons -->
 				<hr>
 				<div class="row">
-          <div class="col-md-4">
-            <button type="button" class="btn btn-danger" style="width: 100%" (click)="deleteCollection()">Delete</button>
-          </div>
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<button type="button" class="btn btn-default" style="width: 100%" (click)="this.router.navigate(['../../'], { relativeTo: this.route })">Cancel</button>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<button type="button" class="btn btn-success" style="width: 100%" (click)="submit(form.value)" [disabled]="!form.valid">Save</button>
 					</div>
 				</div>
@@ -54,3 +56,12 @@
     </div>
   </div>
 </page-navigator>
+
+<modal
+  #deleteCollectionModal
+  title="Are you sure you want to delete {{collection.title}}?"
+  content="This collection will be removed permanently from your library. All books related to this collection will be kept."
+  cancel="Cancel"
+  accept="Accept"
+  [onAccept]="deleteCollection.bind(this)"
+></modal>

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Location } from '@angular/common'
 import { Router } from '@angular/router'
@@ -17,16 +17,19 @@ import { mergeMap, map } from 'rxjs/operators'
 })
 export class EditCollectionComponent implements OnInit, OnDestroy {
   form: FormGroup
-  collection: Collection
+  collection = {} as Collection
   title = 'Edit collection'
   description = 'Edit collection'
   button = 'Update collection'
   isLoading = true
   books = []
   isLoadingBooks = true
+  displayDelete = true
   formatDate = formatDate
   subscription
   bookSubscription
+
+  @ViewChild('deleteCollectionModal') modal
 
   get collectionId(): string {
     const splitUrl = this.router.url.split('/')
@@ -55,6 +58,10 @@ export class EditCollectionComponent implements OnInit, OnDestroy {
     if (this.bookSubscription) {
       this.bookSubscription.unsubscribe()
     }
+  }
+
+  deleteCollection() {
+    this.libraryService.deleteCollection(this.collection)
   }
 
   submit(formValues) {

@@ -47,9 +47,7 @@ export class BooksDisplayComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
-    console.log(this.books)
-  }
+  ngOnInit() {}
 
   selectAll() {
     this.selectedAll = !this.selectedAll

@@ -47,7 +47,6 @@ export class BookComponent implements OnInit, OnDestroy {
         if (book) {
           this.isLoading = false
           this.book = book
-          console.log(book)
         }
       })
   }

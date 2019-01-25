@@ -23,6 +23,7 @@ export class AddCollectionComponent implements OnInit, OnDestroy {
   books = []
   isLoading = false
   isLoadingBooks = true
+  displayDelete = false
   formatDate = formatDate
   subscription
 

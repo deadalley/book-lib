@@ -82,6 +82,24 @@
   border-color: #398439;
 }
 
+.btn-danger {
+  color: #fff;
+  background-color: #e60e09;
+  border-color: #d43f3a;
+}
+
+.btn-danger.focus {
+  color: #fff;
+  background-color: #c9302c;
+  border-color: #761c19;
+}
+
+.btn-danger:hover {
+  color: #fff;
+  background-color: #dc3a36;
+  border-color: #ac2925;
+}
+
 .selected {
   background-color: rgb(230, 230, 230);
   -webkit-box-shadow: inset 0 6px 15px -6px #969696;
@@ -120,4 +138,9 @@
 .close-icon {
   font-weight: bold;
   font-size: 10px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
 }

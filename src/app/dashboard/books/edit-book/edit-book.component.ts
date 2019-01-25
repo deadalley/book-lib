@@ -36,11 +36,11 @@ export class EditBookComponent implements OnInit, OnDestroy {
   book = {} as Book
   author: Author
   title = 'Edit book'
-  description = 'Edit book'
   fromGoodreads = false
   subscriptions = []
   loadingBook = true
   loadingCollections = true
+  displayDelete = true
   suggestedBooks: Book[]
   suggestedAuthors: Author[]
   goodreadsId: number
@@ -50,6 +50,7 @@ export class EditBookComponent implements OnInit, OnDestroy {
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
   @ViewChild('imageUpload') imageUpload
+  @ViewChild('deleteBookModal') modal
 
   trigger
 
@@ -170,6 +171,11 @@ export class EditBookComponent implements OnInit, OnDestroy {
 
     this.libraryService.updateBook(this.book)
     this.router.navigate(['../../'], { relativeTo: this.route })
+  }
+
+  deleteBook() {
+    this.libraryService.deleteBook(this.book)
+    this.router.navigate(['.'])
   }
 
   uploadImage(event) {

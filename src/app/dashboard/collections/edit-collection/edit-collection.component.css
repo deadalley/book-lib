@@ -89,3 +89,8 @@
   background-color: #dc3a36;
   border-color: #ac2925;
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
