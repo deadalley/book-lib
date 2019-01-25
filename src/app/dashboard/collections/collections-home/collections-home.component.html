@@ -52,7 +52,7 @@
     <p class="text-muted">{{collection.description}}</p>
   
     <!-- Books -->
-    <div *ngIf="collection.books && collection.books.length > 0" class="collapsable in" id="{{collection.id}}">
+    <div *ngIf="collection.books && collection.books.length > 0" class="collapsable in" id="{{collection.id}}" style="display: grid">
       <!-- No books -->
       <div *ngIf="!(collection.books | page: collectionPages[collection.id].page:maxBooks | bookFilter: filterMethod:tagFilter).length">
         <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 4px 0;">
