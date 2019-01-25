@@ -10,7 +10,13 @@
   <div class="header">
     <!-- Header -->
     <div class="row">
-      <h4 class="title col-md-8 col-md-offset-2">
+      <h4
+        class="title col-md-8 col-md-offset-2"
+        [ngClass]="{
+          'col-md-8 col-md-offset-2': (selectable || clickable) && book.canBeSelected,
+          'col-md-12': !((selectable || clickable) && book.canBeSelected)
+        }"
+      >
         <a
           *ngIf="linkable"
           href="#"
