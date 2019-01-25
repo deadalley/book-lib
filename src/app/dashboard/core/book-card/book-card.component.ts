@@ -36,6 +36,9 @@ export class BookCardComponent implements OnInit {
   ngOnInit() {}
 
   select() {
+    if (!(this.selectable || this.clickable)) {
+      return
+    }
     this.book.isSelected = !this.book.isSelected
     this.selectedChanged.emit(this.book)
   }

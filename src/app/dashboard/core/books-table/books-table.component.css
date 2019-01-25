@@ -38,3 +38,30 @@ img {
   justify-content: space-between;
   align-items: center;
 }
+
+.row-selectable {
+  cursor: pointer;
+}
+
+.row-selected {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(24, 181, 24, 1);
+  background: #ecfdef;
+}
+
+.row-not-selectable {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(101, 105, 24, 1);
+  background: #fdf4ec;
+}
+
+.select-icon {
+  font-size: 20px;
+}
+
+.ti-control-stop {
+  /* font-size: 24px; */
+  margin-left: -3px;
+}
+
+.ti-check-box {
+  color: #18b518;
+}

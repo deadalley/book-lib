@@ -6,6 +6,19 @@ import { storiesOf, moduleMetadata } from '@storybook/angular'
 import { GridComponent } from '../grid/grid.component'
 import { BookCardComponent } from '../book-card/book-card.component'
 import { BooksSectionComponent } from './books-section.component'
+import { LibraryService } from 'services/library.service'
+import { DatabaseService } from 'services/database.service'
+import { SessionService } from 'services/session.service'
+import { AngularFireModule } from 'angularfire2'
+import {
+  AngularFireDatabase,
+  AngularFireDatabaseModule,
+} from 'angularfire2/database'
+import { environment } from 'environments/environment'
+import {
+  AngularFireStorage,
+  AngularFireStorageModule,
+} from 'angularfire2/storage'
 import BookFactory from 'factories/book.factory'
 
 const books = BookFactory.buildList(5, {
@@ -20,10 +33,20 @@ const bookInLibrary = BookFactory.build({
 storiesOf('Books Section', module)
   .addDecorator(
     moduleMetadata({
+      providers: [
+        DatabaseService,
+        LibraryService,
+        SessionService,
+        AngularFireDatabase,
+        AngularFireStorage,
+      ],
       imports: [
         CommonModule,
         RouterModule,
         TooltipModule.forRoot(),
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireDatabaseModule,
+        AngularFireStorageModule,
         BrowserAnimationsModule,
       ],
       declarations: [GridComponent, BookCardComponent],

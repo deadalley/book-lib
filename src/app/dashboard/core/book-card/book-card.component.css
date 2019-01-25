@@ -6,14 +6,44 @@
   justify-content: space-between;
 }
 
+.card-selected {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(24, 181, 24, 1);
+  background: #ecfdef;
+}
+
+.card-not-selectable {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(101, 105, 24, 1);
+  background: #fdf4ec;
+}
+
 @media only screen and (min-width: 991px) {
   .card {
     height: 35vw;
+  }
+
+  .card-selectable {
+    height: 30vw;
+    cursor: pointer;
   }
 }
 
 .title {
   font-size: 1.2em;
+}
+
+.select-icon {
+  font-size: 20px;
+}
+
+.ti-control-stop {
+  font-size: 25px;
+  margin-top: -2px;
+  margin-left: -3px;
+  margin-bottom: -4px;
+}
+
+.ti-check-box {
+  color: #18b518;
 }
 
 .tile-date {
@@ -27,7 +57,7 @@
   border-radius: 4px;
 }
 
-.buttons {
+.icons {
   padding: 10px 0 0 0;
 }
 

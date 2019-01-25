@@ -2,10 +2,11 @@
   <div class="col-md-12">
     <div class="card">
       <div class="content table-responsive table-full-width">
-        <table class="table table-hover table-striped">
+        <table class="table">
           
           <thead>
             <tr>
+              <th *ngIf="selectable || clickable">Selected</th>
               <th *ngIf="displayItems['Cover']" class="col-md-1"></th>
               <th class="col">Title</th>
               <th *ngIf="displayItems['Original title']" class="col-md-2">Original title</th>
@@ -17,13 +18,28 @@
               <th *ngIf="displayItems['Pages']" class="col">Pages</th>
               <th *ngIf="displayItems['Rating']" class="col">Rating</th>
               <th *ngIf="displayItems['Favorites'] && withButtons" class="col-md-1"></th>
-              <th *ngIf="selectable" class="col">Status</th>
-              <th *ngIf="selectable" class="col"></th>
-              <th *ngIf="clickable" class="col"></th>
+              <!-- <th *ngIf="selectable" class="col">Status</th> -->
+              <!-- <th *ngIf="selectable" class="col"></th>
+              <th *ngIf="clickable" class="col"></th> -->
             </tr>
           
           <tbody>
-            <tr *ngFor="let book of books">
+            <tr
+              *ngFor="let book of books"
+              (click)="updateSelectedBooks(book)"
+              [ngClass]="{
+                'row-selectable': (selectable || clickable) && book.canBeSelected,
+                'row-selected': (selectable || clickable) && book.isSelected,
+                'row-not-selectable': (selectable || clickable) && !book.canBeSelected
+              }"
+            >
+              <!-- Select button -->
+              <td *ngIf="selectable || clickable">
+                <i *ngIf="book.canBeSelected" class="select-icon"[ngClass]="{
+                  'ti-check-box': book.isSelected,
+                  'ti-control-stop': !book.isSelected
+                }"></i>
+              </td>
               <!-- Cover -->
               <td *ngIf="displayItems['Cover']">
                 <a
@@ -112,7 +128,7 @@
                 </div>
               </td>
 
-              <td *ngIf="selectable" class="col-xs-3">
+              <!-- <td *ngIf="selectable" class="col-xs-3">
                 <div class="text-muted" style="font-style: italic">
                   <i style="font-size: 0.9em" [ngClass]="{'ti-check': book.isSelected || !book.canBeSelected, 'ti-close': !book.isSelected}"></i>
                   {{
@@ -121,9 +137,9 @@
                     : statusCannotBeSelected
                   }}
                 </div>
-              </td>
+              </td> -->
 
-              <td *ngIf="selectable" class="col-xs-3">
+              <!-- <td *ngIf="selectable" class="col-xs-3">
                 <button
                   style="text-align: center"
                   class="btn btn-default"
@@ -131,16 +147,16 @@
                   [disabled]="!book.canBeSelected"
                   (click)="updateSelectedBooks(book)"
                 >{{book.isSelected ? 'Remove' : 'Add'}}</button>
-              </td>
+              </td> -->
 
-              <td *ngIf="clickable" class="col-xs-3">
+              <!-- <td *ngIf="clickable" class="col-xs-3">
                 <button
                   style="text-align: center"
                   class="btn btn-default"
                   type="button"
                   (click)="updateSelectedBooks(book)"
                 >Select</button>
-              </td>
+              </td> -->
             </tr>
           </tbody>
         </table>

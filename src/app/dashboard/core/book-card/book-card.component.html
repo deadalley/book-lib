@@ -1,17 +1,31 @@
-<div class="card">
+<div
+  class="card"
+  (click)="select()"
+  [ngClass]="{
+    'card-selectable': (selectable || clickable) && book.canBeSelected,
+    'card-selected': (selectable || clickable) && book.isSelected,
+    'card-not-selectable': (selectable || clickable) && !book.canBeSelected
+  }"
+>
   <div class="header">
     <!-- Header -->
-    <h4 class="title">
-      <a
-        *ngIf="linkable"
-        href="#"
-        routerLink="/dashboard/books/{{ book.id }}"
-      >
-        {{ book.title }}
-      </a>
-      {{ linkable ? '' : book.title }}
-    </h4>
-    <hr />
+    <div class="row">
+      <h4 class="title col-md-8 col-md-offset-2">
+        <a
+          *ngIf="linkable"
+          href="#"
+          routerLink="/dashboard/books/{{ book.id }}"
+        >
+          {{ book.title }}
+        </a>
+        {{ linkable ? '' : book.title }}
+      </h4>
+      <i class="col-md-2 select-icon" *ngIf="(selectable || clickable) && book.canBeSelected" [ngClass]="{
+        'ti-check-box': book.isSelected,
+        'ti-control-stop': !book.isSelected
+      }"></i>
+    </div>
+    <hr>
     <p class="category" placement="bottom">
       <a *ngIf="linkable" href="#" [routerLink]="authorRoute">{{
         book.author
@@ -53,7 +67,7 @@
     </div>
 
     <!-- Icons -->
-    <div class="row buttons" *ngIf="withButtons">
+    <div class="row icons" *ngIf="withButtons && !selectable && !clickable">
       <div class="col-xs-3">
         <i
           class="pe-7s-check tile-icon"
@@ -99,8 +113,8 @@
         ></i>
       </div>
     </div>
-
-    <!-- Selectable -->
+<!-- 
+    <!-- Selectable --
     <div class="row" *ngIf="selectable">
       <div class="col-xs-12">
         <hr />
@@ -124,7 +138,7 @@
       </div>
     </div>
 
-    <!-- Clickable -->
+    <!-- Clickable --
     <div class="row" *ngIf="clickable">
       <div class="col-xs-12">
         <hr />
@@ -132,6 +146,6 @@
           Select
         </button>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
