@@ -5,7 +5,7 @@ import {
   AfterViewInit,
   ViewChild,
 } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { Collection } from 'models/collection.model'
 import { scrollToAnchor, removeSpaces } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
@@ -45,7 +45,8 @@ export class CollectionsHomeComponent
   constructor(
     private libraryService: LibraryService,
     private uiService: UiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.maxBooks = this.uiService.MAX_BOOKS_COLLECTION
     this.subscriptions.push(

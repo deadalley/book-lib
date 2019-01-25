@@ -14,8 +14,12 @@
       <p class="category" placement="bottom" style="padding-bottom: 10px">
         Do you want to add a new collection?
         Collections let your organize your books in any way you want!
-        Click on the plus symbol above to create a new collection :)
+        Click the button below to add a new collection :)
       </p>
+      <button type="button" class="btn btn-success library-nav-tile" routerLink="{{router.url.split('?')[0]}}/new" style="margin: 10px 5px">
+        <span class="ti-plus" aria-hidden="true"></span>
+        Add a new collection
+      </button>
     </div>
   </div>
 </ng-container>
@@ -26,7 +30,7 @@
     <div class="row" id="{{removeSpaces(collection.title)}}">
       <div class="col-md-9">
         <!-- Title -->
-        <h4 class="title">
+        <h4 class="title collection-title">
           {{collection.title}}
           <a *ngIf="collection.books.length" href="#{{collection.id}}" class="collapse-button" data-toggle="collapse" (click)="displayAll[collection.id] = !displayAll[collection.id]">
             <i [ngClass]="{'pe-7s-angle-down': !displayAll[collection.id], 'pe-7s-angle-up': displayAll[collection.id]}"></i>

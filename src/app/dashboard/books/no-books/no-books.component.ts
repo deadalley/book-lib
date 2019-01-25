@@ -19,9 +19,15 @@ export class NoBooksComponent implements OnInit {
   tags: string[]
   selectedLanguage: string
   book = {} as Book
+  displayAll = false
+  _preventSubmit: boolean
 
   @ViewChild(BookButtonsComponent)
   buttonsComponent: BookButtonsComponent
+
+  set preventSubmit(value) {
+    this._preventSubmit = value
+  }
 
   constructor(
     private fb: FormBuilder,

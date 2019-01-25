@@ -10,8 +10,8 @@
     <!-- Form -->
     <form style="text-align: left;" [formGroup]="form" (ngSubmit)="submit(form.value)">
       <div class="row">
-        <div class="col-xs-2"></div>
-        <div class="col-xs-8">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 .col-md-offset-2">
           <div class="card">
             <div class="content">
               <!-- Title -->
@@ -27,83 +27,105 @@
                 <span class="help-block" *ngIf="!form.controls['author'].valid && form.controls['author'].touched">Please enter a valid author name.</span>
               </div>
               <div class="row">
-                <div class="col-xs-6">
+                <!-- Language -->
+                <div class="col-md-4">
                   <div class="form-group">
                     <language-selector [selectedLanguage]="selectedLanguage" (select)="selectedLanguage = $event"></language-selector>
                   </div>
                 </div>
-                <div class="col-xs-6">
+                <!-- Buttons -->
+                <div class="col-md-4">
                   <div class="form-group">
                     <book-buttons></book-buttons>
                   </div>
                 </div>
+                <!-- Year -->
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label>Year</label>
+                    <input type="text" class="form-control" placeholder="Year" formControlName="year">
+                  </div>
+                </div>
+                <!-- Pages -->
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label>Pages</label>
+                    <input type="text" class="form-control" formControlName="pages">
+                  </div>
+                </div>
               </div> <!-- !row -->
               <div class="row">
-                <div class="col-xs-12" style="text-align: right;">
-                  <a href="#moreOptions" data-toggle="collapse"><label style="padding:0;">More options </label><i class="pe-7s-angle-down" style="font-size: 1.3em;"></i></a>
-                  <hr style="margin-top: 0;">
+                <!-- More options toggle -->
+                <div class="col-md-12" style="text-align: right;">
+                  <a href="#moreOptions" class="collapse-button" data-toggle="collapse" (click)="displayAll = !displayAll">
+                    <div class="label">More options</div>
+                    <i [ngClass]="{'pe-7s-angle-down': !displayAll, 'pe-7s-angle-up': displayAll}"></i>
+                  </a>
+                  <hr>
                 </div>
               </div>
               <!-- More options -->
               <div class="collapse" id="moreOptions">
+                <!-- Original title -->
                 <div class="form-group">
                   <label>Original Title</label>
                   <input type="text" class="form-control" placeholder="Original version title" formControlName="original">
                 </div>
+                <!-- Second row -->
                 <div class="row">
-                  <div class="col-xs-8">
+                  <!-- Publisher -->
+                  <div class="col-md-5">
                     <div class="form-group">
                       <label>Publisher</label>
                       <input type="text" class="form-control" placeholder="Publisher" formControlName="publisher">
                     </div>
                   </div>
-                  <div class="col-xs-2">
+                  <!-- Genres -->
+                  <div class="col-md-4">
                     <div class="form-group">
-                      <label>Year</label>
-                      <input type="text" class="form-control" placeholder="Year" formControlName="year">
-                    </div>
-                  </div>
-                  <div class="col-xs-2">
-                    <div class="form-group">
-                      <label>Pages</label>
-                      <input type="text" class="form-control" formControlName="pages">
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-6">
-                    <div class="form-group">
-                      <!-- Genres -->
                       <book-tags
                         title="Genres"
                         placeholder="Add genre..."
+                        iconClass="pe-7s-folder"
+                        [items]="genres"
                         (getItems)="getGenres($event)"
+                        (hasFocus)="preventSubmit = $event"
                       ></book-tags>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-xs-6">
-                      <div class="form-group">
-                        <label>Rating</label><br>
-                        <rating formControlName="rating" [titles]="['', '', '', '', '']"></rating>
-                      </div>
+                  <!-- Rating -->
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Rating</label><br>
+                      <rating style="font-size: 20px" formControlName="rating" [titles]="['', '', '', '', '']"></rating>
                     </div>
                   </div>
                 </div>
               </div>
+
+              <!-- Submit -->
               <hr>
               <div style="text-align: center;">
-                <button type="submit" class="btn btn-default" [disabled]="!form.valid">Add book</button>
+                <button type="submit" class="btn btn-success" [disabled]="!form.valid">Start your library!</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-xs-2"></div>
       </div>
     </form>
     <p>... or import it!</p>
-      <button type="button" class="btn btn-default" (click)="loginGoodreads()">Import from Goodreads</button>
-      <button type="button" class="btn btn-default">Import from file</button>
+    <div class="row">
+      <!-- <div class="col-md-4"></div> -->
+      <div class="col-md-4 col-md-offset-4" style="padding: 4px 0">
+        <button type="button" style="width: 100%" class="btn btn-default" (click)="loginGoodreads()">Import from Goodreads</button>
+      </div>
+    </div>
+    <div class="row">
+      <!-- <div class="col-md-4"></div> -->
+      <div class="col-md-4 col-md-offset-4" style="padding: 4px 0">
+        <button type="button" style="width: 100%" class="btn btn-default">Import from file</button>
+      </div>
+    </div>
     <p class="text-muted" style="font-style: italic; font-size: 0.9em;">File format: .xlxs, .csv.</p>
   </div>
 </div>
