@@ -1,10 +1,10 @@
 <library-navbar [groupings]="bookGroupings" addButtonContent="Add a new book"></library-navbar>
-<tags-list *ngIf="filterMethod === 'tags'" [tags]="tags" (selectedTags)="tagFilter=$event"></tags-list>
+<tags-list *ngIf="filterMethod === 'tags' && books.length" [tags]="tags" (selectedTags)="tagFilter=$event"></tags-list>
 <loading [visible]="isLoading"></loading>
 <!-- No books -->
 <no-books *ngIf="!isLoading && !books.length"></no-books>
 <!-- Books -->
-<div *ngIf="!isLoading" [ngSwitch]="tilesDisplay">
+<div *ngIf="!isLoading && books.length" [ngSwitch]="tilesDisplay" style="display: grid">
   <!-- Tiles -->
   <ng-container *ngSwitchCase="true">
     <div *ngIf="!(books | page: page:maxBooks | bookFilter: filterMethod:tagFilter).length">
