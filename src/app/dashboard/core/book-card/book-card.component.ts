@@ -44,6 +44,6 @@ export class BookCardComponent implements OnInit {
   }
 
   updateFavoriteIcon(values: {}) {
-    this.libraryService.updateBook({ ...this.book, ...values })
+    this.libraryService.updateBook({ ...this.book, ...values }, false)
   }
 }
