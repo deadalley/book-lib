@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
+import { DEFAULT_TABLE_ITEMS } from 'utils/constants'
 
 @Component({
   moduleId: module.id,
@@ -7,22 +8,14 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
   styleUrls: ['./table-items.component.css'],
 })
 export class TableItemsComponent implements OnInit {
-  items = {
-    Cover: true,
-    'Original title': false,
-    Author: true,
-    'Added on': false,
-    Year: false,
-    Publisher: false,
-    Language: false,
-    Pages: false,
-    Rating: false,
-    Favorites: true,
-  }
-  itemNames = Object.keys(this.items)
+  @Input()
+  items = DEFAULT_TABLE_ITEMS
+  itemNames: string[]
   @Output() displayItems = new EventEmitter<object>()
 
   ngOnInit() {
+    console.log(this.items)
+    this.itemNames = Object.keys(this.items)
     this.displayItems.emit(this.items)
   }
 

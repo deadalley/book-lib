@@ -1,44 +1,25 @@
-<div *ngIf="books && books.length > 0" class="row">
-  <div class="col-xs-12 text-left text-muted">
-    <a *ngIf="selectable" href="javascript:void(0);" (click)="selectAll(true)">
-      Select all
-    </a> {{selectable ? '|' : ''}}
-    <a *ngIf="selectable" href="javascript:void(0);" (click)="selectAll(false)">
-      Unselect all
-    </a> {{selectable ? '|' : ''}}
-    <a href="javascript:void(0);" (click)="tilesDisplay=true">
-      Tiles
-    </a> |
-    <a href="javascript:void(0);" (click)="tilesDisplay=false">
-      List
-    </a>
+<div style="display: grid">
+  <!-- Buttons -->
+  <div *ngIf="books && books.length > 0" class="row">
+    <div class="col-xs-12 text-left text-muted">
+      <a *ngIf="selectable" href="javascript:void(0);" (click)="selectAll(true)">
+        Select all
+      </a> {{selectable ? '|' : ''}}
+      <a *ngIf="selectable" href="javascript:void(0);" (click)="selectAll(false)">
+        Unselect all
+      </a> {{selectable ? '|' : ''}}
+      <a href="javascript:void(0);" (click)="tilesDisplay=true">
+        Tiles
+      </a> |
+      <a href="javascript:void(0);" (click)="tilesDisplay=false">
+        List
+      </a>
+    </div>
   </div>
-</div>
-
-<ng-container *ngIf="tilesDisplay">
-  <books-section
-    [books]="(books || []).slice(0, 4)"
-    [withButtons]="withButtons"
-    [clickable]="clickable"
-    [selectable]="selectable"
-    [linkable]="linkable"
-    [selectBtnContent]="selectBtnContent"
-    [selectBtnContentDisabled]="selectBtnContentDisabled"
-    (selectedBooks)="selectedBooks.emit($event)"
-    (selectedBook)="selectedBook.emit($event)"
-  ></books-section>
-
-  <div *ngIf="books && books.length > 4">
-    <a href="#displayMore" data-toggle="collapse" (click)="displayAll = !displayAll">
-      <label style="padding:0;">{{displayAll ? 'Display less ' : 'Display more '}}</label>
-      <i [ngClass]="{'pe-7s-angle-down': !displayAll, 'pe-7s-angle-up': displayAll}" style="font-size: 1.3em;"></i>
-    </a>
-    <hr style="margin-top: 0;">
-  </div>
-
-  <div class="collapse" id="displayMore">
+  <!-- Tiles -->
+  <ng-container *ngIf="tilesDisplay">
     <books-section
-      [books]="(books || []).slice(4)"
+      [books]="books | page: page:maxBooks"
       [withButtons]="withButtons"
       [clickable]="clickable"
       [selectable]="selectable"
@@ -48,18 +29,51 @@
       (selectedBooks)="selectedBooks.emit($event)"
       (selectedBook)="selectedBook.emit($event)"
     ></books-section>
-  </div>
-</ng-container>
+  <!-- 
+    <div *ngIf="books && books.length > 4">
+      <a href="#displayMore" data-toggle="collapse" (click)="displayAll = !displayAll">
+        <label style="padding:0;">{{displayAll ? 'Display less ' : 'Display more '}}</label>
+        <i [ngClass]="{'pe-7s-angle-down': !displayAll, 'pe-7s-angle-up': displayAll}" style="font-size: 1.3em;"></i>
+      </a>
+      <hr style="margin-top: 0;">
+    </div>
+  
+    <div class="collapse" id="displayMore">
+      <books-section
+        [books]="(books || []).slice(4)"
+        [withButtons]="withButtons"
+        [clickable]="clickable"
+        [selectable]="selectable"
+        [linkable]="linkable"
+        [selectBtnContent]="selectBtnContent"
+        [selectBtnContentDisabled]="selectBtnContentDisabled"
+        (selectedBooks)="selectedBooks.emit($event)"
+        (selectedBook)="selectedBook.emit($event)"
+      ></books-section>
+    </div> -->
+  </ng-container>
+  <!-- Table -->
+  <ng-container *ngIf="!tilesDisplay && books && books.length > 0">
+    <table-items [items]="tableDisplayItems" (displayItems)="tableDisplayItems=$event"></table-items>
+    <books-table
+      [displayItems]="tableDisplayItems"
+      [books]="books | page:page:maxBooks"
+      [withButtons]="withButtons"
+      [clickable]="clickable"
+      [selectable]="selectable"
+      [linkable]="linkable"
+      [statusIncluded]="statusIncluded"
+      [statusNotIncluded]="statusNotIncluded"
+      [statusCannotBeSelected]="statusCannotBeSelected"
+      (selectedBooks)="selectedBooks.emit($event)"
+      (selectedBook)="selectedBook.emit($event)"
+    ></books-table>
+  </ng-container>
+  <!-- Pages -->
+  <pages
+    [count]="pageCount"
+    [withRoute]="false"
+    (nextSelectedPage)="page = $event"
+  ></pages>
+</div>
 
-<books-table *ngIf="!tilesDisplay && books && books.length > 0"
-  [books]="books"
-  [withButtons]="withButtons"
-  [clickable]="clickable"
-  [selectable]="selectable"
-  [linkable]="linkable"
-  [statusIncluded]="statusIncluded"
-  [statusNotIncluded]="statusNotIncluded"
-  [statusCannotBeSelected]="statusCannotBeSelected"
-  (selectedBooks)="selectedBooks.emit($event)"
-  (selectedBook)="selectedBook.emit($event)"
-></books-table>

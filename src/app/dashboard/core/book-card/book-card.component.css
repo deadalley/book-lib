@@ -16,13 +16,16 @@
   background: #fdf4ec;
 }
 
+.no-buttons {
+  height: 30vw;
+}
+
 @media only screen and (min-width: 991px) {
   .card {
     height: 35vw;
   }
 
   .card-selectable {
-    height: 30vw;
     cursor: pointer;
   }
 }

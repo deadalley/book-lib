@@ -35,6 +35,9 @@ export class PagesComponent implements OnInit, OnChanges {
   }
 
   onClick(page: number) {
+    if (this.selectedPage === this.pages[this.pages.length - 1]) {
+      return
+    }
     if (this.withRoute) {
       const queryParams: Params = {
         ...this.route.snapshot.queryParams,

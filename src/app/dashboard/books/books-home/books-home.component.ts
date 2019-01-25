@@ -4,7 +4,7 @@ import { Book } from 'models/book.model'
 import { LibraryService } from 'services/library.service'
 import { scrollToAnchor } from 'utils/helpers'
 import { UiService } from 'services/ui.service'
-import { BOOK_GROUPINGS } from 'utils/constants'
+import { BOOK_GROUPINGS, MAX_BOOKS, MAX_BOOKS_LIST } from 'utils/constants'
 import { map, mergeMap } from 'rxjs/operators'
 
 @Component({
@@ -41,8 +41,8 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
     private uiService: UiService,
     private route: ActivatedRoute
   ) {
-    this.MAX_BOOKS = this.uiService.MAX_BOOKS
-    this.MAX_BOOKS_LIST = this.uiService.MAX_BOOKS_LIST
+    this.MAX_BOOKS = MAX_BOOKS
+    this.MAX_BOOKS_LIST = MAX_BOOKS_LIST
     this.subscriptions.push(
       this.libraryService.books$.subscribe(books => {
         this.allBooks = books

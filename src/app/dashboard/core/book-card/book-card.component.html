@@ -4,7 +4,8 @@
   [ngClass]="{
     'card-selectable': (selectable || clickable) && book.canBeSelected,
     'card-selected': (selectable || clickable) && book.isSelected,
-    'card-not-selectable': (selectable || clickable) && !book.canBeSelected
+    'card-not-selectable': (selectable || clickable) && !book.canBeSelected,
+    'no-buttons': !withButtons || (selectable || clickable)
   }"
 >
   <div class="header">

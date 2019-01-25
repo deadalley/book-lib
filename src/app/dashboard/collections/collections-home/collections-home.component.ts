@@ -8,11 +8,10 @@ import {
 import { ActivatedRoute, Router } from '@angular/router'
 import { Collection } from 'models/collection.model'
 import { scrollToAnchor, removeSpaces } from 'utils/helpers'
-import { ANIMATIONS } from 'utils/constants'
+import { ANIMATIONS, MAX_BOOKS_COLLECTION } from 'utils/constants'
 import { UiService } from 'services/ui.service'
 import { LibraryService } from 'services/library.service'
 import { COLLECTION_GROUPINGS } from 'utils/constants'
-import { map, mergeMap } from 'rxjs/operators'
 @Component({
   moduleId: module.id,
   selector: 'collections-home',
@@ -44,11 +43,10 @@ export class CollectionsHomeComponent
 
   constructor(
     private libraryService: LibraryService,
-    private uiService: UiService,
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.maxBooks = this.uiService.MAX_BOOKS_COLLECTION
+    this.maxBooks = MAX_BOOKS_COLLECTION
     this.subscriptions.push(
       this.libraryService.collections$.subscribe(collections => {
         if (!collections) {

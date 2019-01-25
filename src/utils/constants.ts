@@ -1,6 +1,25 @@
 import { trigger, transition, style, animate, state } from '@angular/animations'
 import { objectToArray, upperCaseFirstLetter } from './helpers'
 
+export const MAX_BOOKS = 16
+export const MAX_BOOKS_LIST = 24
+export const MAX_BOOKS_COLLECTION = 8
+export const MAX_BOOKS_DISPLAY = 8
+export const MAX_BOOKS_DISPLAY_LIST = 16
+
+export const DEFAULT_TABLE_ITEMS = {
+  Cover: true,
+  'Original title': false,
+  Author: true,
+  'Added on': false,
+  Year: false,
+  Publisher: false,
+  Language: false,
+  Pages: false,
+  Rating: false,
+  Favorites: true,
+}
+
 export const ANIMATIONS = {
   CARD: trigger('card', [
     state(
