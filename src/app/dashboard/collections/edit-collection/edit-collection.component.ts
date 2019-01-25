@@ -6,6 +6,7 @@ import { Collection } from 'models/collection.model'
 import { formatDate } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
 import { LibraryService } from 'services/library.service'
+import { mergeMap, map } from 'rxjs/operators'
 
 @Component({
   moduleId: module.id,
@@ -43,20 +44,8 @@ export class EditCollectionComponent implements OnInit, OnDestroy {
       description: '',
     })
 
-    this.subscription = this.libraryService
-      .findCollection(this.collectionId)
-      .subscribe(collection => {
-        if (!collection) {
-          return
-        }
-        this.collection = collection
-        this.isLoading = false
-
-        this.form.patchValue({
-          title: this.collection.title,
-          description: this.collection.description,
-        })
-      })
+    this.loadCollection()
+    this.loadBooks()
   }
 
   ngOnInit() {}
@@ -80,20 +69,46 @@ export class EditCollectionComponent implements OnInit, OnDestroy {
     this.location.back()
   }
 
-  loadBooks() {
-    this.bookSubscription = this.libraryService.books$.subscribe(books => {
-      if (!books) {
-        return
-      }
-      this.isLoadingBooks = false
-      this.books = books
-      this.books.forEach(book => {
-        book.canBeSelected = true
-        book.isSelected =
-          book.collections && book.collections.includes(this.collection.title)
-        book.wasInCollection =
-          book.collections && book.collections.includes(this.collection.title)
+  loadCollection() {
+    this.subscription = this.libraryService
+      .findCollection(this.collectionId)
+      .subscribe(collection => {
+        if (!collection) {
+          return
+        }
+        this.collection = collection
+        this.isLoading = false
+
+        this.form.patchValue({
+          title: this.collection.title,
+          description: this.collection.description,
+        })
       })
-    })
+  }
+
+  loadBooks() {
+    this.libraryService
+      .findCollection(this.collectionId)
+      .pipe(
+        mergeMap(collection =>
+          this.libraryService.books$.pipe(
+            map(books =>
+              books.map(book => {
+                book.canBeSelected = true
+                book.isSelected =
+                  book.collections && book.collections.includes(collection.id)
+                return book
+              })
+            )
+          )
+        )
+      )
+      .subscribe(books => {
+        if (!books) {
+          return
+        }
+        this.isLoadingBooks = false
+        this.books = books
+      })
   }
 }

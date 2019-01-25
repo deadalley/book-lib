@@ -2,12 +2,13 @@
   <!-- Buttons -->
   <div *ngIf="books && books.length > 0" class="row buttons">
     <div class="col-md-12">
-      <button class="btn btn-default btn-margin" (click)="toggleTilesDisplay()">
+      <button type="button" class="btn btn-default btn-margin" (click)="toggleTilesDisplay()">
         <i [ngClass]="{'ti-view-list': tilesDisplay, 'ti-layout-grid2': !tilesDisplay}"></i>
         {{tilesDisplay ? 'Table' : 'Tiles'}}
       </button>
       <button
         *ngIf="selectable"
+        type="button"
         class="btn btn-margin"
         [ngClass]="{'btn-success': !selectedAll, 'btn-danger': selectedAll}"
         (click)="selectAll()"

@@ -22,32 +22,18 @@
           <label>Description</label>
           <textarea formControlName="description" rows="3" class="form-control" placeholder="What is this collection about?" value=""></textarea>
         </div>
-        <div class="row">
-					<div class="col-xs-12 required">
-						<span style="color: red">*</span> Required fields
-					</div>
-        </div>
 
         <!-- Add books -->
+        <loading [visible]="isLoading || isLoadingBooks"></loading>
+        <books-display
+          *ngIf="!isLoadingBooks && !isLoading"
+          [books]="books"
+          [selectable]="true"
+        ></books-display>
+        <!-- Require -->
         <div class="row">
-          <div class="col-xs-12">
-            <a href="#addBooks" data-toggle="collapse" (click)="loadBooks()">
-              <label style="padding:0;">Books </label>
-              <i class="pe-7s-angle-down" style="font-size: 1.3em;"></i>
-            </a>
-            <hr style="margin-top: 0;">
-          </div>
-        </div>
-        <div class="collapse" id="addBooks">
-          <books-table
-            [books]="books"
-            [selectable]="true"
-            [statusIncluded]="'Book in collection'"
-            [statusNotIncluded]="'Book not in collection'"
-          ></books-table>
-        </div>
-        <div>
-          <div >
+          <div class="col-xs-12 required">
+            <span style="color: red">*</span> Required fields
           </div>
         </div>
 

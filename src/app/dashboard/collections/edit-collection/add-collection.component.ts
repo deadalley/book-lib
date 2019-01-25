@@ -5,6 +5,7 @@ import { Collection } from 'models/collection.model'
 import { LibraryService } from 'services/library.service'
 import { formatDate } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
+import { mergeMap, map } from 'rxjs/operators'
 
 @Component({
   moduleId: module.id,
@@ -34,6 +35,7 @@ export class AddCollectionComponent implements OnInit, OnDestroy {
       title: ['', Validators.required],
       description: '',
     })
+    this.loadBooks()
   }
 
   ngOnInit() {}
@@ -61,13 +63,22 @@ export class AddCollectionComponent implements OnInit, OnDestroy {
   }
 
   loadBooks() {
-    this.subscription = this.libraryService.books$.subscribe(books => {
-      if (!books) {
-        return
-      }
-      this.isLoadingBooks = false
-      this.books = books
-      this.books.forEach(book => (book.canBeSelected = true))
-    })
+    this.libraryService.books$
+      .pipe(
+        map(books =>
+          books.map(book => {
+            book.canBeSelected = true
+            book.isSelected = false
+            return book
+          })
+        )
+      )
+      .subscribe(books => {
+        if (!books) {
+          return
+        }
+        this.isLoadingBooks = false
+        this.books = books
+      })
   }
 }

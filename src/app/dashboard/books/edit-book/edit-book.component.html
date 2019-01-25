@@ -60,22 +60,6 @@
 						</div>
 					</div>
 				</div>
-				<!-- Suggested books -->
-				<div *ngIf="suggestedBooks && suggestedBooks.length > 0" class="row">
-					<div class="col-xs-12">
-						<label style="padding:0;">Books found</label>
-						<a href="javascript:void(0);" (click)="suggestedBooks=[]">
-							<i class="pe-7s-close-circle" style="font-size: 100%"></i>
-						</a>
-					</div>
-				</div>
-				<div style="padding-left: 10px">
-					<books-display
-						[books]="suggestedBooks"
-						[clickable]="true"
-						(selectedBook)="selectBook($event)"
-					></books-display>
-				</div>
 
 				<!-- Second row -->
 				<div class="row">
