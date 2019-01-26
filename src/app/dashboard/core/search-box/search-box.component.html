@@ -1,0 +1,33 @@
+<div class="input-group search-box" [ngClass]="{'with-margin': withMargin}">
+  <input type="text" class="form-control" placeholder="Search" [formControl]="searchInput">
+  <span class="input-group-addon" id="sizing-addon2">
+    <i class="pe-7s-search search-icon"></i>
+  </span>
+</div>
+<ul class="search-results" *ngIf="searchInput.value" #searchResults>
+  <li *ngFor="let item of items | searchFilter: searchValue:['title', 'author']" #result class="result">
+    <a href="javascript:void(0);">
+      <div class="fixed-width">
+        <img
+          *ngIf="item.imageSmall || item.imageLarge"
+          [src]="item.imageSmall || item.imageLarge"
+          alt="Cover"
+        >
+      </div>
+      <div>
+        {{item.title}}
+        <br>
+        <span class="result-author">{{item.author}}</span>
+      </div>
+    </a>
+  </li>
+  <li *ngIf="!(items | searchFilter: searchValue:['title', 'author']).length" #result class="result">
+    <a href="javascript:void(0);">
+      No results found
+    </a>
+  </li>
+</ul>
+<!-- <ul class="filter-select">
+    <li class="filter-select-list"><img src="" alt="" width="50" height="50"><p class="artist-name"></p>
+  <span class="tags"></span>
+  </ul> -->

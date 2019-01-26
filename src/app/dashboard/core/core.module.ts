@@ -21,9 +21,12 @@ import { GridComponent } from './grid/grid.component'
 import { LanguageSelectorComponent } from './language-selector/language-selector.component'
 import { LibraryNavbarComponent } from './library-navbar/library-navbar.component'
 import { TableItemsComponent } from './table-items/table-items.component'
-import { BookFilterPipe } from 'pipes/book-filter.pipe'
 import { PagesComponent } from './pages/pages.component'
+import { SearchBoxComponent } from './search-box/search-box.component'
+import { BookFilterPipe } from 'pipes/book-filter.pipe'
 import { PagePipe } from 'pipes/page.pipe'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { SearchFilterPipe } from 'pipes/search-filter.pipe'
 @NgModule({
   declarations: [
     AuthorCardComponent,
@@ -42,8 +45,10 @@ import { PagePipe } from 'pipes/page.pipe'
     LibraryNavbarComponent,
     TableItemsComponent,
     PagesComponent,
+    SearchBoxComponent,
     BookFilterPipe,
     PagePipe,
+    SearchFilterPipe,
   ],
   imports: [
     LoadingModule.forRoot({
@@ -57,6 +62,8 @@ import { PagePipe } from 'pipes/page.pipe'
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
     RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     AuthorCardComponent,
@@ -75,8 +82,10 @@ import { PagePipe } from 'pipes/page.pipe'
     LibraryNavbarComponent,
     TableItemsComponent,
     PagesComponent,
+    SearchBoxComponent,
     BookFilterPipe,
     PagePipe,
+    SearchFilterPipe,
   ],
 })
 export class CoreModule {}

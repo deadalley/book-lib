@@ -5,6 +5,7 @@ import { upperCaseFirstLetter } from 'utils/helpers'
 import * as XLSX from 'xlsx'
 import { Book } from 'models/book.model'
 import { LANGUAGES, FILTERS } from 'utils/constants'
+import { LibraryService } from 'services/library.service'
 
 type AOA = any[][]
 
@@ -23,6 +24,7 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
   @Input() filters = FILTERS
   @Input() addButtonContent: string
   @ViewChild('fileUpload') fileUpload
+  books: Book[]
 
   get viewQueryParam(): string {
     return this.route.snapshot.queryParamMap.get('view')
@@ -33,7 +35,11 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
     return splitUrl[splitUrl.length - 1].split('?')[0]
   }
 
-  constructor(public router: Router, private route: ActivatedRoute) {
+  constructor(
+    public router: Router,
+    private route: ActivatedRoute,
+    private libraryService: LibraryService
+  ) {
     this.subscriptions.push(
       this.route.queryParams.subscribe(params => {
         this.selectedGrouping = params['grouping']
@@ -45,6 +51,9 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
           : 'No filter'
         this.tilesDisplay = !params['view'] || params['view'] === 'tiles'
       })
+    )
+    this.subscriptions.push(
+      this.libraryService.books$.subscribe(books => (this.books = books))
     )
   }
 

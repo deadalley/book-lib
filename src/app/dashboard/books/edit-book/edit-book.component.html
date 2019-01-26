@@ -262,6 +262,7 @@
 </page-navigator>
 
 <modal
+	*ngIf="displayDelete"
   #deleteBookModal
   title="Are you sure you want to delete {{book.title}}?"
   content="This book will be removed permanently from your library."
