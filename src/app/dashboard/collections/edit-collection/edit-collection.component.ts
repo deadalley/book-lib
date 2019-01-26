@@ -4,7 +4,7 @@ import { Location } from '@angular/common'
 import { Router } from '@angular/router'
 import { Collection } from 'models/collection.model'
 import { formatDate } from 'utils/helpers'
-import { ANIMATIONS } from 'utils/constants'
+import { ANIMATIONS, DEFAULT_TABLE_ITEMS } from 'utils/constants'
 import { LibraryService } from 'services/library.service'
 import { mergeMap, map } from 'rxjs/operators'
 
@@ -28,6 +28,7 @@ export class EditCollectionComponent implements OnInit, OnDestroy {
   formatDate = formatDate
   subscription
   bookSubscription
+  tableItems = { ...DEFAULT_TABLE_ITEMS, Cover: false }
 
   @ViewChild('deleteCollectionModal') modal
 

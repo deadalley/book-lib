@@ -4,8 +4,8 @@ import { Location } from '@angular/common'
 import { Collection } from 'models/collection.model'
 import { LibraryService } from 'services/library.service'
 import { formatDate } from 'utils/helpers'
-import { ANIMATIONS } from 'utils/constants'
-import { mergeMap, map } from 'rxjs/operators'
+import { ANIMATIONS, DEFAULT_TABLE_ITEMS } from 'utils/constants'
+import { map } from 'rxjs/operators'
 
 @Component({
   moduleId: module.id,
@@ -26,6 +26,7 @@ export class AddCollectionComponent implements OnInit, OnDestroy {
   displayDelete = false
   formatDate = formatDate
   subscription
+  tableItems = { ...DEFAULT_TABLE_ITEMS, Cover: false }
 
   constructor(
     private fb: FormBuilder,

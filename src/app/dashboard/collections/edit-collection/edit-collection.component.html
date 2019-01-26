@@ -30,8 +30,11 @@
 
         <!-- Add books -->
         <loading [visible]="isLoading || isLoadingBooks"></loading>
+        <label>Books</label>
         <books-display
           *ngIf="!isLoadingBooks && !isLoading"
+          [tilesDisplay]="false"
+          [tableDisplayItems]="tableItems"
           [books]="books"
           [selectable]="true"
         ></books-display>

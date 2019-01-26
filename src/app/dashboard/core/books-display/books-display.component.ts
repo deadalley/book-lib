@@ -30,12 +30,12 @@ export class BooksDisplayComponent implements OnInit {
   @Input() selectBtnContent: string
   @Input() selectBtnContentDisabled: string
   @Input() tableDisplayItems = DEFAULT_TABLE_ITEMS
+  @Input() tilesDisplay = true
 
   @Output() selectedBooks = new EventEmitter<Book[]>()
   @Output() selectedBook = new EventEmitter<Book>()
 
   searchInput = new FormControl()
-  tilesDisplay = true
   displayAll = false
   selectedAll = false
   maxBooks = 0
