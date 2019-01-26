@@ -55,6 +55,6 @@
       </div>
     </ng-container>
   </ng-container>
-  <pages [count]="pageCount"></pages>
+  <pages *ngIf="!isLoading && books.length" [count]="pageCount"></pages>
 </div>
   

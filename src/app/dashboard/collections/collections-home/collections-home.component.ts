@@ -23,6 +23,7 @@ export class CollectionsHomeComponent
   implements OnInit, OnDestroy, AfterViewInit {
   groupingMethod: string
   filterMethod: string
+  bookCount = 0
   collections = [] as Collection[]
   selectedCollection = {} as Collection
   isLoading = true
@@ -43,6 +44,7 @@ export class CollectionsHomeComponent
 
   constructor(
     private libraryService: LibraryService,
+    private uiService: UiService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -67,6 +69,9 @@ export class CollectionsHomeComponent
       this.libraryService.tags$.subscribe(tags => {
         this.tags = tags
       })
+    )
+    this.subscriptions.push(
+      this.uiService.bookCount$.subscribe(value => (this.bookCount = value))
     )
     this.subscriptions.push(
       this.route.fragment.subscribe(fragment => {

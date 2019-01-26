@@ -1,6 +1,20 @@
 <loading [visible]="isLoading"></loading>
 <library-navbar *ngIf="!isLoading" [groupings]="collectionGroupings" addButtonContent="Add a new collection"></library-navbar>
 <tags-list *ngIf="filterMethod === 'tags'" [tags]="tags" (selectedTags)="tagFilter=$event"></tags-list>
+<!-- No books -->
+<div class="card" style="text-align: center;" [@card] *ngIf="!isLoading && !bookCount">
+  <div class="header">
+    <!-- Header -->
+    <h4 class="title">
+      Oh no, your library is empty :(.
+    </h4>
+    <hr>
+    <p class="category" placement="bottom" style="padding-bottom: 10px">
+      You don't seem to have any books in your library. Why don't you try adding a new book before creating a collection?<br>
+      You can add a new book by visiting the <b>books</b> page on the sidebar and clicking on <b>add new book</b> ;)
+    </p>
+  </div>
+</div>
 <!-- Collections -->
 <ng-container *ngIf="collections.length === 0 && !isLoading">
   <!-- No collections -->
@@ -12,8 +26,8 @@
       </h4>
       <hr>
       <p class="category" placement="bottom" style="padding-bottom: 10px">
-        Do you want to add a new collection?
-        Collections let your organize your books in any way you want!
+        Do you want to add a new collection?<br>
+        Collections let your organize your books in any way you want!<br>
         Click the button below to add a new collection :)
       </p>
       <button type="button" class="btn btn-success library-nav-tile" routerLink="{{router.url.split('?')[0]}}/new" style="margin: 10px 5px">

@@ -56,6 +56,7 @@
   </ng-container>
   <!-- Pages -->
   <pages
+    *ngIf="books && books.length"
     [count]="pageCount"
     [withRoute]="false"
     (nextSelectedPage)="page = $event"

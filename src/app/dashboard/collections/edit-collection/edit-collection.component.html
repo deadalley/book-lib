@@ -31,6 +31,9 @@
         <!-- Add books -->
         <loading [visible]="isLoading || isLoadingBooks"></loading>
         <label>Books</label>
+        <h5 *ngIf="!books || !books.length" class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 4px 0;">
+          You currently don't have any books. Add a book to get started with your library! :)
+        </h5>
         <books-display
           *ngIf="!isLoadingBooks && !isLoading"
           [tilesDisplay]="false"
@@ -61,10 +64,11 @@
 </page-navigator>
 
 <modal
+  *ngIf="collection"
   #deleteCollectionModal
   title="Are you sure you want to delete {{collection.title}}?"
   content="This collection will be removed permanently from your library. All books related to this collection will be kept."
   cancel="Cancel"
   accept="Accept"
-  [onAccept]="deleteCollection.bind(this)"
+  [onAccept]="deleteCollection && deleteCollection.bind(this)"
 ></modal>
