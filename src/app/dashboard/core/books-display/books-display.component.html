@@ -1,7 +1,7 @@
 <div style="display: grid">
   <!-- Buttons -->
   <div *ngIf="books && books.length > 0" class="row buttons">
-    <div class="col-md-12">
+    <div class="col-md-12" style="display: flex;">
       <button type="button" class="btn btn-default btn-margin" (click)="toggleTilesDisplay()">
         <i [ngClass]="{'ti-view-list': tilesDisplay, 'ti-layout-grid2': !tilesDisplay}"></i>
         {{tilesDisplay ? 'Table' : 'Tiles'}}
@@ -15,12 +15,18 @@
       >
         {{selectedAll ? 'Deselect all' : 'Select all'}}
       </button>
+      <div class="input-group btn-margin">
+        <input type="text" class="form-control" placeholder="Search" [formControl]="searchInput">
+        <span class="input-group-addon" id="sizing-addon2">
+          <i class="pe-7s-search search-icon"></i>
+        </span>
+      </div>
     </div>
   </div>
   <!-- Tiles -->
   <ng-container *ngIf="tilesDisplay">
     <books-section
-      [books]="books | page: page:maxBooks"
+      [books]="books | searchFilter: searchValue:['title', 'author'] | page: page:maxBooks"
       [withButtons]="withButtons"
       [clickable]="clickable"
       [selectable]="selectable"
@@ -36,7 +42,7 @@
     <table-items [items]="tableDisplayItems" (displayItems)="tableDisplayItems=$event"></table-items>
     <books-table
       [displayItems]="tableDisplayItems"
-      [books]="books | page:page:maxBooks"
+      [books]="books | searchFilter: searchValue:['title', 'author'] | page:page:maxBooks"
       [withButtons]="withButtons"
       [clickable]="clickable"
       [selectable]="selectable"

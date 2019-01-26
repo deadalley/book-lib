@@ -6,14 +6,18 @@ import { Book } from 'models/book.model'
   name: 'bookFilter',
 })
 export class BookFilterPipe implements PipeTransform {
-  transform(books: Book[], filterMethod?: any, tags?: object[]): any {
+  transform(books: Book[], filterMethod: any, ...args): any {
     if (!filterMethod || filterMethod === 'no filter') {
       return books
     }
 
     if (filterMethod === 'tags') {
+      const tags = args[0]
+      if (!tags) {
+        return
+      }
       if (!tags.length) {
-        return books.filter(book => !book.tags || !book.tags.length)
+        return books
       }
       return books.filter(book => !!intersection(book.tags, tags).length)
     }

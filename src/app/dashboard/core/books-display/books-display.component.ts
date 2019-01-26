@@ -7,6 +7,8 @@ import {
   DEFAULT_TABLE_ITEMS,
   MAX_BOOKS_DISPLAY_LIST,
 } from 'utils/constants'
+import { FormControl } from '@angular/forms'
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators'
 
 @Component({
   moduleId: module.id,
@@ -32,12 +34,14 @@ export class BooksDisplayComponent implements OnInit {
   @Output() selectedBooks = new EventEmitter<Book[]>()
   @Output() selectedBook = new EventEmitter<Book>()
 
+  searchInput = new FormControl()
   tilesDisplay = true
   displayAll = false
   selectedAll = false
   maxBooks = 0
   page = 1
   pageCount = 1
+  searchValue
   removeSpaces = removeSpaces
 
   constructor(private uiService: UiService) {
@@ -47,7 +51,14 @@ export class BooksDisplayComponent implements OnInit {
     })
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.searchInput.valueChanges
+      .pipe(
+        debounceTime(200),
+        distinctUntilChanged()
+      )
+      .subscribe(value => (this.searchValue = value))
+  }
 
   selectAll() {
     this.selectedAll = !this.selectedAll

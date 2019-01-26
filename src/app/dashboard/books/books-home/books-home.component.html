@@ -1,5 +1,5 @@
 <library-navbar [groupings]="bookGroupings" addButtonContent="Add a new book"></library-navbar>
-<tags-list *ngIf="filterMethod === 'tags' && books.length" [tags]="tags" (selectedTags)="tagFilter=$event"></tags-list>
+<tags-list *ngIf="filterMethod === 'tags' && books.length && tags" [tags]="tags" (selectedTags)="tagFilter=$event"></tags-list>
 <loading [visible]="isLoading"></loading>
 <!-- No books -->
 <no-books *ngIf="!isLoading && !books.length"></no-books>
