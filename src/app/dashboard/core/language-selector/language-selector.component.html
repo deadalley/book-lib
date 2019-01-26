@@ -1,10 +1,16 @@
 <label>Language</label>
 <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownLanguage" data-toggle="dropdown" (keydown)="onKeyDown($event)">
+  <button
+    class="btn btn-default dropdown-toggle"
+    type="button"
+    id="dropdownLanguage"
+    data-toggle="dropdown"
+    (keyup)="onKeyUp($event)"
+  >
     {{selectedLanguage}}
     <span class="caret"></span>
   </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownLanguage" (keydown)="onKeyDown($event)" #languageList>
+  <ul class="dropdown-menu" aria-labelledby="dropdownLanguage" (keyup)="onKeyUp($event)" #languageList>
     <li *ngFor="let language of languages; let i = index" #languages>
       <a href="javascript:void(0);" (click)="select.emit(language)">
         {{language}}
