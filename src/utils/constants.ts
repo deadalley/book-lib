@@ -249,6 +249,6 @@ export const _LANGUAGES = {
   ko: '한국어 (韓國語)',
 }
 
-export const LANGUAGES = objectToArray(_LANGUAGES).map(language =>
-  upperCaseFirstLetter(language)
-)
+export const LANGUAGES = objectToArray(_LANGUAGES)
+  .map(language => upperCaseFirstLetter(language))
+  .sort()
