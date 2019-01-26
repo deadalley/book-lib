@@ -5,26 +5,26 @@
   </span>
 </div>
 <ul class="search-results" *ngIf="searchInput.value" #searchResults>
-  <li *ngFor="let item of items | searchFilter: searchValue:['title', 'author']" #result class="result">
-    <a href="javascript:void(0);">
-      <div class="fixed-width">
-        <img
-          *ngIf="item.imageSmall || item.imageLarge"
-          [src]="item.imageSmall || item.imageLarge"
-          alt="Cover"
-        >
-      </div>
-      <div>
-        {{item.title}}
-        <br>
-        <span class="result-author">{{item.author}}</span>
-      </div>
-    </a>
+  <li
+    *ngFor="let item of items | searchFilter: searchValue:['title', 'author']"
+    class="result"
+    routerLink="/dashboard/books/{{item.id}}"
+  >
+    <div class="fixed-width">
+      <img
+        *ngIf="item.imageSmall || item.imageLarge"
+        [src]="item.imageSmall || item.imageLarge"
+        alt="Cover"
+      >
+    </div>
+    <div>
+      {{item.title}}
+      <br>
+      <span class="result-author">{{item.author}}</span>
+    </div>
   </li>
   <li *ngIf="!(items | searchFilter: searchValue:['title', 'author']).length" #result class="result">
-    <a href="javascript:void(0);">
-      No results found
-    </a>
+    No results found
   </li>
 </ul>
 <!-- <ul class="filter-select">

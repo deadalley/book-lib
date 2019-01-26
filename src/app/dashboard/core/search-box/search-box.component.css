@@ -31,12 +31,9 @@
 }
 
 .result {
+  cursor: pointer;
   min-height: 70px;
   text-align: left;
-  display: flex;
-}
-
-.result > a {
   display: flex;
   flex: 1;
   align-items: center;
