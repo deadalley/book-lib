@@ -20,7 +20,6 @@ export const ROUTES: RouteInfo[] = [
     class: '',
   },
   { path: 'authors', title: 'Authors', icon: 'pe-7s-pen', class: '' },
-  { path: 'wishlist', title: 'Wishlist', icon: 'pe-7s-gift', class: '' },
   { path: 'goodreads', title: 'Goodreads', icon: 'pe-7s-science', class: '' },
   {
     path: 'import',
