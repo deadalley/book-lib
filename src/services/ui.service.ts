@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { SessionService } from './session.service'
 import { DatabaseService } from './database.service'
-import { map, mergeMap, filter } from 'rxjs/operators'
+import { mergeMap, filter } from 'rxjs/operators'
 import { Observable } from 'rxjs'
 
 @Injectable()

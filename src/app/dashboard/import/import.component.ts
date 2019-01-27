@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { ANIMATIONS, LANGUAGES } from 'utils/constants'
+import { ImportService } from 'services/import.service'
+import { LibraryService } from 'services/library.service'
+import { Router, ActivatedRoute } from '@angular/router'
 
 @Component({
   moduleId: module.id,
@@ -12,5 +15,47 @@ export class ImportComponent implements OnInit {
   languages = LANGUAGES
   displayTableInfo = false
   displayAttributesInfo = false
+  displayBooksToImport = true
+  booksToImport = []
+  tableItems = {
+    Cover: true,
+    'Original title': true,
+    Author: true,
+    Year: true,
+    Publisher: true,
+    Language: true,
+    Pages: true,
+    Rating: true,
+  }
+  @ViewChild('importResultModal') modal
+
+  constructor(
+    private importService: ImportService,
+    private libraryService: LibraryService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+
   ngOnInit() {}
+
+  uploadFile(event) {
+    this.importService.readFile(event.target.files[0]).subscribe(
+      books =>
+        (this.booksToImport = books.map(book => ({
+          ...book,
+          canBeSelected: true,
+          isSelected: true,
+        })))
+    )
+  }
+
+  importLibrary() {
+    this.libraryService
+      .addBooks(this.booksToImport.filter(book => book.isSelected))
+      .then(this.modal.openModal())
+  }
+
+  returnToBooks() {
+    this.router.navigate(['/dashboard/books'], { relativeTo: this.route })
+  }
 }

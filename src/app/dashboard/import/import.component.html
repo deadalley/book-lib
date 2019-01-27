@@ -217,11 +217,64 @@
                 </h5>
                 <p class="text-muted file-type">File format: .xlxs, .csv.</p>
               </div>
-              <button type="button" class="btn btn-success" style="width: 260px; margin-left: 20px;">Choose file</button>
+              <button
+                type="button"
+                class="btn btn-success"
+                style="width: 260px; margin-left: 20px;"
+                (click)="fileUpload.click()"
+              >Choose file</button>
+              <input style="display: none" [hidden]="true" #fileUpload type="file" (change)="uploadFile($event)">
             </div>
           </div>
         </div>
-      </div>
+        <hr *ngIf="booksToImport.length">
+        <!-- Books -->
+        <div *ngIf="booksToImport.length" class="row">
+          <div class="col-md-12 container-with-icon">
+            <i class="pe-7s-notebook icon"></i>
+            <div>
+              <h5>
+                Choose your books
+              </h5>
+              <p class="text-muted instructions">
+                Choose which books you want to import:
+              </p>
+              <a href="#booksInfo" class="collapse-button" data-toggle="collapse" (click)="displayBooksToImport = !displayBooksToImport">
+                {{displayBooksToImport ? 'Hide' : 'Show'}}
+                <i [ngClass]="{'pe-7s-angle-down': !displayBooksToImport, 'pe-7s-angle-up': displayBooksToImport}"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div id="booksInfo" class="collapse in" style="margin-top: 4px;">
+          <books-display
+            *ngIf="booksToImport.length"
+            [tilesDisplay]="false"
+            [tableDisplayItems]="tableItems"
+            [books]="booksToImport"
+            [selectable]="true"
+          ></books-display>
+        </div>
+        <div *ngIf="booksToImport.length" class="row">
+          <div class="col-md-12">
+            <button
+              type="button"
+              class="btn btn-success"
+              style="width: 100%;"
+              (click)="importLibrary()"
+            >Import library</button>
+          </div>
+        </div>
+        </div>
     </div>
   </div>
 </div>
+
+<modal
+  #importResultModal
+  title="Library imported successfully!"
+  content="Your books have been successfully added to your personal library."
+  accept="Continue"
+  [withCancel]="false"
+  [onAccept]="returnToBooks.bind(this)"
+></modal>

@@ -18,6 +18,7 @@ import { LibraryService } from '../services/library.service'
 import { GoodreadsService } from '../services/goodreads.service'
 import { SessionService } from '../services/session.service'
 import { UiService } from '../services/ui.service'
+import { ImportService } from 'services/import.service'
 import { environment } from 'environments/environment'
 
 @NgModule({
@@ -30,6 +31,7 @@ import { environment } from 'environments/environment'
     GoodreadsService,
     SessionService,
     UiService,
+    ImportService,
   ],
   imports: [
     RouterModule.forRoot(AppRoutes),

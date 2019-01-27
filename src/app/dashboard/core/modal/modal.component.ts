@@ -14,6 +14,7 @@ export class ModalComponent implements OnInit {
   @Input() content: string
   @Input() cancel: string
   @Input() accept: string
+  @Input() withCancel = true
   @Input() onAccept: () => {}
   modalRef: BsModalRef
 

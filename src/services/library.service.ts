@@ -117,7 +117,7 @@ export class LibraryService {
   }
 
   addBooks(books: Book[]) {
-    books.forEach(book => this.addBook(book))
+    return Promise.all(books.map(book => this.addBook(book)))
   }
 
   findBook(id: string) {
@@ -126,7 +126,9 @@ export class LibraryService {
         this.books$.pipe(
           map(books => {
             const book = books.find(book => book.id === id)
-            if (!book) { return book }
+            if (!book) {
+              return book
+            }
             book.collections = this.mapCollectionIdToTitle(
               book.collections,
               collections
