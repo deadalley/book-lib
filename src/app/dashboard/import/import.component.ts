@@ -10,5 +10,7 @@ import { ANIMATIONS, LANGUAGES } from 'utils/constants'
 })
 export class ImportComponent implements OnInit {
   languages = LANGUAGES
+  displayTableInfo = false
+  displayAttributesInfo = false
   ngOnInit() {}
 }

@@ -14,80 +14,89 @@
           <div class="col-md-12 container-with-icon">
             <i class="pe-7s-info icon"></i>
             <div>
-              <h5>Prepare your file</h5>
+              <h5>
+                Prepare your file
+              </h5>
               <p class="text-muted instructions">
                 To import your library from a spreadsheet file (.xlsx, .csv), organize the information from your books according to the
                 structure displayed below (without the headers):
               </p>
+              <a href="#tableInfo" class="collapse-button" data-toggle="collapse" (click)="displayTableInfo = !displayTableInfo">
+                {{displayTableInfo ? 'Hide' : 'Show'}}
+                <i [ngClass]="{'pe-7s-angle-down': !displayTableInfo, 'pe-7s-angle-up': displayTableInfo}"></i>
+              </a>
             </div>
           </div>
         </div>
-        <table class="table">
-          <thead>
-            <tr>
-                <th class="col">Title</th>
-                <th class="col">Author</th>
-                <th class="col">Original title</th>
-                <th class="col">Publisher</th>
-                <th class="col">Pages</th>
-                <th class="col">Year</th>
-                <th class="col">Language</th>
-                <th class="col">Rating</th>
-                <th class="col">Owned</th>
-                <th class="col">Wishlist</th>
-                <th class="col">Read</th>
-                <th class="col">Favorite</th>
-                <th class="col">Book cover link</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="col">My Book</td>
-              <td class="col">John Doe</td>
-              <td class="col">My Book</td>
-              <td class="col">Publisher Inc.</td>
-              <td class="col">300</td>
-              <td class="col">1990</td>
-              <td class="col">English</td>
-              <td class="col">0</td>
-              <td class="col">X</td>
-              <td class="col">-</td>
-              <td class="col"> </td>
-              <td class="col">X</td>
-              <td class="col">http://link-to-image.com/image.png</td>
-            </tr>
-            <tr>
-              <td class="col">My Book</td>
-              <td class="col">John Doe</td>
-              <td class="col">Mi Libro</td>
-              <td class="col"></td>
-              <td class="col"></td>
-              <td class="col">1990</td>
-              <td class="col">Español</td>
-              <td class="col">2</td>
-              <td class="col"> </td>
-              <td class="col">-</td>
-              <td class="col">X</td>
-              <td class="col">-</td>
-              <td class="col">http://link-to-image.com/image.png</td>
-            </tr>
-            <tr>
-              <td class="col">My Book</td>
-              <td class="col">John Doe</td>
-              <td class="col">Mein Buch</td>
-              <td class="col">Publisher Inc.</td>
-              <td class="col"></td>
-              <td class="col"></td>
-              <td class="col">Deutsch</td>
-              <td class="col">5</td>
-              <td class="col">X</td>
-              <td class="col">-</td>
-              <td class="col"> </td>
-              <td class="col">X</td>
-              <td class="col"></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="collapse" id="tableInfo">
+          <table class="table">
+            <thead>
+              <tr>
+                  <th class="col">Title</th>
+                  <th class="col">Author</th>
+                  <th class="col">Original title</th>
+                  <th class="col">Publisher</th>
+                  <th class="col">Pages</th>
+                  <th class="col">Year</th>
+                  <th class="col">Language</th>
+                  <th class="col">Rating</th>
+                  <th class="col">Owned</th>
+                  <th class="col">Wishlist</th>
+                  <th class="col">Read</th>
+                  <th class="col">Favorite</th>
+                  <th class="col">Book cover link</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col">My Book</td>
+                <td class="col">John Doe</td>
+                <td class="col">My Book</td>
+                <td class="col">Publisher Inc.</td>
+                <td class="col">300</td>
+                <td class="col">1990</td>
+                <td class="col">English</td>
+                <td class="col">0</td>
+                <td class="col">X</td>
+                <td class="col">-</td>
+                <td class="col"> </td>
+                <td class="col">X</td>
+                <td class="col">http://link-to-image.com/image.png</td>
+              </tr>
+              <tr>
+                <td class="col">My Book</td>
+                <td class="col">John Doe</td>
+                <td class="col">Mi Libro</td>
+                <td class="col"></td>
+                <td class="col"></td>
+                <td class="col">1990</td>
+                <td class="col">Español</td>
+                <td class="col">2</td>
+                <td class="col"> </td>
+                <td class="col">-</td>
+                <td class="col">X</td>
+                <td class="col">-</td>
+                <td class="col">http://link-to-image.com/image.png</td>
+              </tr>
+              <tr>
+                <td class="col">My Book</td>
+                <td class="col">John Doe</td>
+                <td class="col">Mein Buch</td>
+                <td class="col">Publisher Inc.</td>
+                <td class="col"></td>
+                <td class="col"></td>
+                <td class="col">Deutsch</td>
+                <td class="col">5</td>
+                <td class="col">X</td>
+                <td class="col">-</td>
+                <td class="col"> </td>
+                <td class="col">X</td>
+                <td class="col"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <hr>
         <!-- Attributes -->
         <div class="row">
           <div class="col-md-12 container-with-icon">
@@ -99,9 +108,13 @@
               <p class="text-muted instructions">
                 To correctly import your books from a spreadsheet file, use the following formatting for the provided attributes:
               </p>
+              <a href="#attributesInfo" class="collapse-button" data-toggle="collapse" (click)="displayAttributesInfo = !displayAttributesInfo">
+                {{displayAttributesInfo ? 'Hide' : 'Show'}}
+                <i [ngClass]="{'pe-7s-angle-down': !displayAttributesInfo, 'pe-7s-angle-up': displayAttributesInfo}"></i>
+              </a>
             </div>
           </div>
-          <div class="col-md-12" style="margin-left: 62px;">
+          <div class="collapse col-md-12" style="margin-left: 62px;" id="attributesInfo">
             <ul>
               <li>
                 <p class="text-muted instructions">
@@ -197,14 +210,14 @@
         <div class="row">
           <div class="col-md-12 container-with-icon">
             <i class="pe-7s-cloud-upload icon"></i>
-            <div style="display: flex; flex: 1; justify-content: space-between;">
+            <div style="flex: 1; display: flex;">
               <div>
                 <h5>
                   Import your library
                 </h5>
                 <p class="text-muted file-type">File format: .xlxs, .csv.</p>
               </div>
-              <button type="button" class="btn btn-success">Choose file</button>
+              <button type="button" class="btn btn-success" style="width: 260px; margin-left: 20px;">Choose file</button>
             </div>
           </div>
         </div>
