@@ -33,14 +33,13 @@ export class ImportService {
   }
 
   parseFile(file: AOA) {
-    console.log(file)
-
-    const books = file
+    return file
       .map(row => ({
         title: row[0],
         author: row[1],
         original: row[2],
         publisher: row[3],
+        date: new Date().toISOString(),
         ...(row[4] ? { pages: +row[4] } : {}),
         ...(row[5] ? { year: +row[5] } : {}),
         ...(row[6] && LANGUAGES.includes(upperCaseFirstLetter(row[6]))
@@ -53,17 +52,6 @@ export class ImportService {
         favorite: !!row[11] && row[11].toLocaleLowerCase() === 'x',
         ...(row[12] ? { imageLarge: row[12] } : {}),
       }))
-      .filter(book => !!book.title && !!book.author)
-
-    console.log(books)
-    return books as Book[]
-
-    // this.libraryService.setBooksToImport = books
-    // this.router.navigate(['books/import'], {
-    //   relativeTo: this.route,
-    //   queryParams: {},
-    // })
-
-    // include Date when parsing book for uploading
+      .filter(book => !!book.title && !!book.author) as Book[]
   }
 }

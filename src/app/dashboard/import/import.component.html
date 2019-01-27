@@ -58,8 +58,8 @@
                 <td class="col">English</td>
                 <td class="col">0</td>
                 <td class="col">X</td>
-                <td class="col">-</td>
-                <td class="col"> </td>
+                <td class="col"></td>
+                <td class="col"></td>
                 <td class="col">X</td>
                 <td class="col">http://link-to-image.com/image.png</td>
               </tr>
@@ -72,10 +72,10 @@
                 <td class="col">1990</td>
                 <td class="col">Español</td>
                 <td class="col">2</td>
-                <td class="col"> </td>
-                <td class="col">-</td>
+                <td class="col"></td>
+                <td class="col"></td>
                 <td class="col">X</td>
-                <td class="col">-</td>
+                <td class="col"></td>
                 <td class="col">http://link-to-image.com/image.png</td>
               </tr>
               <tr>
@@ -88,8 +88,8 @@
                 <td class="col">Deutsch</td>
                 <td class="col">5</td>
                 <td class="col">X</td>
-                <td class="col">-</td>
-                <td class="col"> </td>
+                <td class="col"></td>
+                <td class="col"></td>
                 <td class="col">X</td>
                 <td class="col"></td>
               </tr>
@@ -254,18 +254,18 @@
             [books]="booksToImport"
             [selectable]="true"
           ></books-display>
-        </div>
-        <div *ngIf="booksToImport.length" class="row">
-          <div class="col-md-12">
-            <button
-              type="button"
-              class="btn btn-success"
-              style="width: 100%;"
-              (click)="importLibrary()"
-            >Import library</button>
+          <div *ngIf="booksToImport.length" class="row">
+            <div class="col-md-12">
+              <button
+                type="button"
+                class="btn btn-success"
+                style="width: 100%;"
+                (click)="importLibrary()"
+              >Import library</button>
+            </div>
           </div>
         </div>
-        </div>
+      </div>
     </div>
   </div>
 </div>

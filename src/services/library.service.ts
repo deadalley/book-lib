@@ -75,7 +75,10 @@ export class LibraryService {
     console.log('Loading library...')
     this.rawBooks$ = this.session.userRef.pipe(
       filter(userRef => !!userRef),
-      mergeMap(userRef => this.database.subscribeToBooksFromUser(userRef))
+      mergeMap(userRef => this.database.subscribeToBooksFromUser(userRef)),
+      map(books =>
+        books.map(book => ({ ...book, collections: book.collections || [] }))
+      )
     )
     this.rawCollections$ = this.session.userRef.pipe(
       filter(userRef => !!userRef),

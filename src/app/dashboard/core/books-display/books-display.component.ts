@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { Book } from 'models/book.model'
 import { removeSpaces } from 'utils/helpers'
-import { UiService } from 'services/ui.service'
 import {
   MAX_BOOKS_DISPLAY,
   DEFAULT_TABLE_ITEMS,
@@ -44,14 +43,9 @@ export class BooksDisplayComponent implements OnInit {
   searchValue
   removeSpaces = removeSpaces
 
-  constructor(private uiService: UiService) {
-    this.maxBooks = MAX_BOOKS_DISPLAY
-    this.uiService.bookCount$.subscribe(bookCount => {
-      this.pageCount = Math.ceil(bookCount / this.maxBooks)
-    })
-  }
-
   ngOnInit() {
+    this.maxBooks = MAX_BOOKS_DISPLAY
+    this.pageCount = Math.ceil(this.books.length / this.maxBooks)
     this.searchInput.valueChanges
       .pipe(
         debounceTime(200),

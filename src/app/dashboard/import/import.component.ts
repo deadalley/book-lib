@@ -3,6 +3,7 @@ import { ANIMATIONS, LANGUAGES } from 'utils/constants'
 import { ImportService } from 'services/import.service'
 import { LibraryService } from 'services/library.service'
 import { Router, ActivatedRoute } from '@angular/router'
+import { omit } from 'lodash'
 
 @Component({
   moduleId: module.id,
@@ -51,7 +52,11 @@ export class ImportComponent implements OnInit {
 
   importLibrary() {
     this.libraryService
-      .addBooks(this.booksToImport.filter(book => book.isSelected))
+      .addBooks(
+        this.booksToImport
+          .filter(book => book.isSelected)
+          .map(book => omit(book, ['canBeSelected', 'isSelected']))
+      )
       .then(this.modal.openModal())
   }
 
