@@ -1,0 +1,64 @@
+.header {
+  text-align: center;
+}
+
+.instructions {
+  font-size: 14px;
+}
+
+.icon {
+  align-self: center;
+  padding: 0 6px;
+  font-size: 50px;
+}
+
+.pe-7s-info {
+  color: #3fc4e0;
+}
+
+.pe-7s-cloud-upload {
+  color: green;
+}
+
+.pe-7s-attention {
+  color: #e60e09;
+}
+
+.container-with-icon {
+  display: flex;
+  justify-content: left;
+}
+
+h5 {
+  margin-bottom: 0;
+}
+
+.list-group {
+  width: 200px;
+  max-height: 260px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: auto;
+}
+
+.item {
+  color: #333;
+  font-size: 16px;
+}
+
+.table {
+  border-radius: 6px;
+  width: 100%;
+  background: #f7f7f8;
+  -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.125);
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.125);
+}
+
+.no-margin {
+  margin: 4px;
+}
+
+.file-type {
+  font-style: italic;
+  font-size: 0.9em;
+}

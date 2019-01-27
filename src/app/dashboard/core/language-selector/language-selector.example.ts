@@ -5,13 +5,9 @@ import { LanguageSelectorComponent } from './language-selector.component'
 storiesOf('Language Selector', module)
   .addDecorator(
     moduleMetadata({
-      imports: [
-        CommonModule
-      ],
+      imports: [CommonModule],
     })
   )
   .add('default', () => ({
     component: LanguageSelectorComponent,
-    props: {
-    },
   }))

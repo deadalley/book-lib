@@ -12,7 +12,7 @@ import { DashboardHomeModule } from './dashboard-home/dashboard-home.module'
 import { DashboardComponent } from './dashboard.component'
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component'
 import { ProfileComponent } from './profile/profile.component'
-import { BookFilterPipe } from 'pipes/book-filter.pipe'
+import { ImportComponent } from './import/import.component'
 
 const dashboardRoutes: Routes = [
   {
@@ -40,13 +40,17 @@ const dashboardRoutes: Routes = [
         path: 'goodreads',
         loadChildren: './goodreads/goodreads.module#GoodreadsModule',
       },
+      {
+        path: 'import',
+        component: ImportComponent,
+      },
       { path: 'profile', component: ProfileComponent },
     ],
   },
 ]
 
 @NgModule({
-  declarations: [DashboardComponent, ProfileComponent],
+  declarations: [DashboardComponent, ProfileComponent, ImportComponent],
   imports: [
     RouterModule.forChild(dashboardRoutes),
     CommonModule,

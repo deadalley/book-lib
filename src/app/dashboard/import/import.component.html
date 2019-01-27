@@ -1,0 +1,214 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card" [@card]>
+      <div class="header">
+        <!-- Header -->
+        <h4 class="title">
+          Import library
+        </h4>
+        <hr class="no-margin">
+      </div>
+      <div class="content">
+        <!-- How to -->
+        <div class="row">
+          <div class="col-md-12 container-with-icon">
+            <i class="pe-7s-info icon"></i>
+            <div>
+              <h5>Prepare your file</h5>
+              <p class="text-muted instructions">
+                To import your library from a spreadsheet file (.xlsx, .csv), organize the information from your books according to the
+                structure displayed below (without the headers):
+              </p>
+            </div>
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+                <th class="col">Title</th>
+                <th class="col">Author</th>
+                <th class="col">Original title</th>
+                <th class="col">Publisher</th>
+                <th class="col">Pages</th>
+                <th class="col">Year</th>
+                <th class="col">Language</th>
+                <th class="col">Rating</th>
+                <th class="col">Owned</th>
+                <th class="col">Wishlist</th>
+                <th class="col">Read</th>
+                <th class="col">Favorite</th>
+                <th class="col">Book cover link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col">My Book</td>
+              <td class="col">John Doe</td>
+              <td class="col">My Book</td>
+              <td class="col">Publisher Inc.</td>
+              <td class="col">300</td>
+              <td class="col">1990</td>
+              <td class="col">English</td>
+              <td class="col">0</td>
+              <td class="col">X</td>
+              <td class="col">-</td>
+              <td class="col"> </td>
+              <td class="col">X</td>
+              <td class="col">http://link-to-image.com/image.png</td>
+            </tr>
+            <tr>
+              <td class="col">My Book</td>
+              <td class="col">John Doe</td>
+              <td class="col">Mi Libro</td>
+              <td class="col"></td>
+              <td class="col"></td>
+              <td class="col">1990</td>
+              <td class="col">Español</td>
+              <td class="col">2</td>
+              <td class="col"> </td>
+              <td class="col">-</td>
+              <td class="col">X</td>
+              <td class="col">-</td>
+              <td class="col">http://link-to-image.com/image.png</td>
+            </tr>
+            <tr>
+              <td class="col">My Book</td>
+              <td class="col">John Doe</td>
+              <td class="col">Mein Buch</td>
+              <td class="col">Publisher Inc.</td>
+              <td class="col"></td>
+              <td class="col"></td>
+              <td class="col">Deutsch</td>
+              <td class="col">5</td>
+              <td class="col">X</td>
+              <td class="col">-</td>
+              <td class="col"> </td>
+              <td class="col">X</td>
+              <td class="col"></td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Attributes -->
+        <div class="row">
+          <div class="col-md-12 container-with-icon">
+            <i class="pe-7s-attention icon"></i>
+            <div>
+              <h5>
+                Configure your attributes
+              </h5>
+              <p class="text-muted instructions">
+                To correctly import your books from a spreadsheet file, use the following formatting for the provided attributes:
+              </p>
+            </div>
+          </div>
+          <div class="col-md-12" style="margin-left: 62px;">
+            <ul>
+              <li>
+                <p class="text-muted instructions">
+                  <span class="item">Title :</span>
+                  The title of the book <span style="color: red; font-style: italic;">(required)</span>.
+                </p>
+              </li>
+              <li>
+                <p class="text-muted instructions">
+                  <span class="item">Author:</span>
+                  The author of the book <span style="color: red; font-style: italic;">(required)</span>.
+                </p>
+              </li>
+              <li>
+                <p class="text-muted instructions">
+                  <span class="item">Original title:</span>
+                  The title in the original title of the book.
+                </p>
+              </li>
+              <li>
+                <p class="text-muted instructions">
+                  <span class="item">Publisher</span>
+                  The publisher of this version of the book.
+                </p>
+              </li>
+              <li>
+                <p class="text-muted instructions">
+                  <span class="item">Pages:</span>
+                  Page count of this version of the book. Should be a whole number larger than 0.
+                </p>
+              </li>
+              <li>
+                <p class="text-muted instructions">
+                  <span class="item">Year:</span>
+                  The year of publication of the book. Should be a whole number larger than 0.
+                </p>
+              </li>
+              <li>
+                <p class="text-muted instructions">
+                  <span class="item">Language:</span>
+                  The language in which this version of the book was written. The language should be available
+                  in the following list:
+                </p>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let language of languages">{{language}}</li>
+                </ul>
+              </li>
+              <li>
+                <p class="text-muted instructions">
+                  <span class="item">Rating:</span>
+                  Your personal rating. Should be a whole number between 0 and 5.
+                </p>
+              </li>
+              <li>
+                <p class="text-muted instructions">
+                  <span class="item">Owned:</span>
+                  Indicates if you own this book or not.
+                  Mark your owned books with an 'X', otherwise leave this field blank.
+                </p>
+              </li>
+              <li>
+                <p class="text-muted instructions">
+                  <span class="item">Wishlist:</span>
+                  Indicates if this book is in your wishlist.
+                  Mark the books in your wishlist with an 'X', otherwise leave this field blank.
+                </p>
+              </li>
+              <li>
+                <p class="text-muted instructions">
+                  <span class="item">Read:</span>
+                  Indicates if you've read this book or not.
+                  Mark the books you've read with an 'X', otherwise leave this field blank.
+                </p>
+              </li>
+              <li>
+                <p class="text-muted instructions">
+                  <span class="item">Favorite:</span>
+                  Indicates if this books if one of your favorites or not.
+                  Mark your favorite books with an 'X', otherwise leave this field blank.
+                </p>
+              </li>
+              <li>
+                <p class="text-muted instructions">
+                  <span class="item">Image link:</span>
+                  Provide an image link to the book cover.
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hr>
+        <!-- Import button -->
+        <div class="row">
+          <div class="col-md-12 container-with-icon">
+            <i class="pe-7s-cloud-upload icon"></i>
+            <div style="display: flex; flex: 1; justify-content: space-between;">
+              <div>
+                <h5>
+                  Import your library
+                </h5>
+                <p class="text-muted file-type">File format: .xlxs, .csv.</p>
+              </div>
+              <button type="button" class="btn btn-success">Choose file</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

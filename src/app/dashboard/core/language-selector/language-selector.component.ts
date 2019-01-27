@@ -20,6 +20,7 @@ import { upperCaseFirstLetter } from 'utils/helpers'
 export class LanguageSelectorComponent implements OnInit {
   languages = LANGUAGES
   @Input() selectedLanguage
+  @Input() withLabel = true
   @Output() select = new EventEmitter<string>()
 
   @ViewChild('languageList') languageList
