@@ -1,8 +1,0 @@
-<library-navbar *ngIf="hasBooks"></library-navbar>
-<loading [visible]="isLoading"></loading>
-<ng-container *ngIf="selectedTag">
-  <h4 class="title">{{selectedTag}}</h4>
-  <hr>
-</ng-container>
-<router-outlet *ngIf="hasBooks"></router-outlet>
-<library-no-books *ngIf="!hasBooks && !isLoading"></library-no-books>
