@@ -1,0 +1,22 @@
+.container-with-icon {
+  display: flex;
+  justify-content: left;
+}
+
+.info {
+  font-size: 14px;
+}
+
+.icon {
+  align-self: center;
+  padding: 0 6px;
+  font-size: 50px;
+}
+
+h4 {
+  margin-top: 0;
+}
+
+h5 {
+  margin-bottom: 0;
+}

@@ -20,6 +20,7 @@ export class DebugButtonComponent implements OnInit {
       books: [],
       collections: [],
       goodreadsId: 'goodreadsId',
+      displayWelcomeMessage: true,
     }
     const createdUser = await this.database.createUser(user)
     console.log(createdUser)

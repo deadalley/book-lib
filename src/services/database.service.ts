@@ -14,6 +14,7 @@ import { environment } from 'environments/environment'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { Observable } from 'rxjs/Observable'
 import { map } from 'rxjs/operators'
+import { SessionService } from './session.service'
 @Injectable()
 export class DatabaseService {
   users: AngularFireList<User>
@@ -38,6 +39,7 @@ export class DatabaseService {
 
   constructor(
     private db: AngularFireDatabase,
+    private session: SessionService,
     private storage: AngularFireStorage
   ) {
     this.books = db.list(`${this.rootUrl}/books`)
@@ -164,7 +166,7 @@ export class DatabaseService {
 
   updateUser(id: string, params: object) {
     this.users.update(id, params as User)
-    return this.findUserById(id)
+    return this.findUserById(id).then(user => (this.session.localUser = user))
   }
 
   /** BOOK **/

@@ -6,18 +6,22 @@ import { CoreModule } from '../core/core.module'
 
 import { DashboardHomeComponent } from './dashboard-home.component'
 import { LastAddedBooksComponent } from './last-added-books/last-added-books.component'
+import { WelcomeComponent } from './welcome/welcome.component'
+import { RouterModule } from '@angular/router'
 
 @NgModule({
   declarations: [
     DashboardHomeComponent,
-    LastAddedBooksComponent
+    LastAddedBooksComponent,
+    WelcomeComponent,
   ],
   imports: [
     CommonModule,
     CoreModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule,
   ],
-  exports: [ DashboardHomeComponent ]
+  exports: [DashboardHomeComponent],
 })
-export class DashboardHomeModule { }
+export class DashboardHomeModule {}
