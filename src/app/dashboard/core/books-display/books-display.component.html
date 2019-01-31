@@ -15,7 +15,7 @@
       >
         {{selectedAll ? 'Deselect all' : 'Select all'}}
       </button>
-      <div class="input-group btn-margin">
+      <div class="input-group btn-margin" [ngClass]="{'full-search-bar': fullSearchBar}">
         <input type="text" class="form-control" placeholder="Search" [formControl]="searchInput">
         <span class="input-group-addon" id="sizing-addon2">
           <i class="pe-7s-search search-icon"></i>

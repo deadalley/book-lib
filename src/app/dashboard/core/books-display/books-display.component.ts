@@ -24,6 +24,7 @@ export class BooksDisplayComponent implements OnInit {
   @Input() selectable: boolean
   @Input() bookCardsInRow = 4
   @Input() maxBooks
+  @Input() fullSearchBar = false
 
   @Input() tableDisplayItems = DEFAULT_TABLE_ITEMS
   @Input() tilesDisplay = true
