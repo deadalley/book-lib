@@ -20,6 +20,8 @@
       <div class="books-display">
         <books-display
           *ngIf="!isLoading && books && books.length"
+          [maxBooks]="6"
+          [bookCardsInRow]="2"
           [tilesDisplay]="false"
           [tableDisplayItems]="tableItems"
           [books]="books"

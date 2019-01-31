@@ -22,12 +22,9 @@ export class BooksDisplayComponent implements OnInit {
   @Input() clickable: boolean
   @Input() linkable: boolean
   @Input() selectable: boolean
+  @Input() bookCardsInRow = 4
+  @Input() maxBooks
 
-  @Input() statusIncluded: string
-  @Input() statusNotIncluded: string
-  @Input() statusCannotBeSelected: string
-  @Input() selectBtnContent: string
-  @Input() selectBtnContentDisabled: string
   @Input() tableDisplayItems = DEFAULT_TABLE_ITEMS
   @Input() tilesDisplay = true
 
@@ -37,14 +34,19 @@ export class BooksDisplayComponent implements OnInit {
   searchInput = new FormControl()
   displayAll = false
   selectedAll = false
-  maxBooks = 0
   page = 1
   pageCount = 1
+  immutableMaxBooks = false
   searchValue
   removeSpaces = removeSpaces
 
   ngOnInit() {
-    this.maxBooks = MAX_BOOKS_DISPLAY
+    if (this.maxBooks) {
+      this.immutableMaxBooks = true
+    } else {
+      this.maxBooks = MAX_BOOKS_DISPLAY
+    }
+
     this.pageCount = Math.ceil(this.books.length / this.maxBooks)
     this.searchInput.valueChanges
       .pipe(
@@ -62,10 +64,12 @@ export class BooksDisplayComponent implements OnInit {
 
   toggleTilesDisplay() {
     this.tilesDisplay = !this.tilesDisplay
-    if (this.tilesDisplay) {
-      this.maxBooks = MAX_BOOKS_DISPLAY
-    } else {
-      this.maxBooks = MAX_BOOKS_DISPLAY_LIST
+    if (!this.immutableMaxBooks) {
+      if (this.tilesDisplay) {
+        this.maxBooks = MAX_BOOKS_DISPLAY
+      } else {
+        this.maxBooks = MAX_BOOKS_DISPLAY_LIST
+      }
     }
   }
 }

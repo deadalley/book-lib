@@ -12,7 +12,7 @@
 </div>
 
 <div class="row" class="collapsable in" id="{{sectionId}}">
-  <grid [items]="books">
+  <grid [items]="books" [itemsInRow]="cardsInRow">
     <ng-template let-book>
       <book-card
         [book]="book"
@@ -20,8 +20,6 @@
         [clickable]="clickable"
         [linkable]="linkable"
         [selectable]="selectable"
-        [selectBtnContent]="selectBtnContent"
-        [selectBtnContentDisabled]="selectBtnContentDisabled"
         (selectedChanged)="updateSelectedBooks($event)"
       ></book-card>
     </ng-template>

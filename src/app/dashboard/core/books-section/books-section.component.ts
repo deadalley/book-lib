@@ -20,9 +20,7 @@ export class BooksSectionComponent implements OnInit {
   @Input() clickable: boolean
   @Input() linkable: boolean
   @Input() selectable: boolean
-
-  @Input() selectBtnContent: string
-  @Input() selectBtnContentDisabled: string
+  @Input() cardsInRow = 4
 
   @Output() selectedBooks = new EventEmitter<Book[]>()
   @Output() selectedBook = new EventEmitter<Book>()

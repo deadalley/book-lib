@@ -27,12 +27,11 @@
   <ng-container *ngIf="tilesDisplay">
     <books-section
       [books]="books | searchFilter: searchValue:['title', 'author'] | page: page:maxBooks"
+      [cardsInRow]="bookCardsInRow"
       [withButtons]="withButtons"
       [clickable]="clickable"
       [selectable]="selectable"
       [linkable]="linkable"
-      [selectBtnContent]="selectBtnContent"
-      [selectBtnContentDisabled]="selectBtnContentDisabled"
       (selectedBooks)="selectedBooks.emit($event)"
       (selectedBook)="selectedBook.emit($event)"
     ></books-section>
@@ -47,9 +46,6 @@
       [clickable]="clickable"
       [selectable]="selectable"
       [linkable]="linkable"
-      [statusIncluded]="statusIncluded"
-      [statusNotIncluded]="statusNotIncluded"
-      [statusCannotBeSelected]="statusCannotBeSelected"
       (selectedBooks)="selectedBooks.emit($event)"
       (selectedBook)="selectedBook.emit($event)"
     ></books-table>
