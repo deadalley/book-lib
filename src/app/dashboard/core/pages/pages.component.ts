@@ -35,7 +35,9 @@ export class PagesComponent implements OnInit, OnChanges {
   }
 
   onClick(page: number) {
-    if (this.selectedPage === this.pages[this.pages.length - 1]) {
+    const lastPage = page - 1 === this.pages[this.pages.length - 1]
+    const firstPage = page === 0
+    if (firstPage || lastPage) {
       return
     }
     if (this.withRoute) {
