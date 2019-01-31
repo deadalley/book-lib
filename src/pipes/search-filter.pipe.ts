@@ -13,8 +13,9 @@ export class SearchFilterPipe implements PipeTransform {
       const queryItems = query.split(' ')
       if (keys) {
         return keys.some(key =>
-          queryItems.some(queryItem =>
-            item[key].toLowerCase().includes(queryItem)
+          queryItems.some(
+            queryItem =>
+              item[key] && item[key].toLowerCase().includes(queryItem)
           )
         )
       }

@@ -1,0 +1,23 @@
+.header {
+  text-align: center;
+}
+
+.content {
+  padding: 15px 0;
+}
+
+.input-group {
+  flex: 1;
+}
+
+.btn-margin {
+  margin: 0 8px;
+}
+
+.search-container {
+  display: flex;
+}
+
+.books-display {
+  margin: 8px 0;
+}

@@ -8,11 +8,13 @@ import { SidebarModule } from './sidebar/sidebar.module'
 import { FooterModule } from './shared/footer/footer.module'
 import { NavbarModule } from './shared/navbar/navbar.module'
 import { DashboardHomeModule } from './dashboard-home/dashboard-home.module'
+import { GoodreadsModule } from './goodreads/goodreads.module'
 
 import { DashboardComponent } from './dashboard.component'
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component'
 import { ProfileComponent } from './profile/profile.component'
 import { ImportComponent } from './import/import.component'
+import { GoodreadsComponent } from './goodreads/goodreads.component'
 
 const dashboardRoutes: Routes = [
   {
@@ -38,7 +40,8 @@ const dashboardRoutes: Routes = [
       },
       {
         path: 'goodreads',
-        loadChildren: './goodreads/goodreads.module#GoodreadsModule',
+        component: GoodreadsComponent,
+        // loadChildren: './goodreads/goodreads.module#GoodreadsModule',
       },
       {
         path: 'import',
@@ -61,6 +64,7 @@ const dashboardRoutes: Routes = [
     NavbarModule,
     FooterModule,
     DashboardHomeModule,
+    GoodreadsModule,
   ],
   exports: [DashboardComponent],
 })

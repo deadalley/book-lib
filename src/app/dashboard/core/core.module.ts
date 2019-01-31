@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { ModalModule } from 'ngx-bootstrap/modal'
@@ -25,7 +26,6 @@ import { PagesComponent } from './pages/pages.component'
 import { SearchBoxComponent } from './search-box/search-box.component'
 import { BookFilterPipe } from 'pipes/book-filter.pipe'
 import { PagePipe } from 'pipes/page.pipe'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { SearchFilterPipe } from 'pipes/search-filter.pipe'
 @NgModule({
   declarations: [

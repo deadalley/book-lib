@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="card col-md-6">
+    <div class="header">
+      <h4 class="title">Search books</h4>
+    </div>
+    <div class="content">
+      <loading [visible]="isLoading"></loading>
+      <form [formGroup]="form" class="search-container" (ngSubmit)="submit(form.value)">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search" formControlName="searchInput">
+          <span class="input-group-addon" id="sizing-addon2">
+            <i class="pe-7s-search search-icon"></i>
+          </span>
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary btn-margin"
+        >Search</button>
+      </form>
+      <div class="books-display">
+        <books-display
+          *ngIf="!isLoading && books && books.length"
+          [tilesDisplay]="false"
+          [tableDisplayItems]="tableItems"
+          [books]="books"
+          [selectable]="true"
+        ></books-display>
+      </div>
+      <!-- <div class="row">
+        <ng-container *ngFor="let book of latestBooks; let i = index;">
+          <div class="col-md-3">
+            <book-card
+              [book]="book"
+              [withButtons]="false"
+              [linkable]="true"
+            ></book-card>
+          </div>
+        </ng-container>
+      </div> -->
+    </div>
+  </div>
+</div>

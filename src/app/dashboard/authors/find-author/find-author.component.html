@@ -41,11 +41,6 @@
           <books-display
             [books]="books"
             [selectable]="true"
-            [statusIncluded]="'Book will be associated to this author'"
-            [statusNotIncluded]="'Book will not be associated to this author'"
-            [statusCannotBeSelected]="'Book already in library'"
-            [selectBtnContent]="'Associate to author'"
-            [selectBtnContentDisabled]="'Already in library'"
             (selectedBooks)="updateSelectedBooks($event)"
           ></books-display>
         </div>

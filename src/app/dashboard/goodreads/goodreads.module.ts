@@ -1,29 +1,27 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router'
+import { RouterModule } from '@angular/router'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { CoreModule } from '../core/core.module'
 
 import { GoodreadsComponent } from './goodreads.component'
 import { GoodreadsImportComponent } from './goodreads-import/goodreads-import.component'
-
-const goodreadsRoutes: Routes = [
-  { path: '', component: GoodreadsComponent, children: [
-    { path: '', redirectTo: 'import', pathMatch: 'full' },
-    { path: 'import', component: GoodreadsImportComponent }
-  ]}
-]
+import { GoodreadsSearchBookComponent } from './goodreads-search-book/goodreads-search-book.component'
 
 @NgModule({
   declarations: [
     GoodreadsComponent,
-    GoodreadsImportComponent
+    GoodreadsImportComponent,
+    GoodreadsSearchBookComponent,
   ],
   imports: [
-    RouterModule.forChild(goodreadsRoutes),
+    RouterModule,
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     CoreModule,
   ],
-  exports: [ GoodreadsComponent ],
+  exports: [GoodreadsComponent],
 })
-export class GoodreadsModule { }
+export class GoodreadsModule {}

@@ -40,11 +40,6 @@
       <books-display
         [books]="author.books"
         [selectable]="true"
-        [statusIncluded]="'Book will be added to library'"
-        [statusNotIncluded]="'Book will not be added to library'"
-        [statusCannotBeSelected]="'Book already in library'"
-        [selectBtnContent]="'Add to library'"
-        [selectBtnContentDisabled]="'Already in library'"
         (selectedBooks)="updateSelectedBooks($event)"
       ></books-display>
 
