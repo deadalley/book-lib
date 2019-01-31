@@ -5,6 +5,7 @@ import { environment } from 'environments/environment'
 import { SessionService } from './session.service'
 import * as _ from 'lodash'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { map } from 'rxjs/operators'
 
 const USE_PROXY = true
 
@@ -24,17 +25,9 @@ export class GoodreadsService {
     private http: HttpClient,
     private sessionService: SessionService
   ) {
-    const user = JSON.parse(localStorage.getItem('user'))
-    if (user) {
-      this.id.next(JSON.parse(localStorage.getItem('user')).goodreadsId)
+    if (this.sessionService.localUser) {
+      this.id.next(this.sessionService.localUser.goodreadsId)
     }
-
-    this.sessionService.goodreadsId.subscribe(goodreadsId => {
-      if (!goodreadsId || goodreadsId === this.id.getValue()) {
-        return
-      }
-      this.id.next(goodreadsId)
-    })
   }
 
   private parseUrl(url: string) {
@@ -48,11 +41,15 @@ export class GoodreadsService {
     HttpGet(this.http, this.parseUrl(url), this.defaultParams, cb)
   }
 
-  getBook(cb, id: number) {
+  getBook(id: number) {
+    // key: Developer key (required).
+    // id: A Goodreads internal book_id
+    // text_only: Only show reviews that have text (default false)
+    // rating: Show only reviews with a particular rating (optional)
     const url = `${this.domain}/book/show/${id}`
 
-    HttpGet(this.http, this.parseUrl(url), this.defaultParams, response =>
-      cb(response.book)
+    return HttpGet(this.http, this.parseUrl(url), this.defaultParams).pipe(
+      map(response => response.book)
     )
   }
 
@@ -61,6 +58,16 @@ export class GoodreadsService {
 
     HttpGet(this.http, this.parseUrl(url), this.defaultParams, response =>
       cb(response.author)
+    )
+  }
+
+  getBooks(ids: number[]) {
+    const requests = ids.map(id => ({
+      url: this.parseUrl(`${this.domain}/book/show/${id}`),
+      params: this.defaultParams,
+    }))
+    return HttpGetAll(this.http, requests).pipe(
+      map(responses => responses.map(response => response.book))
     )
   }
 
@@ -85,19 +92,21 @@ export class GoodreadsService {
     )
   }
 
-  searchBook(cb, name: string) {
+  searchBook(query: string) {
+    // q: The query text to match against book title, author, and ISBN fields. Supports boolean operators and phrase searching.
+    // page: Which page to return (default 1, optional)
+    // key: Developer key (required).
+    // search[field]: Field to search, one of 'title', 'author', or 'all' (default is 'all')
     const url = `${this.domain}/search/index`
-    const params = this.defaultParams
-      .set('q', decodeURI(name))
-      .set('search[field]', 'title')
+    const params = this.defaultParams.set('q', decodeURI(query))
 
-    HttpGet(this.http, this.parseUrl(url), params, response => {
-      const work = response.search.results.work
-      const results = Array.isArray(work) ? work : [work]
-      const books = _.uniq(results.map(item => item.best_book))
-
-      cb(books)
-    })
+    return HttpGet(this.http, this.parseUrl(url), params).pipe(
+      map(response => {
+        const work = response.search.results.work
+        const results = Array.isArray(work) ? work : [work]
+        return _.uniq(results.map(item => item.best_book))
+      })
+    )
   }
 
   searchAuthor(cb, name: string) {

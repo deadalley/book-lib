@@ -1,4 +1,5 @@
 import * as _ from 'lodash'
+import { BooksComponent } from 'app/dashboard/books/books.component'
 
 export const cleanFormValues = (formValues): object => {
   // tslint:disable-next-line:prefer-const
@@ -106,12 +107,21 @@ const parseAuthorName = book => {
 const parseBookId = book => {
   if (book.work) {
     if (book.work.id._) {
-      return book.work.id._
+      return +book.work.id._
     } else {
-      return book.work.id
+      return +book.work.id
     }
   } else {
-    return book.id._
+    return +book.id._
+  }
+}
+
+const parseAuthorId = book => {
+  if (book.authors) {
+    const id = book.authors.author.id || book.authors.author[0].id
+    return +id
+  } else {
+    return +book.author.id._
   }
 }
 
@@ -126,7 +136,7 @@ export const parseBook = book => ({
   imageSmall: book.small_image_url,
   goodreadsLink: book.link,
   goodreadsId: parseBookId(book),
-  goodreadsAuthorId: book.authors ? book.authors.author.id : book.author.id._,
+  goodreadsAuthorId: parseAuthorId(book),
 })
 
 export const parseAuthor = (author, books?) => ({

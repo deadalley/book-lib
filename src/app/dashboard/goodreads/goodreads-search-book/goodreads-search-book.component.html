@@ -21,7 +21,7 @@
       <div class="books-display" *ngIf="!isLoading && books && books.length">
         <books-display
           [fullSearchBar]="true"
-          [maxBooks]="6"
+          [maxBooks]="4"
           [bookCardsInRow]="2"
           [tilesDisplay]="false"
           [tableDisplayItems]="tableItems"
@@ -32,6 +32,7 @@
           type="button"
           class="btn btn-success"
           style="width: 100%;"
+          (click)="importBooks()"
         >Import</button>
       </div>
       <!-- <div class="row">

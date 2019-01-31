@@ -3,6 +3,8 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms'
 import { GoodreadsService } from 'services/goodreads.service'
 import { parseBook } from 'utils/helpers'
 import { Book } from 'models/book.model'
+import { map, mergeMap } from 'rxjs/operators'
+import { LibraryService } from 'services/library.service'
 
 @Component({
   moduleId: module.id,
@@ -21,7 +23,8 @@ export class GoodreadsSearchBookComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private goodreadsService: GoodreadsService
+    private goodreadsService: GoodreadsService,
+    private libraryService: LibraryService
   ) {}
 
   ngOnInit() {
@@ -32,14 +35,22 @@ export class GoodreadsSearchBookComponent implements OnInit {
 
   submit({ searchInput }) {
     const query = searchInput
-    this.goodreadsService.searchBook(books => {
-      console.log(books)
+    this.goodreadsService.searchBook(query).subscribe(books => {
       this.books = books.map(book => ({
         ...parseBook(book),
         canBeSelected: true,
         isSelected: false,
       }))
-    }, query)
-    console.log(query)
+    })
+  }
+
+  importBooks() {
+    const importedBookIds = this.books
+      .filter(book => book.isSelected)
+      .map(book => book.goodreadsId)
+    this.goodreadsService.getBooks(importedBookIds).pipe(
+      map(books => books.map(book => parseBook(book))),
+      mergeMap(books => this.libraryService.addBooks(books as Book[]))
+    )
   }
 }
