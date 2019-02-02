@@ -16,23 +16,17 @@
         class="btn btn-primary btn-margin"
       >Search</button>
     </form>
-    <hr *ngIf="!isLoading && books && books.length">
-    <div class="books-display" *ngIf="!isLoading && books && books.length">
-      <books-display
+    <hr *ngIf="!isLoading && authors && authors.length">
+    <div class="authors-display" *ngIf="!isLoading && authors && authors.length">
+      <authors-display
         [fullSearchBar]="true"
-        [maxBooks]="4"
-        [bookCardsInRow]="2"
+        [maxAuthors]="4"
+        [cardsInRow]="2"
         [tilesDisplay]="false"
-        [tableDisplayItems]="tableItems"
-        [books]="books"
-        [selectable]="true"
-      ></books-display>
-      <button
-        type="button"
-        class="btn btn-success"
-        style="width: 100%;"
-        (click)="importBooks()"
-      >Import</button>
+        [authors]="authors"
+        [clickable]="true"
+        (onClick)="selectAuthor($event)"
+      ></authors-display>
     </div>
   </div>
 </div>

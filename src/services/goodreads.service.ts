@@ -5,7 +5,7 @@ import { environment } from 'environments/environment'
 import { SessionService } from './session.service'
 import * as _ from 'lodash'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
-import { map } from 'rxjs/operators'
+import { map, mergeMap } from 'rxjs/operators'
 
 const USE_PROXY = true
 
@@ -109,25 +109,43 @@ export class GoodreadsService {
     )
   }
 
-  searchAuthor(cb, name: string) {
+  searchAuthor(name: string) {
     const url = `${this.domain}/search/index`
     const params = this.defaultParams
       .set('q', decodeURI(name))
       .set('search[field]', 'author')
 
-    // HttpGet(this.http, this.parseUrl(url), params, response => {
-    //   const authorIds = _.uniq(
-    //     response.search.results.work.map(item => item.best_book.author.id._)
-    //   )
+    return HttpGet(this.http, this.parseUrl(url), params).pipe(
+      map<any, any>(response =>
+        _.uniq(
+          response.search.results.work.map(item => item.best_book.author.id._)
+        )
+      ),
+      mergeMap<any, any>(authorIds =>
+        HttpGetAll(
+          this.http,
+          authorIds.map(id => ({
+            url: `${this.domain}/author/show/${id}`,
+            params: this.defaultParams,
+          }))
+        )
+      ),
+      map<any, any>(results => results.map(result => result.author))
+    )
 
-    //   HttpGetAll(
-    //     this.http,
-    //     authorIds.map(id => ({
-    //       url: `${this.domain}/author/show/${id}`,
-    //       params: this.defaultParams,
-    //     })),
-    //     results => cb(results.map(result => result.author))
-    //   )
-    // })
+    response => {
+      const authorIds = _.uniq(
+        response.search.results.work.map(item => item.best_book.author.id._)
+      )
+
+      HttpGetAll(
+        this.http,
+        authorIds.map(id => ({
+          url: `${this.domain}/author/show/${id}`,
+          params: this.defaultParams,
+        })),
+        results => cb(results.map(result => result.author))
+      )
+    }
   }
 }

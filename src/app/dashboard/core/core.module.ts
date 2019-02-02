@@ -17,6 +17,9 @@ import { LoadingComponent } from './loading/loading.component'
 import { BooksSectionComponent } from './books-section/books-section.component'
 import { BooksTableComponent } from './books-table/books-table.component'
 import { BooksDisplayComponent } from './books-display/books-display.component'
+import { AuthorsSectionComponent } from './authors-section/authors-section.component'
+import { AuthorsTableComponent } from './authors-table/authors-table.component'
+import { AuthorsDisplayComponent } from './authors-display/authors-display.component'
 import { TagsListComponent } from './tags-list/tags-list.component'
 import { GridComponent } from './grid/grid.component'
 import { LanguageSelectorComponent } from './language-selector/language-selector.component'
@@ -39,6 +42,9 @@ import { SearchFilterPipe } from 'pipes/search-filter.pipe'
     BooksSectionComponent,
     BooksTableComponent,
     BooksDisplayComponent,
+    AuthorsSectionComponent,
+    AuthorsTableComponent,
+    AuthorsDisplayComponent,
     TagsListComponent,
     GridComponent,
     LanguageSelectorComponent,
@@ -76,6 +82,9 @@ import { SearchFilterPipe } from 'pipes/search-filter.pipe'
     BooksSectionComponent,
     BooksTableComponent,
     BooksDisplayComponent,
+    AuthorsSectionComponent,
+    AuthorsTableComponent,
+    AuthorsDisplayComponent,
     TagsListComponent,
     GridComponent,
     LanguageSelectorComponent,
