@@ -1,0 +1,13 @@
+table {
+  margin: 0;
+}
+
+img {
+  height: 160px;
+  width: auto;
+}
+
+.row-clickable:hover {
+  cursor: pointer;
+  background: #ecfdef;
+}

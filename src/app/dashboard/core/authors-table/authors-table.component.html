@@ -1,0 +1,35 @@
+<div class="row" *ngIf="authors.length">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="content table-responsive table-full-width">
+        <table class="table">
+          
+          <tbody>
+            <tr
+              *ngFor="let author of authors"
+              [ngClass]="{'row-clickable': clickable}"
+            >
+              <!-- Image -->
+              <td class="col-md-1">
+                <img
+                  [src]="
+                    author.imageLarge
+                      ? author.imageLarge
+                      : author.imageSmall
+                      ? author.imageSmall
+                      : '/assets/img/no-book-cover.png'
+                  "
+                  alt="Author image"
+                />
+              </td>
+              <!-- Name -->
+              <td class="col">
+                {{author.name}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
