@@ -19,3 +19,10 @@ storiesOf('Author Card', module)
       author,
     },
   }))
+  .add('clickable', () => ({
+    component: AuthorCardComponent,
+    props: {
+      author,
+      clickable: true,
+    },
+  }))

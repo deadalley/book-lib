@@ -38,7 +38,7 @@ export class GoodreadsService {
     const userId = id ? id : this.id
     const url = `${this.domain}/user/show/${userId}`
 
-    HttpGet(this.http, this.parseUrl(url), this.defaultParams, cb)
+    // HttpGet(this.http, this.parseUrl(url), this.defaultParams, cb)
   }
 
   getBook(id: number) {
@@ -49,16 +49,16 @@ export class GoodreadsService {
     const url = `${this.domain}/book/show/${id}`
 
     return HttpGet(this.http, this.parseUrl(url), this.defaultParams).pipe(
-      map(response => response.book)
+      map<any, any>(response => response.book)
     )
   }
 
   getAuthor(cb, id: number) {
     const url = `${this.domain}/author/show/${id}`
 
-    HttpGet(this.http, this.parseUrl(url), this.defaultParams, response =>
-      cb(response.author)
-    )
+    // HttpGet(this.http, this.parseUrl(url), this.defaultParams, response =>
+    //   cb(response.author)
+    // )
   }
 
   getBooks(ids: number[]) {
@@ -85,11 +85,11 @@ export class GoodreadsService {
       .set('format', 'xml')
     const url = `${this.domain}/review/list`
 
-    HttpGet(this.http, url, params, rawBooks =>
-      cb(
-        rawBooks ? rawBooks.reviews.review.map(review => review.book) : rawBooks
-      )
-    )
+    // HttpGet(this.http, url, params, rawBooks =>
+    //   cb(
+    //     rawBooks ? rawBooks.reviews.review.map(review => review.book) : rawBooks
+    //   )
+    // )
   }
 
   searchBook(query: string) {
@@ -101,7 +101,7 @@ export class GoodreadsService {
     const params = this.defaultParams.set('q', decodeURI(query))
 
     return HttpGet(this.http, this.parseUrl(url), params).pipe(
-      map(response => {
+      map<any, any>(response => {
         const work = response.search.results.work
         const results = Array.isArray(work) ? work : [work]
         return _.uniq(results.map(item => item.best_book))
@@ -115,19 +115,19 @@ export class GoodreadsService {
       .set('q', decodeURI(name))
       .set('search[field]', 'author')
 
-    HttpGet(this.http, this.parseUrl(url), params, response => {
-      const authorIds = _.uniq(
-        response.search.results.work.map(item => item.best_book.author.id._)
-      )
+    // HttpGet(this.http, this.parseUrl(url), params, response => {
+    //   const authorIds = _.uniq(
+    //     response.search.results.work.map(item => item.best_book.author.id._)
+    //   )
 
-      HttpGetAll(
-        this.http,
-        authorIds.map(id => ({
-          url: `${this.domain}/author/show/${id}`,
-          params: this.defaultParams,
-        })),
-        results => cb(results.map(result => result.author))
-      )
-    })
+    //   HttpGetAll(
+    //     this.http,
+    //     authorIds.map(id => ({
+    //       url: `${this.domain}/author/show/${id}`,
+    //       params: this.defaultParams,
+    //     })),
+    //     results => cb(results.map(result => result.author))
+    //   )
+    // })
   }
 }

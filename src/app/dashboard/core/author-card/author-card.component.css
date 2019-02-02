@@ -1,9 +1,39 @@
 .card {
   margin-bottom: 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-clickable:hover {
+  background: #ecfdef;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 991px) {
+  .card {
+    height: 35vw;
+  }
 }
 
 .title {
   font-size: 1.2em;
+}
+
+.select-icon {
+  font-size: 20px;
+}
+
+.ti-control-stop {
+  font-size: 25px;
+  margin-top: -2px;
+  margin-left: -3px;
+  margin-bottom: -4px;
+}
+
+.ti-check-box {
+  color: #18b518;
 }
 
 .tile-date {

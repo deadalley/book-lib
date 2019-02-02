@@ -214,47 +214,47 @@ export class EditBookComponent implements OnInit, OnDestroy {
     })
   }
 
-  searchBookOnGoodreads(title: string) {
-    if (!title) {
-      return
-    }
-    this.goodreadsService.searchBook(books => {
-      this.suggestedBooks = books.map(book => parseBook(book))
-    }, title)
-  }
+  // searchBookOnGoodreads(title: string) {
+  //   if (!title) {
+  //     return
+  //   }
+  //   this.goodreadsService.searchBook(books => {
+  //     this.suggestedBooks = books.map(book => parseBook(book))
+  //   }, title)
+  // }
 
-  selectBook(book: Book) {
-    this.goodreadsService.getBook(grBook => {
-      book = { ...book, ...parseBook(grBook) }
-      this.form.patchValue({
-        title: book.title,
-        author: book.author,
-        publisher: book.publisher,
-        year: book.year,
-        pages: book.pages,
-        ...(this.book.imageLarge ? {} : { imageLarge: book.imageLarge }),
-        ...(this.book.imageSmall ? {} : { imageSmall: book.imageSmall }),
-      })
-      this.goodreadsId = book.goodreadsId
-      this.goodreadsAuthorId = book.goodreadsAuthorId
-      this.suggestedBooks = []
-    }, +book.goodreadsId)
-  }
+  // selectBook(book: Book) {
+  //   this.goodreadsService.getBook(grBook => {
+  //     book = { ...book, ...parseBook(grBook) }
+  //     this.form.patchValue({
+  //       title: book.title,
+  //       author: book.author,
+  //       publisher: book.publisher,
+  //       year: book.year,
+  //       pages: book.pages,
+  //       ...(this.book.imageLarge ? {} : { imageLarge: book.imageLarge }),
+  //       ...(this.book.imageSmall ? {} : { imageSmall: book.imageSmall }),
+  //     })
+  //     this.goodreadsId = book.goodreadsId
+  //     this.goodreadsAuthorId = book.goodreadsAuthorId
+  //     this.suggestedBooks = []
+  //   }, +book.goodreadsId)
+  // }
 
-  searchAuthorOnGoodreads(name: string) {
-    if (!name) {
-      return
-    }
-    this.goodreadsService.searchAuthor(authors => {
-      this.suggestedAuthors = authors.map(author => parseAuthor(author))
-    }, name)
-  }
+  // searchAuthorOnGoodreads(name: string) {
+  //   if (!name) {
+  //     return
+  //   }
+  //   this.goodreadsService.searchAuthor(authors => {
+  //     this.suggestedAuthors = authors.map(author => parseAuthor(author))
+  //   }, name)
+  // }
 
-  selectAuthor(author: Author) {
-    this.author = author
-    this.form.patchValue({
-      author: author.name,
-    })
-    this.suggestedAuthors = []
-  }
+  // selectAuthor(author: Author) {
+  //   this.author = author
+  //   this.form.patchValue({
+  //     author: author.name,
+  //   })
+  //   this.suggestedAuthors = []
+  // }
 }

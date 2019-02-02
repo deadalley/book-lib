@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { Author } from 'models/author.model'
-import { formatDate } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
 
 @Component({
@@ -11,14 +10,17 @@ import { ANIMATIONS } from 'utils/constants'
 })
 export class AuthorCardComponent implements OnInit {
   @Input() author: Author
-  @Output() selected = new EventEmitter<Author>()
-  formatDate = formatDate
+  @Input() clickable: boolean
+  @Output() onClick = new EventEmitter<Author>()
 
   constructor() {}
 
   ngOnInit() {}
 
   select() {
-    this.selected.emit(this.author)
+    if (!this.clickable) {
+      return
+    }
+    this.onClick.emit(this.author)
   }
 }

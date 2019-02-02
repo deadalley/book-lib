@@ -8,12 +8,14 @@ import { CoreModule } from '../core/core.module'
 import { GoodreadsComponent } from './goodreads.component'
 import { GoodreadsImportComponent } from './goodreads-import/goodreads-import.component'
 import { GoodreadsSearchBookComponent } from './goodreads-search-book/goodreads-search-book.component'
+import { GoodreadsSearchAuthorComponent } from './goodreads-search-author/goodreads-search-author.component'
 
 @NgModule({
   declarations: [
     GoodreadsComponent,
     GoodreadsImportComponent,
     GoodreadsSearchBookComponent,
+    GoodreadsSearchAuthorComponent,
   ],
   imports: [
     RouterModule,

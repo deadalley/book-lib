@@ -1,0 +1,23 @@
+<div class="row" *ngIf="!!sectionTitle" id="{{removeSpaces(sectionTitle)}}">
+  <div class="col-md-12">
+    <h4 class="title">
+      {{sectionTitle}}
+      <a href="#{{sectionId}}" class="collapse-button" data-toggle="collapse" (click)="displayAll = !displayAll">
+        <i [ngClass]="{'pe-7s-angle-down': !displayAll, 'pe-7s-angle-up': displayAll}"></i>
+      </a>
+    </h4>
+    <hr *ngIf="sectionTitle">
+  </div>
+</div>
+
+<div class="row" class="collapsable in" id="{{sectionId}}">
+  <grid [items]="authors" [itemsInRow]="cardsInRow">
+    <ng-template let-author>
+      <author-card
+        [author]="author"
+        [clickable]="clickable"
+        (onClick)="onClick.emit($event)"
+      ></author-card>
+    </ng-template>
+  </grid>
+</div>

@@ -120,39 +120,5 @@
         ></i>
       </div>
     </div>
-<!-- 
-    <!-- Selectable --
-    <div class="row" *ngIf="selectable">
-      <div class="col-xs-12">
-        <hr />
-        <button
-          type="button"
-          class="btn btn-default"
-          (click)="select()"
-          [disabled]="!book.canBeSelected"
-        >
-          <ng-container *ngIf="book.canBeSelected">
-            <span
-              [ngClass]="{
-                'ti-check-box': book.isSelected,
-                'ti-control-stop': !book.isSelected
-              }"
-            ></span>
-            {{ selectBtnContent }}
-          </ng-container>
-          {{ book.canBeSelected ? '' : selectBtnContentDisabled }}
-        </button>
-      </div>
-    </div>
-
-    <!-- Clickable --
-    <div class="row" *ngIf="clickable">
-      <div class="col-xs-12">
-        <hr />
-        <button type="button" class="btn btn-default" (click)="select()">
-          Select
-        </button>
-      </div>
-    </div> -->
   </div>
 </div>
