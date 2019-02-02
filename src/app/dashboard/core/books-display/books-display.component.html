@@ -26,7 +26,7 @@
   <!-- Tiles -->
   <ng-container *ngIf="tilesDisplay">
     <books-section
-      [books]="books | searchFilter: searchValue:['title', 'author'] | page: page:maxBooks"
+      [books]="books | searchFilter: searchValue:['title', 'author', 'original'] | page: page:maxBooks"
       [cardsInRow]="bookCardsInRow"
       [withButtons]="withButtons"
       [clickable]="clickable"

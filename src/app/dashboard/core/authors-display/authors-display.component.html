@@ -1,0 +1,42 @@
+<div style="display: grid">
+  <!-- Buttons -->
+  <div *ngIf="authors && authors.length > 0" class="row buttons">
+    <div class="col-md-12" style="display: flex;">
+      <button type="button" class="btn btn-default btn-margin" (click)="toggleTilesDisplay()">
+        <i [ngClass]="{'ti-view-list': tilesDisplay, 'ti-layout-grid2': !tilesDisplay}"></i>
+        {{tilesDisplay ? 'Table' : 'Tiles'}}
+      </button>
+      <div class="input-group btn-margin" [ngClass]="{'full-search-bar': fullSearchBar}">
+        <input type="text" class="form-control" placeholder="Search" [formControl]="searchInput">
+        <span class="input-group-addon" id="sizing-addon2">
+          <i class="pe-7s-search search-icon"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+  <!-- Tiles -->
+  <ng-container *ngIf="tilesDisplay">
+    <authors-section
+      [authors]="authors | searchFilter: searchValue:['name'] | page: page:maxAuthors"
+      [cardsInRow]="cardsInRow"
+      [clickable]="clickable"
+      (onClick)="onClick.emit($event)"
+    ></authors-section>
+  </ng-container>
+  <!-- Table -->
+  <ng-container *ngIf="!tilesDisplay && authors && authors.length > 0">
+    <authors-table
+      [authors]="authors | searchFilter: searchValue:['name'] | page:page:maxAuthors"
+      [clickable]="clickable"
+      (onClick)="onClick.emit($event)"
+    ></authors-table>
+  </ng-container>
+  <!-- Pages -->
+  <pages
+    *ngIf="authors && authors.length"
+    [count]="pageCount"
+    [withRoute]="false"
+    (nextSelectedPage)="page = $event"
+  ></pages>
+</div>
+
