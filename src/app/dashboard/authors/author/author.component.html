@@ -41,6 +41,8 @@
       <books-display
         [books]="author.books"
         [selectable]="true"
+        [tableDisplayItems]="tableDisplayItems"
+        [displayBooksInLibraryInfo]="true"
         (selectedBooks)="updateSelectedBooks($event)"
       ></books-display>
 

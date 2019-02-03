@@ -21,6 +21,12 @@ export class AuthorComponent implements OnInit, OnDestroy {
   hasSelectedBooks = false
   showAllAbout = false
   subscription
+  tableDisplayItems = {
+    Cover: true,
+    Year: false,
+    Publisher: false,
+    Pages: false,
+  }
 
   get localUrlPath(): string {
     const splitUrl = this.router.url.split('/')
