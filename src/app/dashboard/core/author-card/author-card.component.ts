@@ -11,6 +11,7 @@ import { ANIMATIONS } from 'utils/constants'
 export class AuthorCardComponent implements OnInit {
   @Input() author: Author
   @Input() clickable: boolean
+  @Input() linkable: boolean
   @Output() onClick = new EventEmitter<Author>()
 
   constructor() {}

@@ -33,9 +33,14 @@
   <!-- Table -->
   <ng-container *ngSwitchCase="false">
     <table-items (displayItems)="tableDisplayItems=$event"></table-items>
+    <div *ngIf="!(books | page: page:maxBooks | bookFilter: filterMethod:tagFilter).length">
+      <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 4px 0;">
+        No books available for this filter.
+      </h5>
+    </div>
     <books-table
       *ngIf="!groupingMethod"
-      [books]="books"
+      [books]="books | page: page:maxBooks | bookFilter: filterMethod:tagFilter"
       [withButtons]="true"
       [linkable]="true"
       [displayItems]="tableDisplayItems"

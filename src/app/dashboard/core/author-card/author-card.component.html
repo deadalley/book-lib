@@ -5,13 +5,37 @@
 >
   <div class="header">
     <!-- Header -->
-    <h4 class="title">{{ author.name }}</h4>
+    <h4 class="title">
+      <a
+        *ngIf="linkable"
+        href="#"
+        routerLink="/dashboard/authors/{{ author.id }}"
+      >{{author.name}}</a>
+      {{ linkable ? '' : author.name }}
+    </h4>
     <hr />
   </div>
   <div class="content">
     <!-- Image -->
     <div class="image">
+      <a
+        *ngIf="linkable"
+        href="javascript:void(0);"
+        routerLink="/dashboard/authors/{{ author.id }}"
+      >
+        <img
+          [src]="
+            author.imageLarge
+              ? author.imageLarge
+              : author.imageSmall
+              ? author.imageSmall
+              : '/assets/img/no-book-cover.png'
+          "
+          alt="Author picture"
+        />
+      </a>
       <img
+        *ngIf="!linkable"
         class="img-rounded"
         [src]="
           author.imageLarge
@@ -20,7 +44,7 @@
             ? author.imageSmall
             : '/assets/img/no-book-cover.png'
         "
-        alt="Author photo"
+        alt="Author picture"
       />
     </div>
   </div>

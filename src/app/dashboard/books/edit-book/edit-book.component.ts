@@ -112,11 +112,11 @@ export class EditBookComponent implements OnInit, OnDestroy {
         this.loadingBook = false
         this.collections = this.book.collections || []
 
-        if (this.book.goodreadsAuthorId) {
-          this.goodreadsService.getAuthor(author => {
-            this.author = parseAuthor(author)
-          }, this.book.goodreadsAuthorId)
-        }
+        // if (this.book.goodreadsAuthorId) {
+        //   this.goodreadsService.getAuthor(author => {
+        //     this.author = parseAuthor(author)
+        //   }, this.book.goodreadsAuthorId)
+        // }
 
         this.form.patchValue({
           title: this.book.title,

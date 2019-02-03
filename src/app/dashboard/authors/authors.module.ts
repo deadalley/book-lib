@@ -10,6 +10,7 @@ import { CoreModule } from '../core/core.module'
 import { AuthorsComponent } from './authors.component'
 import { FindAuthorComponent } from './find-author/find-author.component'
 import { AuthorComponent } from './author/author.component'
+import { AuthorsHomeComponent } from './authors-home/authors-home.component'
 import { TruncatePipe } from 'pipes/truncate.pipe'
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
     path: '',
     component: AuthorsComponent,
     children: [
+      { path: '', component: AuthorsHomeComponent },
       { path: 'find/:name', component: FindAuthorComponent, pathMatch: 'full' },
       { path: ':id', component: AuthorComponent },
     ],
@@ -35,6 +37,7 @@ const routes: Routes = [
   ],
   declarations: [
     AuthorsComponent,
+    AuthorsHomeComponent,
     AuthorComponent,
     FindAuthorComponent,
     TruncatePipe,

@@ -11,7 +11,24 @@
             >
               <!-- Image -->
               <td class="col-md-1">
+                <a
+                  *ngIf="linkable"
+                  href="javascript:void(0);"
+                  routerLink="/dashboard/authors/{{ author.id }}"
+                >
+                  <img
+                    [src]="
+                      author.imageLarge
+                        ? author.imageLarge
+                        : author.imageSmall
+                        ? author.imageSmall
+                        : '/assets/img/no-book-cover.png'
+                    "
+                    alt="Author picture"
+                  />
+                </a>
                 <img
+                  *ngIf="!linkable"
                   [src]="
                     author.imageLarge
                       ? author.imageLarge
@@ -19,12 +36,13 @@
                       ? author.imageSmall
                       : '/assets/img/no-book-cover.png'
                   "
-                  alt="Author image"
+                  alt="Author picture"
                 />
               </td>
               <!-- Name -->
               <td class="col">
-                {{author.name}}
+                <a *ngIf="linkable" href="#" routerLink="{{author.id}}">{{author.name}}</a>
+                {{linkable ? '' : author.name}}
               </td>
             </tr>
           </tbody>

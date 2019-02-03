@@ -1,0 +1,15 @@
+<library-navbar></library-navbar>
+<loading [visible]="isLoading"></loading>
+<div *ngIf="!isLoading && authors.length" [ngSwitch]="tilesDisplay" style="display: grid">
+  <authors-section
+    *ngSwitchCase="true"
+    [authors]="authors | page: page:maxAuthors"
+    [linkable]="true"
+  ></authors-section>
+  <authors-table
+    *ngSwitchCase="false"
+    [authors]="authors | page: page:maxAuthors"
+    [linkable]="true"
+  ></authors-table>
+</div>
+<pages *ngIf="!isLoading && authors.length" [count]="pageCount"></pages>

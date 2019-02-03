@@ -34,10 +34,10 @@ export class FindAuthorComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.goodreadsService.searchAuthor(authors => {
+    this.goodreadsService.searchAuthor(this.localUrlPath).subscribe(authors => {
       this.isLoading = false
       this.authors = authors.map(author => parseAuthor(author))
-    }, this.localUrlPath)
+    })
 
     this.subscription = this.libraryService.books$.subscribe(books => {
       if (!books) {

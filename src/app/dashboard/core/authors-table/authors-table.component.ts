@@ -13,6 +13,7 @@ export class AuthorsTableComponent implements OnInit {
   @Input() sectionTitle: string
   @Input() authors: Author[]
   @Input() clickable: boolean
+  @Input() linkable: boolean
 
   @Output() onClick = new EventEmitter<Author>()
 

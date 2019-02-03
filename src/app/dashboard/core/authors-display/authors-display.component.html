@@ -15,11 +15,12 @@
     </div>
   </div>
   <!-- Tiles -->
-  <ng-container *ngIf="tilesDisplay">
+  <ng-container *ngIf="tilesDisplay && authors && authors.length > 0">
     <authors-section
       [authors]="authors | searchFilter: searchValue:['name'] | page: page:maxAuthors"
       [cardsInRow]="cardsInRow"
       [clickable]="clickable"
+      [linkable]="linkable"
       (onClick)="onClick.emit($event)"
     ></authors-section>
   </ng-container>
@@ -28,6 +29,7 @@
     <authors-table
       [authors]="authors | searchFilter: searchValue:['name'] | page:page:maxAuthors"
       [clickable]="clickable"
+      [linkable]="linkable"
       (onClick)="onClick.emit($event)"
     ></authors-table>
   </ng-container>

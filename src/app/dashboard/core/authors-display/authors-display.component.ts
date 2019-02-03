@@ -14,6 +14,7 @@ import { Author } from 'models/author.model'
 export class AuthorsDisplayComponent implements OnInit {
   @Input() authors: Author[]
   @Input() clickable: boolean
+  @Input() linkable: boolean
   @Input() cardsInRow = 4
   @Input() maxAuthors
   @Input() fullSearchBar = false
@@ -37,7 +38,7 @@ export class AuthorsDisplayComponent implements OnInit {
       this.maxAuthors = MAX_BOOKS_DISPLAY
     }
 
-    this.pageCount = Math.ceil(this.authors.length / this.maxAuthors)
+    this.pageCount = Math.ceil((this.authors || []).length / this.maxAuthors)
     this.searchInput.valueChanges
       .pipe(
         debounceTime(200),

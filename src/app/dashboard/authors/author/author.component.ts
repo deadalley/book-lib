@@ -4,7 +4,7 @@ import { Book } from 'models/book.model'
 import { Author } from 'models/author.model'
 import { GoodreadsService } from 'services/goodreads.service'
 import { LibraryService } from 'services/library.service'
-import { parseBook } from 'utils/helpers'
+import { parseBook, parseAuthor } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
 import * as _ from 'lodash'
 
@@ -34,7 +34,7 @@ export class AuthorComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.goodreadsService.getAuthor(author => {
+    this.goodreadsService.getAuthor(+this.localUrlPath).subscribe(author => {
       if (author) {
         this.isLoading = false
 
@@ -54,19 +54,9 @@ export class AuthorComponent implements OnInit, OnDestroy {
           )
         })
 
-        this.author = {
-          id: author.id,
-          name: author.name,
-          about: author.about,
-          books,
-          imageSmall: author.small_image_url,
-          imageLarge: author.large_image_url
-            ? author.large_image_url
-            : author.image_url,
-          goodreadsLink: author.link,
-        }
+        this.author = parseAuthor(author, books)
       }
-    }, +this.localUrlPath)
+    })
   }
 
   ngOnDestroy() {

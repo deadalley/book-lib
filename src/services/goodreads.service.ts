@@ -53,12 +53,12 @@ export class GoodreadsService {
     )
   }
 
-  getAuthor(cb, id: number) {
+  getAuthor(id: number) {
     const url = `${this.domain}/author/show/${id}`
 
-    // HttpGet(this.http, this.parseUrl(url), this.defaultParams, response =>
-    //   cb(response.author)
-    // )
+    return HttpGet(this.http, this.parseUrl(url), this.defaultParams).pipe(
+      map<any, any>(response => response.author)
+    )
   }
 
   getBooks(ids: number[]) {
@@ -69,6 +69,16 @@ export class GoodreadsService {
     return HttpGetAll(this.http, requests).pipe(
       map(responses => responses.map(response => response.book))
     )
+  }
+
+  getAuthors(ids: number[]) {
+    return HttpGetAll(
+      this.http,
+      ids.map(id => ({
+        url: `${this.domain}/author/show/${id}`,
+        params: this.defaultParams,
+      }))
+    ).pipe(map<any, any>(results => results.map(result => result.author)))
   }
 
   getBooksForUser(cb, id?: number) {
@@ -121,31 +131,7 @@ export class GoodreadsService {
           response.search.results.work.map(item => item.best_book.author.id._)
         )
       ),
-      mergeMap<any, any>(authorIds =>
-        HttpGetAll(
-          this.http,
-          authorIds.map(id => ({
-            url: `${this.domain}/author/show/${id}`,
-            params: this.defaultParams,
-          }))
-        )
-      ),
-      map<any, any>(results => results.map(result => result.author))
+      mergeMap<any, any>(authorIds => this.getAuthors(authorIds))
     )
-
-    response => {
-      const authorIds = _.uniq(
-        response.search.results.work.map(item => item.best_book.author.id._)
-      )
-
-      HttpGetAll(
-        this.http,
-        authorIds.map(id => ({
-          url: `${this.domain}/author/show/${id}`,
-          params: this.defaultParams,
-        })),
-        results => cb(results.map(result => result.author))
-      )
-    }
   }
 }

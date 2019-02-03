@@ -7,7 +7,7 @@ import { Book } from 'models/book.model'
 import { Collection } from 'models/collection.model'
 import { map, mergeMap, filter } from 'rxjs/operators'
 import { Observable } from 'rxjs/Observable'
-import { omit } from 'lodash'
+import { omit, compact, uniq } from 'lodash'
 import { SessionService } from './session.service'
 
 @Injectable()
@@ -15,6 +15,7 @@ export class LibraryService {
   private MAX_DATE = 7
   private books = new BehaviorSubject<Book[]>(undefined)
   private collections = new BehaviorSubject<Collection[]>(undefined)
+  private grAuthorIds = new BehaviorSubject<number[]>(undefined)
   private booksToImport = new BehaviorSubject<Book[]>(undefined)
 
   private _userRef: string
@@ -22,6 +23,7 @@ export class LibraryService {
   books$: Observable<Book[]>
   latestBooks$: Observable<Book[]>
   collections$: Observable<Collection[]>
+  grAuthorIds$: Observable<number[]>
   tags$: Observable<string[]>
   booksToImport$ = this.booksToImport.asObservable()
 
@@ -112,6 +114,11 @@ export class LibraryService {
       )
     )
     this.collections$.subscribe(this.collections)
+
+    this.grAuthorIds$ = this.rawBooks$.pipe(
+      map(books => uniq(compact(books.map(book => book.goodreadsAuthorId))))
+    )
+    this.grAuthorIds$.subscribe(this.grAuthorIds)
   }
 
   addBook(book: Book) {

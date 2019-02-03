@@ -16,6 +16,7 @@ export class AuthorsSectionComponent implements OnInit {
   @Input() authors: Author[]
 
   @Input() clickable: boolean
+  @Input() linkable: boolean
   @Input() cardsInRow = 4
 
   @Output() onClick = new EventEmitter<Author>()

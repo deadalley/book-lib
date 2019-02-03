@@ -6,7 +6,7 @@
     </div>
     <div class="content">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
           <div class="image author-photo">
             <img
               [src]="
@@ -20,19 +20,20 @@
             />
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-9">
           <label>About:</label>
-          <p *ngIf="showAllAbout" [innerHTML]="author.about"></p>
+          <p [innerHTML]="author.about | truncate: { paragraphs: 1 }"></p>
           <p
-            *ngIf="!showAllAbout"
-            [innerHTML]="author.about | truncate: { paragraphs: 2 }"
+            class="collapse"
+            id="about"
+            [innerHTML]="author.about | truncate: { paragraphStart: 1 }"
           ></p>
-          <div *ngIf="!showAllAbout" class="text-right">
-            <a (click)="showAllAbout = true">
-              <label style="padding:0;">More </label>
-              <i class="pe-7s-angle-down" style="font-size: 1.3em;"></i>
+          <div>
+            <a href="#about" class="collapse-button" data-toggle="collapse" (click)="showAllAbout = !showAllAbout">
+              <div class="label">{{showAllAbout ? 'Less' : 'More'}}</div>
+              <i [ngClass]="{'pe-7s-angle-down': !showAllAbout, 'pe-7s-angle-up': showAllAbout}"></i>
             </a>
-            <hr style="margin-top: 0;" />
+            <hr>
           </div>
         </div>
       </div>
@@ -47,7 +48,8 @@
       <div style="text-align: center;">
         <button
           type="button"
-          class="btn btn-default"
+          class="btn btn-success"
+          style="width: 100%;"
           (click)="importBooks()"
           [disabled]="!hasSelectedBooks"
         >
