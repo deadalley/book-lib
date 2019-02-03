@@ -1,5 +1,5 @@
 <loading [visible]="isLoading"></loading>
-<library-navbar *ngIf="!isLoading" [groupings]="collectionGroupings" addButtonContent="Add a new collection"></library-navbar>
+<library-navbar *ngIf="!isLoading" [groupings]="collectionGroupings" [filters]="filters" addButtonContent="Add a new collection"></library-navbar>
 <tags-list *ngIf="filterMethod === 'tags'" [tags]="tags" (selectedTags)="tagFilter=$event"></tags-list>
 <!-- No books -->
 <div class="card" style="text-align: center;" [@card] *ngIf="!isLoading && !bookCount">

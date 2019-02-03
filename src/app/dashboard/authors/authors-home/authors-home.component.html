@@ -1,4 +1,4 @@
-<library-navbar></library-navbar>
+<library-navbar [displayPoweredByGr]="true"></library-navbar>
 <loading [visible]="isLoading"></loading>
 <div *ngIf="!isLoading && authors.length" [ngSwitch]="tilesDisplay" style="display: grid">
   <authors-section

@@ -18,8 +18,9 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
   selectedGrouping: string
   selectedFilter: string
   @Input() groupings: string[]
-  @Input() filters = FILTERS
+  @Input() filters: string[]
   @Input() addButtonContent: string
+  @Input() displayPoweredByGr: boolean
   @ViewChild('fileUpload') fileUpload
   books: Book[]
 

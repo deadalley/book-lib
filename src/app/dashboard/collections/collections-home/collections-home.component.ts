@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router'
 import { Collection } from 'models/collection.model'
 import { scrollToAnchor, removeSpaces } from 'utils/helpers'
-import { ANIMATIONS, MAX_BOOKS_COLLECTION } from 'utils/constants'
+import { ANIMATIONS, MAX_BOOKS_COLLECTION, FILTERS } from 'utils/constants'
 import { UiService } from 'services/ui.service'
 import { LibraryService } from 'services/library.service'
 import { COLLECTION_GROUPINGS } from 'utils/constants'
@@ -32,6 +32,7 @@ export class CollectionsHomeComponent
   subscriptions = []
   tagFilter: string[]
   collectionGroupings = COLLECTION_GROUPINGS
+  filters = FILTERS
   tableDisplayItems = {}
   tags = []
   maxBooks: number

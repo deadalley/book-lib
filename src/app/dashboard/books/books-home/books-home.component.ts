@@ -4,7 +4,12 @@ import { Book } from 'models/book.model'
 import { LibraryService } from 'services/library.service'
 import { scrollToAnchor } from 'utils/helpers'
 import { UiService } from 'services/ui.service'
-import { BOOK_GROUPINGS, MAX_BOOKS, MAX_BOOKS_LIST } from 'utils/constants'
+import {
+  BOOK_GROUPINGS,
+  MAX_BOOKS,
+  MAX_BOOKS_LIST,
+  FILTERS,
+} from 'utils/constants'
 import { map, mergeMap } from 'rxjs/operators'
 
 @Component({
@@ -22,6 +27,7 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
   subscriptions = []
   tagFilter: string[]
   bookGroupings = BOOK_GROUPINGS
+  filters = FILTERS
   tableDisplayItems = {}
   isLoading = true
   tags = []

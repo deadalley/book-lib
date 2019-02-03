@@ -4,6 +4,7 @@
     <nav class="navbar">
       <ul class="nav navbar-nav">
         <!-- Buttons -->
+        <!-- DO NOT ERASE -->
         <!-- <li [ngClass]="{'active': localUrlPath === 'books', 'library-nav-btn': true, 'left': true}">
           <a href="javascript:void(0);" routerLink="./books">
           <i class="pe-7s-bookmarks" style="vertical-align:middle; font-size: 1.4em;"></i> Books</a>
@@ -17,7 +18,7 @@
           <search-box [withMargin]="true" [items]="books"></search-box>
         </li>
         <!-- Grouping -->
-        <li>
+        <li *ngIf="groupings && groupings.length">
           <div class="dropdown">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               {{selectedGrouping}}
@@ -35,7 +36,7 @@
           </div>
         </li>
         <!-- Filtering -->
-        <li>
+        <li *ngIf="filters && filters.length">
           <div class="dropdown">
             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               {{selectedFilter}}
@@ -53,8 +54,8 @@
           </div>
         </li>
         <li class="library-nav-right">
-          <ul>
-            <li class="text-center">
+          <ul style="height: 100%">
+            <li *ngIf="addButtonContent" class="text-center">
               <!-- Tiles or Table -->
               <button
                 type="button"
@@ -73,6 +74,10 @@
                 <span class="ti-plus" aria-hidden="true"></span>
                 {{addButtonContent}}
               </button>
+            </li>
+            <li class="powered-by-gr" *ngIf="displayPoweredByGr">
+              Powered by <img src="/assets/img/goodreads.png">
+              ©
             </li>
           </ul>
         </li>
