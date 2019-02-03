@@ -6,7 +6,7 @@
 </div>
 <ul class="search-results" *ngIf="searchInput.value" #searchResults>
   <li
-    *ngFor="let item of items | searchFilter: searchValue:['title', 'author']"
+    *ngFor="let item of items | searchFilter: searchValue:searchProps"
     class="result"
     routerLink="/dashboard/books/{{item.id}}"
   >
@@ -17,13 +17,13 @@
         alt="Cover"
       >
     </div>
-    <div>
-      {{item.title}}
+    <div class="props">
+      {{item[props.main]}}
       <br>
-      <span class="result-author">{{item.author}}</span>
+      <span class="result-author">{{item[props.sub]}}</span>
     </div>
   </li>
-  <li *ngIf="!(items | searchFilter: searchValue:['title', 'author']).length" #result class="result">
+  <li *ngIf="!(items | searchFilter: searchValue:searchProps).length" #result class="result">
     No results found
   </li>
 </ul>

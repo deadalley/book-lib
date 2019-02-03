@@ -13,9 +13,14 @@
           <a href="javascript:void(0);" routerLink="./collections">
           <i class="pe-7s-box1" style="vertical-align:middle; font-size: 1.4em;"></i> Collections</a>
         </li> -->
-        <!-- Search -->
+      <!-- Search -->
         <li style="text-align: right">
-          <search-box [withMargin]="true" [items]="books"></search-box>
+          <search-box
+            [withMargin]="true"
+            [items]="searchBoxItems"
+            [props]="searchBoxProps"
+            [searchProps]="searchBoxSearchProps"
+          ></search-box>
         </li>
         <!-- Grouping -->
         <li *ngIf="groupings && groupings.length">

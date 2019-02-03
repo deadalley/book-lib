@@ -5,6 +5,7 @@ import { upperCaseFirstLetter } from 'utils/helpers'
 import { Book } from 'models/book.model'
 import { FILTERS } from 'utils/constants'
 import { LibraryService } from 'services/library.service'
+import { Author } from 'models/author.model'
 
 @Component({
   moduleId: module.id,
@@ -21,8 +22,14 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
   @Input() filters: string[]
   @Input() addButtonContent: string
   @Input() displayPoweredByGr: boolean
-  @ViewChild('fileUpload') fileUpload
+  @Input() type: string
+
+  searchBoxItems
+  searchBoxProps
+  searchBoxSearchProps
+
   books: Book[]
+  authors: Author[]
 
   get viewQueryParam(): string {
     return this.route.snapshot.queryParamMap.get('view')
@@ -38,24 +45,35 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private libraryService: LibraryService
   ) {
-    this.subscriptions.push(
-      this.route.queryParams.subscribe(params => {
-        this.selectedGrouping = params['grouping']
-          ? upperCaseFirstLetter(params['grouping'])
-          : 'No grouping'
+    this.route.queryParams.subscribe(params => {
+      this.selectedGrouping = params['grouping']
+        ? upperCaseFirstLetter(params['grouping'])
+        : 'No grouping'
 
-        this.selectedFilter = params['filter']
-          ? upperCaseFirstLetter(params['filter'])
-          : 'No filter'
-        this.tilesDisplay = !params['view'] || params['view'] === 'tiles'
-      })
-    )
-    this.subscriptions.push(
-      this.libraryService.books$.subscribe(books => (this.books = books))
-    )
+      this.selectedFilter = params['filter']
+        ? upperCaseFirstLetter(params['filter'])
+        : 'No filter'
+      this.tilesDisplay = !params['view'] || params['view'] === 'tiles'
+    })
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.type === 'authors') {
+      this.libraryService.authors$.subscribe(authors => {
+        this.authors = authors
+        this.searchBoxItems = authors
+        this.searchBoxProps = { main: 'name' }
+        this.searchBoxSearchProps = ['name']
+      })
+    } else {
+      this.libraryService.books$.subscribe(books => {
+        this.books = books
+        this.searchBoxItems = books
+        this.searchBoxProps = { main: 'title', sub: 'author' }
+        this.searchBoxSearchProps = ['title', 'original', 'author']
+      })
+    }
+  }
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe())
@@ -93,9 +111,5 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
       relativeTo: this.route,
       queryParams,
     })
-  }
-
-  uploadFile() {
-    this.fileUpload.nativeElement.click()
   }
 }

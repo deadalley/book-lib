@@ -11,6 +11,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators'
 export class SearchBoxComponent implements OnInit {
   @Input() withMargin = false
   @Input() items = []
+  @Input() props = { main: 'title', sub: 'author' }
+  @Input() searchProps = ['title', 'author', 'original']
   searchInput: FormControl = new FormControl()
   searchValue
 

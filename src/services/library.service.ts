@@ -9,12 +9,16 @@ import { map, mergeMap, filter } from 'rxjs/operators'
 import { Observable } from 'rxjs/Observable'
 import { omit, compact, uniq } from 'lodash'
 import { SessionService } from './session.service'
+import { Author } from 'models/author.model'
+import { GoodreadsService } from './goodreads.service'
+import { parseAuthor } from 'utils/helpers'
 
 @Injectable()
 export class LibraryService {
-  private MAX_DATE = 7
+  private MAX_DATE = 4
   private books = new BehaviorSubject<Book[]>(undefined)
   private collections = new BehaviorSubject<Collection[]>(undefined)
+  private authors = new BehaviorSubject<Author[]>(undefined)
   private grAuthorIds = new BehaviorSubject<number[]>(undefined)
   private booksToImport = new BehaviorSubject<Book[]>(undefined)
 
@@ -23,6 +27,7 @@ export class LibraryService {
   books$: Observable<Book[]>
   latestBooks$: Observable<Book[]>
   collections$: Observable<Collection[]>
+  authors$: Observable<Author[]>
   grAuthorIds$: Observable<number[]>
   tags$: Observable<string[]>
   booksToImport$ = this.booksToImport.asObservable()
@@ -39,6 +44,7 @@ export class LibraryService {
 
   constructor(
     private database: DatabaseService,
+    private goodreadsService: GoodreadsService,
     private session: SessionService
   ) {
     this.session.userRef.subscribe(
@@ -119,6 +125,11 @@ export class LibraryService {
       map(books => uniq(compact(books.map(book => book.goodreadsAuthorId))))
     )
     this.grAuthorIds$.subscribe(this.grAuthorIds)
+
+    this.authors$ = this.grAuthorIds$.pipe(
+      mergeMap(ids => this.goodreadsService.getAuthors(ids)),
+      map(authors => authors.map(author => parseAuthor(author)))
+    )
   }
 
   addBook(book: Book) {

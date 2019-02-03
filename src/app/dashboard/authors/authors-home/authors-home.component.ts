@@ -31,15 +31,10 @@ export class AuthorsHomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.libraryService.grAuthorIds$
-      .pipe(
-        mergeMap(ids => this.goodreadsService.getAuthors(ids)),
-        map(authors => authors.map(author => parseAuthor(author)))
-      )
-      .subscribe(authors => {
-        this.isLoading = false
-        this.authors = authors
-      })
+    this.libraryService.authors$.subscribe(authors => {
+      this.isLoading = false
+      this.authors = authors
+    })
     this.route.queryParams.subscribe(params => {
       this.tilesDisplay = !params['view'] || params['view'] === 'tiles'
       this.page = params['page'] || 1
