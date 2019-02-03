@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { FormGroup, Validators, FormBuilder } from '@angular/forms'
 import { GoodreadsService } from 'services/goodreads.service'
-import { parseBook, parseAuthor } from 'utils/helpers'
-import { map, mergeMap } from 'rxjs/operators'
+import { parseAuthor } from 'utils/helpers'
 import { LibraryService } from 'services/library.service'
 import { Author } from 'models/author.model'
+import { Router } from '@angular/router'
 
 @Component({
   moduleId: module.id,
@@ -24,7 +24,7 @@ export class GoodreadsSearchAuthorComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private goodreadsService: GoodreadsService,
-    private libraryService: LibraryService
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -41,6 +41,6 @@ export class GoodreadsSearchAuthorComponent implements OnInit {
   }
 
   selectAuthor(author: Author) {
-    console.log(author)
+    this.router.navigate([`dashboard/authors/${author.id}`])
   }
 }

@@ -86,6 +86,6 @@ export class AuthorComponent implements OnInit, OnDestroy {
         date: new Date().toISOString(),
       }))
     this.libraryService.addBooks(booksToAdd)
-    this.router.navigate(['dashboard/library'])
+    this.router.navigate(['dashboard/authors'])
   }
 }

@@ -140,7 +140,7 @@ export const parseBook = book => ({
 })
 
 export const parseAuthor = (author, books?) => ({
-  id: author.id,
+  id: +author.id,
   name: author.name,
   about: author.about,
   books,

@@ -8,6 +8,7 @@
             <tr
               *ngFor="let author of authors"
               [ngClass]="{'row-clickable': clickable}"
+              (click)="onClick.emit(author)"
             >
               <!-- Image -->
               <td class="col-md-1">
