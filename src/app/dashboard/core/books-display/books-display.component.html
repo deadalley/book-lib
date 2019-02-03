@@ -15,6 +15,15 @@
       >
         {{selectedAll ? 'Deselect all' : 'Select all'}}
       </button>
+      <button
+        *ngIf="displayOnlySelectedBtn"
+        type="button"
+        class="btn btn-margin"
+        [ngClass]="{'btn-success': !onlySelected, 'btn-danger': onlySelected}"
+        (click)="onlySelected = !onlySelected"
+      >
+        {{onlySelected ? 'All books' : 'Only books in collection'}}
+      </button>
       <div class="input-group btn-margin" [ngClass]="{'full-search-bar': fullSearchBar}">
         <input type="text" class="form-control" placeholder="Search" [formControl]="searchInput">
         <span class="input-group-addon" id="sizing-addon2">
@@ -26,7 +35,7 @@
   <!-- Tiles -->
   <ng-container *ngIf="tilesDisplay">
     <books-section
-      [books]="books | searchFilter: searchValue:['title', 'author', 'original'] | page: page:maxBooks"
+      [books]="books | bookFilter: (onlySelected ? 'isSelected' : null) | searchFilter: searchValue:['title', 'author', 'original'] | page: page:maxBooks"
       [cardsInRow]="bookCardsInRow"
       [withButtons]="withButtons"
       [clickable]="clickable"
@@ -41,7 +50,7 @@
     <table-items [items]="tableDisplayItems" (displayItems)="tableDisplayItems=$event"></table-items>
     <books-table
       [displayItems]="tableDisplayItems"
-      [books]="books | searchFilter: searchValue:['title', 'author', 'original'] | page:page:maxBooks"
+      [books]="books | bookFilter: (onlySelected ? 'isSelected' : null) | searchFilter: searchValue:['title', 'author', 'original'] | page:page:maxBooks"
       [withButtons]="withButtons"
       [clickable]="clickable"
       [selectable]="selectable"

@@ -15,7 +15,7 @@ import { ANIMATIONS } from 'utils/constants'
   animations: [ANIMATIONS.CARD],
 })
 export class FindAuthorComponent implements OnInit, OnDestroy {
-  authors = {} as Author[]
+  authors: Author[] = []
   books: Book[]
   selectedAuthor: Author
   isLoading = true
@@ -43,7 +43,11 @@ export class FindAuthorComponent implements OnInit, OnDestroy {
       if (!books) {
         return
       }
-      this.books = books.map(book => ({ ...book, canBeSelected: true }))
+      this.books = books.map(book => ({
+        ...book,
+        isSelected: false,
+        canBeSelected: true,
+      }))
     })
   }
 

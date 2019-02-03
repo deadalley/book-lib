@@ -26,6 +26,7 @@ export class BooksDisplayComponent implements OnInit {
   @Input() maxBooks
   @Input() fullSearchBar = false
   @Input() displayBooksInLibraryInfo = false
+  @Input() displayOnlySelectedBtn = false
 
   @Input() tableDisplayItems = DEFAULT_TABLE_ITEMS
   @Input() tilesDisplay = true
@@ -36,6 +37,7 @@ export class BooksDisplayComponent implements OnInit {
   searchInput = new FormControl()
   displayAll = false
   selectedAll = false
+  onlySelected = false
   page = 1
   pageCount = 1
   immutableMaxBooks = false
