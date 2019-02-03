@@ -9,3 +9,13 @@
 .full-search-bar {
   width: 100%;
 }
+
+.not-selectable {
+  color: #9A9A9A;
+}
+
+.ti-info-alt {
+  background: #fdf4ec;
+  color: rgba(101, 105, 24, 1);
+  border-radius: 6px;
+}

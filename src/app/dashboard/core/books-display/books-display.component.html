@@ -50,6 +50,15 @@
       (selectedBook)="selectedBook.emit($event)"
     ></books-table>
   </ng-container>
+  <!-- Can't be selected info -->
+  <div class="row">
+    <div class="col-md-12 not-selectable">
+      <div class="col-md-12">
+        <i class="ti-info-alt"></i>
+        These books are already in your library
+      </div>
+    </div>
+  </div>
   <!-- Pages -->
   <pages
     *ngIf="books && books.length"
