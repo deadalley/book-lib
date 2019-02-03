@@ -110,3 +110,18 @@ i.read {
 i.favorite {
   color: violet;
 }
+
+.imported-from-gr {
+  font-size: 16px;
+  color: #9A9A9A;
+  text-align: center;
+}
+
+.imported-from-gr > img{
+  height: 20px;
+  padding: 2px;
+}
+
+hr {
+  margin: 16px 0;
+}

@@ -122,20 +122,35 @@
               </div>
             </div>
           </div>
+          <!-- Notes -->
           <div class="row">
             <div class="col-xs-12">
               <label>Notes</label>
-              <p [ngClass]="{'unavailable': !book.notes }">{{book.notes ? book.notes : 'Not available'}}</p>
+              <p [ngClass]="{'unavailable': !book.notes }">{{book.notes ? book.notes : 'No notes available'}}</p>
             </div>
           </div>
         </div>
       </div>
+      <!-- Goodreads -->
+      <div *ngIf="book.goodreadsId" class="row">
+        <div class="col-md-12 imported-from-gr">
+          <hr>
+          This book was imported from <img src="/assets/img/goodreads.png">©
+          <hr>
+        </div>
+      </div>
       <div class="row">
         <div class="col-xs-12 col-md-6" style="padding-top: 2px; padding-bottom: 2px">
-          <button type="button" class="btn btn-danger" style="width: 100%" (click)="this.modal.openModal()">Delete</button>
+          <button type="button" class="btn btn-danger" style="width: 100%" (click)="this.modal.openModal()">
+            <i class="pe-7s-trash"></i>
+            Delete
+          </button>
         </div>
         <div class="col-xs-12 col-md-6" style="padding-top: 2px; padding-bottom: 2px">
-          <button type="button" class="btn btn-default" style="width: 100%" routerLink="./edit">Edit</button>
+          <button type="button" class="btn btn-default" style="width: 100%" routerLink="./edit">
+            <i class="pe-7s-note"></i>
+            Edit
+          </button>
         </div>
       </div>
     </div>

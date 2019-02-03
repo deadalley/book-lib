@@ -245,15 +245,29 @@
 						<span style="color: red">*</span> Required fields
 					</div>
 				</div>
+				<!-- Goodreads -->
+				<div *ngIf="book.goodreadsId" class="row">
+					<div class="col-md-12 imported-from-gr">
+						<hr>
+						This book was imported from <img src="/assets/img/goodreads.png">©
+						<hr>
+					</div>
+				</div>
 
 				<!-- Buttons -->
-				<hr>
+				<hr *ngIf="!book.goodreadsId">
 				<div class="row">
 					<div class="col-md-6">
-						<button type="button" class="btn btn-default" style="width: 100%" (click)="this.router.navigate(['../../'], { relativeTo: this.route })">Cancel</button>
+						<button type="button" class="btn btn-default" style="width: 100%" (click)="this.router.navigate(['../../'], { relativeTo: this.route })">
+							<i class="pe-7s-back"></i>
+							Cancel
+						</button>
 					</div>
 					<div class="col-md-6">
-						<button type="button" class="btn btn-success" style="width: 100%" (click)="submit(form.value)" [disabled]="!form.valid">Save</button>
+						<button type="button" class="btn btn-success" style="width: 100%" (click)="submit(form.value)" [disabled]="!form.valid">
+							<i class="pe-7s-diskette"></i>
+							Save
+						</button>
 					</div>
 				</div>
 			</form>
