@@ -12,7 +12,7 @@
     <!-- Header -->
     <div class="row">
       <h4
-        class="title col-md-8 col-md-offset-2"
+        class="title col-md-8 col-md-offset-2 text-ellipsis"
         [ngClass]="{
           'col-md-8 col-md-offset-2': (selectable || clickable) && book.canBeSelected,
           'col-md-12': !((selectable || clickable) && book.canBeSelected)
@@ -20,6 +20,7 @@
       >
         <a
           *ngIf="linkable"
+          class="text-ellipsis"
           href="#"
           routerLink="/dashboard/books/{{ book.id }}"
         >
