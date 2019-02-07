@@ -1,5 +1,5 @@
-<loading [visible]="isLoading"></loading>
-<div *ngIf="!isLoading" class="card" [@card]>
+<!-- <loading [visible]="isLoading"></loading> -->
+<div class="card">
   <div class="header">
     <h4 class="title">Import your library from Goodreads</h4>
     <p class="category">
@@ -7,49 +7,54 @@
     </p>
   </div>
   <div class="content">
-    <ng-container *ngIf="this.books.length > 0">
-      <div class="row">
-        <div class="col-xs-12 text-left text-muted">
-          <a href="javascript:void(0);" (click)="selectAll(true)">
-            Select all
-          </a> |
-          <a href="javascript:void(0);" (click)="selectAll(false)">
-            Unselect all
-          </a>
+    <!-- Not connected to GR -->
+    <div *ngIf="!goodreadsId" class="row">
+      <div class="col-md-12" style="text-align: center;">
+        <div class="info-with-icon">
+          <i class="pe-7s-attention icon"></i>
+          <h4 class="text-muted no-margin">
+            You're not connected to a Goodreads account.
+          </h4>
         </div>
-      </div>
-      <div class="row">
-        <grid [items]="books">
-          <ng-template let-book>
-            <book-card
-              [book]="book"
-              [withButtons]="false"
-              [selectable]="true"
-              [selectBtnContent]="'Add to library'"
-              [selectBtnContentDisabled]="'Already in library'"
-              (selectedChanged)="updateSelectedBooks()"
-            ></book-card>
-          </ng-template>
-        </grid>
-      </div>
-      <hr>
-      <div style="text-align: center;">
+        <p class="category" placement="bottom" style="padding-bottom: 10px;">
+          Would you like to connect now?
+        </p>
         <button
           type="button"
-          class="btn btn-default"
-          (click)="importBooks()"
-          routerLink="../../"
-          [disabled]="!hasSelectedBooks"
-        >Import</button>
+          class="btn btn-primary"
+          (click)="connectToGoodreads()"
+        >Connect to Goodreads</button>
       </div>
-    </ng-container>
-    <div class="row" *ngIf="this.books.length === 0">
+    </div>
+    <!-- Books -->
+    <books-display
+      *ngIf="books && books.length"
+      [books]="books"
+      [selectable]="true"
+      [tableDisplayItems]="tableDisplayItems"
+      [displayBooksInLibraryInfo]="true"
+      (selectedBooks)="updateSelectedBooks($event)"
+    ></books-display>
+    <!-- No books to add -->
+    <div class="row" *ngIf="goodreadsId && (!books || books.length === 0)">
       <div class="col-xs-12 text-center">
         <h4 class="text-muted">You don't have any new books to add from your Goodreads library. :(</h4>
         <p>
           <a href="javascript:void(0);" routerLink="../../">Return to library</a>
         </p>
       </div>
+    </div>
+    <!-- Button -->
+    <div style="text-align: center;">
+      <button
+        type="button"
+        class="btn btn-success"
+        style="width: 100%;"
+        (click)="importBooks()"
+        [disabled]="!hasSelectedBooks"
+      >
+        Import books to your library
+      </button>
     </div>
   </div>
 </div>

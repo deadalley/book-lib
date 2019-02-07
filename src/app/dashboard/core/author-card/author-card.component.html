@@ -17,7 +17,7 @@
   </div>
   <div class="content">
     <!-- Image -->
-    <div class="image">
+    <div class="image img-rounded">
       <a
         *ngIf="linkable"
         href="javascript:void(0);"
@@ -36,7 +36,6 @@
       </a>
       <img
         *ngIf="!linkable"
-        class="img-rounded"
         [src]="
           author.imageLarge
             ? author.imageLarge

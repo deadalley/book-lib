@@ -5,10 +5,10 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 @Injectable()
 export class SessionService {
   private _userRef = new BehaviorSubject<string>(undefined)
-  private _goodreadsId = new BehaviorSubject<string>(undefined)
+  private _goodreadsId = new BehaviorSubject<number>(undefined)
 
   userRef = this._userRef.asObservable()
-  goodreadsId = this._goodreadsId.asObservable()
+  goodreadsId$ = this._goodreadsId.asObservable()
 
   get localUser(): User {
     return JSON.parse(localStorage.getItem('user'))
@@ -22,9 +22,7 @@ export class SessionService {
     return JSON.parse(localStorage.getItem('user')).id
   }
 
-  setGoodreadsId(id: string) {
-    this.localUser = { ...this.localUser, goodreadsId: id }
-
+  set goodreadsId(id: number) {
     this._goodreadsId.next(id)
   }
 
@@ -37,6 +35,7 @@ export class SessionService {
 
     console.log('Building session...')
     this._userRef.next(user.id)
+    this._goodreadsId.next(+user.goodreadsId)
   }
 
   destroySession() {

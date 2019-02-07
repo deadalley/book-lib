@@ -48,9 +48,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private location: Location,
-    private libraryService: LibraryService,
-    private goodreadsService: GoodreadsService,
-    private router: Router
+    private libraryService: LibraryService
   ) {
     this.allCollections = []
     this.subscription = this.libraryService.collections$.subscribe(

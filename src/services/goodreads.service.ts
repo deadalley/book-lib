@@ -6,6 +6,8 @@ import { SessionService } from './session.service'
 import * as _ from 'lodash'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { map, mergeMap } from 'rxjs/operators'
+import { Observable } from 'rxjs'
+import { Book } from 'models/book.model'
 
 const USE_PROXY = true
 
@@ -81,25 +83,20 @@ export class GoodreadsService {
     ).pipe(map<any, any>(results => results.map(result => result.author)))
   }
 
-  getBooksForUser(cb, id?: number) {
-    const userId = id ? id : this.id.getValue()
-
-    if (!userId) {
-      return
-    }
+  getBooksForUser(id: number) {
     const params = this.defaultParams
       .set('v', '2')
-      .set('id', userId as string)
+      .set('id', `${id}`)
       .set('shelf', 'all')
       .set('sort', 'title')
       .set('format', 'xml')
     const url = `${this.domain}/review/list`
 
-    // HttpGet(this.http, url, params, rawBooks =>
-    //   cb(
-    //     rawBooks ? rawBooks.reviews.review.map(review => review.book) : rawBooks
-    //   )
-    // )
+    return HttpGet(this.http, url, params).pipe(
+      map<any, any>(response =>
+        response ? response.reviews.review.map(review => review.book) : response
+      )
+    ) as Observable<Book[]>
   }
 
   searchBook(query: string) {

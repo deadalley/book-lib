@@ -54,7 +54,7 @@ export class AuthService {
 
         this.auth0.client.userInfo(result.accessToken, (err, user) => {
           const goodreadsId = user.sub.split('|')[2]
-          this.session.setGoodreadsId(goodreadsId)
+          this.session.goodreadsId = goodreadsId
 
           this.database.updateUser(this.session.userId, {
             goodreadsId,
