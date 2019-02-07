@@ -79,7 +79,7 @@
               <td *ngIf="displayItems['Original title']" class="col-md-2">{{book.original}}</td>
               <!-- Author -->
               <td *ngIf="displayItems['Author']" class="col-md-2">
-                <a *ngIf="linkable" href="#" [routerLink]="authorRoute(book)">{{book.author}}</a>
+                <a *ngIf="linkable" href="javascript:void(0);" (click)="authorRoute(book)">{{book.author}}</a>
                 {{linkable ? '' : book.author}}
               </td>
               <!-- Date -->

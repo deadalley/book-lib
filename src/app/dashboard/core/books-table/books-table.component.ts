@@ -3,6 +3,7 @@ import { Book } from 'models/book.model'
 import { ANIMATIONS } from 'utils/constants'
 import { formatDate } from 'utils/helpers'
 import { LibraryService } from 'services/library.service'
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   moduleId: module.id,
@@ -32,7 +33,11 @@ export class BooksTableComponent implements OnInit {
 
   formatDate = formatDate
 
-  constructor(private libraryService: LibraryService) {}
+  constructor(
+    private libraryService: LibraryService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 
@@ -44,8 +49,13 @@ export class BooksTableComponent implements OnInit {
 
   authorRoute(book: Book) {
     return book.goodreadsAuthorId
-      ? `/dashboard/authors/${book.goodreadsAuthorId}`
-      : `/dashboard/authors/find/${book.author}`
+      ? this.router.navigate([`/dashboard/authors/${book.goodreadsAuthorId}`], {
+          relativeTo: this.route,
+        })
+      : this.router.navigate(['/dashboard/authors/find'], {
+          relativeTo: this.route,
+          queryParams: { name: book.author },
+        })
   }
 
   updateFavoriteIcon(book: Book, values: {}) {

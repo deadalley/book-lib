@@ -4,7 +4,7 @@ import { Book } from 'models/book.model'
 import { ANIMATIONS } from 'utils/constants'
 import { removeSpaces } from 'utils/helpers'
 import { LibraryService } from 'services/library.service'
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 import { Subscription } from 'rxjs/Subscription'
 
 @Component({
@@ -28,17 +28,24 @@ export class BookComponent implements OnInit, OnDestroy {
     return splitUrl[splitUrl.length - 1]
   }
 
-  get authorRoute() {
-    return this.book.goodreadsAuthorId
-      ? `/dashboard/authors/${this.book.goodreadsAuthorId}`
-      : `/dashboard/authors/find/${this.book.author}`
-  }
-
   constructor(
     public libraryService: LibraryService,
     private location: Location,
+    private route: ActivatedRoute,
     private router: Router
   ) {}
+
+  authorRoute() {
+    return this.book.goodreadsAuthorId
+      ? this.router.navigate(
+          [`/dashboard/authors/${this.book.goodreadsAuthorId}`],
+          { relativeTo: this.route }
+        )
+      : this.router.navigate(['/dashboard/authors/find'], {
+          relativeTo: this.route,
+          queryParams: { name: this.book.author },
+        })
+  }
 
   ngOnInit() {
     this.subscription = this.libraryService
