@@ -13,6 +13,7 @@ import { AddBookComponent } from './edit-book/add-book.component'
 import { EditBookComponent } from './edit-book/edit-book.component'
 import { NoBooksComponent } from './no-books/no-books.component'
 import { BookComponent } from './book/book.component'
+import { FindBookComponent } from './find-book/find-book.component'
 
 import { PushToBottomPipe } from 'pipes/push-to-bottom.pipe'
 import { IterableObjectPipe } from 'pipes//iterable-object.pipe'
@@ -25,6 +26,7 @@ const routes: Routes = [
     children: [
       { path: '', component: BooksHomeComponent },
       { path: 'new', component: AddBookComponent, pathMatch: 'full' },
+      { path: 'find', component: FindBookComponent },
       { path: ':id', component: BookComponent },
       { path: ':id/edit', component: EditBookComponent },
     ],
@@ -48,6 +50,7 @@ const routes: Routes = [
     EditBookComponent,
     BookComponent,
     NoBooksComponent,
+    FindBookComponent,
     PushToBottomPipe,
     IterableObjectPipe,
     BookGroupingPipe,

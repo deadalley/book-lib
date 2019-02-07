@@ -20,7 +20,8 @@
         [clickable]="clickable"
         [linkable]="linkable"
         [selectable]="selectable"
-        (selectedChanged)="updateSelectedBooks($event)"
+        (onClick)="onClick.emit($event)"
+        (selectedChanged)="updateSelectedBooks()"
       ></book-card>
     </ng-template>
   </grid>

@@ -23,15 +23,14 @@ export class BooksSectionComponent implements OnInit {
   @Input() cardsInRow = 4
 
   @Output() selectedBooks = new EventEmitter<Book[]>()
-  @Output() selectedBook = new EventEmitter<Book>()
+  @Output() onClick = new EventEmitter<Book>()
 
   removeSpaces = removeSpaces
   displayAll = true
 
   ngOnInit() {}
 
-  updateSelectedBooks(selectedBook: Book) {
-    this.selectedBook.emit(selectedBook)
+  updateSelectedBooks() {
     this.selectedBooks.emit(this.books.filter(book => book.isSelected))
   }
 }

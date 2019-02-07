@@ -29,7 +29,7 @@ export class BooksTableComponent implements OnInit {
   @Input() displayItems = {}
 
   @Output() selectedBooks = new EventEmitter<Book[]>()
-  @Output() selectedBook = new EventEmitter<Book>()
+  @Output() onClick = new EventEmitter<Book>()
 
   formatDate = formatDate
 
@@ -43,7 +43,6 @@ export class BooksTableComponent implements OnInit {
 
   updateSelectedBooks(selectedBook: Book) {
     selectedBook.isSelected = !selectedBook.isSelected
-    this.selectedBook.emit(selectedBook)
     this.selectedBooks.emit(this.books.filter(book => book.isSelected))
   }
 

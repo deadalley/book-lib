@@ -19,10 +19,8 @@ export class BookCardComponent implements OnInit {
   @Input() linkable: boolean
   @Input() selectable: boolean
 
-  @Input() selectBtnContent: string
-  @Input() selectBtnContentDisabled: string
-
   @Output() selectedChanged = new EventEmitter<Book>()
+  @Output() onClick = new EventEmitter<Book>()
 
   formatDate = formatDate
 

@@ -15,12 +15,14 @@
           <div class="book-title">
             <h4 class="">{{book.title}}</h4>
             <button
+              *ngIf="!book.goodreadsId"
               type="button"
               class="btn btn-default gr-button"
               tooltip="Find book on Goodreads"
               [isDisabled]="false"
               [tooltipAnimation]="true"
               placement="bottom"
+              (click)="findBookOnGoodreads()"
             >
               <i class="pe-7s-search"></i>
               <img class="gr-logo" src="/assets/img/goodreads.png">

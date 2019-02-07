@@ -53,6 +53,11 @@ img {
   background: #fdf4ec;
 }
 
+.row-clickable:hover {
+  background: #ecfdef;
+  cursor: pointer;
+}
+
 .select-icon {
   font-size: 20px;
 }

@@ -108,3 +108,13 @@
   background-color: #286090;
   border-color: #204d74;
 }
+
+.powered-by-gr {
+  font-size: 12px;
+  color: #9A9A9A;
+}
+
+.powered-by-gr > img{
+  height: 16px;
+  padding: 2px;
+}

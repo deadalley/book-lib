@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="header">
+    <h4 class="title">Find book</h4>
+    <div class="powered-by-gr">
+      Powered by <img src="/assets/img/goodreads.png">
+      ©
+    </div>
+  </div>
+  <div class="content">
+    <loading [visible]="isLoading"></loading>
+    <hr *ngIf="!isLoading && books && books.length">
+    <div class="books-display" *ngIf="!isLoading && books && books.length">
+      <books-display
+        [fullSearchBar]="true"
+        [maxBooks]="8"
+        [tilesDisplay]="false"
+        [tableDisplayItems]="tableItems"
+        [books]="books"
+        [clickable]="true"
+        (onClick)="selectBook($event)"
+      ></books-display>
+    </div>
+  </div>
+</div>
+  

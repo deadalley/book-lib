@@ -1,11 +1,12 @@
 <div
   class="card"
-  (click)="select()"
+  (click)="clickable ? onClick.emit(book) : select()"
   [ngClass]="{
-    'card-selectable': (selectable || clickable) && book.canBeSelected,
-    'card-selected': (selectable || clickable) && book.isSelected,
-    'card-not-selectable': (selectable || clickable) && !book.canBeSelected,
-    'no-buttons': !withButtons || (selectable || clickable)
+    'card-clickable': clickable,
+    'card-selectable': selectable && book.canBeSelected,
+    'card-selected': selectable && book.isSelected,
+    'card-not-selectable': selectable && !book.canBeSelected,
+    'no-buttons': !withButtons || selectable || clickable
   }"
 >
   <div class="header">
@@ -14,8 +15,8 @@
       <h4
         class="title col-md-8 col-md-offset-2 text-ellipsis"
         [ngClass]="{
-          'col-md-8 col-md-offset-2': (selectable || clickable) && book.canBeSelected,
-          'col-md-12': !((selectable || clickable) && book.canBeSelected)
+          'col-md-8 col-md-offset-2': selectable && book.canBeSelected,
+          'col-md-12': !(selectable && book.canBeSelected)
         }"
       >
         <a
@@ -28,7 +29,7 @@
         </a>
         {{ linkable ? '' : book.title }}
       </h4>
-      <i class="col-md-2 select-icon" *ngIf="(selectable || clickable) && book.canBeSelected" [ngClass]="{
+      <i class="col-md-2 select-icon" *ngIf="selectable && book.canBeSelected" [ngClass]="{
         'ti-check-box': book.isSelected,
         'ti-control-stop': !book.isSelected
       }"></i>

@@ -32,7 +32,7 @@ export class BooksDisplayComponent implements OnInit {
   @Input() tilesDisplay = true
 
   @Output() selectedBooks = new EventEmitter<Book[]>()
-  @Output() selectedBook = new EventEmitter<Book>()
+  @Output() onClick = new EventEmitter<Book>()
 
   searchInput = new FormControl()
   displayAll = false

@@ -42,7 +42,7 @@
       [selectable]="selectable"
       [linkable]="linkable"
       (selectedBooks)="selectedBooks.emit($event)"
-      (selectedBook)="selectedBook.emit($event)"
+      (onClick)="onClick.emit($event)"
     ></books-section>
   </ng-container>
   <!-- Table -->
@@ -56,7 +56,7 @@
       [selectable]="selectable"
       [linkable]="linkable"
       (selectedBooks)="selectedBooks.emit($event)"
-      (selectedBook)="selectedBook.emit($event)"
+      (onClick)="onClick.emit($event)"
     ></books-table>
   </ng-container>
   <!-- Can't be selected info -->

@@ -162,3 +162,8 @@ hr {
 .text-ellipsis:hover {
   white-space: normal;
 }
+
+.card-clickable:hover {
+  background: #ecfdef;
+  cursor: pointer;
+}
