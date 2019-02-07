@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 import { Author } from 'models/author.model'
 import { Book } from 'models/book.model'
 import { GoodreadsService } from 'services/goodreads.service'
 import { LibraryService } from 'services/library.service'
 import { parseAuthor } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
+import { mergeMap, map } from 'rxjs/operators'
 
 @Component({
   moduleId: module.id,
@@ -30,14 +31,20 @@ export class FindAuthorComponent implements OnInit, OnDestroy {
   constructor(
     private libraryService: LibraryService,
     private goodreadsService: GoodreadsService,
+    private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.goodreadsService.searchAuthor(this.localUrlPath).subscribe(authors => {
-      this.isLoading = false
-      this.authors = authors.map(author => parseAuthor(author))
-    })
+    this.route.queryParams
+      .pipe(
+        map(params => params.name),
+        mergeMap<any, any>(name => this.goodreadsService.searchAuthor(name))
+      )
+      .subscribe(authors => {
+        this.isLoading = false
+        this.authors = authors.map(author => parseAuthor(author))
+      })
 
     this.subscription = this.libraryService.books$.subscribe(books => {
       if (!books) {

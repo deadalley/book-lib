@@ -12,10 +12,19 @@
           </div>
         </div>
         <div class="col-md-8">
-          <div class="row" style="padding-bottom: 10px">
-            <div class="header">
-              <h4 class="title">{{book.title}}</h4>
-            </div>
+          <div class="book-title">
+            <h4 class="">{{book.title}}</h4>
+            <button
+              type="button"
+              class="btn btn-default gr-button"
+              tooltip="Find book on Goodreads"
+              [isDisabled]="false"
+              [tooltipAnimation]="true"
+              placement="bottom"
+            >
+              <i class="pe-7s-search"></i>
+              <img class="gr-logo" src="/assets/img/goodreads.png">
+            </button>
           </div>
           <div class="row">
             <div class="col-xs-12">

@@ -3,6 +3,7 @@ import { Book } from 'models/book.model'
 import { formatDate } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
 import { LibraryService } from 'services/library.service'
+import { Router, ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'book-card',
@@ -25,15 +26,25 @@ export class BookCardComponent implements OnInit {
 
   formatDate = formatDate
 
-  get authorRoute() {
-    return this.book.goodreadsAuthorId
-      ? `/dashboard/authors/${this.book.goodreadsAuthorId}`
-      : `/dashboard/authors/find/${this.book.author}`
-  }
-
-  constructor(private libraryService: LibraryService) {}
+  constructor(
+    private libraryService: LibraryService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {}
+
+  authorRoute() {
+    return this.book.goodreadsAuthorId
+      ? this.router.navigate(
+          [`/dashboard/authors/${this.book.goodreadsAuthorId}`],
+          { relativeTo: this.route }
+        )
+      : this.router.navigate(['/dashboard/authors/find'], {
+          relativeTo: this.route,
+          queryParams: { name: this.book.author },
+        })
+  }
 
   select() {
     if (!(this.selectable || this.clickable)) {

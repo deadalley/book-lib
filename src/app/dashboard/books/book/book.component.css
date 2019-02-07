@@ -111,17 +111,29 @@ i.favorite {
   color: violet;
 }
 
-.imported-from-gr {
-  font-size: 16px;
-  color: #9A9A9A;
-  text-align: center;
-}
-
-.imported-from-gr > img{
-  height: 20px;
-  padding: 2px;
-}
-
 hr {
   margin: 16px 0;
+}
+
+h4 {
+  margin: 0;
+}
+
+.book-title {
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.gr-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 4px;
+}
+
+.gr-logo {
+  height: 16px;
+  padding: 0 4px;
+  margin-bottom: 5px;
 }

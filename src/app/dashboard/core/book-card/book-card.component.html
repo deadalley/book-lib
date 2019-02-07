@@ -34,7 +34,7 @@
     </div>
     <hr>
     <p class="category" placement="bottom">
-      <a *ngIf="linkable" href="#" [routerLink]="authorRoute">{{
+      <a *ngIf="linkable" href="javascript:void(0);" (click)="authorRoute()">{{
         book.author
       }}</a>
       {{ linkable ? '' : book.author }}

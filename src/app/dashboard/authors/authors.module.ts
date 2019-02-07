@@ -19,7 +19,7 @@ const routes: Routes = [
     component: AuthorsComponent,
     children: [
       { path: '', component: AuthorsHomeComponent },
-      { path: 'find/:name', component: FindAuthorComponent, pathMatch: 'full' },
+      { path: 'find', component: FindAuthorComponent },
       { path: ':id', component: AuthorComponent },
     ],
   },
