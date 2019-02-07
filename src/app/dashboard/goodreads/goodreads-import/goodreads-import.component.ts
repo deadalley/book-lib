@@ -3,12 +3,12 @@ import { GoodreadsService } from 'services/goodreads.service'
 import { LibraryService } from 'services/library.service'
 import { Book } from 'models/book.model'
 import { ANIMATIONS } from 'utils/constants'
-import { parseBook } from 'utils/helpers'
 import { AuthService } from 'services/auth.service'
 import { SessionService } from 'services/session.service'
-import { mergeMap, filter, map } from 'rxjs/operators'
-import { forkJoin } from 'rxjs'
-import { Identifiers } from '@angular/compiler'
+import { mergeMap, filter, map, tap } from 'rxjs/operators'
+import { combineLatest } from 'rxjs'
+import { parseBook } from 'utils/helpers'
+import { Router } from '@angular/router'
 
 @Component({
   moduleId: module.id,
@@ -33,7 +33,8 @@ export class GoodreadsImportComponent implements OnInit {
     private goodreadsService: GoodreadsService,
     private libraryService: LibraryService,
     private authService: AuthService,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private router: Router
   ) {
     this.sessionService.goodreadsId$.subscribe(id => (this.goodreadsId = +id))
     this.loadBooks()
@@ -46,67 +47,44 @@ export class GoodreadsImportComponent implements OnInit {
   }
 
   loadBooks() {
-    forkJoin([
+    combineLatest(
       this.sessionService.goodreadsId$.pipe(
         filter(goodreadsId => !!goodreadsId),
-        mergeMap(goodreadsId => {
-          console.log(goodreadsId)
-          return this.goodreadsService.getBooksForUser(goodreadsId)
-        })
+        mergeMap(goodreadsId =>
+          this.goodreadsService.getBooksForUser(goodreadsId)
+        )
       ),
-      // this.libraryService.books$.pipe(
-      //   map<any, any>(books => books.map(book => book.goodreadsId))
-      // ),
-    ])
-      // .pipe(
-      //   map(([books, userBookGrIds]) => {
-      //     console.log(books, userBookGrIds)
-      //     return books.map(
-      //       book =>
-      //         ({
-      //           ...parseBook(book),
-      //           owned: false,
-      //           read: false,
-      //           favorite: false,
-      //           wishlist: false,
-      //           date: new Date().toISOString(),
-      //           isSelected: false,
-      //           canBeSelected: !userBookGrIds.includes(book.goodreadsId),
-      //         } as Book)
-      //     )
-      //   })
-      // )
+      this.libraryService.books$.pipe(
+        map<any, any>(books =>
+          books.map(book => book.goodreadsId).filter(id => id)
+        )
+      )
+    )
+      .pipe(
+        map(([books, userBookGrIds]) => {
+          return books
+            .map(
+              book =>
+                ({
+                  ...parseBook(book),
+                  owned: false,
+                  read: false,
+                  favorite: false,
+                  wishlist: false,
+                  date: new Date().toISOString(),
+                  isSelected: false,
+                } as Book)
+            )
+            .map(book => ({
+              ...book,
+              canBeSelected: !userBookGrIds.includes(book.goodreadsId),
+            }))
+        })
+      )
       .subscribe(books => {
-        console.log(books)
-        // this.books = books
+        this.books = books
         this.isLoading = false
       })
-
-    // this.sessionService.goodreadsId$
-    //   .pipe(
-    //     filter(goodreadsId => !!goodreadsId),
-    //     mergeMap(goodreadsId =>
-    //       this.goodreadsService.getBooksForUser(goodreadsId)
-    //     )
-    //     // mergeMap(books => this.libraryService.books$.pipe(map<any, any>(books => books.map(book => book.goodreadsId)))
-    //   )
-    //   .subscribe(books => {
-    //     this.books = books.map(
-    //       book =>
-    //         ({
-    //           ...parseBook(book),
-    //           owned: false,
-    //           read: false,
-    //           favorite: false,
-    //           wishlist: false,
-    //           date: new Date().toISOString(),
-    //           isSelected: false,
-    //           canBeSelected: true,
-    //         } as Book)
-    //     )
-
-    //     this.isLoading = false
-    //   })
   }
 
   updateSelectedBooks() {
@@ -119,6 +97,8 @@ export class GoodreadsImportComponent implements OnInit {
   }
 
   importBooks() {
-    this.libraryService.addBooks(this.books.filter(book => book.isSelected))
+    this.libraryService
+      .addBooks(this.books.filter(book => book.isSelected))
+      .then(() => this.router.navigate(['dashboard/books']))
   }
 }
