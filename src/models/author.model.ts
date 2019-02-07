@@ -8,4 +8,5 @@ export interface Author {
   imageSmall?: string
   imageLarge?: string
   goodreadsLink?: string
+  isSelected: boolean
 }

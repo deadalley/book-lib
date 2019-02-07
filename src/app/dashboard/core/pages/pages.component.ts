@@ -32,6 +32,9 @@ export class PagesComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.pages = new Array(this.count).fill(0).map((_x, i) => i + 1)
+    if (this.selectedPage > this.count) {
+      this.selectedPage = this.count
+    }
   }
 
   onClick(page: number) {

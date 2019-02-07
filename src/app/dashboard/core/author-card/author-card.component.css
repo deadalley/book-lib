@@ -11,6 +11,10 @@
   cursor: pointer;
 }
 
+.selected {
+  background: #ecfdef;
+}
+
 @media only screen and (min-width: 991px) {
   .card {
     height: 27vw;

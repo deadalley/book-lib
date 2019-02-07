@@ -15,7 +15,7 @@
       <hr>
       <loading [visible]="isLoading"></loading>
       <authors-display
-        *ngIf="!isLoading && !selectedAuthor"
+        *ngIf="!isLoading"
         [maxAuthors]="12"
         [authors]="authors"
         [clickable]="true"
@@ -24,11 +24,12 @@
 
       <div *ngIf="selectedAuthor" class="row" style="text-align: left">
         <div class="col-xs-12">
-          <h5>Select books associated to {{selectedAuthor.name}}</h5>
           <hr>
+          <h5>Select books written by {{selectedAuthor.name}}</h5>
         </div>
 
         <div class="col-xs-12">
+          <hr>
           <books-display
             [books]="books"
             [selectable]="true"
@@ -39,10 +40,9 @@
         <div class="col-xs-12" style="text-align: center;">
           <hr>
           <button
-            data-toggle="modal"
-            data-target="#confirm"
             type="button"
-            class="btn btn-default"
+            class="btn btn-success"
+            style="width: 100%;"
             (click)="updateBooks()"
             [disabled]="!hasSelectedBooks"
           >Associate books</button>

@@ -74,6 +74,10 @@ export class BooksDisplayComponent implements OnInit {
       } else {
         this.maxBooks = MAX_BOOKS_DISPLAY_LIST
       }
+      this.pageCount = Math.ceil(this.books.length / this.maxBooks)
+      if (this.page > this.pageCount) {
+        this.page = this.pageCount
+      }
     }
   }
 }

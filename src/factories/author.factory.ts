@@ -10,6 +10,7 @@ const AuthorFactory = Factory.makeFactory<Author>({
   imageSmall: random.image(),
   imageLarge: random.image(),
   goodreadsLink: internet.url(),
+  isSelected: random.boolean(),
 })
 
 export default AuthorFactory

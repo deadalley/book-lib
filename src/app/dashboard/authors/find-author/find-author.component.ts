@@ -56,7 +56,11 @@ export class FindAuthorComponent implements OnInit, OnDestroy {
   }
 
   selectAuthor(author: Author) {
+    if (this.selectedAuthor) {
+      this.selectedAuthor.isSelected = false
+    }
     this.selectedAuthor = author
+    author.isSelected = true
   }
 
   updateSelectedBooks(books: Book[]) {
@@ -76,6 +80,6 @@ export class FindAuthorComponent implements OnInit, OnDestroy {
       book.author = this.selectedAuthor.name
       this.libraryService.updateBook(book)
     })
-    this.router.navigate(['dashboard/library'])
+    this.router.navigate(['dashboard/books'])
   }
 }

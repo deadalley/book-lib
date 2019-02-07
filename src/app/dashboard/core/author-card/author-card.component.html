@@ -1,7 +1,7 @@
 <div
   class="card"
   (click)="select()"
-  [ngClass]="{'card-clickable': clickable && !author.canBeSelected}"
+  [ngClass]="{'card-clickable': clickable && !author.canBeSelected, 'selected': clickable && author.isSelected}"
 >
   <div class="header">
     <!-- Header -->
