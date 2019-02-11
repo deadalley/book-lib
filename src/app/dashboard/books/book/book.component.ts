@@ -65,7 +65,7 @@ export class BookComponent implements OnInit, OnDestroy {
 
   findBookOnGoodreads() {
     this.router.navigate(['dashboard/books/find'], {
-      queryParams: { title: this.book.title },
+      queryParams: { title: this.book.title, libraryBookId: this.book.id },
     })
   }
 

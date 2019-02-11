@@ -27,7 +27,7 @@
               [ngClass]="{
                 'row-clickable': clickable,
                 'row-selectable': selectable && book.canBeSelected,
-                'row-selected': selectable && book.isSelected,
+                'row-selected': (selectable || clickable) && book.isSelected,
                 'row-not-selectable': selectable && !book.canBeSelected
               }"
             >

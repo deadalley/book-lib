@@ -4,7 +4,7 @@
   [ngClass]="{
     'card-clickable': clickable,
     'card-selectable': selectable && book.canBeSelected,
-    'card-selected': selectable && book.isSelected,
+    'card-selected': (selectable || clickable) && book.isSelected,
     'card-not-selectable': selectable && !book.canBeSelected,
     'no-buttons': !withButtons || selectable || clickable
   }"

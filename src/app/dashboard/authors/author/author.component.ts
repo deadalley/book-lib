@@ -60,7 +60,7 @@ export class AuthorComponent implements OnInit, OnDestroy {
           )
         })
 
-        this.author = parseAuthor(author, books)
+        this.author = parseAuthor(author, books) as Author
       }
     })
   }

@@ -1,0 +1,77 @@
+hr {
+  margin: 4px 0;
+}
+
+.option-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.option {
+  flex: 1;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  cursor: pointer;
+  text-transform: none;
+  color: #333;
+  border-radius: 4px;
+}
+
+.option-wrapper input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+  margin: 4px;
+  margin-bottom: 8px;
+}
+
+.option-wrapper input:checked ~ .option {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(24, 181, 24, 1);
+  background: #ecfdef;
+}
+
+.option-wrapper input:checked ~ .option:hover {
+  background: #ecfdef;
+}
+
+.img-unavailable {
+  opacity: 0.1;
+}
+
+.option-wrapper p {
+  margin: 0;
+}
+
+.icon {
+  min-width: 48px;
+  padding: 6px;
+  text-align: center;
+}
+
+.icon .gr {
+  height: 26px;
+}
+
+.icon .booklib {
+  height: 32px;
+}
+
+.unavailable {
+  font-style: italic;
+  color: #cacaca;
+}
+
+.field {
+  font-size: 14px;
+}
+
+.cover {
+  height: 200px;
+}

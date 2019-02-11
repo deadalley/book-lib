@@ -4,8 +4,7 @@ import { GoodreadsService } from 'services/goodreads.service'
 import { parseBook } from 'utils/helpers'
 import { Book } from 'models/book.model'
 import { map, mergeMap } from 'rxjs/operators'
-import { LibraryService } from 'services/library.service'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   moduleId: module.id,
@@ -16,6 +15,7 @@ import { ActivatedRoute } from '@angular/router'
 export class FindBookComponent implements OnInit {
   form: FormGroup
   books: Book[]
+  selectedBook: Book
   isLoading = true
   tableItems = {
     Cover: true,
@@ -25,7 +25,7 @@ export class FindBookComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private goodreadsService: GoodreadsService,
-    private libraryService: LibraryService,
+    private router: Router,
     private route: ActivatedRoute
   ) {}
 
@@ -49,16 +49,14 @@ export class FindBookComponent implements OnInit {
   }
 
   selectBook(book: Book) {
-    console.log(book)
-  }
-
-  importBooks() {
-    const importedBookIds = this.books
-      .filter(book => book.isSelected)
-      .map(book => book.goodreadsId)
-    this.goodreadsService.getBooks(importedBookIds).pipe(
-      map(books => books.map(book => parseBook(book))),
-      mergeMap(books => this.libraryService.addBooks(books as Book[]))
-    )
+    if (this.selectedBook) {
+      this.selectedBook.isSelected = false
+    }
+    book.isSelected = true
+    this.router.navigate([`dashboard/books/import/${book.goodreadsId}`], {
+      queryParams: {
+        libraryBookId: this.route.snapshot.queryParamMap.get('libraryBookId'),
+      },
+    })
   }
 }

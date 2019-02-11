@@ -14,6 +14,7 @@ import { EditBookComponent } from './edit-book/edit-book.component'
 import { NoBooksComponent } from './no-books/no-books.component'
 import { BookComponent } from './book/book.component'
 import { FindBookComponent } from './find-book/find-book.component'
+import { MatchBookComponent } from './match-book/match-book.component'
 
 import { PushToBottomPipe } from 'pipes/push-to-bottom.pipe'
 import { IterableObjectPipe } from 'pipes//iterable-object.pipe'
@@ -27,6 +28,7 @@ const routes: Routes = [
       { path: '', component: BooksHomeComponent },
       { path: 'new', component: AddBookComponent, pathMatch: 'full' },
       { path: 'find', component: FindBookComponent },
+      { path: 'import/:goodreadsId', component: MatchBookComponent },
       { path: ':id', component: BookComponent },
       { path: ':id/edit', component: EditBookComponent },
     ],
@@ -51,6 +53,7 @@ const routes: Routes = [
     BookComponent,
     NoBooksComponent,
     FindBookComponent,
+    MatchBookComponent,
     PushToBottomPipe,
     IterableObjectPipe,
     BookGroupingPipe,
