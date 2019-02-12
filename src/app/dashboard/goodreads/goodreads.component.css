@@ -7,6 +7,10 @@
   width: 200px;
 }
 
+.category {
+  text-align: center;
+}
+
 .category img {
   height: 14px;
 }

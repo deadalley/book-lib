@@ -5,6 +5,8 @@ import { parseBook } from 'utils/helpers'
 import { Book } from 'models/book.model'
 import { map, mergeMap } from 'rxjs/operators'
 import { LibraryService } from 'services/library.service'
+import { MAX_BOOKS } from 'utils/constants'
+import { Router } from '@angular/router'
 
 @Component({
   moduleId: module.id,
@@ -23,6 +25,7 @@ export class GoodreadsSearchBookComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private goodreadsService: GoodreadsService,
     private libraryService: LibraryService
   ) {}
@@ -48,9 +51,18 @@ export class GoodreadsSearchBookComponent implements OnInit {
     const importedBookIds = this.books
       .filter(book => book.isSelected)
       .map(book => book.goodreadsId)
-    this.goodreadsService.getBooks(importedBookIds).pipe(
-      map(books => books.map(book => parseBook(book))),
-      mergeMap(books => this.libraryService.addBooks(books as Book[]))
-    )
+    this.goodreadsService
+      .getBooks(importedBookIds)
+      .pipe(
+        map(books => books.map(book => parseBook(book))),
+        mergeMap(books => this.libraryService.addBooks(books as Book[])),
+        mergeMap(() => this.libraryService.books$),
+        map(books => books.length)
+      )
+      .subscribe(bookCount =>
+        this.router.navigate(['dashboard/books'], {
+          queryParams: { page: Math.ceil(bookCount / MAX_BOOKS) },
+        })
+      )
   }
 }
