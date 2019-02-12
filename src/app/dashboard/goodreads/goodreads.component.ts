@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core'
   moduleId: module.id,
   selector: 'goodreads-cmp',
   templateUrl: 'goodreads.component.html',
-  styleUrls: []
+  styleUrls: ['goodreads.component.css']
 })
 
 export class GoodreadsComponent implements OnInit {

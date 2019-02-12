@@ -1,0 +1,16 @@
+.title {
+  padding: 20px;
+  text-align: center;
+}
+
+.title img {
+  width: 200px;
+}
+
+.category img {
+  height: 14px;
+}
+
+hr {
+  margin: 4px 0;
+}

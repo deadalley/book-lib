@@ -2,13 +2,26 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <goodreads-import></goodreads-import>
+        <div class="card">
+          <div class="header">
+            <h4 class="title"><img src="/assets/img/goodreads.png"></h4>
+            <hr>
+            <p class="category" placement="bottom" style="padding-bottom: 10px">
+              This page is powered by the <img src="/assets/img/goodreads.png"> database.<br>
+              You can search books and authors and import them into your BookLib library.<br>
+              If you have Goodreads account, you can import your books from there.
+            </p>
+          </div>
+        </div>
       </div>
       <div class="col-md-6">
         <goodreads-search-book></goodreads-search-book>
       </div>
       <div class="col-md-6">
         <goodreads-search-author></goodreads-search-author>
+      </div>
+      <div class="col-md-12">
+        <goodreads-import></goodreads-import>
       </div>
     </div>
   </div>
