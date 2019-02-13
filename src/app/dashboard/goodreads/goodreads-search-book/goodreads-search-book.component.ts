@@ -38,7 +38,9 @@ export class GoodreadsSearchBookComponent implements OnInit {
 
   submit({ searchInput }) {
     const query = searchInput
+    this.isLoading = true
     this.goodreadsService.searchBook(query).subscribe(books => {
+      this.isLoading = false
       this.books = books.map(book => ({
         ...parseBook(book),
         canBeSelected: true,

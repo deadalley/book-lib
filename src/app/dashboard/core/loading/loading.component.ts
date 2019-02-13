@@ -5,11 +5,10 @@ import { Component, OnInit, Input } from '@angular/core'
   // tslint:disable-next-line:component-selector
   selector: 'loading',
   templateUrl: 'loading.component.html',
-  styleUrls: []
+  styleUrls: ['loading.component.css'],
 })
-
 export class LoadingComponent implements OnInit {
   @Input() visible = false
 
-  ngOnInit() { }
+  ngOnInit() {}
 }

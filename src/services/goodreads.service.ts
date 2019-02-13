@@ -36,11 +36,11 @@ export class GoodreadsService {
     return `${url}.xml`
   }
 
-  getUser(cb, id?: number) {
+  getUser(id?: number) {
     const userId = id ? id : this.id
     const url = `${this.domain}/user/show/${userId}`
 
-    // HttpGet(this.http, this.parseUrl(url), this.defaultParams, cb)
+    return HttpGet(this.http, this.parseUrl(url), this.defaultParams)
   }
 
   getBook(id: number) {

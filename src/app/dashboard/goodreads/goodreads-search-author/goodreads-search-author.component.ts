@@ -35,7 +35,9 @@ export class GoodreadsSearchAuthorComponent implements OnInit {
 
   submit({ searchInput }) {
     const query = searchInput
+    this.isLoading = true
     this.goodreadsService.searchAuthor(query).subscribe(authors => {
+      this.isLoading = false
       this.authors = authors.map(author => parseAuthor(author))
     })
   }

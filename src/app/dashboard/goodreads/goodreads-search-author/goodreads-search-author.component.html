@@ -3,7 +3,6 @@
     <h4 class="title">Search authors</h4>
   </div>
   <div class="content">
-    <loading [visible]="isLoading"></loading>
     <form [formGroup]="form" class="search-container" (ngSubmit)="submit(form.value)">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search" formControlName="searchInput">
@@ -17,6 +16,7 @@
       >Search</button>
     </form>
     <hr *ngIf="!isLoading && authors && authors.length">
+    <loading [visible]="isLoading"></loading>
     <div class="authors-display" *ngIf="!isLoading && authors && authors.length">
       <authors-display
         [fullSearchBar]="true"
