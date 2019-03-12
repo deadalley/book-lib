@@ -1,0 +1,14 @@
+i {
+  padding-right: 4px;
+}
+
+.row {
+  padding: 2px 0
+}
+
+.justify {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 35px;
+  font-weight: 400;
+}

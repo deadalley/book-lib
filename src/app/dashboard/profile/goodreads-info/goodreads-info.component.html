@@ -1,0 +1,31 @@
+<div class="card" [@card]>
+  <div class="header">
+    <h4 class="title">
+      Goodreads Account
+    </h4>
+  </div>
+  <div class="content">
+    <ng-container [ngSwitch]="connectedToGoodreads">
+      <div class="row" *ngSwitchCase="!connectedToGoodreads">
+        <div class="col-xs-4"></div>
+        <div class="col-xs-4">
+          <a href="javascript:void(0);" (click)="loginGoodreads()">
+            <img
+              src="/assets/img/Flat/Social buttons by Dreamstale (22).svg"
+              alt="Connect to Goodreads"
+            >
+          </a>
+        </div>
+        <div class="col-xs-4"></div>
+      </div>
+      <div class="row justify-content-center" *ngSwitchCase="connectedToGoodreads">
+        <div class="col-xs-12 text-center">
+          <p>
+            <i class="pe-7s-check" style="font-size: 1.0em; color: #00bb1a"></i>
+            Your account is already connected to Goodreads
+          </p>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

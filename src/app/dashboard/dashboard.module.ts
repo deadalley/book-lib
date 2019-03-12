@@ -12,7 +12,6 @@ import { GoodreadsModule } from './goodreads/goodreads.module'
 
 import { DashboardComponent } from './dashboard.component'
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component'
-import { ProfileComponent } from './profile/profile.component'
 import { ImportComponent } from './import/import.component'
 import { GoodreadsComponent } from './goodreads/goodreads.component'
 
@@ -47,13 +46,16 @@ const dashboardRoutes: Routes = [
         path: 'import',
         component: ImportComponent,
       },
-      { path: 'profile', component: ProfileComponent },
+      {
+        path: 'profile',
+        loadChildren: './profile/profile.module#ProfileModule',
+      },
     ],
   },
 ]
 
 @NgModule({
-  declarations: [DashboardComponent, ProfileComponent, ImportComponent],
+  declarations: [DashboardComponent, ImportComponent],
   imports: [
     RouterModule.forChild(dashboardRoutes),
     CommonModule,
