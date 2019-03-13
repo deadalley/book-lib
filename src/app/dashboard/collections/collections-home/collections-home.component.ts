@@ -72,7 +72,9 @@ export class CollectionsHomeComponent
       })
     )
     this.subscriptions.push(
-      this.uiService.bookCount$.subscribe(value => (this.bookCount = value))
+      this.libraryService.bookCount$.subscribe(
+        value => (this.bookCount = value)
+      )
     )
     this.subscriptions.push(
       this.route.fragment.subscribe(fragment => {

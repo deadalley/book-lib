@@ -81,7 +81,7 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.route.queryParams
       .pipe(
         mergeMap(params =>
-          this.uiService.bookCount$.pipe(
+          this.libraryService.bookCount$.pipe(
             map(bookCount => {
               const view = params.view || 'tiles'
               const max =

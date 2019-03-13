@@ -80,7 +80,7 @@ export class AuthService {
             name: user.displayName || params['displayName'],
             email: user.email,
             displayWelcomeMessage: true,
-            avatarUrl: user.photoUrl,
+            avatarUrl: user.photoUrl || user.photoURL,
           } as DBUser
 
           return this.database.createUser(newUser)

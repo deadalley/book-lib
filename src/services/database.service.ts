@@ -227,6 +227,12 @@ export class DatabaseService {
       .pipe(map(bookIds => bookIds.length)) as Observable<number>
   }
 
+  subscribeToCollectionCount(userRef: string) {
+    return this.userCollectionsRef(userRef)
+      .valueChanges()
+      .pipe(map(collectionIds => collectionIds.length)) as Observable<number>
+  }
+
   createBookForUser(userRef: string, book) {
     return this.createBook({ ...book, ownerId: userRef }).then(
       bookInDatabase => {

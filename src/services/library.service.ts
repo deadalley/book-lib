@@ -31,6 +31,8 @@ export class LibraryService {
   grAuthorIds$: Observable<number[]>
   tags$: Observable<string[]>
   booksToImport$ = this.booksToImport.asObservable()
+  bookCount$: Observable<number>
+  collectionCount$: Observable<number>
 
   rawBooks$: Observable<RawBook[]>
   rawCollections$: Observable<RawCollection[]>
@@ -129,6 +131,16 @@ export class LibraryService {
     this.authors$ = this.grAuthorIds$.pipe(
       mergeMap(ids => this.goodreadsService.getAuthors(ids)),
       map(authors => authors.map(author => parseAuthor(author)))
+    )
+
+    this.bookCount$ = this.session.userRef.pipe(
+      filter(userRef => !!userRef),
+      mergeMap(userRef => this.database.subscribeToBookCount(userRef))
+    )
+
+    this.collectionCount$ = this.session.userRef.pipe(
+      filter(userRef => !!userRef),
+      mergeMap(userRef => this.database.subscribeToCollectionCount(userRef))
     )
   }
 
