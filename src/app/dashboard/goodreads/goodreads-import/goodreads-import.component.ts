@@ -36,8 +36,14 @@ export class GoodreadsImportComponent implements OnInit {
     private sessionService: SessionService,
     private router: Router
   ) {
-    this.sessionService.goodreadsId$.subscribe(id => (this.goodreadsId = +id))
-    this.loadBooks()
+    this.sessionService.goodreadsId$.subscribe(id => {
+      this.goodreadsId = +id
+      if (this.goodreadsId) {
+        this.loadBooks()
+      } else {
+        this.isLoading = false
+      }
+    })
   }
 
   ngOnInit() {}

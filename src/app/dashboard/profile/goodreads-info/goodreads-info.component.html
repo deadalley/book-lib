@@ -6,7 +6,7 @@
   </div>
   <div class="content">
     <ng-container [ngSwitch]="connectedToGoodreads">
-      <div class="row" *ngSwitchCase="!connectedToGoodreads">
+      <div class="row" *ngSwitchCase="false">
         <div class="col-xs-4"></div>
         <div class="col-xs-4">
           <a href="javascript:void(0);" (click)="loginGoodreads()">
@@ -18,7 +18,7 @@
         </div>
         <div class="col-xs-4"></div>
       </div>
-      <div class="row justify-content-center" *ngSwitchCase="connectedToGoodreads">
+      <div class="row justify-content-center" *ngSwitchCase="true">
         <div class="col-xs-12 text-center">
           <p>
             <i class="pe-7s-check" style="font-size: 1.0em; color: #00bb1a"></i>

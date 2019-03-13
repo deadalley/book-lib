@@ -106,7 +106,7 @@ export class AuthService {
 
     this.auth0 = new auth0.WebAuth({ ...this.defaultParams, redirectUri })
 
-    this.auth0.authorize({ connection: 'goodreads' })
+    this.auth0.popup.authorize({ connection: 'goodreads' })
   }
 
   loginGoogle() {
