@@ -1,36 +1,92 @@
 <page-navigator>
-  <div class="card" [@card]>
+  <div class="card card-user" [@card]>
     <div class="header">
-      <h4 class="title">Edit profile</h4>
+      <h4 class="title">Avatar</h4>
     </div>
     <div class="content">
-      <form [formGroup]="form" (ngSubmit)="submit(form.value)">
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="form-group" [ngClass] = "{'has-error': !form.controls['name'].valid && form.controls['name'].touched}">
-              <label>Name:</label>
-              <input type="text" class="form-control" placeholder="Username" formControlName="name">
-              <span class="help-block" *ngIf="!form.controls['name'].valid && form.controls['name'].touched">Please enter a valid book title.</span>
-            </div>
+      <!-- Avatar -->
+      <div class="row" style="text-align: center;">
+        <div class="col-xs-12" style="position: relative">
+          <div class="avatar-wrapper">
+            <img class="avatar border-gray" src="/assets/img/default-avatar.png">
+            <a href="javascript:void(0);">
+              <h4 class="avatar-edit">
+                Upload avatar
+              </h4>
+            </a>
           </div>
         </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="form-group" [ngClass] = "{'has-error': !form.controls['email'].valid && form.controls['email'].touched}">
-              <label>E-mail:</label>
-              <input type="text" class="form-control" placeholder="Username" formControlName="email">
-              <span class="help-block" *ngIf="!form.controls['email'].valid && form.controls['email'].touched">Please enter a valid book title.</span>
-            </div>
+      </div>
+    </div>
+  </div>
+  <div class="card" [@card]>
+    <div class="header">
+      <h4 class="title">Name</h4>
+    </div>
+    <div class="content">
+      <!-- Name -->
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group" [ngClass] = "{'has-error': !form.controls['name'].valid && form.controls['name'].touched}">
+            <label>Name:</label>
+            <input type="text" class="form-control" placeholder="Name" formControlName="name">
+            <span class="help-block" *ngIf="!form.controls['name'].valid && form.controls['name'].touched">Please enter a valid book title.</span>
+          </div>
+          <hr>
+          <!-- Save button -->
+          <div style="text-align: center;">
+            <button type="submit" class="btn btn-success" [disabled]="!form.valid" style="width: 100%;">
+              <i class="pe-7s-diskette"></i>
+              Save
+            </button>
           </div>
         </div>
-        <hr>
-        <div style="text-align: center;">
-          <button type="submit" class="btn btn-success" [disabled]="!form.valid" style="width: 100%;">
-            <i class="pe-7s-diskette"></i>
-            Save
-          </button>
+      </div>
+    </div>
+  </div>
+  <div class="card" [@card]>
+    <div class="header">
+      <h4 class="title">E-mail</h4>
+    </div>
+    <div class="content">
+      <!-- Email -->
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group" [ngClass] = "{'has-error': !form.controls['email'].valid && form.controls['email'].touched}">
+            <label>E-mail:</label>
+            <input type="text" class="form-control" placeholder="E-mail" formControlName="email">
+            <!-- <span class="help-block" *ngIf="!form.controls['email'].valid && form.controls['email'].touched">Please enter a valid book title.</span> -->
+          </div>
         </div>
-      </form>
+      </div>
+      <!-- Confirmation -->
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group" [ngClass] = "{'has-error': !form.controls['emailConfirm'].valid && form.controls['emailConfirm'].touched}">
+            <label>Confirm e-mail:</label>
+            <input type="text" class="form-control" placeholder="Confirm e-mail" formControlName="emailConfirm">
+            <!-- <span class="help-block" *ngIf="!form.controls['emailConfirm'].valid && form.controls['emailConfirm'].touched">Please enter a valid book title.</span> -->
+          </div>
+        </div>
+      </div>
+      <!-- Password -->
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group" [ngClass] = "{'has-error': !form.controls['emailConfirm'].valid && form.controls['emailConfirm'].touched}">
+            <label>Password:</label>
+            <input type="text" class="form-control" placeholder="Password" formControlName="emailConfirm">
+            <!-- <span class="help-block" *ngIf="!form.controls['emailConfirm'].valid && form.controls['emailConfirm'].touched">Please enter a valid book title.</span> -->
+          </div>
+        </div>
+      </div>
+      <hr>
+      <!-- Save button -->
+      <div style="text-align: center;">
+        <button type="submit" class="btn btn-success" [disabled]="!form.valid" style="width: 100%;">
+          <i class="pe-7s-diskette"></i>
+          Save
+        </button>
+      </div>
     </div>
   </div>
 </page-navigator>

@@ -2,6 +2,10 @@ i {
   padding-right: 4px;
 }
 
+hr {
+  margin: 0;
+}
+
 .row {
   padding: 2px 0
 }
@@ -11,4 +15,32 @@ i {
   justify-content: space-between;
   padding: 0 35px;
   font-weight: 400;
+}
+
+.avatar-wrapper {
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+}
+
+.avatar {
+  margin: 0;
+  width: 200px;
+  height: 200px;
+}
+
+.avatar-edit {
+  position: absolute;
+  margin: 0;
+  bottom: 0;
+  width: 100%;
+  font-size: 16px;
+  color: #FFFFFF;
+  background: rgba(0, 0, 0, 0.1);
+  padding-bottom: 16px;
+}
+
+.avatar-edit:hover {
+  background: rgba(0, 0, 0, 0.2);
 }
