@@ -8,8 +8,12 @@
       <div class="row" style="text-align: center;">
         <div class="col-xs-12" style="position: relative">
           <div class="avatar-wrapper">
-            <img class="avatar border-gray" src="/assets/img/default-avatar.png">
-            <a href="javascript:void(0);">
+            <img
+              class="avatar border-gray"
+              [src]="user.avatarUrl || '/assets/img/default-avatar.png'"
+            >
+            <input style="display: none" [hidden]="true" #imageUpload type="file" (change)="uploadImage($event)">
+            <a href="javascript:void(0);" (click)="imageUpload.click()">
               <h4 class="avatar-edit">
                 Upload avatar
               </h4>
@@ -27,60 +31,62 @@
       <!-- Name -->
       <div class="row">
         <div class="col-xs-12">
-          <div class="form-group" [ngClass] = "{'has-error': !form.controls['name'].valid && form.controls['name'].touched}">
-            <label>Name:</label>
-            <input type="text" class="form-control" placeholder="Name" formControlName="name">
-            <span class="help-block" *ngIf="!form.controls['name'].valid && form.controls['name'].touched">Please enter a valid book title.</span>
-          </div>
-          <hr>
-          <!-- Save button -->
-          <div style="text-align: center;">
-            <button type="submit" class="btn btn-success" [disabled]="!form.valid" style="width: 100%;">
-              <i class="pe-7s-diskette"></i>
-              Save
-            </button>
-          </div>
+          <form [formGroup]="nameForm" (ngSubmit)="submit(nameForm.value)">
+            <div class="form-group" [ngClass] = "{'has-error': !nameForm.controls['name'].valid && nameForm.controls['name'].touched}">
+              <label>Name:</label>
+              <input type="text" class="form-control" placeholder="Name" formControlName="name">
+              <span class="help-block" *ngIf="!nameForm.controls['name'].valid && nameForm.controls['name'].touched">Please enter a valid name.</span>
+            </div>
+            <hr>
+            <!-- Save button -->
+            <div style="text-align: center;">
+              <button type="submit" class="btn btn-success" [disabled]="!nameForm.valid" style="width: 100%;">
+                <i class="pe-7s-diskette"></i>
+                Save
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-  <div class="card" [@card]>
+  <!-- <div class="card" [@card]>
     <div class="header">
       <h4 class="title">E-mail</h4>
     </div>
     <div class="content">
-      <!-- Email -->
+      <!-- Email --
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group" [ngClass] = "{'has-error': !form.controls['email'].valid && form.controls['email'].touched}">
             <label>E-mail:</label>
             <input type="text" class="form-control" placeholder="E-mail" formControlName="email">
-            <!-- <span class="help-block" *ngIf="!form.controls['email'].valid && form.controls['email'].touched">Please enter a valid book title.</span> -->
+            <!-- <span class="help-block" *ngIf="!form.controls['email'].valid && form.controls['email'].touched">Please enter a valid book title.</span> --
           </div>
         </div>
       </div>
-      <!-- Confirmation -->
+      <!-- Confirmation --
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group" [ngClass] = "{'has-error': !form.controls['emailConfirm'].valid && form.controls['emailConfirm'].touched}">
             <label>Confirm e-mail:</label>
             <input type="text" class="form-control" placeholder="Confirm e-mail" formControlName="emailConfirm">
-            <!-- <span class="help-block" *ngIf="!form.controls['emailConfirm'].valid && form.controls['emailConfirm'].touched">Please enter a valid book title.</span> -->
+            <!-- <span class="help-block" *ngIf="!form.controls['emailConfirm'].valid && form.controls['emailConfirm'].touched">Please enter a valid book title.</span> --
           </div>
         </div>
       </div>
-      <!-- Password -->
+      <!-- Password --
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group" [ngClass] = "{'has-error': !form.controls['emailConfirm'].valid && form.controls['emailConfirm'].touched}">
             <label>Password:</label>
             <input type="text" class="form-control" placeholder="Password" formControlName="emailConfirm">
-            <!-- <span class="help-block" *ngIf="!form.controls['emailConfirm'].valid && form.controls['emailConfirm'].touched">Please enter a valid book title.</span> -->
+            <!-- <span class="help-block" *ngIf="!form.controls['emailConfirm'].valid && form.controls['emailConfirm'].touched">Please enter a valid book title.</span> --
           </div>
         </div>
       </div>
       <hr>
-      <!-- Save button -->
+      <!-- Save button --
       <div style="text-align: center;">
         <button type="submit" class="btn btn-success" [disabled]="!form.valid" style="width: 100%;">
           <i class="pe-7s-diskette"></i>
@@ -88,5 +94,5 @@
         </button>
       </div>
     </div>
-  </div>
+  </div> -->
 </page-navigator>

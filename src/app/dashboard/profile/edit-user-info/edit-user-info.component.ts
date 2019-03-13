@@ -5,6 +5,7 @@ import { ANIMATIONS } from 'utils/constants'
 import { SessionService } from 'services/session.service'
 import { DatabaseService } from 'services/database.service'
 import { Router } from '@angular/router'
+import { mergeMap } from 'rxjs/operators'
 
 @Component({
   selector: 'edit-user-info',
@@ -14,7 +15,7 @@ import { Router } from '@angular/router'
 })
 export class EditUserInfoComponent implements OnInit {
   user = {} as User
-  form: FormGroup
+  nameForm: FormGroup
 
   constructor(
     private fb: FormBuilder,
@@ -23,10 +24,8 @@ export class EditUserInfoComponent implements OnInit {
     private databaseService: DatabaseService
   ) {
     this.user = this.sessionService.localUser
-    this.form = this.fb.group({
+    this.nameForm = this.fb.group({
       name: [this.user.name, Validators.required],
-      email: [this.user.email, Validators.required],
-      emailConfirmation: [this.user.email, Validators.required]
     })
   }
 
@@ -38,5 +37,18 @@ export class EditUserInfoComponent implements OnInit {
     this.databaseService
       .updateUser(this.user.id, formValues)
       .then(() => this.router.navigate(['dashboard/profile']))
+  }
+
+  uploadImage(event) {
+    this.databaseService
+      .uploadAvatar(this.sessionService.userId, event.target.files[0])
+      .pipe(
+        mergeMap<any, any>(imagePath =>
+          this.databaseService.updateUser(this.sessionService.userId, {
+            avatarUrl: imagePath,
+          })
+        )
+      )
+      .subscribe(() => (this.user = this.sessionService.localUser))
   }
 }

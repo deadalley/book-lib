@@ -4,7 +4,7 @@
   </div>
   <div class="content">
     <div class="author">
-      <img class="avatar border-gray" src="/assets/img/default-avatar.png">
+      <img class="avatar border-gray" [src]="user.avatarUrl || '/assets/img/default-avatar.png'">
       <h4 class="title">
         {{user.name}}
         <br>

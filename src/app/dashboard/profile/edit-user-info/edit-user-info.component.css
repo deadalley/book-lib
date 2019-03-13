@@ -44,3 +44,21 @@ hr {
 .avatar-edit:hover {
   background: rgba(0, 0, 0, 0.2);
 }
+
+.btn-success {
+  color: #fff;
+  background-color: #18b518;
+  border-color: #4cae4c;
+}
+
+.btn-success:focus {
+  color: #fff;
+  background-color: #449d44;
+  border-color: #255625;
+}
+
+.btn-success:hover {
+  color: #fff;
+  background-color: #449d44;
+  border-color: #398439;
+}
