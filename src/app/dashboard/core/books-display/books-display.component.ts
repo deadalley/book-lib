@@ -69,11 +69,9 @@ export class BooksDisplayComponent implements OnInit {
   toggleTilesDisplay() {
     this.tilesDisplay = !this.tilesDisplay
     if (!this.immutableMaxBooks) {
-      if (this.tilesDisplay) {
-        this.maxBooks = MAX_BOOKS_DISPLAY
-      } else {
-        this.maxBooks = MAX_BOOKS_DISPLAY_LIST
-      }
+      this.maxBooks = this.tilesDisplay
+        ? MAX_BOOKS_DISPLAY
+        : MAX_BOOKS_DISPLAY_LIST
       this.pageCount = Math.ceil(this.books.length / this.maxBooks)
       if (this.page > this.pageCount) {
         this.page = this.pageCount

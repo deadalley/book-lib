@@ -50,11 +50,9 @@ export class AuthorsDisplayComponent implements OnInit {
   toggleTilesDisplay() {
     this.tilesDisplay = !this.tilesDisplay
     if (!this.immutableMaxAuthors) {
-      if (this.tilesDisplay) {
-        this.maxAuthors = MAX_BOOKS_DISPLAY
-      } else {
-        this.maxAuthors = MAX_BOOKS_DISPLAY_LIST
-      }
+      this.maxAuthors = this.tilesDisplay
+        ? MAX_BOOKS_DISPLAY
+        : MAX_BOOKS_DISPLAY_LIST
     }
   }
 }

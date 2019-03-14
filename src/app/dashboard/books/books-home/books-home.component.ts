@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router'
 import { Book } from 'models/book.model'
 import { LibraryService } from 'services/library.service'
 import { scrollToAnchor } from 'utils/helpers'
-import { UiService } from 'services/ui.service'
 import {
   BOOK_GROUPINGS,
   MAX_BOOKS,
@@ -44,7 +43,6 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private libraryService: LibraryService,
-    private uiService: UiService,
     private route: ActivatedRoute
   ) {
     this.MAX_BOOKS = MAX_BOOKS

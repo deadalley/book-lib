@@ -3,7 +3,7 @@ import * as XLSX from 'xlsx'
 import { LANGUAGES } from 'utils/constants'
 import { upperCaseFirstLetter } from 'utils/helpers'
 import { Book } from 'database/models/book.model'
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 
 type AOA = any[][]
 

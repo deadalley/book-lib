@@ -1,9 +1,8 @@
-import { Component, OnInit, OnDestroy, ViewChild, Input } from '@angular/core'
+import { Component, OnInit, OnDestroy, Input } from '@angular/core'
 import { Router, ActivatedRoute, Params } from '@angular/router'
 import { upperCaseFirstLetter } from 'utils/helpers'
 
 import { Book } from 'models/book.model'
-import { FILTERS } from 'utils/constants'
 import { LibraryService } from 'services/library.service'
 import { Author } from 'models/author.model'
 

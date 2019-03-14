@@ -8,7 +8,7 @@ import {
   ViewChildren,
 } from '@angular/core'
 import { LANGUAGES } from 'utils/constants'
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { map, debounceTime } from 'rxjs/operators'
 import { upperCaseFirstLetter } from 'utils/helpers'
 

@@ -18,7 +18,6 @@ export class LibraryService {
   private MAX_DATE = 4
   private books = new BehaviorSubject<Book[]>(undefined)
   private collections = new BehaviorSubject<Collection[]>(undefined)
-  private authors = new BehaviorSubject<Author[]>(undefined)
   private grAuthorIds = new BehaviorSubject<number[]>(undefined)
   private booksToImport = new BehaviorSubject<Book[]>(undefined)
 
@@ -158,7 +157,7 @@ export class LibraryService {
       mergeMap(collections =>
         this.books$.pipe(
           map(books => {
-            const book = books.find(book => book.id === id)
+            const book = books.find(b => b.id === id)
             if (!book) {
               return book
             }

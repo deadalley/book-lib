@@ -124,12 +124,6 @@ export class DatabaseService {
     )
   }
 
-  private getFromUser(collection: AngularFireList<string>) {
-    return collection.query.once('value').then(values => {
-      return objectToArray(values)
-    })
-  }
-
   private removeFromUser(collection: AngularFireList<string>, id: string) {
     return collection.query.once('value').then(res => {
       const ids = res.val()

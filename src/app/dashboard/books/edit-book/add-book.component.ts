@@ -4,11 +4,9 @@ import { Location } from '@angular/common'
 import { Book } from 'models/book.model'
 import { Author } from 'models/author.model'
 import { ANIMATIONS } from 'utils/constants'
-import { cleanFormValues, parseBook, parseAuthor } from 'utils/helpers'
+import { cleanFormValues } from 'utils/helpers'
 import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
 import { LibraryService } from 'services/library.service'
-import { GoodreadsService } from 'services/goodreads.service'
-import { Router } from '@angular/router'
 
 @Component({
   moduleId: module.id,

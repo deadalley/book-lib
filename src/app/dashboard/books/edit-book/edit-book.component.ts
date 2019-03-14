@@ -4,10 +4,9 @@ import { Router, ActivatedRoute } from '@angular/router'
 import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
 import { Book } from 'models/book.model'
 import { Author } from 'models/author.model'
-import { cleanFormValues, parseBook, parseAuthor } from 'utils/helpers'
+import { cleanFormValues } from 'utils/helpers'
 import { ANIMATIONS } from 'utils/constants'
 import { LibraryService } from 'services/library.service'
-import { GoodreadsService } from 'services/goodreads.service'
 import { mergeMap, map } from 'rxjs/operators'
 import { DatabaseService } from 'services/database.service'
 import { SessionService } from 'services/session.service'
@@ -59,7 +58,6 @@ export class EditBookComponent implements OnInit, OnDestroy {
     private sessionService: SessionService,
     private libraryService: LibraryService,
     private databaseService: DatabaseService,
-    private goodreadsService: GoodreadsService,
     private router: Router,
     private route: ActivatedRoute
   ) {}

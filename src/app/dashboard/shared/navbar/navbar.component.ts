@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core'
-import { ROUTES } from '../../sidebar/sidebar.component'
 import { Router } from '@angular/router'
-import { Location } from '@angular/common'
 import { AuthService } from 'services/auth.service'
 
 @Component({
@@ -10,8 +8,6 @@ import { AuthService } from 'services/auth.service'
   templateUrl: 'navbar.component.html',
 })
 export class NavbarComponent implements OnInit {
-  private listTitles: any[]
-  private nativeElement: Node
   private toggleButton
   private sidebarVisible: boolean
 
@@ -22,12 +18,10 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private element: ElementRef
   ) {
-    this.nativeElement = element.nativeElement
     this.sidebarVisible = false
   }
 
   ngOnInit() {
-    this.listTitles = ROUTES.filter(listTitle => listTitle)
     const navbar: HTMLElement = this.element.nativeElement
     this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0]
   }

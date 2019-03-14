@@ -6,7 +6,7 @@ import { SessionService } from './session.service'
 import * as _ from 'lodash'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { map, mergeMap } from 'rxjs/operators'
-import { Observable } from 'rxjs'
+import { Observable } from 'rxjs/Observable'
 import { Book } from 'models/book.model'
 
 const USE_PROXY = true

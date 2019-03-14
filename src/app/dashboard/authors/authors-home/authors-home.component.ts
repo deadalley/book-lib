@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { Author } from 'models/author.model'
 import { Book } from 'models/book.model'
-import { GoodreadsService } from 'services/goodreads.service'
 import { LibraryService } from 'services/library.service'
-import { parseAuthor } from 'utils/helpers'
 import { ANIMATIONS, MAX_BOOKS, MAX_BOOKS_LIST } from 'utils/constants'
 import { mergeMap, map } from 'rxjs/operators'
 
@@ -26,7 +24,6 @@ export class AuthorsHomeComponent implements OnInit {
 
   constructor(
     private libraryService: LibraryService,
-    private goodreadsService: GoodreadsService,
     private route: ActivatedRoute
   ) {}
 

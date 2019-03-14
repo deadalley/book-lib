@@ -19,7 +19,7 @@ export class SearchFilterPipe implements PipeTransform {
           )
         )
       }
-      const lowerCaseItems = items.map(item => item.toLowerCase())
+      const lowerCaseItems = items.map(it => it.toLowerCase())
       return queryItems.some(queryItem => lowerCaseItems.includes(queryItem))
     })
   }

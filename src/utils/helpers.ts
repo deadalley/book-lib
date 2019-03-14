@@ -1,5 +1,4 @@
 import * as _ from 'lodash'
-import { BooksComponent } from 'app/dashboard/books/books.component'
 
 export const cleanFormValues = (formValues): object => {
   // tslint:disable-next-line:prefer-const

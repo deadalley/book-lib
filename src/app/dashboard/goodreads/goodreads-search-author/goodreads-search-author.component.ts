@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core'
 import { FormGroup, Validators, FormBuilder } from '@angular/forms'
 import { GoodreadsService } from 'services/goodreads.service'
 import { parseAuthor } from 'utils/helpers'
-import { LibraryService } from 'services/library.service'
 import { Author } from 'models/author.model'
 import { Router } from '@angular/router'
 
