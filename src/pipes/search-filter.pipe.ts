@@ -15,7 +15,8 @@ export class SearchFilterPipe implements PipeTransform {
         return keys.some(key =>
           queryItems.some(
             queryItem =>
-              item[key] && item[key].toLowerCase().includes(queryItem)
+              item[key] &&
+              item[key].toLowerCase().includes(queryItem.toLowerCase())
           )
         )
       }

@@ -16,7 +16,7 @@
 				<!-- First row -->
 				<div class="row">
 					<!-- Title -->
-					<div class="col-md-6">
+					<div class="col-xs-12 col-md-6">
 						<div class="form-group" [ngClass] = "{'has-error': !form.controls['title'].valid && form.controls['title'].touched}">
 							<label>Book Title <span style="color: red">*</span></label>
 							<div style="display: flex">
@@ -26,43 +26,73 @@
 										Please enter a valid book title.
 									</span>
 								</div>
-								<!-- <button type="button"
-									(click)="searchBookOnGoodreads(bookTitle)"
-									class="btn btn-default"
-									style="margin-left: 13px"
-									tooltip="Search Goodreads"
-									[isDisabled]="false"
-									[tooltipAnimation]="true"
-									placement="bottom">
-									<span class="pe-7s-search" aria-hidden="true" style="font-size: 1.2em;"></span>
-								</button> -->
 							</div>
 						</div>
 					</div>
 					<!-- Author -->
-					<div class="col-md-6">
+					<div [ngClass]="{'col-xs-10 col-md-5': selectedAuthorId, 'col-xs-12 col-md-6': !selectedAuthorId}">
 						<div class="form-group" [ngClass] = "{'has-error': !form.controls['author'].valid && form.controls['author'].touched}">
 							<label>Author <span style="color: red">*</span></label>
-							<div style="display: flex">
-								<div style="width: 100%">
-										<input type="text" class="form-control" placeholder="Author name" formControlName="author">
-										<span class="help-block" *ngIf="!form.controls['author'].valid && form.controls['author'].touched">
-											Please enter a valid author name.
-										</span>
-									</div>								
-									<!-- <button type="button"
-										(click)="searchAuthorOnGoodreads(authorName)"
-										class="btn btn-default"
-										style="margin-left: 13px"
-										tooltip="Search Goodreads"
-										[isDisabled]="false"
-										[tooltipAnimation]="true"
-										placement="bottom"
+							<div style="display: flex; width: 100%; flex-direction: column;">
+								<div class="input-group" style="width: 100%;">
+									<input
+										type="text"
+										class="form-control"
+										placeholder="Author name"
+										formControlName="author"
+										(focus)="authorFocus.next(true)"
+										(blur)="authorFocus.next(false)"
 									>
-									<span class="pe-7s-search" aria-hidden="true" style="font-size: 1.2em;"></span>
-								</button> -->
+									<div class="input-group-addon" style="border: 1px solid #E3E3E3">
+										<img
+											class="goodreads-img"
+											[ngClass]="{'goodreads-img-disabled': !selectedAuthorId}"
+											src="/assets/img/goodreads.png"
+											[tooltip]="selectedAuthorId ? 'Linked to Goodreads' : 'Not linked to Goodreads'"
+											[tooltipAnimation]="true"
+											placement="bottom"
+										>
+									</div>
+									<ul *ngIf="authorHasFocus" class="search-results" #searchResults>
+										<li
+											*ngFor="let author of allAuthors | searchFilter: authorName:['name']"
+											class="result"
+											(click)="selectAuthor(author)"
+										>
+											<div class="fixed-width">
+												<img
+													*ngIf="author.imageSmall || author.imageLarge"
+													[src]="author.imageSmall || author.imageLarge"
+													alt="Author"
+												>
+											</div>
+											<div class="props">
+												{{author.name}}
+												<!-- <br>
+												<span class="result-author">{{author[props.sub]}}</span> -->
+											</div>
+										</li>
+										<li *ngIf="!(allAuthors | searchFilter: authorName:['name']).length" #result class="result">
+											No results found
+										</li>
+									</ul>
+								</div>
+								<span class="help-block" *ngIf="!form.controls['author'].valid && form.controls['author'].touched">
+									Please enter a valid author name.
+								</span>
 							</div>
 						</div>
+					</div>
+					<div class="col-xs-2 col-md-1" *ngIf="selectedAuthorId">
+						<button
+							type="button"
+							(click)="selectedAuthorId = 0"
+							class="btn btn-default"
+							style="margin-top: 25px; width: 100%;"
+							tooltip="Remove Goodreads Link"
+							[tooltipAnimation]="true"
+							placement="bottom"
+						>X</button>
 					</div>
 				</div>
 
