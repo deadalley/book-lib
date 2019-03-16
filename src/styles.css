@@ -7,6 +7,11 @@
 @import 'https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css';
 @import 'http://fonts.googleapis.com/css?family=Roboto:400,700,300';
 
+body {
+  font-family: "Roboto","Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+}
+
 .card .title {
   margin-top: 0;
   margin-bottom: 0;

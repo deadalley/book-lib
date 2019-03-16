@@ -1,0 +1,32 @@
+.navbar-default {
+  background: rgb(9, 41, 53);
+  margin-bottom: 0;
+}
+
+.brand-with-icon {
+  display: flex;
+  align-items: center;
+}
+
+.icon-brand {
+  height: 40px;
+}
+
+.bold {
+  font-weight: 400;
+}
+
+.brand {
+  font-size: 20px;
+  line-height: 1;
+}
+
+p {
+  font-size: 16px;
+  color: #FFFFFF;
+  font-weight: 200;
+}
+
+li > a:hover > p {
+  color: #AAAAAA;
+}
