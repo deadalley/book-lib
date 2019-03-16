@@ -167,6 +167,7 @@
 								placeholder="Add genre..."
 								iconClass="pe-7s-folder"
 								[items]="genres"
+								[suggestions]="allGenres"
 								(getItems)="getGenres($event)"
 								(hasFocus)="preventSubmit = $event"
 								></book-tags>

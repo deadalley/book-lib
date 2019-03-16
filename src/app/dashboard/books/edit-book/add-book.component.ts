@@ -20,7 +20,9 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators'
 export class AddBookComponent implements OnInit {
   form: FormGroup
   allAuthors: Author[] = []
-  allCollections: string[]
+  allCollections: string[] = []
+  allTags: string[] = []
+  allGenres: string[] = []
   collections: string[]
   genres: string[]
   tags: string[]
@@ -50,7 +52,6 @@ export class AddBookComponent implements OnInit {
     private location: Location,
     private libraryService: LibraryService
   ) {
-    this.allCollections = []
     this.libraryService.collections$.subscribe(collections => {
       this.allCollections = collections.map(collection => collection.title)
       this.loadingCollections = false
@@ -58,6 +59,8 @@ export class AddBookComponent implements OnInit {
     this.libraryService.authors$.subscribe(
       authors => (this.allAuthors = authors)
     )
+    this.libraryService.tags$.subscribe(tags => (this.allTags = tags))
+    this.libraryService.genres$.subscribe(genres => (this.allGenres = genres))
     this.form = this.fb.group({
       title: ['', Validators.required],
       original: '',

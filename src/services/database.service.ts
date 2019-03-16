@@ -37,6 +37,10 @@ export class DatabaseService {
     return this.db.object(`${this.rootUrl}/users/${userRef}/tags`)
   }
 
+  private userGenresRef(userRef: string): AngularFireObject<string> {
+    return this.db.object(`${this.rootUrl}/users/${userRef}/genres`)
+  }
+
   constructor(
     private db: AngularFireDatabase,
     private session: SessionService,
@@ -232,6 +236,7 @@ export class DatabaseService {
       bookInDatabase => {
         return Promise.all([
           this.userBooksRef(userRef).push(bookInDatabase.id),
+          this.mergeGenres(userRef, book.genres, []),
           this.mergeTags(userRef, book.tags, []),
           ...book.collections.map(collectionId => {
             return this.addBooksToCollection(collectionId, [bookInDatabase.id])
@@ -267,6 +272,9 @@ export class DatabaseService {
       const oldTags = oldBook.tags || []
       const newTags = book.tags || []
 
+      const oldGenres = oldBook.genres || []
+      const newGenres = book.genres || []
+
       const collectionsToAdd = newCollections.filter(
         collection => !oldCollections.includes(collection)
       )
@@ -277,8 +285,12 @@ export class DatabaseService {
       const tagsToAdd = difference(newTags, oldTags)
       const tagsToRemove = difference(oldTags, newTags)
 
+      const genresToAdd = difference(newGenres, oldGenres)
+      const genresToRemove = difference(oldGenres, newGenres)
+
       return Promise.all([
         this.updateBook({ ...oldBook, ...book }),
+        this.mergeGenres(userRef, genresToAdd, genresToRemove),
         this.mergeTags(userRef, tagsToAdd, tagsToRemove),
         this.addBooksToCollections(collectionsToAdd, [book.id]),
         this.removeBooksFromCollections(collectionsToRemove, [book.id]),
@@ -289,6 +301,7 @@ export class DatabaseService {
   deleteBookForUser(userRef: string, book: Book) {
     return Promise.all([
       this.deleteBook(book),
+      this.mergeGenres(userRef, [], book.genres),
       this.mergeTags(userRef, [], book.tags),
       this.removeBookFromUser(userRef, book.id),
       this.removeBooksFromCollections(book.collections, [book.id]),
@@ -483,6 +496,22 @@ export class DatabaseService {
       .then(snap => snap.val() || {})
   }
 
+  private userGenreRef(userRef: string, genre: string) {
+    return this.db.object(`${this.rootUrl}/users/${userRef}/genres/${genre}`)
+  }
+
+  private findGenreCount(userRef: string, genre: string) {
+    return this.userGenreRef(userRef, genre)
+      .query.once('value')
+      .then(snap => snap.val())
+  }
+
+  private getGenresForUser(userRef: string) {
+    return this.userGenresRef(userRef)
+      .query.once('value')
+      .then(snap => snap.val() || {})
+  }
+
   private mergeTags(
     userRef: string,
     tagsToAdd: string[] = [],
@@ -512,6 +541,41 @@ export class DatabaseService {
 
   subscribeToTagsFromUser(userRef: string) {
     return this.userTagsRef(userRef)
+      .valueChanges()
+      .pipe(map(value => (value ? Object.keys(value) : null))) as Observable<
+      string[]
+    >
+  }
+
+  private mergeGenres(
+    userRef: string,
+    genresToAdd: string[] = [],
+    genresToRemove: string[] = []
+  ) {
+    return this.getGenresForUser(userRef).then(userGenres => {
+      const newGenres = difference(genresToAdd, Object.keys(userGenres))
+      const existingGenres = intersection(genresToAdd, Object.keys(userGenres))
+
+      newGenres.forEach(genre => this.userGenreRef(userRef, genre).set(1))
+      existingGenres.forEach(genre =>
+        this.findGenreCount(userRef, genre).then(genreCount =>
+          this.userGenreRef(userRef, genre).set(genreCount + 1)
+        )
+      )
+      genresToRemove.forEach(genre => {
+        this.findGenreCount(userRef, genre).then(genreCount => {
+          if (genreCount === 1) {
+            this.userGenreRef(userRef, genre).remove()
+          } else {
+            this.userGenreRef(userRef, genre).set(genreCount - 1)
+          }
+        })
+      })
+    })
+  }
+
+  subscribeToGenresFromUser(userRef: string) {
+    return this.userGenresRef(userRef)
       .valueChanges()
       .pipe(map(value => (value ? Object.keys(value) : null))) as Observable<
       string[]

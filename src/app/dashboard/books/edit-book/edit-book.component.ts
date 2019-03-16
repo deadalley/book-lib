@@ -34,8 +34,9 @@ export class EditBookComponent implements OnInit, OnDestroy {
   }
   form: FormGroup
   allAuthors: Author[] = []
-  allCollections: string[]
+  allCollections: string[] = []
   allTags: string[] = []
+  allGenres: string[] = []
   collections: string[]
   genres: string[]
   tags: string[]
@@ -88,12 +89,14 @@ export class EditBookComponent implements OnInit, OnDestroy {
       this.loadCollections(),
       this.loadBook(),
       this.loadAuthors(),
-      this.loadTags()
-    ).subscribe(([collections, book, authors, tags]) => {
+      this.loadTags(),
+      this.loadGenres()
+    ).subscribe(([collections, book, authors, tags, genres]) => {
       this.setCollections(collections)
       this.setBook(book)
       this.setAuthors(authors)
       this.setTags(tags)
+      this.setGenres(genres)
     })
 
     this.authorFocus
@@ -179,7 +182,19 @@ export class EditBookComponent implements OnInit, OnDestroy {
   }
 
   setTags(tags) {
-    this.allTags = tags
+    if (tags) {
+      this.allTags = tags
+    }
+  }
+
+  loadGenres() {
+    return this.libraryService.genres$
+  }
+
+  setGenres(genres) {
+    if (genres) {
+      this.allGenres = genres
+    }
   }
 
   selectAuthor(author) {

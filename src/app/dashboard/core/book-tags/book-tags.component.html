@@ -17,7 +17,7 @@
       </button>
     </span>
     <ul
-      *ngIf="true"
+      *ngIf="debouncedHasFocus"
       class="search-results"
       [ngClass]="{'no-border': !(filteredSuggestions | searchFilter: searchValue).length}"
     >

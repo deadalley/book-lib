@@ -68,7 +68,6 @@ export class BookTagsComponent implements OnInit {
   }
 
   pushItem(value) {
-    console.log('pushing', value)
     if (value !== '') {
       this.items.push(value)
       this.getItems.emit(this.items)
