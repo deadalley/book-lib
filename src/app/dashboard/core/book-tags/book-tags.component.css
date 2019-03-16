@@ -29,3 +29,47 @@
 .white {
   color: #f9f9f9;
 }
+
+.search-results {
+  padding: 0;
+  width: 100%;
+  z-index: 1;
+  max-height: 150px;
+  border-color: #888888;
+  border-radius: 4px;
+  list-style: none;
+  color: rgb(105, 105, 105);
+  border: 1px solid #ccc;
+  border-top: none;
+  /*so things don't jump around*/
+  position: absolute;
+  left: 0;
+  top: calc(50% + 20px);
+  overflow-y: auto;
+  background: #fff
+}
+
+.result {
+  cursor: pointer;
+  min-height: 40px;
+  text-align: left;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding: 6px;
+  color: #333333;
+  font-size: 14px;
+}
+
+.result:hover {
+  background: #f7f7f7;
+}
+
+.no-border {
+  border: 0;
+}
+
+img {
+  height: 58px;
+  width: auto;
+}

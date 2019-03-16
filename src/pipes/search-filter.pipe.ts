@@ -10,7 +10,7 @@ export class SearchFilterPipe implements PipeTransform {
     }
 
     return items.filter(item => {
-      const queryItems = query.split(' ')
+      const queryItems = query.split(' ').filter(item => !!item)
       if (keys) {
         return keys.some(key =>
           queryItems.some(
@@ -20,8 +20,13 @@ export class SearchFilterPipe implements PipeTransform {
           )
         )
       }
-      const lowerCaseItems = items.map(it => it.toLowerCase())
-      return queryItems.some(queryItem => lowerCaseItems.includes(queryItem))
+      const lowerCaseItems = item
+        .split(' ')
+        .filter(it => !!it)
+        .map(it => it.toLowerCase())
+      return lowerCaseItems.some(it =>
+        queryItems.some(queryItem => it.includes(queryItem.toLowerCase()))
+      )
     })
   }
 }

@@ -181,6 +181,7 @@
 								placeholder="Add tags..."
 								iconClass="pe-7s-ticket"
 								[items]="tags"
+								[suggestions]="allTags"
 								(getItems)="getTags($event)"
 								(hasFocus)="preventSubmit = $event"
 								tags="true"

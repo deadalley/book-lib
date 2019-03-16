@@ -42,6 +42,10 @@
   font-size: 14px;
 }
 
+.result:hover {
+  background: #f7f7f7;
+}
+
 img {
   height: 58px;
   width: auto;

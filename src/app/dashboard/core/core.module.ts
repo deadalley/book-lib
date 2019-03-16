@@ -29,7 +29,8 @@ import { PagesComponent } from './pages/pages.component'
 import { SearchBoxComponent } from './search-box/search-box.component'
 import { BookFilterPipe } from 'pipes/book-filter.pipe'
 import { PagePipe } from 'pipes/page.pipe'
-import { SearchFilterPipe } from 'pipes/search-filter.pipe'
+import { SearchFilterPipe } from 'pipes/search-filter.pipe';
+import { InputWithSuggestionsComponent } from './input-with-suggestions/input-with-suggestions.component'
 @NgModule({
   declarations: [
     AuthorCardComponent,
@@ -55,6 +56,7 @@ import { SearchFilterPipe } from 'pipes/search-filter.pipe'
     BookFilterPipe,
     PagePipe,
     SearchFilterPipe,
+    InputWithSuggestionsComponent,
   ],
   imports: [
     LoadingModule.forRoot({

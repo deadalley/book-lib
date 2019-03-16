@@ -3,6 +3,7 @@
     <input
       #tagInput
       type="text"
+      [formControl]="tagInputValue"
       class="form-control"
       placeholder="{{placeholder}}"
       (keyup)="keyupHandle($event, tagInput.value)"
@@ -15,6 +16,21 @@
         <i class="ti-plus"></i>
       </button>
     </span>
+    <ul
+      *ngIf="true"
+      class="search-results"
+      [ngClass]="{'no-border': !(filteredSuggestions | searchFilter: searchValue).length}"
+    >
+      <li
+        *ngFor="let suggestion of filteredSuggestions | searchFilter: searchValue"
+        class="result"
+        (click)="pushItem(suggestion)"
+      >
+        <div class="props">
+          {{suggestion}}
+        </div>
+      </li>
+    </ul>
   </div>
   <div class="values">
     <span *ngFor="let item of items; let lastItem = last; let i = index" class="value" [ngClass]="{tags: tags}">

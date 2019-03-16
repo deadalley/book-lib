@@ -35,6 +35,7 @@ export class EditBookComponent implements OnInit, OnDestroy {
   form: FormGroup
   allAuthors: Author[] = []
   allCollections: string[]
+  allTags: string[] = []
   collections: string[]
   genres: string[]
   tags: string[]
@@ -86,11 +87,13 @@ export class EditBookComponent implements OnInit, OnDestroy {
     combineLatest(
       this.loadCollections(),
       this.loadBook(),
-      this.loadAuthors()
-    ).subscribe(([collections, book, authors]) => {
+      this.loadAuthors(),
+      this.loadTags()
+    ).subscribe(([collections, book, authors, tags]) => {
       this.setCollections(collections)
       this.setBook(book)
       this.setAuthors(authors)
+      this.setTags(tags)
     })
 
     this.authorFocus
@@ -169,6 +172,14 @@ export class EditBookComponent implements OnInit, OnDestroy {
 
   setAuthors(authors) {
     this.allAuthors = authors
+  }
+
+  loadTags() {
+    return this.libraryService.tags$
+  }
+
+  setTags(tags) {
+    this.allTags = tags
   }
 
   selectAuthor(author) {
