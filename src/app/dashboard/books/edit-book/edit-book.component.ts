@@ -15,7 +15,6 @@ import {
 } from 'rxjs/operators'
 import { DatabaseService } from 'services/database.service'
 import { SessionService } from 'services/session.service'
-import { fromEvent } from 'rxjs/Observable/fromEvent'
 import { combineLatest, Subject } from 'rxjs'
 @Component({
   moduleId: module.id,
@@ -48,8 +47,6 @@ export class EditBookComponent implements OnInit, OnDestroy {
   loadingBook = true
   loadingCollections = true
   displayDelete = true
-  suggestedBooks: Book[]
-  suggestedAuthors: Author[]
   goodreadsId: number
   authorName: string
   authorHasFocus: boolean
