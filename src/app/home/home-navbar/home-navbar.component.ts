@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core'
   styleUrls: ['./home-navbar.component.css'],
 })
 export class HomeNavbarComponent implements OnInit {
+  showSignUp = false
+  showSignIn = false
+
   constructor() {}
 
   ngOnInit() {}

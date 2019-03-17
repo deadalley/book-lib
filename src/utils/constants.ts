@@ -39,6 +39,22 @@ export const ANIMATIONS = {
       animate('0.3s 0s ease-out'),
     ]),
   ]),
+  POPOVER: trigger('popOverState', [
+    state(
+      'show',
+      style({
+        opacity: 1,
+      })
+    ),
+    state(
+      'hide',
+      style({
+        opacity: 0,
+      })
+    ),
+    transition('show => hide', animate('100ms ease-out')),
+    transition('hide => show', animate('100ms ease-in')),
+  ]),
 }
 
 export const BOOK_GROUPINGS = [
