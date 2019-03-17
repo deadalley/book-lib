@@ -49,6 +49,7 @@ export const ANIMATIONS = {
     state(
       'hide',
       style({
+        display: 'none',
         opacity: 0,
       })
     ),

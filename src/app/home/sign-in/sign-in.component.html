@@ -3,13 +3,13 @@
     <h4 class="title">Sign in</h4>
   </div>
   <div class="content">
-    <form [formGroup]="form" (ngSubmit)="signIn(form.value)">
+    <form [formGroup]="signInForm" (ngSubmit)="signIn(signInForm.value)">
       <div class="row">
         <div class="col-xs-12">
-          <div class="form-group" [ngClass]="{'has-error': !form.controls['email'].valid && form.controls['email'].touched}">
+          <div class="form-group" [ngClass]="{'has-error': !signInForm.controls['signInEmail'].valid && signInForm.controls['signInEmail'].touched}">
             <label>E-mail</label>
-            <input type="text" class="form-control" formControlName="email">
-            <span class="help-block" *ngIf="!form.controls['email'].valid && form.controls['email'].touched">
+            <input type="text" class="form-control" formControlName="signInEmail">
+            <span class="help-block" *ngIf="!signInForm.controls['signInEmail'].valid && signInForm.controls['signInEmail'].touched">
               Please enter a valid e-mail.
             </span>
           </div>
@@ -17,10 +17,10 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <div class="form-group" [ngClass]="{'has-error': !form.controls['password'].valid && form.controls['password'].touched}">
+          <div class="form-group" [ngClass]="{'has-error': !signInForm.controls['signInPassword'].valid && signInForm.controls['signInPassword'].touched}">
             <label>Password</label>
-            <input type="password" class="form-control" formControlName="password">
-            <span class="help-block" *ngIf="!form.controls['password'].valid && form.controls['password'].touched">
+            <input type="password" class="form-control" formControlName="signInPassword">
+            <span class="help-block" *ngIf="!signInForm.controls['signInPassword'].valid && signInForm.controls['signInPassword'].touched">
               Please enter a valid password.
             </span>
           </div>
@@ -32,17 +32,27 @@
         <hr>
       </span>
       <div style="text-align: center;">
-        <button type="submit" class="btn btn-default" [disabled]="!form.valid">Sign in</button>
+        <button style="width: 100%;" type="submit" class="btn btn-success" [disabled]="!signInForm.valid">Sign in</button>
       </div>
     </form>
-    <hr>
-    <div class="row">
-      <div class="col-xs-6" style="text-align: left" align="left">
-        <a href="javascript:void(0);" (click)="goBack()">Go back</a>
-      </div>
-      <div class="col-xs-6" style="text-align: right" align="right">
-        New here? <a href="javascript:void(0);" (click)="signUp()">Create an account.</a>
-      </div>
+    <div class="separator-with-text">
+      <hr>
+      <h5 class="text">Sign in with</h5>
+      <hr>
+    </div>
+    <div>
+      <a href="javascript:void(0);" (click)="loginGoogle()">
+        <img
+          src="/assets/img/Flat/Social buttons by Dreamstale (5).svg"
+          alt="Login with Google"
+        >
+      </a>
+      <a href="javascript:void(0);" (click)="loginFacebook()">
+        <img
+          src="/assets/img/Flat/Social buttons by Dreamstale (2).svg"
+          alt="Login with Facebook"
+        >
+      </a>
     </div>
   </div>
 <!-- </div> -->

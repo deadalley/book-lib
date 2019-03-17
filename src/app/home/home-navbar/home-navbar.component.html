@@ -16,18 +16,18 @@
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li>
-        <a class="hover" href="javascript:void(0);" (focus)="showSignIn = true" (blur)="showSignIn = true">
+        <a class="hover" href="javascript:void(0);" (click)="showSignIn = !showSignIn">
           <p>Sign in</p>
         </a>
-        <popover-container [show]="showSignIn">
+        <popover-container [show]="showSignIn" (onBlur)="showSignIn = false">
           <sign-in></sign-in>
         </popover-container>
       </li>
       <li>
-        <a class="hover" href="javascript:void(0);" (focus)="showSignUp = true" (blur)="showSignUp = true">
+        <a class="hover" href="javascript:void(0);" (click)="showSignUp = !showSignUp">
           <p class="bold">Sign up</p>
         </a>
-        <popover-container [show]="showSignUp">
+        <popover-container [show]="showSignUp" (onBlur)="showSignUp = false">
           <sign-up></sign-up>
         </popover-container>
       </li>

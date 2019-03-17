@@ -14,17 +14,18 @@ import { AuthService } from '../../../services/auth.service'
   styleUrls: ['./sign-up.component.css'],
 })
 export class SignUpComponent implements OnInit {
-  form: FormGroup
-
-  @Output() loadComponent = new EventEmitter<string>()
+  signUpForm: FormGroup
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
-    this.form = this.fb.group(
+    this.signUpForm = this.fb.group(
       {
-        name: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]],
-        confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
+        signUpName: ['', [Validators.required]],
+        signUpEmail: ['', [Validators.required, Validators.email]],
+        signUpPassword: ['', [Validators.required, Validators.minLength(6)]],
+        signUpConfirmPassword: [
+          '',
+          [Validators.required, Validators.minLength(6)],
+        ],
       },
       { validator: this.confirmPassword }
     )
@@ -45,11 +46,11 @@ export class SignUpComponent implements OnInit {
   }
 
   confirmPassword(control: AbstractControl): { passwordMismatch: boolean } {
-    const password = control.get('password').value
-    const passwordConfirm = control.get('confirmPassword').value
+    const password = control.get('signUpPassword').value
+    const passwordConfirm = control.get('signUpConfirmPassword').value
 
     if (password !== passwordConfirm) {
-      control.get('confirmPassword').setErrors({ passwordMismatch: true })
+      control.get('signUpConfirmPassword').setErrors({ passwordMismatch: true })
       return { passwordMismatch: true }
     }
 

@@ -3,13 +3,13 @@
     <h4 class="title">Create account</h4>
   </div>
   <div class="content">
-    <form [formGroup]="form" (ngSubmit)="signUp(form.value)">
+    <form [formGroup]="signUpForm" (ngSubmit)="signUp(signUpForm.value)">
       <div class="row">
         <div class="col-xs-12">
-          <div class="form-group" [ngClass]="{'has-error': !form.controls['name'].valid && form.controls['name'].touched}">
+          <div class="form-group" [ngClass]="{'has-error': !signUpForm.controls['signUpName'].valid && signUpForm.controls['signUpName'].touched}">
             <label>Name</label>
-            <input type="text" class="form-control" formControlName="name">
-            <span class="help-block" *ngIf="!form.controls['name'].valid && form.controls['name'].touched">
+            <input type="text" class="form-control" formControlName="signUpName">
+            <span class="help-block" *ngIf="!signUpForm.controls['signUpName'].valid && signUpForm.controls['signUpName'].touched">
               Please enter a valid name.
             </span>
           </div>
@@ -17,19 +17,19 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <div class="form-group" [ngClass]="{'has-error': !form.controls['email'].valid && form.controls['email'].touched}">
+          <div class="form-group" [ngClass]="{'has-error': !signUpForm.controls['signUpEmail'].valid && signUpForm.controls['signUpEmail'].touched}">
             <label>E-mail</label>
-            <input type="text" class="form-control" formControlName="email">
-            <span class="help-block" *ngIf="!form.controls['email'].valid && form.controls['email'].touched">Please enter a valid e-mail.</span>
+            <input type="text" class="form-control" formControlName="signUpEmail">
+            <span class="help-block" *ngIf="!signUpForm.controls['signUpEmail'].valid && signUpForm.controls['signUpEmail'].touched">Please enter a valid e-mail.</span>
           </div>
         </div>
       </div>
       <div class="row">      
         <div class="col-xs-12">
-          <div class="form-group" [ngClass]="{'has-error': !form.controls['password'].valid && form.controls['password'].touched}">
+          <div class="form-group" [ngClass]="{'has-error': !signUpForm.controls['signUpPassword'].valid && signUpForm.controls['signUpPassword'].touched}">
             <label>Password</label>
-            <input type="password" class="form-control" formControlName="password">
-            <span class="help-block" *ngIf="!form.controls['password'].valid && form.controls['password'].touched">
+            <input type="password" class="form-control" formControlName="signUpPassword">
+            <span class="help-block" *ngIf="!signUpForm.controls['signUpPassword'].valid && signUpForm.controls['signUpPassword'].touched">
               Please enter a valid password. Password must be at least 6 characters long.
             </span>
           </div>
@@ -37,17 +37,17 @@
       </div>
       <div class="row">      
         <div class="col-xs-12">
-          <div class="form-group" [ngClass]="{'has-error': !form.controls['confirmPassword'].valid && form.controls['confirmPassword'].touched}">
+          <div class="form-group" [ngClass]="{'has-error': !signUpForm.controls['signUpConfirmPassword'].valid && signUpForm.controls['signUpConfirmPassword'].touched}">
             <label>Confirm password</label>
-            <input type="password" class="form-control" formControlName="confirmPassword">
-            <span class="help-block" *ngIf="!form.controls['confirmPassword'].valid && form.controls['confirmPassword'].touched">
+            <input type="password" class="form-control" formControlName="signUpConfirmPassword">
+            <span class="help-block" *ngIf="!signUpForm.controls['signUpConfirmPassword'].valid && signUpForm.controls['signUpConfirmPassword'].touched">
               Password doesn't match.
             </span>
           </div>
         </div>
       </div>
       <div>
-        <button style="width: 100%;" type="submit" class="btn btn-success" [disabled]="!form.valid">Create account</button>
+        <button style="width: 100%;" type="submit" class="btn btn-success" [disabled]="!signUpForm.valid">Create account</button>
       </div>
     </form>
     <div class="separator-with-text">

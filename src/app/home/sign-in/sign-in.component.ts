@@ -7,35 +7,33 @@ import { parseFirebaseAuthError } from '../../../utils/helpers'
   moduleId: module.id,
   selector: 'sign-in',
   templateUrl: 'sign-in.component.html',
-  styleUrls: ['./sign-in.component.css']
+  styleUrls: ['./sign-in.component.css'],
 })
-
 export class SignInComponent implements OnInit {
-  form: FormGroup
+  signInForm: FormGroup
   errorMessage: string
-  @Output() loadComponent = new EventEmitter<string>()
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
-    this.form = this.fb.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required]
+    this.signInForm = this.fb.group({
+      signInEmail: ['', Validators.required],
+      signInPassword: ['', Validators.required],
     })
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
+
+  loginGoogle() {
+    this.authService.loginGoogle()
+  }
+
+  loginFacebook() {
+    this.authService.loginFacebook()
+  }
 
   signIn(formValues) {
-    this.authService.loginEmail(formValues, (error) => {
+    this.authService.loginEmail(formValues, error => {
       this.errorMessage = parseFirebaseAuthError(error)
       console.log(this.errorMessage)
     })
-  }
-
-  signUp() {
-    this.loadComponent.emit('signup')
-  }
-
-  goBack() {
-    this.loadComponent.emit('getstarted')
   }
 }
