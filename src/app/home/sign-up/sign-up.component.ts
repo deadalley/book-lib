@@ -19,13 +19,10 @@ export class SignUpComponent implements OnInit {
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.signUpForm = this.fb.group(
       {
-        signUpName: ['', [Validators.required]],
-        signUpEmail: ['', [Validators.required, Validators.email]],
-        signUpPassword: ['', [Validators.required, Validators.minLength(6)]],
-        signUpConfirmPassword: [
-          '',
-          [Validators.required, Validators.minLength(6)],
-        ],
+        name: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
       },
       { validator: this.confirmPassword }
     )
@@ -42,15 +39,16 @@ export class SignUpComponent implements OnInit {
   }
 
   signUp(formValues) {
+    console.log(formValues)
     this.authService.signUpWithEmail(formValues)
   }
 
   confirmPassword(control: AbstractControl): { passwordMismatch: boolean } {
-    const password = control.get('signUpPassword').value
-    const passwordConfirm = control.get('signUpConfirmPassword').value
+    const password = control.get('password').value
+    const passwordConfirm = control.get('confirmPassword').value
 
     if (password !== passwordConfirm) {
-      control.get('signUpConfirmPassword').setErrors({ passwordMismatch: true })
+      control.get('confirmPassword').setErrors({ passwordMismatch: true })
       return { passwordMismatch: true }
     }
 

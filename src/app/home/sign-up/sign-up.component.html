@@ -6,10 +6,10 @@
     <form [formGroup]="signUpForm" (ngSubmit)="signUp(signUpForm.value)">
       <div class="row">
         <div class="col-xs-12">
-          <div class="form-group" [ngClass]="{'has-error': !signUpForm.controls['signUpName'].valid && signUpForm.controls['signUpName'].touched}">
+          <div class="form-group" [ngClass]="{'has-error': !signUpForm.controls['name'].valid && signUpForm.controls['name'].touched}">
             <label>Name</label>
-            <input type="text" class="form-control" formControlName="signUpName">
-            <span class="help-block" *ngIf="!signUpForm.controls['signUpName'].valid && signUpForm.controls['signUpName'].touched">
+            <input type="text" class="form-control" formControlName="name">
+            <span class="help-block" *ngIf="!signUpForm.controls['name'].valid && signUpForm.controls['name'].touched">
               Please enter a valid name.
             </span>
           </div>
@@ -17,19 +17,19 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <div class="form-group" [ngClass]="{'has-error': !signUpForm.controls['signUpEmail'].valid && signUpForm.controls['signUpEmail'].touched}">
+          <div class="form-group" [ngClass]="{'has-error': !signUpForm.controls['email'].valid && signUpForm.controls['email'].touched}">
             <label>E-mail</label>
-            <input type="text" class="form-control" formControlName="signUpEmail">
-            <span class="help-block" *ngIf="!signUpForm.controls['signUpEmail'].valid && signUpForm.controls['signUpEmail'].touched">Please enter a valid e-mail.</span>
+            <input type="text" class="form-control" formControlName="email">
+            <span class="help-block" *ngIf="!signUpForm.controls['email'].valid && signUpForm.controls['email'].touched">Please enter a valid e-mail.</span>
           </div>
         </div>
       </div>
       <div class="row">      
         <div class="col-xs-12">
-          <div class="form-group" [ngClass]="{'has-error': !signUpForm.controls['signUpPassword'].valid && signUpForm.controls['signUpPassword'].touched}">
+          <div class="form-group" [ngClass]="{'has-error': !signUpForm.controls['password'].valid && signUpForm.controls['password'].touched}">
             <label>Password</label>
-            <input type="password" class="form-control" formControlName="signUpPassword">
-            <span class="help-block" *ngIf="!signUpForm.controls['signUpPassword'].valid && signUpForm.controls['signUpPassword'].touched">
+            <input type="password" class="form-control" formControlName="password">
+            <span class="help-block" *ngIf="!signUpForm.controls['password'].valid && signUpForm.controls['password'].touched">
               Please enter a valid password. Password must be at least 6 characters long.
             </span>
           </div>
@@ -37,10 +37,10 @@
       </div>
       <div class="row">      
         <div class="col-xs-12">
-          <div class="form-group" [ngClass]="{'has-error': !signUpForm.controls['signUpConfirmPassword'].valid && signUpForm.controls['signUpConfirmPassword'].touched}">
+          <div class="form-group" [ngClass]="{'has-error': !signUpForm.controls['confirmPassword'].valid && signUpForm.controls['confirmPassword'].touched}">
             <label>Confirm password</label>
-            <input type="password" class="form-control" formControlName="signUpConfirmPassword">
-            <span class="help-block" *ngIf="!signUpForm.controls['signUpConfirmPassword'].valid && signUpForm.controls['signUpConfirmPassword'].touched">
+            <input type="password" class="form-control" formControlName="confirmPassword">
+            <span class="help-block" *ngIf="!signUpForm.controls['confirmPassword'].valid && signUpForm.controls['confirmPassword'].touched">
               Password doesn't match.
             </span>
           </div>

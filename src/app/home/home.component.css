@@ -71,3 +71,6 @@
 .main {
   background: rgb(241, 241, 241);
 }
+.info-paragraph {
+  text-align: left;
+}
