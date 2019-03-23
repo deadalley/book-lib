@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ANIMATIONS } from 'utils/constants'
 import { SessionService } from 'services/session.service'
+import { filter } from 'rxjs/operators'
 
 @Component({
   selector: 'app-dashboard-home',
@@ -12,7 +13,11 @@ export class DashboardHomeComponent implements OnInit {
   displayWelcomeMessage = false
 
   constructor(private sessionService: SessionService) {
-    this.displayWelcomeMessage = this.sessionService.localUser.displayWelcomeMessage
+    this.sessionService.localUser$
+      .pipe(filter(user => !!user))
+      .subscribe(
+        user => (this.displayWelcomeMessage = user.displayWelcomeMessage)
+      )
   }
 
   ngOnInit() {}

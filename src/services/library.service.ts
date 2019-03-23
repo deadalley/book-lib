@@ -49,7 +49,7 @@ export class LibraryService {
     private goodreadsService: GoodreadsService,
     private session: SessionService
   ) {
-    this.session.userRef.subscribe(
+    this.session.userId$.subscribe(
       userRefFromSession => (this._userRef = userRefFromSession)
     )
     this.loadLibrary()
@@ -83,22 +83,22 @@ export class LibraryService {
 
   loadLibrary() {
     console.log('Loading library...')
-    this.rawBooks$ = this.session.userRef.pipe(
+    this.rawBooks$ = this.session.userId$.pipe(
       filter(userRef => !!userRef),
       mergeMap(userRef => this.database.subscribeToBooksFromUser(userRef)),
       map(books =>
         books.map(book => ({ ...book, collections: book.collections || [] }))
       )
     )
-    this.rawCollections$ = this.session.userRef.pipe(
+    this.rawCollections$ = this.session.userId$.pipe(
       filter(userRef => !!userRef),
       mergeMap(userRef => this.database.subscribeToCollectionsFromUser(userRef))
     )
-    this.tags$ = this.session.userRef.pipe(
+    this.tags$ = this.session.userId$.pipe(
       filter(userRef => !!userRef),
       mergeMap(userRef => this.database.subscribeToTagsFromUser(userRef))
     )
-    this.genres$ = this.session.userRef.pipe(
+    this.genres$ = this.session.userId$.pipe(
       filter(userRef => !!userRef),
       mergeMap(userRef => this.database.subscribeToGenresFromUser(userRef))
     )
@@ -106,7 +106,7 @@ export class LibraryService {
     this.books$ = this.rawBooks$
     this.books$.subscribe(this.books)
 
-    this.latestBooks$ = this.session.userRef.pipe(
+    this.latestBooks$ = this.session.userId$.pipe(
       filter(userRef => !!userRef),
       mergeMap(userRef =>
         this.database.subscribeToLatestBooks(userRef, this.MAX_DATE)
@@ -137,12 +137,12 @@ export class LibraryService {
       map(authors => authors.map(author => parseAuthor(author)))
     )
 
-    this.bookCount$ = this.session.userRef.pipe(
+    this.bookCount$ = this.session.userId$.pipe(
       filter(userRef => !!userRef),
       mergeMap(userRef => this.database.subscribeToBookCount(userRef))
     )
 
-    this.collectionCount$ = this.session.userRef.pipe(
+    this.collectionCount$ = this.session.userId$.pipe(
       filter(userRef => !!userRef),
       mergeMap(userRef => this.database.subscribeToCollectionCount(userRef))
     )
