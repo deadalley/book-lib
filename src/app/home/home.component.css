@@ -74,3 +74,6 @@
 .info-paragraph {
   text-align: left;
 }
+hr {
+  border-top: 1px solid #DDDDDD;
+}

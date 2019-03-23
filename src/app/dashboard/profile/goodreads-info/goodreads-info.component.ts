@@ -25,6 +25,6 @@ export class GoodreadsInfoComponent implements OnInit {
   ngOnInit() {}
 
   loginGoodreads() {
-    this.authService.loginGoodreads()
+    this.authService.loginGoodreads('dashboard/profile')
   }
 }

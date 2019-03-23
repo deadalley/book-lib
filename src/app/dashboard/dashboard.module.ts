@@ -21,12 +21,6 @@ const dashboardRoutes: Routes = [
     component: DashboardComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'goodreads_login', redirectTo: 'profile', pathMatch: 'full' },
-      {
-        path: 'goodreads_login/import',
-        redirectTo: 'goodreads/import',
-        pathMatch: 'full',
-      },
       { path: 'home', component: DashboardHomeComponent },
       { path: 'books', loadChildren: './books/books.module#BooksModule' },
       {
