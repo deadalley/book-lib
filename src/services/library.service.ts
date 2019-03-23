@@ -12,6 +12,7 @@ import { SessionService } from './session.service'
 import { Author } from 'models/author.model'
 import { GoodreadsService } from './goodreads.service'
 import { parseAuthor } from 'utils/helpers'
+import { of } from 'rxjs'
 
 @Injectable()
 export class LibraryService {
@@ -33,6 +34,7 @@ export class LibraryService {
   booksToImport$ = this.booksToImport.asObservable()
   bookCount$: Observable<number>
   collectionCount$: Observable<number>
+  authorCount$: Observable<number>
 
   rawBooks$: Observable<RawBook[]>
   rawCollections$: Observable<RawCollection[]>
@@ -133,7 +135,9 @@ export class LibraryService {
     this.grAuthorIds$.subscribe(this.grAuthorIds)
 
     this.authors$ = this.grAuthorIds$.pipe(
-      mergeMap(ids => this.goodreadsService.getAuthors(ids)),
+      mergeMap(ids =>
+        ids.length ? this.goodreadsService.getAuthors(ids) : of([])
+      ),
       map(authors => authors.map(author => parseAuthor(author)))
     )
 
@@ -146,6 +150,8 @@ export class LibraryService {
       filter(userRef => !!userRef),
       mergeMap(userRef => this.database.subscribeToCollectionCount(userRef))
     )
+
+    this.authorCount$ = this.authors$.pipe(map(authors => authors.length))
   }
 
   addBook(book: Book) {

@@ -28,8 +28,8 @@ export class AuthorsHomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.libraryService.bookCount$.subscribe(bookCount => {
-      if (!bookCount) {
+    this.libraryService.authorCount$.subscribe(authorCount => {
+      if (!authorCount) {
         this.isLoading = false
         this.authors = []
       }
