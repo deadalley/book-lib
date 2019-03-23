@@ -9,8 +9,9 @@ import { GetStartedComponent } from './get-started/get-started.component'
 import { SignUpComponent } from './sign-up/sign-up.component'
 import { SignInComponent } from './sign-in/sign-in.component'
 import { HomeNavbarComponent } from './home-navbar/home-navbar.component'
-import { HomeSectionComponent } from './home-section/home-section.component';
+import { HomeSectionComponent } from './home-section/home-section.component'
 import { PopoverContainerComponent } from './popover-container/popover-container.component'
+import { ClickOutsideDirective } from 'directives/click-outside.directive'
 
 const homeRoutes: Routes = [{ path: '', component: HomeComponent }]
 
@@ -30,6 +31,7 @@ const homeRoutes: Routes = [{ path: '', component: HomeComponent }]
     HomeNavbarComponent,
     HomeSectionComponent,
     PopoverContainerComponent,
+    ClickOutsideDirective,
   ],
   exports: [HomeComponent],
 })

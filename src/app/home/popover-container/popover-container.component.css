@@ -5,3 +5,24 @@
   right: 0;
   margin: 20px 0;
 }
+
+p {
+  font-size: 16px;
+  color: #FFFFFF;
+  font-weight: 200;
+}
+
+a {
+  display: block;
+  padding: 10px 15px;
+  margin: 10px 3px;
+  position: relative;
+}
+
+a:hover > p {
+  color: #AAAAAA;
+}
+
+.bold {
+  font-weight: 400;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core'
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { ANIMATIONS } from 'utils/constants'
 
 @Component({
@@ -8,7 +8,19 @@ import { ANIMATIONS } from 'utils/constants'
   animations: [ANIMATIONS.POPOVER],
 })
 export class PopoverContainerComponent implements OnInit {
+  @Input() label: string
+  @Input() bold: boolean
   @Input() show: boolean
 
-  ngOnInit() {}
+  @Output() selected = new EventEmitter<string>()
+
+  ngOnInit() {
+    this.show = false
+  }
+
+  onClick(event) {
+    event.stopPropagation()
+    this.show = true
+    this.selected.emit(this.label)
+  }
 }

@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core'
 export class HomeNavbarComponent implements OnInit {
   showSignUp = false
   showSignIn = false
+  selected = ''
 
   constructor() {}
 

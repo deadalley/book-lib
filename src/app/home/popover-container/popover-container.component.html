@@ -1,3 +1,6 @@
-<div class="popover-container card" [@popOverState]="show ? 'show' : 'hide'">
+<a class="hover" href="javascript:void(0);" (click)="onClick($event)">
+  <p [ngClass]="{'bold': bold}">{{label}}</p>
+</a>
+<div class="popover-container card" [@popOverState]="show ? 'show' : 'hide'" (clickOutside)="show = false">
   <ng-content></ng-content>
 </div>
