@@ -23,7 +23,7 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
   @Input() displayPoweredByGr: boolean
   @Input() type: string
 
-  searchBoxItems
+  searchBoxItems = []
   searchBoxProps
   searchBoxSearchProps
 
