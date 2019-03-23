@@ -18,8 +18,10 @@ export class GoodreadsInfoComponent implements OnInit {
     private authService: AuthService,
     private sessionService: SessionService
   ) {
+    this.sessionService.goodreadsId$.subscribe(id => {
+      this.connectedToGoodreads = !!id
+    })
     this.user = this.sessionService.localUser
-    this.connectedToGoodreads = !!this.user.goodreadsId
   }
 
   ngOnInit() {}
