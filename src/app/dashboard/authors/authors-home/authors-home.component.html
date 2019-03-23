@@ -1,5 +1,19 @@
 <library-navbar [type]="'authors'" [displayPoweredByGr]="true"></library-navbar>
 <loading [visible]="isLoading"></loading>
+<!-- No authors -->
+<div class="card" style="text-align: center;" [@card] *ngIf="!isLoading && !authors.length">
+  <div class="header">
+    <!-- Header -->
+    <h4 class="title">
+      Oh no, your library is empty :(.
+    </h4>
+    <hr>
+    <p class="category" placement="bottom" style="padding-bottom: 10px">
+      You don't seem to have any books in your library. Why don't you try adding a new book?<br>
+      You can add a new book by visiting the <a routerLink="/dashboard/books"><b>books</b></a> page on the sidebar and clicking on <a routerLink="/dashboard/books/new"><b>add new book</b></a> ;)
+    </p>
+  </div>
+</div>
 <div *ngIf="!isLoading && authors.length" [ngSwitch]="tilesDisplay" style="display: grid">
   <authors-section
     *ngSwitchCase="true"
