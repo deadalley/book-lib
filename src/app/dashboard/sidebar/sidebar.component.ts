@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { AuthService } from 'services/auth.service'
 
 declare var $: any
 
@@ -38,6 +39,8 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   public menuItems: any[]
 
+  constructor(private authService: AuthService) {}
+
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem)
   }
@@ -47,5 +50,9 @@ export class SidebarComponent implements OnInit {
       return false
     }
     return true
+  }
+
+  logout() {
+    this.authService.logout()
   }
 }
