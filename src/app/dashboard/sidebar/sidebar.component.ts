@@ -19,7 +19,7 @@ export const ROUTES: RouteInfo[] = [
     class: '',
   },
   { path: 'authors', title: 'Authors', icon: 'pe-7s-pen', class: '' },
-  { path: 'goodreads', title: 'Goodreads', icon: 'pe-7s-science', class: '' },
+  { path: 'goodreads', title: 'Goodreads', icon: 'pe-7s-server', class: '' },
   {
     path: 'import',
     title: 'Import library',
