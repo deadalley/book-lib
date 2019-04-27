@@ -123,3 +123,8 @@ body {
   height: 16px;
   padding: 2px;
 }
+
+svg path,
+svg rect{
+  fill: #23CCEF;
+}
