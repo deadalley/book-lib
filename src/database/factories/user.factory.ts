@@ -10,6 +10,7 @@ const UserFactory = Factory.makeFactory<User>({
   collections: [],
   books: [],
   goodreadsId: random.uuid(),
+  avatarUrl: random.image(),
   displayWelcomeMessage: random.boolean(),
 })
 
