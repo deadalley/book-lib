@@ -50,8 +50,10 @@
         *ngIf="linkable"
         href="javascript:void(0);"
         routerLink="/dashboard/books/{{ book.id }}"
+        class="image-link"
       >
         <img
+          class="image-src"
           [src]="
             book.imageLarge
               ? book.imageLarge
@@ -63,6 +65,7 @@
         />
       </a>
       <img
+        class="image-src"
         *ngIf="!linkable"
         [src]="
           book.imageLarge

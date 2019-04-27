@@ -56,7 +56,17 @@
 }
 
 .image {
+  display: flex;
+  flex: 1;
   height: auto;
+  border-radius: 4px;
+}
+
+.image-link {
+  flex: 1;
+}
+
+.image-src {
   border-radius: 4px;
 }
 
