@@ -24,9 +24,3 @@
 	width: auto;
 }
 
-.book-containesr {
-	height: 100px;
-	display: -webkit-flex;
-  display: flex;
-	overflow-x: auto;
-}
