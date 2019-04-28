@@ -77,3 +77,6 @@
 hr {
   border-top: 1px solid #DDDDDD;
 }
+.section-item {
+  padding: 0 120px;
+}
