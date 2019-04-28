@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { Book } from 'models/book.model'
 import { Author } from 'models/author.model'
@@ -15,12 +15,11 @@ import * as _ from 'lodash'
   styleUrls: ['./author.component.css'],
   animations: [ANIMATIONS.CARD],
 })
-export class AuthorComponent implements OnInit, OnDestroy {
+export class AuthorComponent implements OnInit {
   author = {} as Author
   isLoading = true
   hasSelectedBooks = false
   showAllAbout = false
-  subscription
   tableDisplayItems = {
     Cover: true,
     Year: false,
@@ -48,7 +47,7 @@ export class AuthorComponent implements OnInit, OnDestroy {
           _.omit(parseBook(book), ['author'])
         )
 
-        this.subscription = this.libraryService.books$.subscribe(ownBooks => {
+        this.libraryService.books$.subscribe(ownBooks => {
           if (!ownBooks) {
             return
           }
@@ -63,10 +62,6 @@ export class AuthorComponent implements OnInit, OnDestroy {
         this.author = parseAuthor(author, books) as Author
       }
     })
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe()
   }
 
   updateSelectedBooks(books: Book[]) {

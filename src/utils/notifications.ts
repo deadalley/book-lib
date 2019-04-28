@@ -1,15 +1,20 @@
 import * as $ from 'jquery'
 
 export const notify = (
-  { title, message },
-  options = {
-    allowDismiss: true,
-    bold: true,
-  }
+  params,
+  options = { bold: true, allowDismiss: true, type: 'success' }
 ) => {
-  const notifyTitle = options.bold ? `<strong>${title}</strong>` : title
+  const notifyTitle = options.bold
+    ? `<strong>${params.title}</strong>`
+    : params.title
   $.notify(
-    { title: notifyTitle, message },
-    { allow_dismiss: options.allowDismiss }
+    {
+      message: params.message,
+      ...(params.title ? { title: notifyTitle } : {}),
+    },
+    {
+      allow_dismiss: options.allowDismiss,
+      ...(options.type ? { type: options.type } : {}),
+    }
   )
 }

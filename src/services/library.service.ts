@@ -13,6 +13,8 @@ import { Author } from 'models/author.model'
 import { GoodreadsService } from './goodreads.service'
 import { parseAuthor } from 'utils/helpers'
 import { of } from 'rxjs'
+import { notify } from 'utils/notifications'
+import { ignoreReturnFor } from 'utils/promise'
 
 @Injectable()
 export class LibraryService {
@@ -156,11 +158,23 @@ export class LibraryService {
 
   addBook(book: Book) {
     book.collections = this.mapCollectionTitleToId(book, this.collections.value)
-    return this.database.createBookForUser(this._userRef, book)
+    return this.database.createBookForUser(this._userRef, book).then(
+      ignoreReturnFor(() =>
+        notify({
+          message: `<strong>${book.title}</strong> succesfully added`,
+        })
+      )
+    )
   }
 
   addBooks(books: Book[]) {
-    return Promise.all(books.map(book => this.addBook(book)))
+    return Promise.all(books.map(book => this.addBook(book))).then(
+      ignoreReturnFor(() =>
+        notify({
+          message: `${books.length} books succesfully added`,
+        })
+      )
+    )
   }
 
   findBook(id: string) {
@@ -184,19 +198,42 @@ export class LibraryService {
   }
 
   updateBook(book, mapCollections = true) {
-    return this.database.updateBookForUser(this._userRef, {
-      ...book,
-      collections: mapCollections
-        ? this.mapCollectionTitleToId(book, this.collections.value)
-        : book.collections,
-    })
+    return this.database
+      .updateBookForUser(this._userRef, {
+        ...book,
+        collections: mapCollections
+          ? this.mapCollectionTitleToId(book, this.collections.value)
+          : book.collections,
+      })
+      .then(
+        ignoreReturnFor(() =>
+          notify({
+            message: `<strong>${book.title}</strong> succesfully updated`,
+          })
+        )
+      )
+      .catch(
+        ignoreReturnFor(() =>
+          notify({
+            message: `<strong>${book.title}</strong> could not be updated`,
+          })
+        )
+      )
   }
 
   deleteBook(book: Book) {
-    this.database.deleteBookForUser(this._userRef, {
-      ...omit(book, ['isSelected']),
-      collections: this.mapCollectionTitleToId(book, this.collections.value),
-    })
+    return this.database
+      .deleteBookForUser(this._userRef, {
+        ...omit(book, ['isSelected']),
+        collections: this.mapCollectionTitleToId(book, this.collections.value),
+      })
+      .then(
+        ignoreReturnFor(() =>
+          notify({
+            message: `<strong>${book.title}</strong> succesfully deleted`,
+          })
+        )
+      )
   }
 
   getLatestBooks() {
@@ -204,10 +241,18 @@ export class LibraryService {
   }
 
   addCollection(collection: Collection) {
-    return this.database.createCollectionForUser(this._userRef, {
-      ...collection,
-      books: collection.books.map(book => book.id),
-    })
+    return this.database
+      .createCollectionForUser(this._userRef, {
+        ...collection,
+        books: collection.books.map(book => book.id),
+      })
+      .then(
+        ignoreReturnFor(() =>
+          notify({
+            message: `<strong>${collection.title}</strong> succesfully added`,
+          })
+        )
+      )
   }
 
   findCollection(id: string) {
@@ -217,30 +262,60 @@ export class LibraryService {
   }
 
   updateCollection(collection: Collection) {
-    return this.database.updateCollectionForUser(this._userRef, {
-      ...collection,
-      books: collection.books.map(book => book.id),
-    })
+    return this.database
+      .updateCollectionForUser(this._userRef, {
+        ...collection,
+        books: collection.books.map(book => book.id),
+      })
+      .then(
+        ignoreReturnFor(() =>
+          notify({
+            message: `<strong>${collection.title}</strong> succesfully updated`,
+          })
+        )
+      )
   }
 
   deleteCollection(collection: Collection) {
-    return this.database.deleteCollectionForUser(this._userRef, {
-      ...collection,
-      books: collection.books.map(book => book.id),
-    })
+    return this.database
+      .deleteCollectionForUser(this._userRef, {
+        ...collection,
+        books: collection.books.map(book => book.id),
+      })
+      .then(
+        ignoreReturnFor(() =>
+          notify({
+            message: `<strong>${collection.title}</strong> succesfully deleted`,
+          })
+        )
+      )
   }
 
   addBooksToCollection(collection, books) {
-    return this.database.addBooksToCollection(
-      collection.id,
-      books.map(book => book.id)
-    )
+    return this.database
+      .addBooksToCollection(collection.id, books.map(book => book.id))
+      .then(
+        ignoreReturnFor(() =>
+          notify({
+            message: `${books.length} books succesfully added to ${
+              collection.title
+            }`,
+          })
+        )
+      )
   }
 
   removeBooksFromCollection(collection, books) {
-    return this.database.removeBooksFromCollection(
-      collection.id,
-      books.map(book => book.id)
-    )
+    return this.database
+      .removeBooksFromCollection(collection.id, books.map(book => book.id))
+      .then(
+        ignoreReturnFor(() =>
+          notify({
+            message: `${books.length} books succesfully removed from ${
+              collection.title
+            }`,
+          })
+        )
+      )
   }
 }

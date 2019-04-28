@@ -128,3 +128,6 @@ svg path,
 svg rect{
   fill: #23CCEF;
 }
+
+.alert-success {
+  background-color: #18b518; }

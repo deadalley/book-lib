@@ -104,7 +104,9 @@ export class EditCollectionComponent implements OnInit, OnDestroy {
               books.map(book => {
                 book.canBeSelected = true
                 book.isSelected =
-                  book.collections && book.collections.includes(collection.id)
+                  book.collections &&
+                  collection &&
+                  book.collections.includes(collection.id)
                 return book
               })
             )

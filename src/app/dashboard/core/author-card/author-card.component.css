@@ -53,8 +53,14 @@ hr {
 
 .image {
   height: auto;
+  flex: 1;
 }
 
 .img-rounded {
+  border-radius: 4px;  
+}
+
+
+img {
   border-radius: 4px;  
 }

@@ -143,6 +143,9 @@ export class EditBookComponent implements OnInit, OnDestroy {
   }
 
   setBook(book) {
+    if (!book) {
+      return
+    }
     this.book = book
     this.loadingBook = false
     this.collections = this.book.collections || []
