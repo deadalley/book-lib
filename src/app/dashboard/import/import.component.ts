@@ -28,7 +28,6 @@ export class ImportComponent implements OnInit {
     Pages: true,
     Rating: true,
   }
-  @ViewChild('importResultModal') modal
 
   constructor(
     private importService: ImportService,
@@ -51,13 +50,11 @@ export class ImportComponent implements OnInit {
   }
 
   importLibrary() {
-    this.libraryService
-      .addBooks(
-        this.booksToImport
-          .filter(book => book.isSelected)
-          .map(book => omit(book, ['canBeSelected', 'isSelected']))
-      )
-      .then(this.modal.openModal())
+    this.libraryService.addBooks(
+      this.booksToImport
+        .filter(book => book.isSelected)
+        .map(book => omit(book, ['canBeSelected', 'isSelected']))
+    )
   }
 
   returnToBooks() {
