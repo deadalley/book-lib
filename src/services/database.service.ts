@@ -13,7 +13,7 @@ import { objectToArray, findKeyByValue, unique } from '../utils/helpers'
 import { environment } from 'environments/environment'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { Observable } from 'rxjs/Observable'
-import { map, mergeMap } from 'rxjs/operators'
+import { map, mergeMap, last } from 'rxjs/operators'
 import { SessionService } from './session.service'
 @Injectable()
 export class DatabaseService {
@@ -586,7 +586,10 @@ export class DatabaseService {
     const path = this.storage.ref(filePath)
     const task = path.put(file)
 
-    return task.snapshotChanges().pipe(mergeMap(() => path.getDownloadURL()))
+    return task.snapshotChanges().pipe(
+      last(),
+      mergeMap(() => path.getDownloadURL())
+    )
   }
 
   uploadBookCover(userRef: string, bookId: string, file) {

@@ -53,7 +53,6 @@ export class EditUserInfoComponent implements OnInit {
         last()
       )
       .subscribe(e => {
-        console.log(e)
         notify({ message: 'Avatar succesfully updated' })
         this.user = this.sessionService.localUser
       })

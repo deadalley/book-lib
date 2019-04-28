@@ -12,10 +12,12 @@ import {
   map,
   debounceTime,
   distinctUntilChanged,
+  last,
 } from 'rxjs/operators'
 import { DatabaseService } from 'services/database.service'
 import { SessionService } from 'services/session.service'
 import { combineLatest, Subject } from 'rxjs'
+import { notify } from 'utils/notifications'
 @Component({
   moduleId: module.id,
   selector: 'edit-book',
@@ -250,7 +252,9 @@ export class EditBookComponent implements OnInit, OnDestroy {
         this.book.id,
         event.target.files[0]
       )
+      .pipe(last())
       .subscribe(imagePath => {
+        notify({ message: 'Cover succesfully updated' })
         this.book.imageLarge = imagePath
         this.form.patchValue({ imageLarge: imagePath, imageSmall: imagePath })
       })

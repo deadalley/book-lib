@@ -8,7 +8,10 @@ import { cleanFormValues } from 'utils/helpers'
 import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
 import { LibraryService } from 'services/library.service'
 import { Subject } from 'rxjs'
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators'
+import { debounceTime, distinctUntilChanged, last } from 'rxjs/operators'
+import { DatabaseService } from 'services/database.service'
+import { SessionService } from 'services/session.service'
+import { notify } from 'utils/notifications'
 
 @Component({
   moduleId: module.id,
@@ -50,7 +53,9 @@ export class AddBookComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private location: Location,
-    private libraryService: LibraryService
+    private libraryService: LibraryService,
+    private databaseService: DatabaseService,
+    private sessionService: SessionService
   ) {
     this.libraryService.collections$.subscribe(collections => {
       this.allCollections = collections.map(collection => collection.title)
@@ -150,5 +155,20 @@ export class AddBookComponent implements OnInit {
       }
       return 0
     })
+  }
+
+  uploadImage(event) {
+    this.databaseService
+      .uploadBookCover(
+        this.sessionService.userId,
+        this.book.id,
+        event.target.files[0]
+      )
+      .pipe(last())
+      .subscribe(imagePath => {
+        notify({ message: 'Cover succesfully updated' })
+        this.book.imageLarge = imagePath
+        this.form.patchValue({ imageLarge: imagePath, imageSmall: imagePath })
+      })
   }
 }
