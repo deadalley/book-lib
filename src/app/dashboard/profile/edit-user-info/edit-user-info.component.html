@@ -1,23 +1,56 @@
 <page-navigator>
-  <div class="card card-user" [@card]>
-    <div class="header">
-      <h4 class="title">Avatar</h4>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card card-user" [@card]>
+        <div class="header">
+          <h4 class="title">Avatar</h4>
+        </div>
+        <div class="content">
+          <!-- Avatar -->
+          <div class="row" style="text-align: center;">
+            <div class="col-xs-12" style="position: relative">
+              <div class="avatar-wrapper">
+                <img
+                  class="avatar border-gray"
+                  [src]="user.avatarUrl || '/assets/img/default-avatar.png'"
+                >
+                <input style="display: none" [hidden]="true" #avatarUpload type="file" (change)="uploadImage($event)">
+                <a href="javascript:void(0);" (click)="avatarUpload.click()">
+                  <h4 class="avatar-edit">
+                    Upload avatar
+                  </h4>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="content">
-      <!-- Avatar -->
-      <div class="row" style="text-align: center;">
-        <div class="col-xs-12" style="position: relative">
-          <div class="avatar-wrapper">
-            <img
-              class="avatar border-gray"
-              [src]="user.avatarUrl || '/assets/img/default-avatar.png'"
-            >
-            <input style="display: none" [hidden]="true" #imageUpload type="file" (change)="uploadImage($event)">
-            <a href="javascript:void(0);" (click)="imageUpload.click()">
-              <h4 class="avatar-edit">
-                Upload avatar
-              </h4>
-            </a>
+    <div class="col-md-6">
+      <div class="card" [@card]>
+        <div class="header">
+          <h4 class="title">Name</h4>
+        </div>
+        <div class="content">
+          <!-- Name -->
+          <div class="row">
+            <div class="col-xs-12">
+              <form [formGroup]="nameForm" (ngSubmit)="submit(nameForm.value)">
+                <div class="form-group" [ngClass] = "{'has-error': !nameForm.controls['name'].valid && nameForm.controls['name'].touched}">
+                  <label>Name:</label>
+                  <input type="text" class="form-control" placeholder="Name" formControlName="name">
+                  <span class="help-block" *ngIf="!nameForm.controls['name'].valid && nameForm.controls['name'].touched">Please enter a valid name.</span>
+                </div>
+                <hr>
+                <!-- Save button -->
+                <div style="text-align: center;">
+                  <button type="submit" class="btn btn-success" [disabled]="!nameForm.valid" style="width: 100%;">
+                    <i class="pe-7s-diskette"></i>
+                    Save
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
@@ -25,29 +58,16 @@
   </div>
   <div class="card" [@card]>
     <div class="header">
-      <h4 class="title">Name</h4>
+      <h4 class="title">Background image</h4>
     </div>
     <div class="content">
-      <!-- Name -->
-      <div class="row">
-        <div class="col-xs-12">
-          <form [formGroup]="nameForm" (ngSubmit)="submit(nameForm.value)">
-            <div class="form-group" [ngClass] = "{'has-error': !nameForm.controls['name'].valid && nameForm.controls['name'].touched}">
-              <label>Name:</label>
-              <input type="text" class="form-control" placeholder="Name" formControlName="name">
-              <span class="help-block" *ngIf="!nameForm.controls['name'].valid && nameForm.controls['name'].touched">Please enter a valid name.</span>
-            </div>
-            <hr>
-            <!-- Save button -->
-            <div style="text-align: center;">
-              <button type="submit" class="btn btn-success" [disabled]="!nameForm.valid" style="width: 100%;">
-                <i class="pe-7s-diskette"></i>
-                Save
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+      <input style="display: none" [hidden]="true" #backgroundUpload type="file" (change)="uploadImage($event, 'backgroundUrl')">
+      <img
+        [src]="user.backgroundUrl || '/assets/img/bookshelf03.jpg'"
+        alt="Background"
+        class="background-image"
+        (click)="backgroundUpload.click()"
+      >
     </div>
   </div>
   <!-- <div class="card" [@card]>

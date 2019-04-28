@@ -41,13 +41,13 @@ export class EditUserInfoComponent implements OnInit {
       .then(() => this.router.navigate(['dashboard/profile']))
   }
 
-  uploadImage(event) {
+  uploadImage(event, urlType = 'avatarUrl') {
     this.databaseService
       .uploadAvatar(this.sessionService.userId, event.target.files[0])
       .pipe(
         mergeMap<any, any>(imagePath =>
           this.databaseService.updateUser(this.sessionService.userId, {
-            avatarUrl: imagePath,
+            [urlType]: imagePath,
           })
         ),
         last()

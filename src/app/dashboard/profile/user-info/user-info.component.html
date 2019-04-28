@@ -1,6 +1,6 @@
 <div class="card card-user" [@card]>
   <div class="image">
-    <img src="/assets/img/bookshelf03.jpg">
+    <img [src]="user.backgroundUrl || '/assets/img/bookshelf03.jpg'">
   </div>
   <div class="content">
     <div class="author">
