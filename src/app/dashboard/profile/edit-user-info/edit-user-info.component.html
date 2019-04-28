@@ -61,27 +61,35 @@
       <h4 class="title">Background image</h4>
     </div>
     <div class="content">
-      <input style="display: none" [hidden]="true" #backgroundUpload type="file" (change)="imageChanged($event)">
-      <image-cropper
-        [imageChangedEvent]="imageChangedEvent"
-        [maintainAspectRatio]="true"
-        [aspectRatio]="16 / 3"
-        [resizeToWidth]="1920"
-        outputType="file"
-        format="jpg"
-        (imageCropped)="imageCropped($event)"
-      ></image-cropper>
-      <img
-        *ngIf="!croppedImage"
-        [src]="user.backgroundUrl || '/assets/img/bookshelf03.jpg'"
-        alt="Background"
-        class="background-image"
-        (click)="backgroundUpload.click()"
-      >
-      <button type="button" class="btn btn-success" [disabled]="!nameForm.valid" style="width: 100%;" (click)="uploadBackground(croppedImage)">
-        <i class="pe-7s-diskette"></i>
-        Save
-      </button>
+      <div class="row">
+        <div class="col-xs-12">
+          <input style="display: none" [hidden]="true" #backgroundUpload type="file" (change)="imageChanged($event)">
+          <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="16 / 3"
+            [resizeToWidth]="1920"
+            outputType="file"
+            format="jpg"
+            (imageCropped)="imageCropped($event)"
+          ></image-cropper>
+          <img
+            *ngIf="!croppedImage"
+            [src]="user.backgroundUrl || '/assets/img/bookshelf03.jpg'"
+            alt="Background"
+            class="background-image"
+            (click)="backgroundUpload.click()"
+          >
+        </div>
+      </div>
+      <div *ngIf="!!croppedImage" class="row">
+        <div class="col-xs-12">
+          <button type="button" class="btn btn-success" style="width: 100%;" (click)="uploadBackground(croppedImage)">
+            <i class="pe-7s-diskette"></i>
+            Save
+          </button>
+        </div>
+      </div>
     </div>
   </div>
   <!-- <div class="card" [@card]>
