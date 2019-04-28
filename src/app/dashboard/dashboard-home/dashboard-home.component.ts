@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ANIMATIONS } from 'utils/constants'
 import { SessionService } from 'services/session.service'
 import { filter } from 'rxjs/operators'
-
+import { notify } from 'utils/notifications'
 @Component({
   selector: 'app-dashboard-home',
   templateUrl: './dashboard-home.component.html',
@@ -21,4 +21,8 @@ export class DashboardHomeComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  notify() {
+    notify({ title: 'ehy', message: 'message' })
+  }
 }

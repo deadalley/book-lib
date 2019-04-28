@@ -27,6 +27,7 @@ import { LibraryNavbarComponent } from './library-navbar/library-navbar.componen
 import { TableItemsComponent } from './table-items/table-items.component'
 import { PagesComponent } from './pages/pages.component'
 import { SearchBoxComponent } from './search-box/search-box.component'
+
 import { BookFilterPipe } from 'pipes/book-filter.pipe'
 import { PagePipe } from 'pipes/page.pipe'
 import { SearchFilterPipe } from 'pipes/search-filter.pipe'
