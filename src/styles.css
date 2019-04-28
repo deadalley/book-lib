@@ -4,6 +4,8 @@
 @import './assets/css/light-bootstrap-dashboard.css';
 @import './assets/css/themify-icons.css';
 @import './assets/css/pe-icon-7-stroke.css';
+@import './assets/css/bootstrap-social.css';
+@import './assets/css/animate.min.css';
 @import 'https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css';
 @import 'http://fonts.googleapis.com/css?family=Roboto:400,700,300';
 
@@ -12,106 +14,18 @@ body {
   font-weight: 400;
 }
 
+.btn {
+  min-height: 40px;
+}
+
+.btn-social {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
 .card .title {
   margin-top: 0;
   margin-bottom: 0;
-}
-
-.btn::-moz-placeholder {
-  color: #DDDDDD;
-  opacity: 1;
-  filter: alpha(opacity=100);
-}
-
-.btn:-moz-placeholder {
-  color: #DDDDDD;
-  opacity: 1;
-  filter: alpha(opacity=100);
-}
-
-.btn::-webkit-input-placeholder {
-  color: #DDDDDD;
-  opacity: 1;
-  filter: alpha(opacity=100);
-}
-
-.btn:-ms-input-placeholder {
-  color: #DDDDDD;
-  opacity: 1;
-  filter: alpha(opacity=100);
-}
-
-.btn {
-  background-color: #FFFFFF;
-  border: 1px solid #E3E3E3;
-  border-radius: 4px;
-  color: #565656;
-  padding: 8px 12px;
-  height: 40px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-
-.btn:focus {
-  background-color: #FFFFFF;
-  border: 1px solid #AAAAAA;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  outline: 0 !important;
-  color: #333333;
-}
-
-.btn-success {
-  color: #fff;
-  background-color: #18b518;
-  border-color: #4cae4c;
-}
-
-.btn-success:focus {
-  color: #fff;
-  background-color: #449d44;
-  border-color: #255625;
-}
-
-.btn-success:hover {
-  color: #fff;
-  background-color: #449d44;
-  border-color: #398439;
-}
-
-.btn-danger {
-  color: #fff;
-  background-color: #e60e09;
-  border-color: #d43f3a;
-}
-
-.btn-danger:focus {
-  color: #fff;
-  background-color: #c9302c;
-  border-color: #761c19;
-}
-
-.btn-danger:hover {
-  color: #fff;
-  background-color: #dc3a36;
-  border-color: #ac2925;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #337ab7;
-  border-color: #2e6da4;
-}
-
-.btn-primary:focus{
-  color: #fff;
-  background-color: #286090;
-  border-color: #122b40;
-}
-.btn-primary:hover {
-  color: #fff;
-  background-color: #286090;
-  border-color: #204d74;
 }
 
 .powered-by-gr {
@@ -130,4 +44,5 @@ svg rect{
 }
 
 .alert-success {
-  background-color: #18b518; }
+  background-color: #18b518;
+}
