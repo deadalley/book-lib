@@ -13,6 +13,7 @@ export class SearchBoxComponent implements OnInit {
   @Input() items = []
   @Input() props = { main: 'title', sub: 'author' }
   @Input() searchProps = ['title', 'author', 'original']
+  @Input() link = '/dashboard/books/'
   searchInput: FormControl = new FormControl()
   searchValue
 

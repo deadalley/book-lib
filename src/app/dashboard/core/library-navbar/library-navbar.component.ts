@@ -26,6 +26,7 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
   searchBoxItems = []
   searchBoxProps
   searchBoxSearchProps
+  searchBoxLink
 
   books: Book[]
   authors: Author[]
@@ -63,6 +64,7 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
         this.searchBoxItems = authors
         this.searchBoxProps = { main: 'name' }
         this.searchBoxSearchProps = ['name']
+        this.searchBoxLink = '/dashboard/authors/'
       })
     } else {
       this.libraryService.books$.subscribe(books => {
@@ -70,6 +72,7 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
         this.searchBoxItems = books
         this.searchBoxProps = { main: 'title', sub: 'author' }
         this.searchBoxSearchProps = ['title', 'original', 'author']
+        this.searchBoxLink = '/dashboard/books/'
       })
     }
   }
