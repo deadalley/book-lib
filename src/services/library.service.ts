@@ -168,13 +168,7 @@ export class LibraryService {
   }
 
   addBooks(books: Book[]) {
-    return Promise.all(books.map(book => this.addBook(book))).then(
-      ignoreReturnFor(() =>
-        notify({
-          message: `${books.length} books succesfully added`,
-        })
-      )
-    )
+    return Promise.all(books.map(book => this.addBook(book)))
   }
 
   findBook(id: string) {

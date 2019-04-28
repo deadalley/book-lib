@@ -5,7 +5,8 @@ import { ANIMATIONS } from 'utils/constants'
 import { SessionService } from 'services/session.service'
 import { DatabaseService } from 'services/database.service'
 import { Router } from '@angular/router'
-import { mergeMap } from 'rxjs/operators'
+import { mergeMap, last } from 'rxjs/operators'
+import { notify } from 'utils/notifications'
 
 @Component({
   selector: 'edit-user-info',
@@ -36,6 +37,7 @@ export class EditUserInfoComponent implements OnInit {
 
     this.databaseService
       .updateUser(this.user.id, formValues)
+      .then(() => notify({ message: 'User profile succesfully updated' }))
       .then(() => this.router.navigate(['dashboard/profile']))
   }
 
@@ -47,8 +49,13 @@ export class EditUserInfoComponent implements OnInit {
           this.databaseService.updateUser(this.sessionService.userId, {
             avatarUrl: imagePath,
           })
-        )
+        ),
+        last()
       )
-      .subscribe(() => (this.user = this.sessionService.localUser))
+      .subscribe(e => {
+        console.log(e)
+        notify({ message: 'Avatar succesfully updated' })
+        this.user = this.sessionService.localUser
+      })
   }
 }
