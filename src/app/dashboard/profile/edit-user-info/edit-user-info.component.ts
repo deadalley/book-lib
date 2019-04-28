@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { Router } from '@angular/router'
+import { ImageCroppedEvent } from 'ngx-image-cropper'
+import { mergeMap, last } from 'rxjs/operators'
 import { User } from 'models/user.model'
 import { ANIMATIONS } from 'utils/constants'
 import { SessionService } from 'services/session.service'
 import { DatabaseService } from 'services/database.service'
-import { Router } from '@angular/router'
-import { mergeMap, last } from 'rxjs/operators'
 import { notify } from 'utils/notifications'
 
 @Component({
@@ -17,6 +18,8 @@ import { notify } from 'utils/notifications'
 export class EditUserInfoComponent implements OnInit {
   user = {} as User
   nameForm: FormGroup
+  imageChangedEvent: any
+  croppedImage: any
 
   constructor(
     private fb: FormBuilder,
@@ -41,13 +44,38 @@ export class EditUserInfoComponent implements OnInit {
       .then(() => this.router.navigate(['dashboard/profile']))
   }
 
-  uploadImage(event, urlType = 'avatarUrl') {
+  imageChanged(event) {
+    this.imageChangedEvent = event
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.file
+  }
+
+  uploadBackground(image) {
+    this.databaseService
+      .uploadAvatar(this.sessionService.userId, image)
+      .pipe(
+        mergeMap<any, any>(imagePath =>
+          this.databaseService.updateUser(this.sessionService.userId, {
+            backgroundUrl: imagePath,
+          })
+        ),
+        last()
+      )
+      .subscribe(e => {
+        notify({ message: 'Background image succesfully updated' })
+        this.user = this.sessionService.localUser
+      })
+  }
+
+  uploadAvatar(event) {
     this.databaseService
       .uploadAvatar(this.sessionService.userId, event.target.files[0])
       .pipe(
         mergeMap<any, any>(imagePath =>
           this.databaseService.updateUser(this.sessionService.userId, {
-            [urlType]: imagePath,
+            avatarUrl: imagePath,
           })
         ),
         last()

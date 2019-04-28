@@ -14,7 +14,7 @@
                   class="avatar border-gray"
                   [src]="user.avatarUrl || '/assets/img/default-avatar.png'"
                 >
-                <input style="display: none" [hidden]="true" #avatarUpload type="file" (change)="uploadImage($event)">
+                <input style="display: none" [hidden]="true" #avatarUpload type="file" (change)="uploadAvatar($event)">
                 <a href="javascript:void(0);" (click)="avatarUpload.click()">
                   <h4 class="avatar-edit">
                     Upload avatar
@@ -61,13 +61,27 @@
       <h4 class="title">Background image</h4>
     </div>
     <div class="content">
-      <input style="display: none" [hidden]="true" #backgroundUpload type="file" (change)="uploadImage($event, 'backgroundUrl')">
+      <input style="display: none" [hidden]="true" #backgroundUpload type="file" (change)="imageChanged($event)">
+      <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="16 / 3"
+        [resizeToWidth]="1920"
+        outputType="file"
+        format="jpg"
+        (imageCropped)="imageCropped($event)"
+      ></image-cropper>
       <img
+        *ngIf="!croppedImage"
         [src]="user.backgroundUrl || '/assets/img/bookshelf03.jpg'"
         alt="Background"
         class="background-image"
         (click)="backgroundUpload.click()"
       >
+      <button type="button" class="btn btn-success" [disabled]="!nameForm.valid" style="width: 100%;" (click)="uploadBackground(croppedImage)">
+        <i class="pe-7s-diskette"></i>
+        Save
+      </button>
     </div>
   </div>
   <!-- <div class="card" [@card]>
