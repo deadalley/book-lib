@@ -64,6 +64,13 @@
       <div class="row">
         <div class="col-xs-12">
           <input style="display: none" [hidden]="true" #backgroundUpload type="file" (change)="imageChanged($event)">
+          <loading-overlay [visible]="isLoading"></loading-overlay>
+          <img
+            *ngIf="!croppedImage"
+            [src]="user.backgroundUrl || '/assets/img/bookshelf03.jpg'"
+            alt="Background"
+            class="background-image"
+          >
           <image-cropper
             [imageChangedEvent]="imageChangedEvent"
             [maintainAspectRatio]="true"
@@ -73,17 +80,16 @@
             format="jpg"
             (imageCropped)="imageCropped($event)"
           ></image-cropper>
-          <img
-            *ngIf="!croppedImage"
-            [src]="user.backgroundUrl || '/assets/img/bookshelf03.jpg'"
-            alt="Background"
-            class="background-image"
-            (click)="backgroundUpload.click()"
-          >
         </div>
       </div>
-      <div *ngIf="!!croppedImage" class="row">
-        <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-6">
+          <button type="button" class="btn btn-default" style="width: 100%;" (click)="backgroundUpload.click()">
+            <i class="pe-7s-upload"></i>
+            Upload
+          </button>
+        </div>
+        <div class="col-xs-6">
           <button type="button" class="btn btn-success" style="width: 100%;" (click)="uploadBackground(croppedImage)">
             <i class="pe-7s-diskette"></i>
             Save

@@ -20,6 +20,7 @@ export class EditUserInfoComponent implements OnInit {
   nameForm: FormGroup
   imageChangedEvent: any
   croppedImage: any
+  isLoading = false
 
   constructor(
     private fb: FormBuilder,
@@ -53,6 +54,10 @@ export class EditUserInfoComponent implements OnInit {
   }
 
   uploadBackground(image) {
+    if (!image) {
+      return
+    }
+    this.isLoading = true
     this.databaseService
       .uploadAvatar(this.sessionService.userId, image)
       .pipe(
@@ -66,6 +71,8 @@ export class EditUserInfoComponent implements OnInit {
       .subscribe(e => {
         notify({ message: 'Background image succesfully updated' })
         this.user = this.sessionService.localUser
+        this.isLoading = false
+        this.imageChanged(null)
       })
   }
 
