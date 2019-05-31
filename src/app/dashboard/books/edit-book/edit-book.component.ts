@@ -50,6 +50,7 @@ export class EditBookComponent implements OnInit, OnDestroy {
   subscriptions = []
   loadingBook = true
   loadingCollections = true
+  loadingImage = false
   displayDelete = true
   goodreadsId: number
   authorName: string
@@ -246,6 +247,7 @@ export class EditBookComponent implements OnInit, OnDestroy {
   }
 
   uploadImage(event) {
+    this.loadingImage = true
     this.databaseService
       .uploadBookCover(
         this.sessionService.userId,
@@ -257,6 +259,7 @@ export class EditBookComponent implements OnInit, OnDestroy {
         notify({ message: 'Cover succesfully updated' })
         this.book.imageLarge = imagePath
         this.form.patchValue({ imageLarge: imagePath, imageSmall: imagePath })
+        this.loadingImage = false
       })
   }
 

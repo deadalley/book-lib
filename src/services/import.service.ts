@@ -4,6 +4,7 @@ import { LANGUAGES } from 'utils/constants'
 import { upperCaseFirstLetter } from 'utils/helpers'
 import { Book } from 'database/models/book.model'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { notify } from 'utils/notifications'
 
 type AOA = any[][]
 
@@ -29,6 +30,7 @@ export class ImportService {
     }
 
     reader.readAsBinaryString(uploadedFile)
+    notify({ message: 'Successfully read file' })
     return this.booksToImport$
   }
 

@@ -15,8 +15,8 @@ export class SignInComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.signInForm = this.fb.group({
-      signInEmail: ['', Validators.required],
-      signInPassword: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
     })
   }
 

@@ -229,6 +229,7 @@
 					<div class="col-md-3">
 						<!-- Image -->
 						<div class="image book-image">
+							<loading-overlay [visible]="loadingImage"></loading-overlay>
 							<img
 								class="book-image"
 								[src]="book.imageLarge ? book.imageLarge : (book.imageSmall ? book.imageSmall : '/assets/img/no-book-cover.png')"
