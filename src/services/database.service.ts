@@ -167,6 +167,10 @@ export class DatabaseService {
     return this.findUserById(id).then(user => (this.session.localUser = user))
   }
 
+  deleteUser(id: string) {
+    return this.users.remove(id)
+  }
+
   /** BOOK **/
   private parseBook(book: Book, id: string): Book {
     return {
@@ -308,6 +312,12 @@ export class DatabaseService {
     ])
   }
 
+  deleteAllBooksForUser(userRef: string) {
+    return Promise.resolve()
+      .then(() => this.getBooksForUser(userRef))
+      .then(books => Promise.all(books.map(book => this.deleteBook(book))))
+  }
+
   /** COLLECTION **/
   private parseCollection(collection: Collection, id: string) {
     return {
@@ -402,6 +412,16 @@ export class DatabaseService {
       this.removeCollectionFromUser(userRef, collection.id),
       this.removeCollectionsFromBooks(collection.books, [collection.id]),
     ])
+  }
+
+  deleteAllCollectionsForUser(userRef: string) {
+    return Promise.resolve()
+      .then(() => this.getCollectionsForUser(userRef))
+      .then(collections =>
+        Promise.all(
+          collections.map(collection => this.deleteCollection(collection))
+        )
+      )
   }
 
   addBooksToCollection(collectionId: string, bookIds: string[]) {

@@ -177,4 +177,15 @@ export class AuthService {
         console.log(error.code, error.message)
       })
   }
+
+  deleteAccount() {
+    Promise.all([
+      this.database.deleteAllBooksForUser(this.session.userId),
+      this.database.deleteAllCollectionsForUser(this.session.userId),
+      this.database.deleteUser(this.session.userId),
+    ])
+      .then(() => this.fireAuth.auth.currentUser.delete())
+      .then(() => console.log('Successfully deleted user'))
+      .then(() => this.logout())
+  }
 }

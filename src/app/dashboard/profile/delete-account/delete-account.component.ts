@@ -30,6 +30,6 @@ export class DeleteAccountComponent implements OnInit {
 
   deleteAccount() {
     console.log('Delete account')
-    // this.authService.deleteAccount()
+    this.authService.deleteAccount()
   }
 }
