@@ -21,6 +21,7 @@ export class EditUserInfoComponent implements OnInit {
   imageChangedEvent: any
   croppedImage: any
   isLoading = false
+  isLoadingAvatar = false
 
   constructor(
     private fb: FormBuilder,
@@ -59,7 +60,7 @@ export class EditUserInfoComponent implements OnInit {
     }
     this.isLoading = true
     this.databaseService
-      .uploadAvatar(this.sessionService.userId, image)
+      .uploadBackgroundImage(this.sessionService.userId, image)
       .pipe(
         mergeMap<any, any>(imagePath =>
           this.databaseService.updateUser(this.sessionService.userId, {
@@ -73,10 +74,12 @@ export class EditUserInfoComponent implements OnInit {
         this.user = this.sessionService.localUser
         this.isLoading = false
         this.imageChanged(null)
+        this.croppedImage = null
       })
   }
 
   uploadAvatar(event) {
+    this.isLoadingAvatar = true
     this.databaseService
       .uploadAvatar(this.sessionService.userId, event.target.files[0])
       .pipe(
@@ -90,6 +93,7 @@ export class EditUserInfoComponent implements OnInit {
       .subscribe(e => {
         notify({ message: 'Avatar succesfully updated' })
         this.user = this.sessionService.localUser
+        this.isLoadingAvatar = false
       })
   }
 }

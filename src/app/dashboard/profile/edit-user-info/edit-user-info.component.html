@@ -10,6 +10,7 @@
           <div class="row" style="text-align: center;">
             <div class="col-xs-12" style="position: relative">
               <div class="avatar-wrapper">
+                <loading-overlay [visible]="isLoadingAvatar"></loading-overlay>
                 <img
                   class="avatar border-gray"
                   [src]="user.avatarUrl || '/assets/img/default-avatar.png'"
@@ -90,7 +91,7 @@
           </button>
         </div>
         <div class="col-xs-6">
-          <button type="button" class="btn btn-success" style="width: 100%;" (click)="uploadBackground(croppedImage)">
+          <button type="button" class="btn btn-success" [ngClass]="{disabled: !croppedImage}" style="width: 100%;" (click)="uploadBackground(croppedImage)">
             <i class="pe-7s-diskette"></i>
             Save
           </button>

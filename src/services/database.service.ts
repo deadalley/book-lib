@@ -599,4 +599,8 @@ export class DatabaseService {
   uploadAvatar(userRef: string, file) {
     return this.uploadFile(file, `images/${userRef}/avatar.jpg`)
   }
+
+  uploadBackgroundImage(userRef: string, file) {
+    return this.uploadFile(file, `images/${userRef}/background.jpg`)
+  }
 }
