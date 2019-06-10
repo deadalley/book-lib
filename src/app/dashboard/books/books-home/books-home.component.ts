@@ -76,27 +76,29 @@ export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
       })
     )
 
-    this.route.queryParams
-      .pipe(
-        mergeMap(params =>
-          this.libraryService.bookCount$.pipe(
-            map(bookCount => {
-              const view = params.view || 'tiles'
-              const max =
-                view === 'tiles' ? this.MAX_BOOKS : this.MAX_BOOKS_LIST
-              const pageCount = Math.ceil(bookCount / max)
-              return {
-                maxBooks: max,
-                pageCount: pageCount === 0 ? 1 : pageCount,
-              }
-            })
+    this.subscriptions.push(
+      this.route.queryParams
+        .pipe(
+          mergeMap(params =>
+            this.libraryService.bookCount$.pipe(
+              map(bookCount => {
+                const view = params.view || 'tiles'
+                const max =
+                  view === 'tiles' ? this.MAX_BOOKS : this.MAX_BOOKS_LIST
+                const pageCount = Math.ceil(bookCount / max)
+                return {
+                  maxBooks: max,
+                  pageCount: pageCount === 0 ? 1 : pageCount,
+                }
+              })
+            )
           )
         )
-      )
-      .subscribe(({ maxBooks, pageCount }) => {
-        this.maxBooks = maxBooks
-        this.pageCount = pageCount
-      })
+        .subscribe(({ maxBooks, pageCount }) => {
+          this.maxBooks = maxBooks
+          this.pageCount = pageCount
+        })
+    )
 
     this.groupingMethod = this.getQueryParams('grouping')
     this.filterMethod = this.getQueryParams('filter')

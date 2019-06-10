@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { User } from 'models/user.model'
 import { SessionService } from 'services/session.service'
 import { LibraryService } from 'services/library.service'
@@ -10,7 +10,8 @@ import { ANIMATIONS } from 'utils/constants'
   styleUrls: ['./user-info.component.css'],
   animations: [ANIMATIONS.CARD],
 })
-export class UserInfoComponent implements OnInit {
+export class UserInfoComponent implements OnInit, OnDestroy {
+  subscriptions = []
   user: User
   bookCount: number
   collectionCount: number
@@ -20,11 +21,21 @@ export class UserInfoComponent implements OnInit {
     private libraryService: LibraryService
   ) {
     this.user = this.sessionService.localUser
-    this.libraryService.bookCount$.subscribe(count => (this.bookCount = count))
-    this.libraryService.collectionCount$.subscribe(
-      count => (this.collectionCount = count)
+    this.subscriptions.push(
+      this.libraryService.bookCount$.subscribe(
+        count => (this.bookCount = count)
+      )
+    )
+    this.subscriptions.push(
+      this.libraryService.collectionCount$.subscribe(
+        count => (this.collectionCount = count)
+      )
     )
   }
 
   ngOnInit() {}
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe())
+  }
 }

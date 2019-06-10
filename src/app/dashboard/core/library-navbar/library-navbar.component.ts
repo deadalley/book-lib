@@ -67,13 +67,15 @@ export class LibraryNavbarComponent implements OnInit, OnDestroy {
         this.searchBoxLink = '/dashboard/authors/'
       })
     } else {
-      this.libraryService.books$.subscribe(books => {
-        this.books = books
-        this.searchBoxItems = books
-        this.searchBoxProps = { main: 'title', sub: 'author' }
-        this.searchBoxSearchProps = ['title', 'original', 'author']
-        this.searchBoxLink = '/dashboard/books/'
-      })
+      this.subscriptions.push(
+        this.libraryService.books$.subscribe(books => {
+          this.books = books
+          this.searchBoxItems = books
+          this.searchBoxProps = { main: 'title', sub: 'author' }
+          this.searchBoxSearchProps = ['title', 'original', 'author']
+          this.searchBoxLink = '/dashboard/books/'
+        })
+      )
     }
   }
 

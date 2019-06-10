@@ -19,9 +19,7 @@ import { ignoreReturnFor } from 'utils/promise'
 @Injectable()
 export class LibraryService {
   private MAX_DATE = 4
-  private books = new BehaviorSubject<Book[]>(undefined)
   private collections = new BehaviorSubject<Collection[]>(undefined)
-  private grAuthorIds = new BehaviorSubject<number[]>(undefined)
   private booksToImport = new BehaviorSubject<Book[]>(undefined)
 
   private _userRef: string
@@ -108,7 +106,6 @@ export class LibraryService {
     )
 
     this.books$ = this.rawBooks$
-    this.books$.subscribe(this.books)
 
     this.latestBooks$ = this.session.userId$.pipe(
       filter(userRef => !!userRef),
@@ -134,7 +131,6 @@ export class LibraryService {
     this.grAuthorIds$ = this.rawBooks$.pipe(
       map(books => uniq(compact(books.map(book => book.goodreadsAuthorId))))
     )
-    this.grAuthorIds$.subscribe(this.grAuthorIds)
 
     this.authors$ = this.grAuthorIds$.pipe(
       mergeMap(ids =>
