@@ -7,14 +7,16 @@
   <div class="content">
     <ng-container [ngSwitch]="connectedToGoodreads">
       <div class="row" *ngSwitchCase="false">
-        <div class="col-xs-4"></div>
-        <div class="col-xs-4">
+        <p class="col-xs-12 text-center">
+          <i class="pe-7s-close-circle" style="font-size: 1.0em; color: #ff0505"></i>
+          Your account is not yet connected to Goodreads
+        </p>
+        <div class="col-xs-4 col-md-offset-4">
           <a class="btn btn-block btn-social btn-lg btn-goodreads" (click)="loginGoodreads()">
             <span class="fab fa-goodreads-g"></span>
             Connect to Goodreads
           </a>
         </div>
-        <div class="col-xs-4"></div>
       </div>
       <div class="row justify-content-center" *ngSwitchCase="true">
         <div class="col-xs-12 text-center">

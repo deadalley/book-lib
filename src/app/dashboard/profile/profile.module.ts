@@ -10,6 +10,7 @@ import { ProfileComponent } from './profile.component'
 import { UserInfoComponent } from './user-info/user-info.component'
 import { GoodreadsInfoComponent } from './goodreads-info/goodreads-info.component'
 import { EditUserInfoComponent } from './edit-user-info/edit-user-info.component'
+import { DeleteAccountComponent } from './delete-account/delete-account.component'
 
 const routes: Routes = [
   {
@@ -22,6 +23,12 @@ const routes: Routes = [
         path: '',
         component: GoodreadsInfoComponent,
         outlet: 'goodreads',
+        pathMatch: 'full',
+      },
+      {
+        path: '',
+        component: DeleteAccountComponent,
+        outlet: 'delete',
         pathMatch: 'full',
       },
     ],
@@ -42,6 +49,7 @@ const routes: Routes = [
     UserInfoComponent,
     GoodreadsInfoComponent,
     EditUserInfoComponent,
+    DeleteAccountComponent,
   ],
   exports: [ProfileComponent],
 })
