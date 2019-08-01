@@ -12,3 +12,15 @@ i {
   padding: 0 35px;
   font-weight: 400;
 }
+
+.alert {
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 8px 0;
+}
+
+.alert > a {
+  font-weight: bold;
+  text-decoration: underline;
+  color: white;
+}

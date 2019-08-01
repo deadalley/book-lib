@@ -29,6 +29,12 @@
         <i class="pe-7s-note"></i>
         Edit
       </button>
+      <hr *ngIf="!isVerified">
+      <div *ngIf="!isVerified" class="alert alert-danger">
+        <i class="pe-7s-attention" style="font-size: 20px; font-weight: bold;"></i>
+        This account is not yet verified.&nbsp;
+        <a href="javascript:void(0);" (click)="sendVerificationEmail()">Resend verification e-mail.</a>
+      </div>
     </div>
   </div>
 </div>

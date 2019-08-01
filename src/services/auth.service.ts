@@ -155,6 +155,9 @@ export class AuthService {
       .then(response => {
         this.processResponse(response.user, { displayName: name })
       })
+      .then(() => {
+        this.sendVerificationEmail()
+      })
       .catch(error => {
         console.log('Could not sign up with e-mail and password')
         console.log(error.code, error.message)
@@ -178,6 +181,8 @@ export class AuthService {
       })
   }
 
+  resetPassword() {}
+
   deleteAccount() {
     Promise.all([
       this.database.deleteAllBooksForUser(this.session.userId),
@@ -187,5 +192,13 @@ export class AuthService {
       .then(() => this.fireAuth.auth.currentUser.delete())
       .then(() => console.log('Successfully deleted user'))
       .then(() => this.logout())
+  }
+
+  get userIsVerified() {
+    return this.fireAuth.auth.currentUser.emailVerified
+  }
+
+  sendVerificationEmail() {
+    return this.fireAuth.auth.currentUser.sendEmailVerification()
   }
 }
