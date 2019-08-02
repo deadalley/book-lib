@@ -26,7 +26,7 @@
           </div>
           <div class="row">
             <div class="col-xs-12">
-              <form [formGroup]="form" (ngSubmit)="submit(form.value)">
+              <form [formGroup]="form" (ngSubmit)="updateName(form.value)">
                 <div class="form-group" [ngClass] = "{'has-error': !form.controls['name'].valid && form.controls['name'].touched}">
                   <label>Name:</label>
                   <input type="text" class="form-control" placeholder="Name" formControlName="name">
@@ -58,7 +58,7 @@
           <!-- Name -->
           <div class="row">
             <div class="col-xs-12">
-              <form [formGroup]="form" (ngSubmit)="submit(form.value)">
+              <form [formGroup]="form" (ngSubmit)="updateEmail(form.value)">
                 <!-- Email -->
                 <div class="form-group" [ngClass] = "{'has-error': !form.controls['email'].valid && form.controls['email'].touched}">
                   <label>E-mail:</label>
@@ -70,6 +70,10 @@
                   <label>Confirm e-mail:</label>
                   <input type="text" class="form-control" placeholder="Confirm e-mail" formControlName="confirmEmail">
                   <span class="help-block" *ngIf="!form.controls['confirmEmail'].valid && form.controls['confirmEmail'].touched">E-mail doesn't match.</span>
+                </div>
+                <div class="form-group">
+                  <label>Password:</label>
+                  <input type="password" class="form-control" placeholder="Password" formControlName="password">
                 </div>
                 <hr>
                 <!-- Save button -->
@@ -100,11 +104,16 @@
           <!-- Name -->
           <div class="row">
             <div class="col-xs-12">
-              <form [formGroup]="form" (ngSubmit)="submit(form.value)">
+              <form [formGroup]="form" (ngSubmit)="updatePassword(form.value)">
+                <!-- Current password -->
+                <div class="form-group">
+                  <label>Current password:</label>
+                  <input type="password" class="form-control" placeholder="Current password" formControlName="oldPassword">
+                </div>
                 <!-- Password -->
                 <div class="form-group" [ngClass] = "{'has-error': !form.controls['password'].valid && form.controls['password'].touched}">
-                  <label>Password:</label>
-                  <input type="password" class="form-control" placeholder="Password" formControlName="password">
+                  <label>New password:</label>
+                  <input type="password" class="form-control" placeholder="New password" formControlName="password">
                   <span class="help-block" *ngIf="!form.controls['password'].valid && form.controls['password'].touched">Please enter a valid password.</span>
                 </div>
                 <!-- Password confirmation -->

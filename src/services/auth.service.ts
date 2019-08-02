@@ -201,4 +201,27 @@ export class AuthService {
   sendVerificationEmail() {
     return this.fireAuth.auth.currentUser.sendEmailVerification()
   }
+
+  reauthenticateUser(password: string) {
+    const credentials = firebase.auth.EmailAuthProvider.credential(
+      this.fireAuth.auth.currentUser.email,
+      password
+    )
+    return this.fireAuth.auth.currentUser.reauthenticateWithCredential(
+      credentials
+    )
+  }
+
+  updateUserEmail(email: string, password: string) {
+    return this.reauthenticateUser(password)
+      .then(() => this.fireAuth.auth.currentUser.updateEmail(email))
+      .then(() => this.sendVerificationEmail())
+      .then(() => this.database.updateUser(this.session.userId, { email }))
+  }
+
+  updateUserPassword(oldPassword: string, password: string) {
+    return this.reauthenticateUser(oldPassword)
+      .then(() => this.fireAuth.auth.currentUser.updatePassword(password))
+      .then(() => this.database.updateUser(this.session.userId, { password }))
+  }
 }

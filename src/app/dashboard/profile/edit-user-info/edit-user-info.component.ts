@@ -7,6 +7,7 @@ import { User } from 'models/user.model'
 import { ANIMATIONS } from 'utils/constants'
 import { SessionService } from 'services/session.service'
 import { DatabaseService } from 'services/database.service'
+import { AuthService } from 'services/auth.service'
 import { notify } from 'utils/notifications'
 import { confirmPassword, confirmEmail } from 'utils/validators'
 
@@ -27,6 +28,7 @@ export class EditUserInfoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private authService: AuthService,
     private sessionService: SessionService,
     private databaseService: DatabaseService
   ) {
@@ -36,6 +38,7 @@ export class EditUserInfoComponent implements OnInit {
         name: [this.user.name, Validators.required],
         email: [this.user.email, [Validators.required, Validators.email]],
         confirmEmail: ['', [Validators.required, Validators.email]],
+        oldPassword: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
       },
@@ -45,11 +48,35 @@ export class EditUserInfoComponent implements OnInit {
 
   ngOnInit() {}
 
-  submit(formValues) {
-    console.log('Updating user', formValues)
+  updateName({ name }: { name: string }) {
+    console.log('Updating user', name)
 
     this.databaseService
-      .updateUser(this.user.id, formValues)
+      .updateUser(this.user.id, { name })
+      .then(() => notify({ message: 'User profile succesfully updated' }))
+      .then(() => this.router.navigate(['dashboard/profile']))
+  }
+
+  updateEmail({ email, password }: { email: string; password: string }) {
+    console.log('Updating user', email)
+
+    this.authService
+      .updateUserEmail(email, password)
+      .then(() => notify({ message: 'User profile succesfully updated' }))
+      .then(() => this.router.navigate(['dashboard/profile']))
+  }
+
+  updatePassword({
+    password,
+    oldPassword,
+  }: {
+    password: string
+    oldPassword: string
+  }) {
+    console.log('Updating user', password)
+
+    this.authService
+      .updateUserPassword(oldPassword, password)
       .then(() => notify({ message: 'User profile succesfully updated' }))
       .then(() => this.router.navigate(['dashboard/profile']))
   }
