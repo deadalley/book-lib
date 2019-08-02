@@ -1,11 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core'
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  AbstractControl,
-} from '@angular/forms'
-import { AuthService } from '../../../services/auth.service'
+import { Component, OnInit } from '@angular/core'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { confirmPassword } from 'utils/validators'
+import { AuthService } from 'services/auth.service'
 
 @Component({
   moduleId: module.id,
@@ -24,7 +20,7 @@ export class SignUpComponent implements OnInit {
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
       },
-      { validator: this.confirmPassword }
+      { validator: confirmPassword }
     )
   }
 
@@ -41,17 +37,5 @@ export class SignUpComponent implements OnInit {
   signUp(formValues) {
     console.log(formValues)
     this.authService.signUpWithEmail(formValues)
-  }
-
-  confirmPassword(control: AbstractControl): { passwordMismatch: boolean } {
-    const password = control.get('password').value
-    const passwordConfirm = control.get('confirmPassword').value
-
-    if (password !== passwordConfirm) {
-      control.get('confirmPassword').setErrors({ passwordMismatch: true })
-      return { passwordMismatch: true }
-    }
-
-    return null
   }
 }

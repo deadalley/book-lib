@@ -1,12 +1,12 @@
 <page-navigator>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
+      <!-- Avatar -->
       <div class="card card-user" [@card]>
         <div class="header">
-          <h4 class="title">Avatar</h4>
+          <h4 class="title">User Info</h4>
         </div>
         <div class="content">
-          <!-- Avatar -->
           <div class="row" style="text-align: center;">
             <div class="col-xs-12" style="position: relative">
               <div class="avatar-wrapper">
@@ -24,28 +24,18 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card" [@card]>
-        <div class="header">
-          <h4 class="title">Name</h4>
-        </div>
-        <div class="content">
-          <!-- Name -->
           <div class="row">
             <div class="col-xs-12">
-              <form [formGroup]="nameForm" (ngSubmit)="submit(nameForm.value)">
-                <div class="form-group" [ngClass] = "{'has-error': !nameForm.controls['name'].valid && nameForm.controls['name'].touched}">
+              <form [formGroup]="form" (ngSubmit)="submit(form.value)">
+                <div class="form-group" [ngClass] = "{'has-error': !form.controls['name'].valid && form.controls['name'].touched}">
                   <label>Name:</label>
                   <input type="text" class="form-control" placeholder="Name" formControlName="name">
-                  <span class="help-block" *ngIf="!nameForm.controls['name'].valid && nameForm.controls['name'].touched">Please enter a valid name.</span>
+                  <span class="help-block" *ngIf="!form.controls['name'].valid && form.controls['name'].touched">Please enter a valid name.</span>
                 </div>
                 <hr>
                 <!-- Save button -->
                 <div style="text-align: center;">
-                  <button type="submit" class="btn btn-success" [disabled]="!nameForm.valid" style="width: 100%;">
+                  <button type="submit" class="btn btn-success" [disabled]="!form.controls['name'].valid" style="width: 100%;">
                     <i class="pe-7s-diskette"></i>
                     Save
                   </button>
@@ -57,6 +47,92 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-6">
+      <!-- Email -->
+      <div class="card" [@card]>
+        <div class="header">
+          <h4 class="title">E-mail</h4>
+        </div>
+        <div class="content">
+          <!-- Name -->
+          <div class="row">
+            <div class="col-xs-12">
+              <form [formGroup]="form" (ngSubmit)="submit(form.value)">
+                <!-- Email -->
+                <div class="form-group" [ngClass] = "{'has-error': !form.controls['email'].valid && form.controls['email'].touched}">
+                  <label>E-mail:</label>
+                  <input type="text" class="form-control" placeholder="E-mail" formControlName="email">
+                  <span class="help-block" *ngIf="!form.controls['email'].valid && form.controls['email'].touched">Please enter a valid e-mail.</span>
+                </div>
+                <!-- Emmil confirmation -->
+                <div class="form-group" [ngClass] = "{'has-error': !form.controls['confirmEmail'].valid && form.controls['confirmEmail'].touched}">
+                  <label>Confirm e-mail:</label>
+                  <input type="text" class="form-control" placeholder="Confirm e-mail" formControlName="confirmEmail">
+                  <span class="help-block" *ngIf="!form.controls['confirmEmail'].valid && form.controls['confirmEmail'].touched">E-mail doesn't match.</span>
+                </div>
+                <hr>
+                <!-- Save button -->
+                <div style="text-align: center;">
+                  <button
+                    type="submit"
+                    class="btn btn-success"
+                    [disabled]="!form.controls['email'].valid || !form.controls['confirmEmail'].valid"
+                    style="width: 100%;"
+                  >
+                    <i class="pe-7s-diskette"></i>
+                    Save
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <!-- Password -->
+      <div class="card" [@card]>
+        <div class="header">
+          <h4 class="title">Password</h4>
+        </div>
+        <div class="content">
+          <!-- Name -->
+          <div class="row">
+            <div class="col-xs-12">
+              <form [formGroup]="form" (ngSubmit)="submit(form.value)">
+                <!-- Password -->
+                <div class="form-group" [ngClass] = "{'has-error': !form.controls['password'].valid && form.controls['password'].touched}">
+                  <label>Password:</label>
+                  <input type="password" class="form-control" placeholder="Password" formControlName="password">
+                  <span class="help-block" *ngIf="!form.controls['password'].valid && form.controls['password'].touched">Please enter a valid password.</span>
+                </div>
+                <!-- Password confirmation -->
+                <div class="form-group" [ngClass] = "{'has-error': !form.controls['confirmPassword'].valid && form.controls['confirmPassword'].touched}">
+                  <label>Confirm password:</label>
+                  <input type="password" class="form-control" placeholder="Password" formControlName="confirmPassword">
+                  <span class="help-block" *ngIf="!form.controls['confirmPassword'].valid && form.controls['confirmPassword'].touched">Password doesn't match.</span>
+                </div>
+                <hr>
+                <!-- Save button -->
+                <div style="text-align: center;">
+                  <button
+                    type="submit"
+                    class="btn btn-success"
+                    [disabled]="!form.controls['password'].valid || !form.controls['confirmPassword'].valid"
+                    style="width: 100%;">
+                    <i class="pe-7s-diskette"></i>
+                    Save
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Background image -->
   <div class="card" [@card]>
     <div class="header">
       <h4 class="title">Background image</h4>
@@ -99,49 +175,4 @@
       </div>
     </div>
   </div>
-  <!-- <div class="card" [@card]>
-    <div class="header">
-      <h4 class="title">E-mail</h4>
-    </div>
-    <div class="content">
-      <!-- Email --
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group" [ngClass] = "{'has-error': !form.controls['email'].valid && form.controls['email'].touched}">
-            <label>E-mail:</label>
-            <input type="text" class="form-control" placeholder="E-mail" formControlName="email">
-            <!-- <span class="help-block" *ngIf="!form.controls['email'].valid && form.controls['email'].touched">Please enter a valid book title.</span> --
-          </div>
-        </div>
-      </div>
-      <!-- Confirmation --
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group" [ngClass] = "{'has-error': !form.controls['emailConfirm'].valid && form.controls['emailConfirm'].touched}">
-            <label>Confirm e-mail:</label>
-            <input type="text" class="form-control" placeholder="Confirm e-mail" formControlName="emailConfirm">
-            <!-- <span class="help-block" *ngIf="!form.controls['emailConfirm'].valid && form.controls['emailConfirm'].touched">Please enter a valid book title.</span> --
-          </div>
-        </div>
-      </div>
-      <!-- Password --
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group" [ngClass] = "{'has-error': !form.controls['emailConfirm'].valid && form.controls['emailConfirm'].touched}">
-            <label>Password:</label>
-            <input type="text" class="form-control" placeholder="Password" formControlName="emailConfirm">
-            <!-- <span class="help-block" *ngIf="!form.controls['emailConfirm'].valid && form.controls['emailConfirm'].touched">Please enter a valid book title.</span> --
-          </div>
-        </div>
-      </div>
-      <hr>
-      <!-- Save button --
-      <div style="text-align: center;">
-        <button type="submit" class="btn btn-success" [disabled]="!form.valid" style="width: 100%;">
-          <i class="pe-7s-diskette"></i>
-          Save
-        </button>
-      </div>
-    </div>
-  </div> -->
 </page-navigator>

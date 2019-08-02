@@ -8,6 +8,7 @@ import { ANIMATIONS } from 'utils/constants'
 import { SessionService } from 'services/session.service'
 import { DatabaseService } from 'services/database.service'
 import { notify } from 'utils/notifications'
+import { confirmPassword, confirmEmail } from 'utils/validators'
 
 @Component({
   selector: 'edit-user-info',
@@ -17,7 +18,7 @@ import { notify } from 'utils/notifications'
 })
 export class EditUserInfoComponent implements OnInit {
   user = {} as User
-  nameForm: FormGroup
+  form: FormGroup
   imageChangedEvent: any
   croppedImage: any
   isLoading = false
@@ -30,9 +31,16 @@ export class EditUserInfoComponent implements OnInit {
     private databaseService: DatabaseService
   ) {
     this.user = this.sessionService.localUser
-    this.nameForm = this.fb.group({
-      name: [this.user.name, Validators.required],
-    })
+    this.form = this.fb.group(
+      {
+        name: [this.user.name, Validators.required],
+        email: [this.user.email, [Validators.required, Validators.email]],
+        confirmEmail: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
+      },
+      { validator: [confirmPassword, confirmEmail] }
+    )
   }
 
   ngOnInit() {}
