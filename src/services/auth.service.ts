@@ -220,8 +220,8 @@ export class AuthService {
   }
 
   updateUserPassword(oldPassword: string, password: string) {
-    return this.reauthenticateUser(oldPassword)
-      .then(() => this.fireAuth.auth.currentUser.updatePassword(password))
-      .then(() => this.database.updateUser(this.session.userId, { password }))
+    return this.reauthenticateUser(oldPassword).then(() =>
+      this.fireAuth.auth.currentUser.updatePassword(password)
+    )
   }
 }
