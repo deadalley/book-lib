@@ -29,9 +29,11 @@ export class AuthService {
 
   private _userRef = new BehaviorSubject<string>(undefined)
   private _goodreadsId = new BehaviorSubject<string>(undefined)
+  private _userLoaded = new BehaviorSubject<boolean>(false)
 
   userRef = this._userRef.asObservable()
   goodreadsId = this._goodreadsId.asObservable()
+  userLoaded = this._userLoaded.asObservable()
 
   constructor(
     public fireAuth: AngularFireAuth,
@@ -45,6 +47,7 @@ export class AuthService {
       this._goodreadsId.next(user.goodreadsId)
     }
     this.setupSessionForGoodreadsLogin()
+    this.setupFirebaseSessionListener()
   }
 
   private setupSessionForGoodreadsLogin() {
@@ -95,6 +98,16 @@ export class AuthService {
       this.database.isLoggedIn.next(true)
       this.session.buildSession(userInDatabase)
       this.router.navigate(['library'])
+    })
+  }
+
+  private setupFirebaseSessionListener() {
+    this.fireAuth.auth.onAuthStateChanged(user => {
+      if (user) {
+        this._userLoaded.next(true)
+      } else {
+        this._userLoaded.next(false)
+      }
     })
   }
 
@@ -195,7 +208,10 @@ export class AuthService {
   }
 
   get userIsVerified() {
-    return this.fireAuth.auth.currentUser.emailVerified
+    return (
+      this.fireAuth.auth.currentUser &&
+      this.fireAuth.auth.currentUser.emailVerified
+    )
   }
 
   sendVerificationEmail() {
@@ -223,5 +239,9 @@ export class AuthService {
     return this.reauthenticateUser(oldPassword).then(() =>
       this.fireAuth.auth.currentUser.updatePassword(password)
     )
+  }
+
+  signInProvider() {
+    return this.fireAuth.auth.currentUser.providerData[0].providerId
   }
 }

@@ -17,6 +17,18 @@ export class UserInfoComponent implements OnInit, OnDestroy {
   bookCount: number
   collectionCount: number
   isVerified = true
+  signInMethod: object = {}
+
+  SIGN_IN_METHODS = {
+    'google.com': {
+      icon: 'ti-google',
+      text: 'Connected to Google',
+    },
+    'facebook.com': {
+      icon: 'ti-facebook',
+      text: 'Connected to Facebook',
+    },
+  }
 
   constructor(
     private authService: AuthService,
@@ -37,7 +49,14 @@ export class UserInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.isVerified = this.authService.userIsVerified
+    this.authService.userLoaded.subscribe(value => {
+      if (value) {
+        this.isVerified = this.authService.userIsVerified
+        this.signInMethod = this.SIGN_IN_METHODS[
+          this.authService.signInProvider()
+        ]
+      }
+    })
   }
 
   ngOnDestroy() {
