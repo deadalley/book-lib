@@ -1,10 +1,12 @@
-.clear-filter:after, .clear-filter:before {
-  display: none; }
+.clear-filter:after,
+.clear-filter:before {
+  display: none;
+}
 .page-header {
   height: 125vh;
   max-height: 700px;
   padding: 0;
-  color: #FFFFFF;
+  color: #ffffff;
   position: relative;
   background-position: center center;
   background-size: cover;
@@ -16,17 +18,20 @@
   background-position: center center;
   width: 100%;
   height: 100%;
-  z-index: -1; }
+  z-index: -1;
+}
 .page-header footer {
   position: absolute;
   bottom: 0;
-  width: 100%; }
+  width: 100%;
+}
 .page-header .container {
   height: 100%;
   z-index: 1;
-  text-align: center; }
+  text-align: center;
+}
 .page-header .container > .content-center {
-	top: 37%;
+  top: 37%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -34,15 +39,20 @@
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   text-align: center;
-  color: #FFFFFF;
+  color: #ffffff;
   width: 100%;
-  max-width: 880px; }
-.page-header .category, .page-header .description {
-  color: rgba(255, 255, 255, 0.5); }
+  max-width: 880px;
+}
+.page-header .category,
+.page-header .description {
+  color: rgba(255, 255, 255, 0.5);
+}
 .page-header.page-header-small {
   height: 60vh;
-  max-height: 440px; }
-.page-header:after, .page-header:before {
+  max-height: 440px;
+}
+.page-header:after,
+.page-header:before {
   position: absolute;
   z-index: 0;
   width: 100%;
@@ -50,19 +60,37 @@
   display: block;
   left: 0;
   top: 0;
-  content: ""; }
+  content: '';
+}
 .page-header:before {
-  background-color: rgba(0, 0, 0, 0.5); }
-.page-header[filter-color="custom"] {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.page-header[filter-color='custom'] {
   background: rgba(44, 44, 44, 0.2);
   /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(90deg, rgba(43, 77, 113, 0.2), rgba(16, 168, 226, 0.6));
+  background: -webkit-linear-gradient(
+    90deg,
+    rgba(43, 77, 113, 0.2),
+    rgba(16, 168, 226, 0.6)
+  );
   /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(90deg, rgba(43, 77, 113, 0.2), rgba(16, 168, 226, 0.6));
+  background: -o-linear-gradient(
+    90deg,
+    rgba(43, 77, 113, 0.2),
+    rgba(16, 168, 226, 0.6)
+  );
   /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(90deg, rgba(43, 77, 113, 0.2), rgba(16, 168, 226, 0.6));
+  background: -moz-linear-gradient(
+    90deg,
+    rgba(43, 77, 113, 0.2),
+    rgba(16, 168, 226, 0.6)
+  );
   /* For Firefox 3.6 to 15 */
-  background: linear-gradient(0deg, rgba(43, 77, 113, 0.2), rgba(16, 168, 226, 0.6));
+  background: linear-gradient(
+    0deg,
+    rgba(43, 77, 113, 0.2),
+    rgba(16, 168, 226, 0.6)
+  );
   /* Standard syntax */
 }
 .page-header .container {
@@ -75,8 +103,17 @@
   text-align: left;
 }
 hr {
-  border-top: 1px solid #DDDDDD;
+  border-top: 1px solid #dddddd;
 }
 .section-item {
   padding: 0 120px;
+}
+.n-logo {
+  height: 150px;
+  width: auto;
+}
+li {
+  text-align: left;
+  font-size: 16px;
+  padding: 4px;
 }

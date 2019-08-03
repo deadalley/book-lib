@@ -7,7 +7,6 @@ import { Component, OnInit, Input } from '@angular/core'
 })
 export class HomeSectionComponent implements OnInit {
   @Input() sectionTitle: string
-  @Input() sectionLogo: string
 
   ngOnInit() {}
 }

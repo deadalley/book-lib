@@ -2,30 +2,39 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <div class="brand-with-icon">
-        <img class="icon-brand" src="./assets/img/angular2-logo.png" alt="BookLib" />
-        <a
-          class="navbar-brand"
-          routerLink="/home"
-          href="javascript:void(0);"
-        >
-        <p class="bold brand">
-          BookLib
-        </p>
+        <img
+          class="icon-brand"
+          src="./assets/img/booklib-32x32.png"
+          alt="BookLib"
+        />
+        <a class="navbar-brand" routerLink="/home" href="javascript:void(0);">
+          <p class="bold brand">
+            BookLib
+          </p>
         </a>
       </div>
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li>
-        <popover-container label="Sign in" [show]="selected == 'Sign in'" (selected)="selected = $event">
+        <popover-container
+          label="Sign in"
+          [show]="selected == 'Sign in'"
+          (selected)="selected = $event"
+        >
           <sign-in></sign-in>
         </popover-container>
       </li>
       <li>
-        <popover-container label="Sign up" [show]="selected == 'Sign up'" (selected)="selected = $event" [bold]="true">
+        <popover-container
+          label="Sign up"
+          [show]="selected == 'Sign up'"
+          (selected)="selected = $event"
+          [bold]="true"
+        >
           <sign-up></sign-up>
         </popover-container>
       </li>
       <li class="separator hidden-lg hidden-md"></li>
     </ul>
   </div>
-</nav>  
+</nav>

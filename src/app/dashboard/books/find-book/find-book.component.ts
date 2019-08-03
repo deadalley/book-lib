@@ -35,7 +35,7 @@ export class FindBookComponent implements OnInit {
         map(params => params.title),
         mergeMap<any, any>(title => this.goodreadsService.searchBook(title))
       )
-      .subscribe(books => {
+      .subscribe<Array<any>>(books => {
         this.isLoading = false
         this.books = books.map(book => ({
           ...parseBook(book),

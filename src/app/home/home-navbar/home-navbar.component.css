@@ -9,7 +9,9 @@
 }
 
 .icon-brand {
-  height: 40px;
+  height: 28px;
+  width: auto;
+  padding: 0 4px;
 }
 
 .bold {
@@ -23,10 +25,10 @@
 
 p {
   font-size: 16px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 200;
 }
 
 li > a:hover > p {
-  color: #AAAAAA;
+  color: #aaaaaa;
 }

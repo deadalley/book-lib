@@ -1,17 +1,23 @@
 <div class="sidebar-wrapper">
   <div class="logo">
-    <a href="javascript:void(0);" routerLink="/home" class="simple-text">
-      <div class="logo-img">
-        <img src="/assets/img/angular2-logo.png"/>
-      </div>
+    <a
+      href="javascript:void(0);"
+      routerLink="/home"
+      class="simple-text sidebar-link"
+    >
+      <img class="logo-image" src="/assets/img/booklib-32x32.png" />
       Book Lib
     </a>
   </div>
   <ul class="nav">
-    <li *ngFor="let menuItem of menuItems; let i = index" routerLinkActive="active" class="{{menuItem.class}}">
+    <li
+      *ngFor="let menuItem of menuItems; let i = index"
+      routerLinkActive="active"
+      class="{{ menuItem.class }}"
+    >
       <a [routerLink]="[menuItem.path]">
-        <i class="{{menuItem.icon}}"></i>
-        <p>{{menuItem.title}}</p>
+        <i class="{{ menuItem.icon }}"></i>
+        <p>{{ menuItem.title }}</p>
       </a>
     </li>
     <li class="last" routerLinkActive="active">

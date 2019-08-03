@@ -1,35 +1,84 @@
 <div class="card" style="text-align: center;">
   <!-- Header -->
   <div class="header">
-    <img src="/assets/img/angular.png" alt="Logo">
+    <img
+      src="/assets/img/booklib-128x128.png"
+      alt="Logo"
+      style="padding: 40px;"
+    />
     <h1 class="title">Let's get started with your library!</h1>
   </div>
   <!-- Content -->
   <div class="content">
     <p>Start your library by adding a book...</p>
     <!-- Form -->
-    <form style="text-align: left;" [formGroup]="form" (ngSubmit)="submit(form.value)">
+    <form
+      style="text-align: left;"
+      [formGroup]="form"
+      (ngSubmit)="submit(form.value)"
+    >
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
           <div class="card">
             <div class="content">
               <!-- Title -->
-              <div class="form-group" [ngClass] = "{'has-error': !form.controls['title'].valid && form.controls['title'].touched}">
+              <div
+                class="form-group"
+                [ngClass]="{
+                  'has-error':
+                    !form.controls['title'].valid &&
+                    form.controls['title'].touched
+                }"
+              >
                 <label for="title">Book Title</label>
-                <input type="text" class="form-control" formControlName="title" placeholder="Title">
-                <span class="help-block" *ngIf="!form.controls['title'].valid && form.controls['title'].touched">Please enter a valid book title.</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="title"
+                  placeholder="Title"
+                />
+                <span
+                  class="help-block"
+                  *ngIf="
+                    !form.controls['title'].valid &&
+                    form.controls['title'].touched
+                  "
+                  >Please enter a valid book title.</span
+                >
               </div>
               <!-- Author -->
-              <div class="form-group" [ngClass] = "{'has-error': !form.controls['author'].valid && form.controls['author'].touched}">
+              <div
+                class="form-group"
+                [ngClass]="{
+                  'has-error':
+                    !form.controls['author'].valid &&
+                    form.controls['author'].touched
+                }"
+              >
                 <label>Author</label>
-                <input type="text" class="form-control" formControlName="author" placeholder="Author">
-                <span class="help-block" *ngIf="!form.controls['author'].valid && form.controls['author'].touched">Please enter a valid author name.</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="author"
+                  placeholder="Author"
+                />
+                <span
+                  class="help-block"
+                  *ngIf="
+                    !form.controls['author'].valid &&
+                    form.controls['author'].touched
+                  "
+                  >Please enter a valid author name.</span
+                >
               </div>
               <div class="row">
                 <!-- Language -->
                 <div class="col-md-4">
                   <div class="form-group">
-                    <language-selector [selectedLanguage]="selectedLanguage" (select)="selectedLanguage = $event"></language-selector>
+                    <language-selector
+                      [selectedLanguage]="selectedLanguage"
+                      (select)="selectedLanguage = $event"
+                    ></language-selector>
                   </div>
                 </div>
                 <!-- Buttons -->
@@ -42,25 +91,45 @@
                 <div class="col-md-2">
                   <div class="form-group">
                     <label>Year</label>
-                    <input type="text" class="form-control" placeholder="Year" formControlName="year">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Year"
+                      formControlName="year"
+                    />
                   </div>
                 </div>
                 <!-- Pages -->
                 <div class="col-md-2">
                   <div class="form-group">
                     <label>Pages</label>
-                    <input type="text" class="form-control" formControlName="pages">
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="pages"
+                    />
                   </div>
                 </div>
-              </div> <!-- !row -->
+              </div>
+              <!-- !row -->
               <div class="row">
                 <!-- More options toggle -->
                 <div class="col-md-12" style="text-align: right;">
-                  <a href="#moreOptions" class="collapse-button" data-toggle="collapse" (click)="displayAll = !displayAll">
+                  <a
+                    href="#moreOptions"
+                    class="collapse-button"
+                    data-toggle="collapse"
+                    (click)="displayAll = !displayAll"
+                  >
                     <div class="label">More options</div>
-                    <i [ngClass]="{'pe-7s-angle-down': !displayAll, 'pe-7s-angle-up': displayAll}"></i>
+                    <i
+                      [ngClass]="{
+                        'pe-7s-angle-down': !displayAll,
+                        'pe-7s-angle-up': displayAll
+                      }"
+                    ></i>
                   </a>
-                  <hr>
+                  <hr />
                 </div>
               </div>
               <!-- More options -->
@@ -68,7 +137,12 @@
                 <!-- Original title -->
                 <div class="form-group">
                   <label>Original Title</label>
-                  <input type="text" class="form-control" placeholder="Original version title" formControlName="original">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Original version title"
+                    formControlName="original"
+                  />
                 </div>
                 <!-- Second row -->
                 <div class="row">
@@ -76,7 +150,12 @@
                   <div class="col-md-5">
                     <div class="form-group">
                       <label>Publisher</label>
-                      <input type="text" class="form-control" placeholder="Publisher" formControlName="publisher">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Publisher"
+                        formControlName="publisher"
+                      />
                     </div>
                   </div>
                   <!-- Genres -->
@@ -95,17 +174,27 @@
                   <!-- Rating -->
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label>Rating</label><br>
-                      <rating style="font-size: 20px" formControlName="rating" [titles]="['', '', '', '', '']"></rating>
+                      <label>Rating</label><br />
+                      <rating
+                        style="font-size: 20px"
+                        formControlName="rating"
+                        [titles]="['', '', '', '', '']"
+                      ></rating>
                     </div>
                   </div>
                 </div>
               </div>
 
               <!-- Submit -->
-              <hr>
+              <hr />
               <div style="text-align: center;">
-                <button type="submit" class="btn btn-success" [disabled]="!form.valid">Start your library!</button>
+                <button
+                  type="submit"
+                  class="btn btn-success"
+                  [disabled]="!form.valid"
+                >
+                  Start your library!
+                </button>
               </div>
             </div>
           </div>
@@ -115,17 +204,34 @@
     <p>... or import it!</p>
     <div class="row">
       <div class="col-md-4 col-md-offset-4" style="padding: 4px 0">
-        <button type="button" style="width: 100%" class="btn btn-default" (click)="loginGoodreads()">
-          <img src="/assets/img/goodreads_icon_32x32.png" style="height: 100%">
+        <button
+          type="button"
+          style="width: 100%"
+          class="btn btn-default"
+          (click)="loginGoodreads()"
+        >
+          <img
+            src="/assets/img/goodreads_icon_32x32.png"
+            style="height: 100%"
+          />
           Import from Goodreads
         </button>
       </div>
     </div>
     <div class="row">
       <div class="col-md-4 col-md-offset-4" style="padding: 4px 0">
-        <button type="button" style="width: 100%" class="btn btn-default" routerLink="/dashboard/import">Import from file</button>
+        <button
+          type="button"
+          style="width: 100%"
+          class="btn btn-default"
+          routerLink="/dashboard/import"
+        >
+          Import from file
+        </button>
       </div>
     </div>
-    <p class="text-muted" style="font-style: italic; font-size: 0.9em;">File format: .xlxs, .csv.</p>
+    <p class="text-muted" style="font-style: italic; font-size: 0.9em;">
+      File format: .xlxs, .csv.
+    </p>
   </div>
 </div>
