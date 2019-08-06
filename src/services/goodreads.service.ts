@@ -4,7 +4,7 @@ import { HttpGet, HttpGetAll } from 'utils/http'
 import { environment } from 'environments/environment'
 import { SessionService } from './session.service'
 import * as _ from 'lodash'
-import { BehaviorSubject ,  Observable } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
 import { map, mergeMap } from 'rxjs/operators'
 import { Book } from 'models/book.model'
 
@@ -68,7 +68,7 @@ export class GoodreadsService {
       params: this.defaultParams,
     }))
     return HttpGetAll(this.http, requests).pipe(
-      map(responses => responses.map(response => response.book))
+      map(responses => responses.map((response: any) => response.book))
     )
   }
 

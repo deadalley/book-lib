@@ -11,7 +11,7 @@ import { Book } from '../database/models/book.model'
 import { Collection } from '../database/models/collection.model'
 import { objectToArray, findKeyByValue, unique } from '../utils/helpers'
 import { environment } from 'environments/environment'
-import { BehaviorSubject ,  Observable } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
 import { map, mergeMap, last } from 'rxjs/operators'
 import { SessionService } from './session.service'
 @Injectable()
@@ -367,12 +367,14 @@ export class DatabaseService {
   createCollectionForUser(userRef: string, collection) {
     return this.createCollection({ ...collection, ownerId: userRef }).then(
       collectionInDatabase => {
-        return Promise.all([
-          this.userCollectionsRef(userRef).push(collectionInDatabase.id),
-          ...collectionInDatabase.books.map(bookId =>
+        return Promise.all(
+          collectionInDatabase.books.map(bookId =>
             this.addCollectionsToBook(bookId, [collectionInDatabase.id])
-          ),
-        ])
+          )
+        )
+          .then(() =>
+            this.userCollectionsRef(userRef).push(collectionInDatabase.id)
+          )
           .then(() => this.updateCollection(collectionInDatabase))
           .then(() => collectionInDatabase)
       }
