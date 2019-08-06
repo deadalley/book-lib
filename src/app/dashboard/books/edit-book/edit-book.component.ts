@@ -58,10 +58,10 @@ export class EditBookComponent implements OnInit, OnDestroy {
   authorFocus = new Subject<boolean>()
   _preventSubmit: boolean
 
-  @ViewChild(BookButtonsComponent)
+  @ViewChild(BookButtonsComponent, { static: false })
   buttonsComponent: BookButtonsComponent
-  @ViewChild('imageUpload') imageUpload
-  @ViewChild('deleteBookModal') modal
+  @ViewChild('imageUpload', { static: false }) imageUpload
+  @ViewChild('deleteBookModal', { static: false }) modal
 
   trigger
 

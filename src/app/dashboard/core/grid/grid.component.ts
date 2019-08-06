@@ -17,7 +17,7 @@ export class GridComponent implements OnInit {
   @Input() items: any[]
   @Input() itemsInRow = 4
 
-  @ContentChild(TemplateRef) contentTemplate
+  @ContentChild(TemplateRef, { static: false }) contentTemplate
 
   gridColumns = {}
 

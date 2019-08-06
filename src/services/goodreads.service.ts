@@ -4,9 +4,8 @@ import { HttpGet, HttpGetAll } from 'utils/http'
 import { environment } from 'environments/environment'
 import { SessionService } from './session.service'
 import * as _ from 'lodash'
-import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { BehaviorSubject ,  Observable } from 'rxjs'
 import { map, mergeMap } from 'rxjs/operators'
-import { Observable } from 'rxjs/Observable'
 import { Book } from 'models/book.model'
 
 const USE_PROXY = true

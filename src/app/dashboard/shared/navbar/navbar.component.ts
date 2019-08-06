@@ -11,7 +11,7 @@ export class NavbarComponent implements OnInit {
   private toggleButton
   private sidebarVisible: boolean
 
-  @ViewChild('navbar-cmp') button
+  @ViewChild('navbar-cmp', { static: false }) button
 
   constructor(
     private authService: AuthService,

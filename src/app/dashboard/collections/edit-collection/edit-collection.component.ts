@@ -30,7 +30,7 @@ export class EditCollectionComponent implements OnInit, OnDestroy {
   bookSubscription
   tableItems = { ...DEFAULT_TABLE_ITEMS, Cover: false }
 
-  @ViewChild('deleteCollectionModal') modal
+  @ViewChild('deleteCollectionModal', { static: false }) modal
 
   get collectionId(): string {
     const splitUrl = this.router.url.split('/')

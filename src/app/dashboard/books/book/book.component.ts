@@ -5,7 +5,7 @@ import { ANIMATIONS } from 'utils/constants'
 import { removeSpaces } from 'utils/helpers'
 import { LibraryService } from 'services/library.service'
 import { Router, ActivatedRoute } from '@angular/router'
-import { Subscription } from 'rxjs/Subscription'
+import { Subscription } from 'rxjs'
 
 @Component({
   moduleId: module.id,
@@ -21,7 +21,7 @@ export class BookComponent implements OnInit, OnDestroy {
 
   removeSpaces = removeSpaces
 
-  @ViewChild('deleteBookModal') modal
+  @ViewChild('deleteBookModal', { static: false }) modal
 
   get localUrlPath(): string {
     const splitUrl = this.router.url.split('/')

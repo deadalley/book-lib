@@ -22,7 +22,7 @@ export class NoBooksComponent implements OnInit {
   displayAll = false
   _preventSubmit: boolean
 
-  @ViewChild(BookButtonsComponent)
+  @ViewChild(BookButtonsComponent, { static: false })
   buttonsComponent: BookButtonsComponent
 
   set preventSubmit(value) {

@@ -18,7 +18,7 @@ export class ModalComponent implements OnInit {
   @Input() onAccept: () => {}
   modalRef: BsModalRef
 
-  @ViewChild('modalTemplate') template: TemplateRef<any>
+  @ViewChild('modalTemplate', { static: false }) template: TemplateRef<any>
 
   constructor(private modalService: BsModalService) {}
 

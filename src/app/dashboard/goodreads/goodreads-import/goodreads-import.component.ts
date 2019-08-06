@@ -6,7 +6,7 @@ import { ANIMATIONS } from 'utils/constants'
 import { AuthService } from 'services/auth.service'
 import { SessionService } from 'services/session.service'
 import { mergeMap, filter, map } from 'rxjs/operators'
-import { combineLatest } from 'rxjs/observable/combineLatest'
+import { combineLatest } from 'rxjs'
 import { parseBook } from 'utils/helpers'
 import { Router } from '@angular/router'
 

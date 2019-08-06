@@ -44,7 +44,7 @@ export class CollectionsHomeComponent
 
   removeSpaces = removeSpaces
 
-  @ViewChild('deleteCollectionModal') modal
+  @ViewChild('deleteCollectionModal', { static: false }) modal
 
   constructor(
     private libraryService: LibraryService,

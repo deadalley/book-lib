@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { parseString } from 'xml2js'
-import { forkJoin } from 'rxjs/observable/forkJoin'
+import { forkJoin } from 'rxjs'
 import { mergeMap } from 'rxjs/operators'
 
 const parseXml = (xml: string) => {

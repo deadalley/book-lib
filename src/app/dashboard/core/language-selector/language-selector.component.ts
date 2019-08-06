@@ -8,7 +8,7 @@ import {
   ViewChildren,
 } from '@angular/core'
 import { LANGUAGES } from 'utils/constants'
-import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { BehaviorSubject } from 'rxjs'
 import { map, debounceTime } from 'rxjs/operators'
 import { upperCaseFirstLetter } from 'utils/helpers'
 
@@ -23,7 +23,7 @@ export class LanguageSelectorComponent implements OnInit {
   @Input() withLabel = true
   @Output() select = new EventEmitter<string>()
 
-  @ViewChild('languageList') languageList
+  @ViewChild('languageList', { static: false }) languageList
   @ViewChildren('languages') languagesRef
 
   languageInputBuffer = ''

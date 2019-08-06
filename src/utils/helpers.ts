@@ -1,4 +1,6 @@
 import * as _ from 'lodash'
+import { Author } from 'models/author.model'
+import { Book } from 'models/book.model'
 
 export const cleanFormValues = (formValues): object => {
   // tslint:disable-next-line:prefer-const
@@ -124,31 +126,33 @@ const parseAuthorId = book => {
   }
 }
 
-export const parseBook = book => ({
-  title: book.title,
-  author: parseAuthorName(book),
-  isbn: book.isbn,
-  publisher: book.publisher,
-  year: book.publication_year,
-  pages: book.num_pages,
-  imageLarge: book.large_image_url ? book.large_image_url : book.image_url,
-  imageSmall: book.small_image_url,
-  goodreadsLink: book.link,
-  goodreadsId: parseBookId(book),
-  goodreadsAuthorId: parseAuthorId(book),
-})
+export const parseBook = book =>
+  ({
+    title: book.title,
+    author: parseAuthorName(book),
+    isbn: book.isbn,
+    publisher: book.publisher,
+    year: book.publication_year,
+    pages: book.num_pages,
+    imageLarge: book.large_image_url ? book.large_image_url : book.image_url,
+    imageSmall: book.small_image_url,
+    goodreadsLink: book.link,
+    goodreadsId: parseBookId(book),
+    goodreadsAuthorId: parseAuthorId(book),
+  } as Book)
 
-export const parseAuthor = (author, books?) => ({
-  id: +author.id,
-  name: author.name,
-  about: author.about,
-  books,
-  imageSmall: author.small_image_url,
-  imageLarge: author.large_image_url
-    ? author.large_image_url
-    : author.image_url,
-  goodreadsLink: author.link,
-})
+export const parseAuthor = (author, books?) =>
+  ({
+    id: +author.id,
+    name: author.name,
+    about: author.about,
+    books,
+    imageSmall: author.small_image_url,
+    imageLarge: author.large_image_url
+      ? author.large_image_url
+      : author.image_url,
+    goodreadsLink: author.link,
+  } as Author)
 
 export const scrollToAnchor = (location: string, wait: number): void => {
   const element = document.querySelector('#' + location)

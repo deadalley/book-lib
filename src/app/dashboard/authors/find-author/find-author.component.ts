@@ -41,7 +41,7 @@ export class FindAuthorComponent implements OnInit, OnDestroy {
         map(params => params.name),
         mergeMap<any, any>(name => this.goodreadsService.searchAuthor(name))
       )
-      .subscribe<Array<any>>(authors => {
+      .subscribe((authors: Author[]) => {
         this.isLoading = false
         this.authors = authors.map(author => parseAuthor(author))
       })

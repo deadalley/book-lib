@@ -7,7 +7,7 @@ import {
   ViewChild,
 } from '@angular/core'
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators'
-import { Subject } from 'rxjs/Subject'
+import { Subject } from 'rxjs'
 import { FormControl } from '@angular/forms'
 
 @Component({
@@ -27,7 +27,7 @@ export class BookTagsComponent implements OnInit {
   @Output() getItems = new EventEmitter<string[]>()
   @Output() hasFocus = new EventEmitter<boolean>()
 
-  @ViewChild('tagInput') tagInput
+  @ViewChild('tagInput', { static: false }) tagInput
 
   tagInputValue: FormControl = new FormControl()
   filteredSuggestions: string[] = []

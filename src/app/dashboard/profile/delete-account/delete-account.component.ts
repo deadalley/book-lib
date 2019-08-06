@@ -13,7 +13,7 @@ import { SessionService } from 'services/session.service'
 export class DeleteAccountComponent implements OnInit {
   @Input() user: User
 
-  @ViewChild('deleteAccountModal') modal
+  @ViewChild('deleteAccountModal', { static: false }) modal
 
   constructor(
     private authService: AuthService,

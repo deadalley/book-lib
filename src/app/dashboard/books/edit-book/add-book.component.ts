@@ -43,7 +43,7 @@ export class AddBookComponent implements OnInit {
   authorFocus = new Subject<boolean>()
   _preventSubmit: boolean
 
-  @ViewChild(BookButtonsComponent)
+  @ViewChild(BookButtonsComponent, { static: false })
   buttonsComponent: BookButtonsComponent
 
   set preventSubmit(value) {
