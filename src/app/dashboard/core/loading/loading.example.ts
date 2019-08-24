@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading'
+import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading'
 import { storiesOf, moduleMetadata } from '@storybook/angular'
 import { LoadingComponent } from './loading.component'
 
@@ -8,12 +8,12 @@ storiesOf('Loading', module)
     moduleMetadata({
       imports: [
         CommonModule,
-        LoadingModule.forRoot({
-          animationType: ANIMATION_TYPES.circleSwish,
+        NgxLoadingModule.forRoot({
+          animationType: ngxLoadingAnimationTypes.circleSwish,
           backdropBackgroundColour: 'rgba(0,0,0,0)',
           primaryColour: 'rgb(120, 216, 236)',
           secondaryColour: '#ffffff',
-          tertiaryColour: '#ffffff'
+          tertiaryColour: '#ffffff',
         }),
       ],
     })
@@ -21,6 +21,6 @@ storiesOf('Loading', module)
   .add('default', () => ({
     component: LoadingComponent,
     props: {
-      visible: true
+      visible: true,
     },
   }))

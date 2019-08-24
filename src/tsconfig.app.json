@@ -8,5 +8,12 @@
     "moduleResolution": "node",
     "typeRoots": ["../node_modules/@types"]
   },
-  "exclude": ["test.ts", "**/*.spec.ts"]
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts",
+    "**/*.example.ts",
+    "environments/*.ts",
+    "factories/*.ts",
+    "database/factories/*.ts"
+  ]
 }

@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { ModalModule } from 'ngx-bootstrap/modal'
-import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading'
+import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading'
 
 import { AuthorCardComponent } from './author-card/author-card.component'
 import { BookCardComponent } from './book-card/book-card.component'
@@ -61,8 +61,8 @@ import { SearchFilterPipe } from 'pipes/search-filter.pipe'
     SearchFilterPipe,
   ],
   imports: [
-    LoadingModule.forRoot({
-      animationType: ANIMATION_TYPES.circleSwish,
+    NgxLoadingModule.forRoot({
+      animationType: ngxLoadingAnimationTypes.circleSwish,
       backdropBackgroundColour: 'rgba(0,0,0,0)',
       primaryColour: 'rgb(120, 216, 236)',
       secondaryColour: '#ffffff',
