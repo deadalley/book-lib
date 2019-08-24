@@ -5,6 +5,20 @@
     "module": "commonjs",
     "target": "es5",
     "baseUrl": "src",
+    "paths": {
+      "app/*": ["../app/*"],
+      "app": ["../app"],
+      "utils/*": ["../utils/*"],
+      "utils": ["../utils"],
+      "models/*": ["../models/*"],
+      "models": ["../models"],
+      "services/*": ["../services/*"],
+      "services": ["../services"],
+      "environments/*": ["../environments/*"],
+      "environments": ["../environments"],
+      "database/*": ["../database/*"],
+      "database": ["../database"]
+    },
     "types": ["jasmine", "node"]
   },
   "files": ["test.ts", "polyfills.ts"],
