@@ -62,6 +62,6 @@ describe('SessionService', () => {
 
     sessionService.localUser = user
     sessionService.goodreadsId = goodreadsId
-    expect(sessionService.localUser.goodreadsId).toEqual(`${goodreadsId}`)
+    expect(sessionService.localUser.goodreadsId).toEqual(goodreadsId)
   })
 })

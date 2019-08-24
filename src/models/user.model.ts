@@ -5,7 +5,7 @@ export interface User {
   email: string
   books: string[]
   collections: string[]
-  goodreadsId: string
+  goodreadsId: number
   avatarUrl: string
   backgroundUrl: string
   displayWelcomeMessage: boolean

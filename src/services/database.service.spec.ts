@@ -9,6 +9,7 @@ import { environment } from 'environments/environment'
 import { AppRoutes } from '../app/app.routing'
 
 import { AuthService } from './auth.service'
+import { AuthGuardService } from './auth.guard'
 import { SessionService } from './session.service'
 import { DatabaseService } from './database.service'
 
@@ -28,6 +29,7 @@ describe('DatabaseService', () => {
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
         AuthService,
+        AuthGuardService,
         SessionService,
         DatabaseService,
       ],
@@ -98,11 +100,11 @@ describe('DatabaseService', () => {
       database.createUser(user)
 
       database.users.valueChanges().subscribe(value => {
-        const lastIndex = value.length - 1
-        expect(value[lastIndex].name).toEqual(user.name)
-        expect(value[lastIndex].email).toEqual(user.email)
-        expect(value[lastIndex].uid).toEqual(user.uid)
-        expect(value[lastIndex].goodreadsId).toEqual(user.goodreadsId)
+        const updatedUser = value.find(u => u.id === user.id)
+        expect(updatedUser.name).toEqual(user.name)
+        expect(updatedUser.email).toEqual(user.email)
+        expect(updatedUser.uid).toEqual(user.uid)
+        expect(updatedUser.goodreadsId).toEqual(user.goodreadsId)
         done()
       })
     })
@@ -251,9 +253,12 @@ describe('DatabaseService', () => {
 
   describe('Collection', () => {
     beforeEach(async () => {
-      user = await database.createUser(user)
-      book = await database.createBookForUser(user.id, book)
-      collection = await database.createCollectionForUser(user.id, collection)
+      user = await database.createUser(userModel)
+      book = await database.createBookForUser(user.id, bookModel)
+      collection = await database.createCollectionForUser(
+        user.id,
+        collectionModel
+      )
     })
 
     it('adds books to collection', done => {

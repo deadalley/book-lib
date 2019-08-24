@@ -20,7 +20,6 @@ export class DatabaseService {
   books: AngularFireList<Book>
   collections: AngularFireList<Collection>
   isLoggedIn = new BehaviorSubject<boolean>(false)
-  rootUrl = '' // environment.name === 'development' ? 'test' : ''
 
   isLoggedIn$ = this.isLoggedIn.asObservable()
 
@@ -29,25 +28,25 @@ export class DatabaseService {
     private session: SessionService,
     private storage: AngularFireStorage
   ) {
-    this.books = db.list(`${this.rootUrl}/books`)
-    this.users = db.list(`${this.rootUrl}/users`)
-    this.collections = db.list(`${this.rootUrl}/collections`)
+    this.books = db.list(`${environment.rootUrl}/books`)
+    this.users = db.list(`${environment.rootUrl}/users`)
+    this.collections = db.list(`${environment.rootUrl}/collections`)
   }
 
   private userBooksRef(userRef: string): AngularFireList<string> {
-    return this.db.list(`${this.rootUrl}/users/${userRef}/books`)
+    return this.db.list(`${environment.rootUrl}/users/${userRef}/books`)
   }
 
   private userCollectionsRef(userRef: string): AngularFireList<string> {
-    return this.db.list(`${this.rootUrl}/users/${userRef}/collections`)
+    return this.db.list(`${environment.rootUrl}/users/${userRef}/collections`)
   }
 
   private userTagsRef(userRef: string): AngularFireObject<string> {
-    return this.db.object(`${this.rootUrl}/users/${userRef}/tags`)
+    return this.db.object(`${environment.rootUrl}/users/${userRef}/tags`)
   }
 
   private userGenresRef(userRef: string): AngularFireObject<string> {
-    return this.db.object(`${this.rootUrl}/users/${userRef}/genres`)
+    return this.db.object(`${environment.rootUrl}/users/${userRef}/genres`)
   }
 
   private findById(
@@ -111,7 +110,7 @@ export class DatabaseService {
     model: string,
     child: string = 'ownerId'
   ) {
-    return this.db.list(`${this.rootUrl}/${model}`, ref =>
+    return this.db.list(`${environment.rootUrl}/${model}`, ref =>
       ref.orderByChild(child).equalTo(userRef)
     )
   }
@@ -210,7 +209,7 @@ export class DatabaseService {
   }
 
   private userTagRef(userRef: string, tag: string) {
-    return this.db.object(`${this.rootUrl}/users/${userRef}/tags/${tag}`)
+    return this.db.object(`${environment.rootUrl}/users/${userRef}/tags/${tag}`)
   }
 
   private findTagCount(userRef: string, tag: string) {
@@ -226,7 +225,9 @@ export class DatabaseService {
   }
 
   private userGenreRef(userRef: string, genre: string) {
-    return this.db.object(`${this.rootUrl}/users/${userRef}/genres/${genre}`)
+    return this.db.object(
+      `${environment.rootUrl}/users/${userRef}/genres/${genre}`
+    )
   }
 
   private findGenreCount(userRef: string, genre: string) {
@@ -338,7 +339,7 @@ export class DatabaseService {
 
   subscribeToLatestBooks(userRef: string, limit: number) {
     return this.db
-      .list(`${this.rootUrl}/books`, ref =>
+      .list(`${environment.rootUrl}/books`, ref =>
         ref
           .orderByChild('ownerId')
           .equalTo(userRef)

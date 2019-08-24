@@ -9,7 +9,7 @@ const UserFactory = Factory.makeFactory<User>({
   email: internet.email(),
   books: [],
   collections: [],
-  goodreadsId: random.uuid(),
+  goodreadsId: random.number(),
   avatarUrl: random.image(),
   displayWelcomeMessage: random.boolean(),
   backgroundUrl: random.image(),

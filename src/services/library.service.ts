@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject ,  Observable ,  of } from 'rxjs'
+import { BehaviorSubject, Observable, of } from 'rxjs'
 import { DatabaseService } from 'services/database.service'
 import { Collection as RawCollection } from 'database/models/collection.model'
 import { Book as RawBook } from 'database/models/book.model'
@@ -16,7 +16,6 @@ import { ignoreReturnFor } from 'utils/promise'
 
 @Injectable()
 export class LibraryService {
-
   set userRef(ref) {
     this._userRef = ref
   }
@@ -85,10 +84,17 @@ export class LibraryService {
     console.log('Loading library...')
     this.rawBooks$ = this.session.userId$.pipe(
       filter(userRef => !!userRef),
-      mergeMap(userRef => this.database.subscribeToBooksFromUser(userRef)),
-      map(books =>
-        books.map(book => ({ ...book, collections: book.collections || [] }))
-      )
+      mergeMap(userRef => {
+        console.log('userRef', userRef)
+        return this.database.subscribeToBooksFromUser(userRef)
+      }),
+      map(books => {
+        console.log('BOOOOOKS', books)
+        return books.map(book => ({
+          ...book,
+          collections: book.collections || [],
+        }))
+      })
     )
     this.rawCollections$ = this.session.userId$.pipe(
       filter(userRef => !!userRef),
@@ -285,9 +291,7 @@ export class LibraryService {
       .then(
         ignoreReturnFor(() =>
           notify({
-            message: `${books.length} books succesfully added to ${
-              collection.title
-            }`,
+            message: `${books.length} books succesfully added to ${collection.title}`,
           })
         )
       )
@@ -299,9 +303,7 @@ export class LibraryService {
       .then(
         ignoreReturnFor(() =>
           notify({
-            message: `${books.length} books succesfully removed from ${
-              collection.title
-            }`,
+            message: `${books.length} books succesfully removed from ${collection.title}`,
           })
         )
       )

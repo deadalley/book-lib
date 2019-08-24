@@ -9,11 +9,15 @@ import { FooterModule } from './shared/footer/footer.module'
 import { NavbarModule } from './shared/navbar/navbar.module'
 import { DashboardHomeModule } from './dashboard-home/dashboard-home.module'
 import { GoodreadsModule } from './goodreads/goodreads.module'
+import { BooksModule } from './books/books.module'
+import { AuthorsModule } from './authors/authors.module'
+import { CollectionsModule } from './collections/collections.module'
 
 import { DashboardComponent } from './dashboard.component'
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component'
 import { ImportComponent } from './import/import.component'
 import { GoodreadsComponent } from './goodreads/goodreads.component'
+import { ProfileModule } from './profile/profile.module'
 
 const dashboardRoutes: Routes = [
   {
@@ -22,19 +26,19 @@ const dashboardRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: DashboardHomeComponent },
-      { path: 'books', loadChildren: './books/books.module#BooksModule' },
+      { path: 'books', loadChildren: () => BooksModule },
       {
         path: 'collections',
-        loadChildren: './collections/collections.module#CollectionsModule',
+        loadChildren: () => CollectionsModule,
       },
       {
         path: 'authors',
-        loadChildren: './authors/authors.module#AuthorsModule',
+        loadChildren: () => AuthorsModule,
       },
       {
         path: 'goodreads',
         component: GoodreadsComponent,
-        // loadChildren: './goodreads/goodreads.module#GoodreadsModule',
+        // loadChildren: () => GoodreadsModule,
       },
       {
         path: 'import',
@@ -42,7 +46,7 @@ const dashboardRoutes: Routes = [
       },
       {
         path: 'profile',
-        loadChildren: './profile/profile.module#ProfileModule',
+        loadChildren: () => ProfileModule,
       },
     ],
   },

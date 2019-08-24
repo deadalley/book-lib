@@ -1,5 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing'
 import { APP_BASE_HREF } from '@angular/common'
+import { HttpClientModule } from '@angular/common/http'
 import { RouterModule } from '@angular/router'
 import { AngularFireModule } from 'angularfire2'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
@@ -9,9 +10,11 @@ import { environment } from 'environments/environment'
 import { AppRoutes } from '../app/app.routing'
 
 import { AuthService } from './auth.service'
+import { AuthGuardService } from './auth.guard'
 import { SessionService } from './session.service'
 import { DatabaseService } from './database.service'
 import { LibraryService } from './library.service'
+import { GoodreadsService } from './goodreads.service'
 
 import UserFactory from '../database/factories/user.factory'
 import BookFactory from '../database/factories/book.factory'
@@ -22,6 +25,7 @@ describe('LibraryService', () => {
   let library: LibraryService
   let database: DatabaseService
   let auth: AuthService
+  let session: SessionService
 
   const subscriptions: Subscription[] = []
 
@@ -38,13 +42,16 @@ describe('LibraryService', () => {
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
         AuthService,
+        AuthGuardService,
         SessionService,
         DatabaseService,
         LibraryService,
+        GoodreadsService,
       ],
       imports: [
         RouterModule.forRoot(AppRoutes),
         AngularFireModule.initializeApp(environment.firebaseConfig),
+        HttpClientModule,
         AngularFireDatabaseModule,
         AngularFireAuthModule,
         AngularFireStorageModule,
@@ -54,6 +61,7 @@ describe('LibraryService', () => {
     database = TestBed.get(DatabaseService)
     auth = TestBed.get(AuthService)
     library = TestBed.get(LibraryService)
+    session = TestBed.get(SessionService)
     await auth.loginEmail(environment.testConfig)
   })
 
@@ -83,7 +91,7 @@ describe('LibraryService', () => {
       user = await database.createUser(user)
       book = await database.createBookForUser(user.id, book)
       collection = await database.createCollectionForUser(user.id, collection)
-      library.userRef = user.id
+      session.localUser = user
       library.loadLibrary()
     })
 

@@ -8,7 +8,7 @@ describe('Factories', () => {
   describe('Book', () => {
     it('should create a book with required properties', () => {
       const props = {
-        id: number(),
+        id: string(),
         title: string(),
         author: string(),
         owned: bool(),
@@ -55,7 +55,7 @@ describe('Factories', () => {
         id: string(),
         name: string(),
         email: string(),
-        goodreadsId: string(),
+        goodreadsId: number(),
       }
       const user = UserFactory.build()
       assertThat(user, hasProperties(props))

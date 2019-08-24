@@ -17,7 +17,7 @@ export class GoodreadsService {
     ? environment.goodreadsConfig.proxyDomain
     : environment.goodreadsConfig.domain
 
-  private id = new BehaviorSubject<string>(undefined)
+  private id = new BehaviorSubject<number>(undefined)
 
   goodreadsId = this.id.asObservable()
   defaultParams = new HttpParams().set('key', this.key)

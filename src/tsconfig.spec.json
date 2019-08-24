@@ -17,7 +17,11 @@
       "environments/*": ["../environments/*"],
       "environments": ["../environments"],
       "database/*": ["../database/*"],
-      "database": ["../database"]
+      "database": ["../database"],
+      "pipes/*": ["../pipes/*"],
+      "pipes": ["../pipes"],
+      "directives/*": ["../directives/*"],
+      "directives": ["../directives"]
     },
     "types": ["jasmine", "node"]
   },

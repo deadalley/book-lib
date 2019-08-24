@@ -28,7 +28,7 @@ export class AuthService {
   private auth0 = new auth0.WebAuth(this.defaultParams)
 
   private _userRef = new BehaviorSubject<string>(undefined)
-  private _goodreadsId = new BehaviorSubject<string>(undefined)
+  private _goodreadsId = new BehaviorSubject<number>(undefined)
   private _userLoaded = new BehaviorSubject<boolean>(false)
 
   userRef = this._userRef.asObservable()

@@ -45,6 +45,14 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "test": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.test.ts"
+                }
+              ]
             }
           }
         },
@@ -81,7 +89,13 @@
               "node_modules/bootstrap-notify/bootstrap-notify.js"
             ],
             "styles": ["src/styles.css"],
-            "assets": ["src/assets", "src/favicon.ico"]
+            "assets": ["src/assets", "src/favicon.ico"],
+            "fileReplacements": [
+              {
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.test.ts"
+              }
+            ]
           }
         },
         "lint": {

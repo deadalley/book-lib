@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router'
 import { AuthGuardService } from '../services/auth.guard'
+import { DashboardModule } from './dashboard/dashboard.module'
+import { HomeModule } from './home/home.module'
 
 export const AppRoutes: Routes = [
   {
@@ -9,7 +11,7 @@ export const AppRoutes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: 'app/home/home.module#HomeModule',
+    loadChildren: () => HomeModule,
   },
   {
     path: 'library',
@@ -18,7 +20,7 @@ export const AppRoutes: Routes = [
   },
   {
     path: 'dashboard',
-    loadChildren: 'app/dashboard/dashboard.module#DashboardModule',
+    loadChildren: () => DashboardModule,
     canActivate: [AuthGuardService],
   },
   // {

@@ -19,6 +19,7 @@ export class SessionService {
   set localUser(user: User) {
     localStorage.setItem('user', JSON.stringify(user))
     this._localUser.next(user)
+    this._userId.next(user.id)
   }
 
   get userId() {
@@ -26,6 +27,7 @@ export class SessionService {
   }
 
   set goodreadsId(id: number) {
+    this.localUser = { ...this.localUser, goodreadsId: id }
     this._goodreadsId.next(id)
   }
 
@@ -37,9 +39,9 @@ export class SessionService {
     }
 
     console.log('Building session...')
-    this._goodreadsId.next(+user.goodreadsId)
-    this._localUser.next(user)
     this._userId.next(user.id)
+    this._localUser.next(user)
+    this._goodreadsId.next(+user.goodreadsId)
   }
 
   destroySession() {
