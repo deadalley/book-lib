@@ -58,9 +58,10 @@ describe('SessionService', () => {
 
   it('sets the correct goodreads id', () => {
     const user = UserFactory.build()
+    const goodreadsId = 124598
 
     sessionService.localUser = user
-    sessionService.setGoodreadsId('goodreads id')
-    expect(sessionService.localUser.goodreadsId).toEqual('goodreads id')
+    sessionService.goodreadsId = goodreadsId
+    expect(sessionService.localUser.goodreadsId).toEqual(`${goodreadsId}`)
   })
 })

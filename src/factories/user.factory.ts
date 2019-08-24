@@ -11,7 +11,7 @@ const UserFactory = Factory.makeFactory<User>({
   collections: [],
   goodreadsId: random.uuid(),
   avatarUrl: random.image(),
-  displayWelcomeMessage: random.random(),
+  displayWelcomeMessage: random.boolean(),
   backgroundUrl: random.image(),
 })
 

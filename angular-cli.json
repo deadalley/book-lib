@@ -7,10 +7,7 @@
     {
       "root": "src",
       "outDir": "dist",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
+      "assets": ["assets", "favicon.ico"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
@@ -18,16 +15,14 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
-      "styles": [
-        "styles.css"
-      ],
+      "styles": ["styles.css"],
       "scripts": [
-          "../node_modules/jquery/dist/jquery.js",
-          "../node_modules/bootstrap/dist/js/bootstrap.js",
-          "../node_modules/arrive/src/arrive.js",
-          "../node_modules/moment/moment.js",
-          "../node_modules/chartist/dist/chartist.js",
-          "../node_modules/bootstrap-notify/bootstrap-notify.js"
+        "../node_modules/jquery/dist/jquery.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.js",
+        "../node_modules/arrive/src/arrive.js",
+        "../node_modules/moment/moment.js",
+        "../node_modules/chartist/dist/chartist.js",
+        "../node_modules/bootstrap-notify/bootstrap-notify.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -54,7 +49,7 @@
   ],
   "test": {
     "karma": {
-      "config": "./karma.conf.js"
+      "config": "./src/karma.conf.js"
     }
   },
   "defaults": {
