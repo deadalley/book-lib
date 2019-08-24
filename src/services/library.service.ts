@@ -16,6 +16,13 @@ import { ignoreReturnFor } from 'utils/promise'
 
 @Injectable()
 export class LibraryService {
+
+  set userRef(ref) {
+    this._userRef = ref
+  }
+  set setBooksToImport(books: Book[]) {
+    this.booksToImport.next(books)
+  }
   private MAX_DATE = 4
   private collections = new BehaviorSubject<Collection[]>(undefined)
   private booksToImport = new BehaviorSubject<Book[]>(undefined)
@@ -37,13 +44,6 @@ export class LibraryService {
   rawBooks$: Observable<RawBook[]>
   rawCollections$: Observable<RawCollection[]>
 
-  set userRef(ref) {
-    this._userRef = ref
-  }
-  set setBooksToImport(books: Book[]) {
-    this.booksToImport.next(books)
-  }
-
   constructor(
     private database: DatabaseService,
     private goodreadsService: GoodreadsService,
@@ -53,6 +53,12 @@ export class LibraryService {
       userRefFromSession => (this._userRef = userRefFromSession)
     )
     this.loadLibrary()
+  }
+
+  private getBooksForCollection(collectionId: string = '', books: Book[] = []) {
+    return books.filter(
+      book => book.collections && book.collections.includes(collectionId)
+    )
   }
 
   mapCollectionTitleToId(book: Book, collections: Collection[]) {
@@ -72,12 +78,6 @@ export class LibraryService {
   ) {
     return collectionIds.map(
       collection => collections.find(c => c.id === collection).title
-    )
-  }
-
-  private getBooksForCollection(collectionId: string = '', books: Book[] = []) {
-    return books.filter(
-      book => book.collections && book.collections.includes(collectionId)
     )
   }
 

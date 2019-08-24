@@ -5,7 +5,6 @@ import {
   ElementRef,
   EventEmitter,
 } from '@angular/core'
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable'
 
 @Directive({
   selector: '[clickOutside]',

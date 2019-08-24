@@ -10,7 +10,7 @@ export class SearchFilterPipe implements PipeTransform {
     }
 
     return items.filter(item => {
-      const queryItems = query.split(' ').filter(item => !!item)
+      const queryItems = query.split(' ').filter(it => !!it)
       if (keys) {
         return keys.some(key =>
           queryItems.some(

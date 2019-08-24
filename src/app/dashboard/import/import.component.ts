@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { ANIMATIONS, LANGUAGES } from 'utils/constants'
 import { ImportService } from 'services/import.service'
 import { LibraryService } from 'services/library.service'

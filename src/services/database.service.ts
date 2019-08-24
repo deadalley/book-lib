@@ -24,6 +24,16 @@ export class DatabaseService {
 
   isLoggedIn$ = this.isLoggedIn.asObservable()
 
+  constructor(
+    private db: AngularFireDatabase,
+    private session: SessionService,
+    private storage: AngularFireStorage
+  ) {
+    this.books = db.list(`${this.rootUrl}/books`)
+    this.users = db.list(`${this.rootUrl}/users`)
+    this.collections = db.list(`${this.rootUrl}/collections`)
+  }
+
   private userBooksRef(userRef: string): AngularFireList<string> {
     return this.db.list(`${this.rootUrl}/users/${userRef}/books`)
   }
@@ -38,27 +48,6 @@ export class DatabaseService {
 
   private userGenresRef(userRef: string): AngularFireObject<string> {
     return this.db.object(`${this.rootUrl}/users/${userRef}/genres`)
-  }
-
-  constructor(
-    private db: AngularFireDatabase,
-    private session: SessionService,
-    private storage: AngularFireStorage
-  ) {
-    this.books = db.list(`${this.rootUrl}/books`)
-    this.users = db.list(`${this.rootUrl}/users`)
-    this.collections = db.list(`${this.rootUrl}/collections`)
-  }
-
-  cleanTestBed() {
-    console.log('Cleaning test bed')
-    if (environment.name !== 'development') {
-      return
-    }
-
-    this.books.remove()
-    this.users.remove()
-    this.collections.remove()
   }
 
   private findById(
@@ -145,31 +134,6 @@ export class DatabaseService {
     }
   }
 
-  createUser(user: User) {
-    return this.users.push(user).then(res => this.parseUser(user, res.ref.key))
-  }
-
-  findUserById(id: string) {
-    return this.findById(id, this.users, this.parseUser).then(
-      user => user as User
-    )
-  }
-
-  findUserByParam(key: string, value: string) {
-    return this.findByParam(key, value, this.users, this.parseUser).then(
-      user => user as User
-    )
-  }
-
-  updateUser(id: string, params: object) {
-    this.users.update(id, params as User)
-    return this.findUserById(id).then(user => (this.session.localUser = user))
-  }
-
-  deleteUser(id: string) {
-    return this.users.remove(id)
-  }
-
   /** BOOK **/
   private parseBook(book: Book, id: string): Book {
     return {
@@ -203,6 +167,167 @@ export class DatabaseService {
 
   private removeBookFromUser(userRef: string, id: string) {
     return this.removeFromUser(this.userBooksRef(userRef), id)
+  }
+
+  /** COLLECTION **/
+  private parseCollection(collection: Collection, id: string) {
+    return {
+      ...collection,
+      id,
+      books: collection.books || [],
+    }
+  }
+
+  private createCollection(collection: Collection) {
+    return this.collections
+      .push(collection)
+      .then(res => this.parseCollection(collection, res.ref.key)) as Promise<
+      Collection
+    >
+  }
+
+  private getCollectionsByParam(key: string, value: string) {
+    return this.getByParams(
+      key,
+      value,
+      this.collections,
+      this.parseCollection
+    ) as Promise<Collection[]>
+  }
+
+  private updateCollection(collection: Collection) {
+    return this.collections
+      .update(collection.id, collection)
+      .then(() => collection)
+  }
+
+  private deleteCollection(collection: Collection) {
+    return this.collections.remove(collection.id).then(() => collection)
+  }
+
+  private removeCollectionFromUser(userRef: string, id: string) {
+    return this.removeFromUser(this.userCollectionsRef(userRef), id)
+  }
+
+  private userTagRef(userRef: string, tag: string) {
+    return this.db.object(`${this.rootUrl}/users/${userRef}/tags/${tag}`)
+  }
+
+  private findTagCount(userRef: string, tag: string) {
+    return this.userTagRef(userRef, tag)
+      .query.once('value')
+      .then(snap => snap.val())
+  }
+
+  private getTagsForUser(userRef: string) {
+    return this.userTagsRef(userRef)
+      .query.once('value')
+      .then(snap => snap.val() || {})
+  }
+
+  private userGenreRef(userRef: string, genre: string) {
+    return this.db.object(`${this.rootUrl}/users/${userRef}/genres/${genre}`)
+  }
+
+  private findGenreCount(userRef: string, genre: string) {
+    return this.userGenreRef(userRef, genre)
+      .query.once('value')
+      .then(snap => snap.val())
+  }
+
+  private getGenresForUser(userRef: string) {
+    return this.userGenresRef(userRef)
+      .query.once('value')
+      .then(snap => snap.val() || {})
+  }
+
+  private mergeTags(
+    userRef: string,
+    tagsToAdd: string[] = [],
+    tagsToRemove: string[] = []
+  ) {
+    return this.getTagsForUser(userRef).then(userTags => {
+      const newTags = difference(tagsToAdd, Object.keys(userTags))
+      const existingTags = intersection(tagsToAdd, Object.keys(userTags))
+
+      newTags.forEach(tag => this.userTagRef(userRef, tag).set(1))
+      existingTags.forEach(tag =>
+        this.findTagCount(userRef, tag).then(tagCount =>
+          this.userTagRef(userRef, tag).set(tagCount + 1)
+        )
+      )
+      tagsToRemove.forEach(tag => {
+        this.findTagCount(userRef, tag).then(tagCount => {
+          if (tagCount === 1) {
+            this.userTagRef(userRef, tag).remove()
+          } else {
+            this.userTagRef(userRef, tag).set(tagCount - 1)
+          }
+        })
+      })
+    })
+  }
+
+  private mergeGenres(
+    userRef: string,
+    genresToAdd: string[] = [],
+    genresToRemove: string[] = []
+  ) {
+    return this.getGenresForUser(userRef).then(userGenres => {
+      const newGenres = difference(genresToAdd, Object.keys(userGenres))
+      const existingGenres = intersection(genresToAdd, Object.keys(userGenres))
+
+      newGenres.forEach(genre => this.userGenreRef(userRef, genre).set(1))
+      existingGenres.forEach(genre =>
+        this.findGenreCount(userRef, genre).then(genreCount =>
+          this.userGenreRef(userRef, genre).set(genreCount + 1)
+        )
+      )
+      genresToRemove.forEach(genre => {
+        this.findGenreCount(userRef, genre).then(genreCount => {
+          if (genreCount === 1) {
+            this.userGenreRef(userRef, genre).remove()
+          } else {
+            this.userGenreRef(userRef, genre).set(genreCount - 1)
+          }
+        })
+      })
+    })
+  }
+
+  private uploadFile(file, filePath: string) {
+    const path = this.storage.ref(filePath)
+    const task = path.put(file)
+
+    return task.snapshotChanges().pipe(
+      last(),
+      mergeMap(() => path.getDownloadURL())
+    )
+  }
+
+  createUser(user: User) {
+    return this.users.push(user).then(res => this.parseUser(user, res.ref.key))
+  }
+
+  findUserById(id: string) {
+    return this.findById(id, this.users, this.parseUser).then(
+      user => user as User
+    )
+  }
+
+  findUserByParam(key: string, value: string) {
+    return this.findByParam(key, value, this.users, this.parseUser).then(
+      user => user as User
+    )
+  }
+
+  updateUser(id: string, params: object) {
+    this.users.update(id, params as User)
+    return this.findUserById(id).then(user => (this.session.localUser = user))
+  }
+
+  deleteUser(id: string) {
+    return this.users.remove(id)
   }
 
   subscribeToBooksFromUser(userRef: string) {
@@ -315,46 +440,6 @@ export class DatabaseService {
     return Promise.resolve()
       .then(() => this.getBooksForUser(userRef))
       .then(books => Promise.all(books.map(book => this.deleteBook(book))))
-  }
-
-  /** COLLECTION **/
-  private parseCollection(collection: Collection, id: string) {
-    return {
-      ...collection,
-      id,
-      books: collection.books || [],
-    }
-  }
-
-  private createCollection(collection: Collection) {
-    return this.collections
-      .push(collection)
-      .then(res => this.parseCollection(collection, res.ref.key)) as Promise<
-      Collection
-    >
-  }
-
-  private getCollectionsByParam(key: string, value: string) {
-    return this.getByParams(
-      key,
-      value,
-      this.collections,
-      this.parseCollection
-    ) as Promise<Collection[]>
-  }
-
-  private updateCollection(collection: Collection) {
-    return this.collections
-      .update(collection.id, collection)
-      .then(() => collection)
-  }
-
-  private deleteCollection(collection: Collection) {
-    return this.collections.remove(collection.id).then(() => collection)
-  }
-
-  private removeCollectionFromUser(userRef: string, id: string) {
-    return this.removeFromUser(this.userCollectionsRef(userRef), id)
   }
 
   subscribeToCollectionsFromUser(userRef: string) {
@@ -501,65 +586,6 @@ export class DatabaseService {
     ])
   }
 
-  private userTagRef(userRef: string, tag: string) {
-    return this.db.object(`${this.rootUrl}/users/${userRef}/tags/${tag}`)
-  }
-
-  private findTagCount(userRef: string, tag: string) {
-    return this.userTagRef(userRef, tag)
-      .query.once('value')
-      .then(snap => snap.val())
-  }
-
-  private getTagsForUser(userRef: string) {
-    return this.userTagsRef(userRef)
-      .query.once('value')
-      .then(snap => snap.val() || {})
-  }
-
-  private userGenreRef(userRef: string, genre: string) {
-    return this.db.object(`${this.rootUrl}/users/${userRef}/genres/${genre}`)
-  }
-
-  private findGenreCount(userRef: string, genre: string) {
-    return this.userGenreRef(userRef, genre)
-      .query.once('value')
-      .then(snap => snap.val())
-  }
-
-  private getGenresForUser(userRef: string) {
-    return this.userGenresRef(userRef)
-      .query.once('value')
-      .then(snap => snap.val() || {})
-  }
-
-  private mergeTags(
-    userRef: string,
-    tagsToAdd: string[] = [],
-    tagsToRemove: string[] = []
-  ) {
-    return this.getTagsForUser(userRef).then(userTags => {
-      const newTags = difference(tagsToAdd, Object.keys(userTags))
-      const existingTags = intersection(tagsToAdd, Object.keys(userTags))
-
-      newTags.forEach(tag => this.userTagRef(userRef, tag).set(1))
-      existingTags.forEach(tag =>
-        this.findTagCount(userRef, tag).then(tagCount =>
-          this.userTagRef(userRef, tag).set(tagCount + 1)
-        )
-      )
-      tagsToRemove.forEach(tag => {
-        this.findTagCount(userRef, tag).then(tagCount => {
-          if (tagCount === 1) {
-            this.userTagRef(userRef, tag).remove()
-          } else {
-            this.userTagRef(userRef, tag).set(tagCount - 1)
-          }
-        })
-      })
-    })
-  }
-
   subscribeToTagsFromUser(userRef: string) {
     return this.userTagsRef(userRef)
       .valueChanges()
@@ -568,49 +594,12 @@ export class DatabaseService {
     >
   }
 
-  private mergeGenres(
-    userRef: string,
-    genresToAdd: string[] = [],
-    genresToRemove: string[] = []
-  ) {
-    return this.getGenresForUser(userRef).then(userGenres => {
-      const newGenres = difference(genresToAdd, Object.keys(userGenres))
-      const existingGenres = intersection(genresToAdd, Object.keys(userGenres))
-
-      newGenres.forEach(genre => this.userGenreRef(userRef, genre).set(1))
-      existingGenres.forEach(genre =>
-        this.findGenreCount(userRef, genre).then(genreCount =>
-          this.userGenreRef(userRef, genre).set(genreCount + 1)
-        )
-      )
-      genresToRemove.forEach(genre => {
-        this.findGenreCount(userRef, genre).then(genreCount => {
-          if (genreCount === 1) {
-            this.userGenreRef(userRef, genre).remove()
-          } else {
-            this.userGenreRef(userRef, genre).set(genreCount - 1)
-          }
-        })
-      })
-    })
-  }
-
   subscribeToGenresFromUser(userRef: string) {
     return this.userGenresRef(userRef)
       .valueChanges()
       .pipe(map(value => (value ? Object.keys(value) : null))) as Observable<
       string[]
     >
-  }
-
-  private uploadFile(file, filePath: string) {
-    const path = this.storage.ref(filePath)
-    const task = path.put(file)
-
-    return task.snapshotChanges().pipe(
-      last(),
-      mergeMap(() => path.getDownloadURL())
-    )
   }
 
   uploadBookCover(userRef: string, bookId: string, file) {
@@ -623,5 +612,16 @@ export class DatabaseService {
 
   uploadBackgroundImage(userRef: string, file) {
     return this.uploadFile(file, `images/${userRef}/background.jpg`)
+  }
+
+  cleanTestBed() {
+    console.log('Cleaning test bed')
+    if (environment.name !== 'development') {
+      return
+    }
+
+    this.books.remove()
+    this.users.remove()
+    this.collections.remove()
   }
 }

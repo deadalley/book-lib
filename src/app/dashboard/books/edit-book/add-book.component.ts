@@ -7,11 +7,11 @@ import { ANIMATIONS } from 'utils/constants'
 import { cleanFormValues } from 'utils/helpers'
 import { BookButtonsComponent } from '../../core/book-buttons/book-buttons.component'
 import { LibraryService } from 'services/library.service'
-import { Subject } from 'rxjs'
 import { debounceTime, distinctUntilChanged, last } from 'rxjs/operators'
 import { DatabaseService } from 'services/database.service'
 import { SessionService } from 'services/session.service'
 import { notify } from 'utils/notifications'
+import {Subject} from 'rxjs'
 
 @Component({
   moduleId: module.id,
