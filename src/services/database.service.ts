@@ -617,7 +617,7 @@ export class DatabaseService {
 
   cleanTestBed() {
     console.log('Cleaning test bed')
-    if (environment.name !== 'development') {
+    if (environment.name !== 'test') {
       return
     }
 

@@ -7,7 +7,7 @@ export const environment = {
   production: false,
   name: 'test',
   localDomain: 'http://localhost:4200',
-  rootUrl: '',
+  rootUrl: 'test',
   firebaseConfig: {
     apiKey: 'AIzaSyCOJ1FNmdWadfNOCvh3Gu1fPBstpWt33Wc',
     authDomain: 'booklib-834b9.firebaseapp.com',
