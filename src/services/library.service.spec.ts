@@ -15,7 +15,7 @@ import { LibraryService } from './library.service'
 import UserFactory from '../database/factories/user.factory'
 import BookFactory from '../database/factories/book.factory'
 import CollectionFactory from '../database/factories/collection.factory'
-import { Subscription } from 'rxjs/Subscription'
+import { Subscription } from 'rxjs'
 
 describe('LibraryService', () => {
   let library: LibraryService
