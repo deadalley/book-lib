@@ -9,7 +9,7 @@ export const AppRoutes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: './home/home.module#HomeModule',
+    loadChildren: 'app/home/home.module#HomeModule',
   },
   {
     path: 'library',
@@ -18,7 +18,7 @@ export const AppRoutes: Routes = [
   },
   {
     path: 'dashboard',
-    loadChildren: './dashboard/dashboard.module#DashboardModule',
+    loadChildren: 'app/dashboard/dashboard.module#DashboardModule',
     canActivate: [AuthGuardService],
   },
   // {
