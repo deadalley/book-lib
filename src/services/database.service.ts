@@ -124,7 +124,7 @@ export class DatabaseService {
     })
   }
 
-  /** USER **/
+  /* USER */
   private parseUser(user: User, id: string) {
     return {
       ...user,
@@ -134,7 +134,7 @@ export class DatabaseService {
     }
   }
 
-  /** BOOK **/
+  /* BOOK */
   private parseBook(book: Book, id: string): Book {
     return {
       ...book,
@@ -169,7 +169,7 @@ export class DatabaseService {
     return this.removeFromUser(this.userBooksRef(userRef), id)
   }
 
-  /** COLLECTION **/
+  /* COLLECTION */
   private parseCollection(collection: Collection, id: string) {
     return {
       ...collection,
