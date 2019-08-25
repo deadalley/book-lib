@@ -26,7 +26,10 @@ jobs:
           command: |
             gpg --keyserver pgp.uni-mainz.de --recv-keys ${GPG_KEY_ID}
             cd src/environments
+            echo $GPG_PRIVATE_KEY > private.asc
+            gpg --import private.asc
             echo ${GPG_PASSWORD} | gpg --batch --yes --passphrase-fd 0 --decrypt-files *.gpg
+            rm private.asc
       - run:
           name: Linting
           command: npm run lint
