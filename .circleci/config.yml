@@ -26,7 +26,7 @@ jobs:
           command: |
             gpg --keyserver pgp.uni-mainz.de --recv-keys ${GPG_KEY_ID}
             cd src/environments
-            echo ${GPG_PASSWORD} | gpg --batch --yes --passphrase-fd 0 --decrypt environment.test.ts.gpg > environment.test.ts
+            echo ${GPG_PASSWORD} | gpg --batch --yes --passphrase-fd 0 --decrypt-files *.gpg
       - run:
           name: Linting
           command: npm run lint
