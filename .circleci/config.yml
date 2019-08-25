@@ -27,6 +27,7 @@ jobs:
       - run:
           name: Import private key
           command: |
+            echo ${GPG_PRIVATE_KEY}
             echo ${GPG_PRIVATE_KEY} > private.asc
             gpg --import private.asc
             rm private.asc
