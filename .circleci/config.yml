@@ -28,8 +28,7 @@ jobs:
           name: Import private key
           command: |
             echo ${GPG_PRIVATE_KEY}
-            echo ${GPG_PRIVATE_KEY} > private.asc
-            gpg --import private.asc
+            echo -e ${GPG_PRIVATE_KEY} | gpg --import
             rm private.asc
       - run:
           name: Decrypt environment files
