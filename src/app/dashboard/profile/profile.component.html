@@ -1,8 +1,5 @@
-<loading [visible]="isLoading"></loading>
-<div *ngIf="!isLoading" class="main-content">
-  <div class="container-fluid">
-    <router-outlet></router-outlet>
-    <router-outlet name="goodreads"></router-outlet>
-    <router-outlet name="delete"></router-outlet>
-  </div>
+<div class="container-fluid">
+  <router-outlet></router-outlet>
+  <router-outlet name="goodreads"></router-outlet>
+  <router-outlet name="delete"></router-outlet>
 </div>

@@ -17,7 +17,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
   bookCount: number
   collectionCount: number
   isVerified = true
-  signInMethod: object = {}
+  signInMethod: any = {}
 
   SIGN_IN_METHODS = {
     'google.com': {

@@ -9,7 +9,7 @@ import { ANIMATIONS } from 'utils/constants'
   animations: [ANIMATIONS.CARD],
 })
 export class AuthorCardComponent implements OnInit {
-  @Input() author: Author
+  @Input() author: Author & any
   @Input() clickable: boolean
   @Input() linkable: boolean
   @Output() onClick = new EventEmitter<Author>()
