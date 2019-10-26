@@ -22,19 +22,8 @@ jobs:
           paths:
             - node_modules
       - run:
-          name: Import public key
-          command: gpg --keyserver pgp.uni-mainz.de --recv-keys ${GPG_KEY_ID}
-      - run:
-          name: Import private key
-          command: |
-            echo ${GPG_PRIVATE_KEY}
-            echo -e ${GPG_PRIVATE_KEY} | gpg --import
-            rm private.asc
-      - run:
           name: Decrypt environment files
-          command: |
-            cd src/environments
-            echo ${GPG_PASSWORD} | gpg --batch --yes --passphrase-fd 0 --decrypt-files *.gpg
+          command: npm run decrypt
       - run:
           name: Linting
           command: npm run lint
