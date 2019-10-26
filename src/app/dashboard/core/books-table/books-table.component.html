@@ -112,7 +112,7 @@
                   <i class="pe-7s-glasses tile-icon"
                     (click)="updateFavoriteIcon(book, { read: !book.read })"
                     [ngClass] = "{'inactive': !book.read, 'read': book.read}"
-                    tooltip="{{book.read ? 'Read' : 'read'}}"
+                    tooltip="{{book.read ? 'Read' : 'Not read'}}"
                     [isDisabled]="false"
                     [tooltipAnimation]="true"
                     placement="bottom"></i>
