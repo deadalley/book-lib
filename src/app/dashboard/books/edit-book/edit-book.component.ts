@@ -243,7 +243,7 @@ export class EditBookComponent implements OnInit, OnDestroy {
 
   deleteBook() {
     this.libraryService.deleteBook(this.book)
-    this.router.navigate(['.'])
+    this.router.navigate(['/dashboard/books'])
   }
 
   uploadImage(event) {

@@ -12,3 +12,7 @@ i {
   padding: 0 35px;
   font-weight: 400;
 }
+
+.align-center {
+  text-align: center;
+}
