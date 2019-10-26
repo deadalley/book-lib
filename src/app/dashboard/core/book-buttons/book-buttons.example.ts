@@ -7,6 +7,7 @@ import { BookButtonsComponent } from './book-buttons.component'
 storiesOf('Book Buttons', module)
   .addDecorator(
     moduleMetadata({
+      declarations: [BookButtonsComponent],
       imports: [CommonModule, TooltipModule.forRoot(), RouterModule],
     })
   )

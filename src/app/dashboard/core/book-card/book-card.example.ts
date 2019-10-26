@@ -41,6 +41,7 @@ storiesOf('Book Card', module)
         AngularFireStorageModule,
         BrowserAnimationsModule,
       ],
+      declarations: [BookCardComponent],
     })
   )
   .add('default', () => ({

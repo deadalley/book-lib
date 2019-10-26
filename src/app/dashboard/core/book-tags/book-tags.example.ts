@@ -7,6 +7,7 @@ storiesOf('Book Tags', module)
   .addDecorator(
     moduleMetadata({
       imports: [CommonModule, RouterModule],
+      declarations: [BookTagsComponent],
     })
   )
   .add('default', () => ({

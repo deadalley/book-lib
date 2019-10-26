@@ -60,6 +60,7 @@ storiesOf('Books Table', module)
         AngularFireStorageModule,
         BrowserAnimationsModule,
       ],
+      declarations: [BooksTableComponent],
     })
   )
   .add('default', () => ({

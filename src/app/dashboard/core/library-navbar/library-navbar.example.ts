@@ -19,6 +19,7 @@ storiesOf('Library Navbar', module)
         RouterModule.forRoot(AppRoutes),
         BrowserAnimationsModule,
       ],
+      declarations: [LibraryNavbarComponent],
     })
   )
   .add('Books', () => ({

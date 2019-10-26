@@ -9,6 +9,7 @@ storiesOf('Pages', module)
     moduleMetadata({
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
       imports: [CommonModule, RouterModule.forRoot(AppRoutes)],
+      declarations: [PagesComponent],
     })
   )
   .add('default', () => ({

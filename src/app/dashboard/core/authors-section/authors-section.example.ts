@@ -42,7 +42,11 @@ storiesOf('Authors Section', module)
         AngularFireStorageModule,
         BrowserAnimationsModule,
       ],
-      declarations: [GridComponent, AuthorCardComponent],
+      declarations: [
+        GridComponent,
+        AuthorCardComponent,
+        AuthorsSectionComponent,
+      ],
     })
   )
   .add('default', () => ({

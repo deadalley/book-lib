@@ -63,6 +63,7 @@ storiesOf('Books Display', module)
         BookCardComponent,
         BooksSectionComponent,
         BooksTableComponent,
+        BooksDisplayComponent,
         PagesComponent,
         TableItemsComponent,
         PagePipe,

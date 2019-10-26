@@ -59,6 +59,7 @@ storiesOf('Authors Display', module)
         AuthorCardComponent,
         AuthorsSectionComponent,
         AuthorsTableComponent,
+        AuthorsDisplayComponent,
         PagesComponent,
         PagePipe,
         SearchFilterPipe,

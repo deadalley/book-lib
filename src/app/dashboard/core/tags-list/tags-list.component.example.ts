@@ -10,6 +10,7 @@ storiesOf('Tags List', module)
     moduleMetadata({
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }, UiService],
       imports: [CommonModule],
+      declarations: [TagsListComponent],
     })
   )
   .add('default', () => ({

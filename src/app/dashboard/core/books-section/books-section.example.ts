@@ -49,7 +49,7 @@ storiesOf('Books Section', module)
         AngularFireStorageModule,
         BrowserAnimationsModule,
       ],
-      declarations: [GridComponent, BookCardComponent],
+      declarations: [GridComponent, BookCardComponent, BooksSectionComponent],
     })
   )
   .add('default', () => ({

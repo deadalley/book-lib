@@ -40,6 +40,7 @@ storiesOf('Authors Table', module)
         AngularFireStorageModule,
         BrowserAnimationsModule,
       ],
+      declarations: [AuthorsTableComponent],
     })
   )
   .add('default', () => ({

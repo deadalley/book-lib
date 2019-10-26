@@ -6,6 +6,7 @@ storiesOf('Language Selector', module)
   .addDecorator(
     moduleMetadata({
       imports: [CommonModule],
+      declarations: [LanguageSelectorComponent],
     })
   )
   .add('default', () => ({

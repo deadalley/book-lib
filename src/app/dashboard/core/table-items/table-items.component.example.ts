@@ -9,6 +9,7 @@ storiesOf('Table Items', module)
     moduleMetadata({
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
       imports: [CommonModule, RouterModule.forRoot(AppRoutes)],
+      declarations: [TableItemsComponent],
     })
   )
   .add('default', () => ({
