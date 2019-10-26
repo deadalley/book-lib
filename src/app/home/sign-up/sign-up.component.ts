@@ -35,7 +35,6 @@ export class SignUpComponent implements OnInit {
   }
 
   signUp(formValues) {
-    console.log(formValues)
     this.authService.signUpWithEmail(formValues)
   }
 }

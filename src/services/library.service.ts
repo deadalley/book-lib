@@ -89,7 +89,6 @@ export class LibraryService {
         return this.database.subscribeToBooksFromUser(userRef)
       }),
       map(books => {
-        console.log('BOOOOOKS', books)
         return books.map(book => ({
           ...book,
           collections: book.collections || [],
