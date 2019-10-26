@@ -105,6 +105,6 @@ export class GoodreadsImportComponent implements OnInit {
   importBooks() {
     this.libraryService
       .addBooks(this.books.filter(book => book.isSelected))
-      .then(() => this.router.navigate(['dashboard/books']))
+      .then(() => this.router.navigate(['/dashboard/books']))
   }
 }

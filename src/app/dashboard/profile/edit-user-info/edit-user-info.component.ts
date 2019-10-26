@@ -54,7 +54,7 @@ export class EditUserInfoComponent implements OnInit {
     this.databaseService
       .updateUser(this.user.id, { name })
       .then(() => notify({ message: 'User profile succesfully updated' }))
-      .then(() => this.router.navigate(['dashboard/profile']))
+      .then(() => this.router.navigate(['/dashboard/profile']))
   }
 
   updateEmail({ email, password }: { email: string; password: string }) {
@@ -63,7 +63,7 @@ export class EditUserInfoComponent implements OnInit {
     this.authService
       .updateUserEmail(email, password)
       .then(() => notify({ message: 'User profile succesfully updated' }))
-      .then(() => this.router.navigate(['dashboard/profile']))
+      .then(() => this.router.navigate(['/dashboard/profile']))
   }
 
   updatePassword({
@@ -78,7 +78,7 @@ export class EditUserInfoComponent implements OnInit {
     this.authService
       .updateUserPassword(oldPassword, password)
       .then(() => notify({ message: 'User profile succesfully updated' }))
-      .then(() => this.router.navigate(['dashboard/profile']))
+      .then(() => this.router.navigate(['/dashboard/profile']))
   }
 
   imageChanged(event) {

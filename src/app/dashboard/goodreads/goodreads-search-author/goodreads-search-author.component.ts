@@ -42,6 +42,6 @@ export class GoodreadsSearchAuthorComponent implements OnInit {
   }
 
   selectAuthor(author: Author) {
-    this.router.navigate([`dashboard/authors/${author.id}`])
+    this.router.navigate([`/dashboard/authors/${author.id}`])
   }
 }

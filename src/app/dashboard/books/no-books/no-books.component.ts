@@ -72,9 +72,9 @@ export class NoBooksComponent implements OnInit {
   loginGoodreads() {
     this.authService.goodreadsId.subscribe(goodreadsId => {
       if (goodreadsId) {
-        this.router.navigate(['dashboard/goodreads'])
+        this.router.navigate(['/dashboard/goodreads'])
       } else {
-        this.authService.loginGoodreads('dashboard/books')
+        this.authService.loginGoodreads('/dashboard/books')
       }
     })
   }

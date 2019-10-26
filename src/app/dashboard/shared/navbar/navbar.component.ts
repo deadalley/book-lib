@@ -56,6 +56,6 @@ export class NavbarComponent implements OnInit {
   }
 
   navigateTo() {
-    this.router.navigate([`dashboard/${this.getTitle().toLowerCase()}`])
+    this.router.navigate([`/dashboard/${this.getTitle().toLowerCase()}`])
   }
 }

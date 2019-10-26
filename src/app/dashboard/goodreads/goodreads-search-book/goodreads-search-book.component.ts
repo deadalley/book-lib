@@ -62,7 +62,7 @@ export class GoodreadsSearchBookComponent implements OnInit {
         map(books => books.length)
       )
       .subscribe(bookCount =>
-        this.router.navigate(['dashboard/books'], {
+        this.router.navigate(['/dashboard/books'], {
           queryParams: { page: Math.ceil(bookCount / MAX_BOOKS) },
         })
       )

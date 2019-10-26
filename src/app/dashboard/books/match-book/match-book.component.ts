@@ -88,7 +88,7 @@ export class MatchBookComponent implements OnInit {
     }
     this.libraryService
       .updateBook(updatedBook)
-      .then(() => this.router.navigate(['dashboard/books']))
+      .then(() => this.router.navigate(['/dashboard/books']))
   }
 
   parseValues(values) {

@@ -53,7 +53,7 @@ export class FindBookComponent implements OnInit {
       this.selectedBook.isSelected = false
     }
     book.isSelected = true
-    this.router.navigate([`dashboard/books/import/${book.goodreadsId}`], {
+    this.router.navigate([`/dashboard/books/import/${book.goodreadsId}`], {
       queryParams: {
         libraryBookId: this.route.snapshot.queryParamMap.get('libraryBookId'),
       },

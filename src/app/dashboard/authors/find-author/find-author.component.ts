@@ -87,6 +87,6 @@ export class FindAuthorComponent implements OnInit, OnDestroy {
       book.author = this.selectedAuthor.name
       this.libraryService.updateBook(book)
     })
-    this.router.navigate(['dashboard/books'])
+    this.router.navigate(['/dashboard/books'])
   }
 }
