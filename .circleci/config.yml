@@ -32,7 +32,7 @@ jobs:
           command: npm run test
       - run:
           name: Building
-          command: npm run build
+          command: npm run build:production
       - save_cache:
           key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
@@ -55,7 +55,7 @@ jobs:
           command: npm install --save-dev firebase-tools
       - run:
           name: Deploy Master to Firebase
-          command: npm run firebase-deploy
+          command: npm run firebase deploy
 
 workflows:
   version: 2
