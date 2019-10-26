@@ -1,1 +1,1 @@
-docker run -d -v ${PWD}:/app -v /app/node_modules -p 4200:4200 --name angular-booklib
+docker run -d -v ${PWD}:/app -v /app/node_modules -p 4200:4200 --name angular-booklib --rm angular-booklib

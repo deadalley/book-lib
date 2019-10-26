@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common'
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading'
 import { storiesOf, moduleMetadata } from '@storybook/angular'
-import { LoadingComponent } from './loading.component'
+import { LoadingOverlayComponent } from './loading-overlay.component'
 
-storiesOf('Loading', module)
+storiesOf('LoadingOverlay', module)
   .addDecorator(
     moduleMetadata({
-      declarations: [LoadingComponent],
+      declarations: [LoadingOverlayComponent],
       imports: [
         CommonModule,
         NgxLoadingModule.forRoot({
@@ -20,7 +20,7 @@ storiesOf('Loading', module)
     })
   )
   .add('default', () => ({
-    component: LoadingComponent,
+    component: LoadingOverlayComponent,
     props: {
       visible: true,
     },

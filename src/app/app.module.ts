@@ -7,6 +7,7 @@ import { AngularFireModule } from 'angularfire2'
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
 import { AngularFireStorageModule } from 'angularfire2/storage'
+import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading'
 
 import { AppComponent } from './app.component'
 import { AppRoutes } from './app.routing'
@@ -35,6 +36,13 @@ import { environment } from 'environments/environment'
   ],
   imports: [
     RouterModule.forRoot(AppRoutes),
+    NgxLoadingModule.forRoot({
+      animationType: ngxLoadingAnimationTypes.circleSwish,
+      backdropBackgroundColour: 'rgba(100,0,0,0)',
+      primaryColour: 'rgb(120, 216, 236)',
+      secondaryColour: '#ffffff',
+      tertiaryColour: '#ffffff',
+    }),
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
