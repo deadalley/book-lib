@@ -12,11 +12,13 @@ export class TagsListComponent implements OnInit {
   _selectedTags = {}
 
   ngOnInit() {
-    this._selectedTags = this.tags.reduce((value, tag) => {
-      value[tag] = false
-      return value
-    }, {})
-    this.selectedTags.emit(this.filterSelectedTags())
+    if (this.tags && this.tags.length) {
+      this._selectedTags = this.tags.reduce((value, tag) => {
+        value[tag] = false
+        return value
+      }, {})
+      this.selectedTags.emit(this.filterSelectedTags())
+    }
   }
 
   onClick(tag: string) {

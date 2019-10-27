@@ -1,5 +1,5 @@
 <library-navbar [groupings]="bookGroupings" [filters]="filters" addButtonContent="Add a new book"></library-navbar>
-<tags-list *ngIf="filterMethod === 'tags' && books.length && tags" [tags]="tags" (selectedTags)="tagFilter=$event"></tags-list>
+<tags-list *ngIf="filterMethod === 'tags' && books.length" [tags]="tags" (selectedTags)="tagFilter=$event"></tags-list>
 <loading [visible]="isLoading"></loading>
 <!-- No books -->
 <no-books *ngIf="!isLoading && !books.length"></no-books>
@@ -8,7 +8,7 @@
   <!-- Tiles -->
   <ng-container *ngSwitchCase="true">
     <div *ngIf="!(books | page: page:maxBooks | bookFilter: filterMethod:tagFilter).length">
-      <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 4px 0;">
+      <h5 class="text-muted no-books">
         No books available for this filter.
       </h5>
     </div>
@@ -34,7 +34,7 @@
   <ng-container *ngSwitchCase="false">
     <table-items (displayItems)="tableDisplayItems=$event"></table-items>
     <div *ngIf="!(books | page: page:maxBooks | bookFilter: filterMethod:tagFilter).length">
-      <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 4px 0;">
+      <h5 class="text-muted no-books">
         No books available for this filter.
       </h5>
     </div>

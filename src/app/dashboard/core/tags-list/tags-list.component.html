@@ -1,4 +1,4 @@
-<div class="values">
+<div *ngIf="tags && tags.length" class="values">
   <a
     href="javascript:void(0);"
     *ngFor="let tag of tags"
@@ -11,3 +11,4 @@
     <i class='ti-plus close-icon' [ngClass]="{'ti-minus': _selectedTags[tag], 'ti-plus': !_selectedTags[tag]}"></i>
   </a>
 </div>
+<h5 class="text-muted no-tag">No tags available</h5>

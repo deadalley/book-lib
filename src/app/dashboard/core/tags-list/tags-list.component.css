@@ -31,3 +31,9 @@
 .selected {
   background: #e83e3a;
 }
+
+.no-tag {
+  font-style: italic;
+  margin: 4px 0;
+  padding: 0 15px 10px 15px;
+}

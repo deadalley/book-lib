@@ -15,7 +15,7 @@ import { map, mergeMap } from 'rxjs/operators'
   moduleId: module.id,
   selector: 'books-home',
   templateUrl: 'books-home.component.html',
-  styleUrls: [],
+  styleUrls: ['./books-home.component.css'],
 })
 export class BooksHomeComponent implements OnInit, OnDestroy, AfterViewInit {
   tilesDisplay = true

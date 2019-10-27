@@ -19,3 +19,9 @@ storiesOf('Tags List', module)
       tags,
     },
   }))
+  .add('no tags', () => ({
+    component: TagsListComponent,
+    props: {
+      tags: [],
+    },
+  }))

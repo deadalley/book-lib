@@ -14,7 +14,7 @@ export class BookFilterPipe implements PipeTransform {
     if (filterMethod === 'tags') {
       const tags = args[0]
       if (!tags) {
-        return
+        return books
       }
       if (!tags.length) {
         return books
