@@ -85,7 +85,6 @@ export class LibraryService {
     this.rawBooks$ = this.session.userId$.pipe(
       filter(userRef => !!userRef),
       mergeMap(userRef => {
-        console.log('userRef', userRef)
         return this.database.subscribeToBooksFromUser(userRef)
       }),
       map(books => {

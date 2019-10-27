@@ -81,6 +81,6 @@ export class AuthorComponent implements OnInit {
         date: new Date().toISOString(),
       }))
     this.libraryService.addBooks(booksToAdd)
-    this.router.navigate(['/dashboard/authors'])
+    this.router.navigate(['/dashboard/books'])
   }
 }
