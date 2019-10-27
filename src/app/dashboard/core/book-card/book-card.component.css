@@ -79,6 +79,7 @@
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
+  height: 100%;
 }
 
 div > img.tile-icon {
