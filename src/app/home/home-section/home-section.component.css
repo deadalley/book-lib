@@ -5,3 +5,17 @@
 .section-img {
   height: 200px;
 }
+
+.section:after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 175px;
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent, rgba(245, 245, 245, 1));
+}
+
+.section {
+  position: relative;
+}

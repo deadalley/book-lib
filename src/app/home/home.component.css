@@ -11,6 +11,7 @@
   background-position: center center;
   background-size: cover;
   margin: 0;
+  box-shadow: 0 0 8px #8a8a8a;
 }
 .page-header .page-header-image {
   position: absolute;
@@ -97,7 +98,7 @@
   z-index: 2;
 }
 .main {
-  background: rgb(241, 241, 241);
+  background: rgb(255, 255, 255);
 }
 .info-paragraph {
   text-align: left;
@@ -108,12 +109,62 @@ hr {
 .section-item {
   padding: 0 120px;
 }
+.items {
+  z-index: 2;
+}
 .n-logo {
   height: 150px;
   width: auto;
 }
 li {
-  text-align: left;
-  font-size: 16px;
-  padding: 4px;
+  text-align: center;
+  font-size: 20px;
+  padding: 12px;
+  font-weight: 300;
+  list-style-type: none;
+}
+
+.astrodivider {
+  max-width: 100%;
+  position: relative;
+  z-index: 2;
+}
+.astrodividermask {
+  overflow: hidden;
+  position: absolute;
+  height: 20px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.astrodividermask:after {
+  content: '';
+  display: block;
+  margin: -25px auto 0;
+  width: 100%;
+  height: 25px;
+  border-radius: 125px / 12px;
+  box-shadow: 0 0 8px #8a8a8a;
+}
+.astrodivider span {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  bottom: 100%;
+  margin-bottom: -20px;
+  left: 50%;
+  margin-left: -25px;
+  border-radius: 100%;
+  box-shadow: 0 2px 4px #ababab;
+  background: #fff;
+  display: flex;
+}
+.astrodivider i {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-style: normal;
+  color: #949494;
 }
