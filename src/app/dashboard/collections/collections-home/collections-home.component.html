@@ -40,7 +40,6 @@
 <ng-container [ngSwitch]="tilesDisplay">
   <table-items (displayItems)="tableDisplayItems=$event" *ngSwitchCase="false"></table-items>
   <ng-container *ngFor="let collection of collections | collectionGrouping: groupingMethod">
-    <div>{{collection.title}}</div>
     <!-- Separator -->
     <div class="row" id="{{removeSpaces(collection.title)}}">
       <div class="col-md-9">
@@ -69,7 +68,7 @@
     <!-- Books -->
     <div
       *ngIf="collection.books && collection.books.length > 0"
-      class="collapse in"
+      class="collapse in books"
       id="{{collection.id}}"
     >
       <!-- No books -->
