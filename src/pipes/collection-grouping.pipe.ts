@@ -11,7 +11,7 @@ export class CollectionGroupingPipe implements PipeTransform {
       return orderedCollections
     }
 
-    orderedCollections.sort((a, b) => {
+    return orderedCollections.sort((a, b) => {
       let sortA, sortB
       if (groupingMethod === 'size') {
         sortA = a.books.length
@@ -28,7 +28,5 @@ export class CollectionGroupingPipe implements PipeTransform {
       }
       return 0
     })
-
-    return orderedCollections
   }
 }

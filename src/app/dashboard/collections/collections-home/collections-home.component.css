@@ -103,3 +103,9 @@ hr {
 .collapse-button > i {
   font-size: 28px;
 }
+
+.no-books {
+  font-style: italic;
+  margin: 4px 0;
+  padding: 0 0 10px 0;
+}
