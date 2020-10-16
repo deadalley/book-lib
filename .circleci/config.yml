@@ -39,11 +39,12 @@ jobs:
       - image: circleci/node:10.16.3-browsers
     working_directory: ~/project
     steps:
+      - checkout
       - run:
           name: Install dependencies
           command: npm install
       - restore_cache:
-          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
       - run:
           name: Testing
           command: npm run test
@@ -52,6 +53,7 @@ jobs:
       - image: circleci/node:10.16.3-browsers
     working_directory: ~/project
     steps:
+      - checkout
       - run:
           name: Linting
           command: npm run lint
