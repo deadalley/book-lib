@@ -1,43 +1,53 @@
-<label>{{title}}</label>
-  <div class="input-group">
-    <input
-      #tagInput
-      type="text"
-      [formControl]="tagInputValue"
-      class="form-control"
-      placeholder="{{placeholder}}"
-      (keyup)="keyupHandle($event, tagInput.value)"
-      (keydown.enter)="pushItem(tagInput.value); tagInput.value = '';"
-      (focus)="hasFocus.emit(true)"
-      (blur)="hasFocus.emit(false)"
+<label>{{ title }}</label>
+<div class="input-group">
+  <input
+    #tagInput
+    type="text"
+    [formControl]="tagInputValue"
+    class="form-control"
+    placeholder="{{ placeholder }}"
+    (keyup)="keyupHandle($event, tagInput.value)"
+    (keydown.enter)="pushItem(tagInput.value); tagInput.value = ''"
+    (focus)="hasFocus.emit(true)"
+    (blur)="hasFocus.emit(false)"
+  />
+  <span class="input-group-btn">
+    <button
+      class="btn btn-default"
+      type="button"
+      (click)="pushItem(tagInput.value); tagInput.value = ''"
     >
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="button" (click)="pushItem(tagInput.value); tagInput.value = '';">
-        <i class="ti-plus"></i>
-      </button>
-    </span>
-    <ul
-      *ngIf="debouncedHasFocus"
-      class="search-results"
-      [ngClass]="{'no-border': !(filteredSuggestions | searchFilter: searchValue).length}"
+      <i class="ti-plus"></i>
+    </button>
+  </span>
+  <ul
+    *ngIf="debouncedHasFocus"
+    class="search-results"
+    [ngClass]="{
+      'no-border': !(filteredSuggestions | searchFilter: searchValue).length
+    }"
+  >
+    <li
+      *ngFor="let suggestion of filteredSuggestions | searchFilter: searchValue"
+      class="result"
+      (click)="pushItem(suggestion)"
     >
-      <li
-        *ngFor="let suggestion of filteredSuggestions | searchFilter: searchValue"
-        class="result"
-        (click)="pushItem(suggestion)"
-      >
-        <div class="props">
-          {{suggestion}}
-        </div>
-      </li>
-    </ul>
-  </div>
-  <div class="values">
-    <span *ngFor="let item of items; let lastItem = last; let i = index" class="value" [ngClass]="{tags: tags}">
-      <i class="{{iconClass}} icon" *ngIf="iconClass"></i>
-      {{item}}
-      <a href="javascript:void(0);" (click)="removeItem(i)">
-        <i class='ti-close close-icon' [ngClass]="{white: tags}"></i>
-      </a>
-    </span>
-  </div>
+      <div class="props">
+        {{ suggestion }}
+      </div>
+    </li>
+  </ul>
+</div>
+<div class="values">
+  <span
+    *ngFor="let item of items; let lastItem = last; let i = index"
+    class="value"
+    [ngClass]="{ tags: tags }"
+  >
+    <i class="{{ iconClass }} icon" *ngIf="iconClass"></i>
+    {{ item }}
+    <a href="javascript:void(0);" (click)="removeItem(i)">
+      <i class="ti-close close-icon" [ngClass]="{ white: tags }"></i>
+    </a>
+  </span>
+</div>
