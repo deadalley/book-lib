@@ -1,315 +1,484 @@
-<loading [visible]="(loadingBook  || loadingCollections)"></loading>
-<page-navigator *ngIf="!(loadingBook  || loadingCollections)">
-	<div class="card" [@card]>
-		<div class="header">
-			<h4 class="title">{{title}}</h4>
-			<div *ngIf="displayDelete">
-				<button type="button" class="btn btn-danger" style="width: 100%" (click)="this.modal.openModal()">
-					<i class="pe-7s-trash"></i>
-					Delete
-				</button>
-			</div>
-		</div>
+<loading [visible]="loadingBook || loadingCollections"></loading>
+<page-navigator *ngIf="!(loadingBook || loadingCollections)">
+  <div class="card" [@card]>
+    <div class="header">
+      <h4 class="title">{{ title }}</h4>
+      <div *ngIf="displayDelete">
+        <button
+          type="button"
+          class="btn btn-danger"
+          style="width: 100%"
+          (click)="this.modal.openModal()"
+        >
+          <i class="pe-7s-trash"></i>
+          Delete
+        </button>
+      </div>
+    </div>
 
-		<div class="content">
-			<form (keydown.enter)="enterKeyDown($event, form.value)" [formGroup]="form">
-				<!-- First row -->
-				<div class="row">
-					<!-- Title -->
-					<div class="col-xs-12 col-md-6">
-						<div class="form-group" [ngClass] = "{'has-error': !form.controls['title'].valid && form.controls['title'].touched}">
-							<label>Book Title <span style="color: red">*</span></label>
-							<div style="display: flex">
-								<div style="width: 100%">
-									<input type="text" class="form-control" placeholder="Your version title" formControlName="title">
-									<span class="help-block" *ngIf="!form.controls['title'].valid && form.controls['title'].touched">
-										Please enter a valid book title.
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Author -->
-					<div [ngClass]="{'col-xs-10 col-md-5': selectedAuthorId, 'col-xs-12 col-md-6': !selectedAuthorId}">
-						<div class="form-group" [ngClass] = "{'has-error': !form.controls['author'].valid && form.controls['author'].touched}">
-							<label>Author <span style="color: red">*</span></label>
-							<div style="display: flex; width: 100%; flex-direction: column;">
-								<div class="input-group" style="width: 100%;">
-									<input
-										type="text"
-										class="form-control"
-										placeholder="Author name"
-										formControlName="author"
-										(focus)="authorFocus.next(true)"
-										(blur)="authorFocus.next(false)"
-									>
-									<div class="input-group-addon" style="border: 1px solid #E3E3E3">
-										<img
-											class="goodreads-img"
-											[ngClass]="{'goodreads-img-disabled': !selectedAuthorId}"
-											src="/assets/img/goodreads.png"
-											[tooltip]="selectedAuthorId ? 'Linked to Goodreads' : 'Not linked to Goodreads'"
-											[tooltipAnimation]="true"
-											placement="bottom"
-										>
-									</div>
-									<ul *ngIf="authorHasFocus" class="search-results" #searchResults>
-										<li
-											*ngFor="let author of allAuthors | searchFilter: authorName:['name']"
-											class="result"
-											(click)="selectAuthor(author)"
-										>
-											<div class="fixed-width" (click)="selectAuthor(author)">
-												<img
-													*ngIf="author.imageSmall || author.imageLarge"
-													[src]="author.imageSmall || author.imageLarge"
-													alt="Author"
-												>
-											</div>
-											<div class="props">
-												{{author.name}}
-											</div>
-										</li>
-										<li *ngIf="!(allAuthors | searchFilter: authorName:['name']).length" #result class="result">
-											No results found
-										</li>
-									</ul>
-								</div>
-								<span class="help-block" *ngIf="!form.controls['author'].valid && form.controls['author'].touched">
-									Please enter a valid author name.
-								</span>
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-2 col-md-1" *ngIf="selectedAuthorId">
-						<button
-							type="button"
-							(click)="selectedAuthorId = 0"
-							class="btn btn-default"
-							style="margin-top: 25px; width: 100%;"
-							tooltip="Remove Goodreads Link"
-							[tooltipAnimation]="true"
-							placement="bottom"
-						><i class="ti-unlink icon"></i></button>
-					</div>
-				</div>
+    <div class="content">
+      <form
+        (keydown.enter)="enterKeyDown($event, form.value)"
+        [formGroup]="form"
+      >
+        <div class="row">
+          <div class="col-md-12">
+            <!-- Image -->
+            <loading-overlay [visible]="loadingImage"></loading-overlay>
+            <img
+              class="book-image"
+              [src]="
+                book.imageLarge
+                  ? book.imageLarge
+                  : book.imageSmall
+                  ? book.imageSmall
+                  : '/assets/img/no-book-cover.png'
+              "
+              alt="Book cover"
+              style="cursor: pointer"
+              (click)="imageUpload.click()"
+            />
+            <input
+              style="display: none"
+              [hidden]="true"
+              #imageUpload
+              type="file"
+              (change)="uploadImage($event)"
+            />
+          </div>
+        </div>
+        <!-- First row -->
+        <div class="row">
+          <!-- Title -->
+          <div class="col-xs-12 col-md-6">
+            <div
+              class="form-group"
+              [ngClass]="{
+                'has-error':
+                  !form.controls['title'].valid &&
+                  form.controls['title'].touched
+              }"
+            >
+              <label>Book Title <span style="color: red">*</span></label>
+              <div style="display: flex">
+                <div style="width: 100%">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Your version title"
+                    formControlName="title"
+                  />
+                  <span
+                    class="help-block"
+                    *ngIf="
+                      !form.controls['title'].valid &&
+                      form.controls['title'].touched
+                    "
+                  >
+                    Please enter a valid book title.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Author -->
+          <div
+            [ngClass]="{
+              'col-xs-10 col-md-5': selectedAuthorId,
+              'col-xs-12 col-md-6': !selectedAuthorId
+            }"
+          >
+            <div
+              class="form-group"
+              [ngClass]="{
+                'has-error':
+                  !form.controls['author'].valid &&
+                  form.controls['author'].touched
+              }"
+            >
+              <label>Author <span style="color: red">*</span></label>
+              <div style="display: flex; width: 100%; flex-direction: column;">
+                <div class="input-group" style="width: 100%;">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Author name"
+                    formControlName="author"
+                    (focus)="authorFocus.next(true)"
+                    (blur)="authorFocus.next(false)"
+                  />
+                  <div
+                    class="input-group-addon"
+                    style="border: 1px solid #E3E3E3"
+                  >
+                    <img
+                      class="goodreads-img"
+                      [ngClass]="{
+                        'goodreads-img-disabled': !selectedAuthorId
+                      }"
+                      src="/assets/img/goodreads.png"
+                      [tooltip]="
+                        selectedAuthorId
+                          ? 'Linked to Goodreads'
+                          : 'Not linked to Goodreads'
+                      "
+                      [tooltipAnimation]="true"
+                      placement="bottom"
+                    />
+                  </div>
+                  <ul
+                    *ngIf="authorHasFocus"
+                    class="search-results"
+                    #searchResults
+                  >
+                    <li
+                      *ngFor="
+                        let author of allAuthors
+                          | searchFilter: authorName:['name']
+                      "
+                      class="result"
+                      (click)="selectAuthor(author)"
+                    >
+                      <div class="fixed-width" (click)="selectAuthor(author)">
+                        <img
+                          *ngIf="author.imageSmall || author.imageLarge"
+                          [src]="author.imageSmall || author.imageLarge"
+                          alt="Author"
+                        />
+                      </div>
+                      <div class="props">
+                        {{ author.name }}
+                      </div>
+                    </li>
+                    <li
+                      *ngIf="
+                        !(allAuthors | searchFilter: authorName:['name']).length
+                      "
+                      #result
+                      class="result"
+                    >
+                      No results found
+                    </li>
+                  </ul>
+                </div>
+                <span
+                  class="help-block"
+                  *ngIf="
+                    !form.controls['author'].valid &&
+                    form.controls['author'].touched
+                  "
+                >
+                  Please enter a valid author name.
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-2 col-md-1" *ngIf="selectedAuthorId">
+            <button
+              type="button"
+              (click)="selectedAuthorId = 0"
+              class="btn btn-default"
+              style="margin-top: 25px; width: 100%;"
+              tooltip="Remove Goodreads Link"
+              [tooltipAnimation]="true"
+              placement="bottom"
+            >
+              <i class="ti-unlink icon"></i>
+            </button>
+          </div>
+        </div>
 
-				<!-- Second row -->
-				<div class="row">
-					<!-- Original title -->
-					<div class="col-md-6">
-						<div class="form-group">
-							<label>Original Title</label>
-							<input type="text" class="form-control" placeholder="Original version title" formControlName="original">
-						</div>
-					</div>
-					<!-- Publisher -->
-					<div class="col-md-6">
-						<div class="form-group">
-								<label>Publisher</label>
-								<input type="text" class="form-control" placeholder="Publisher" formControlName="publisher">
-							</div>
-					</div>
-				</div>
+        <!-- Second row -->
+        <div class="row">
+          <!-- Original title -->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Original Title</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Original version title"
+                formControlName="original"
+              />
+            </div>
+          </div>
+          <!-- Publisher -->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Publisher</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Publisher"
+                formControlName="publisher"
+              />
+            </div>
+          </div>
+        </div>
 
-				<!-- Third row -->
-				<div class="row">
-					<!-- Year -->
-					<div class="col-md-2">
-						<div class="form-group" [ngClass] = "{'has-error': !form.controls['year'].valid && form.controls['year'].touched}">
-							<label>Year</label>
-							<input type="number" class="form-control" placeholder="Year" formControlName="year">
-							<span class="help-block" *ngIf="!form.controls['year'].valid && form.controls['year'].touched">Please enter a valid year.</span>
-						</div>
-					</div>
-					<!-- Pages -->
-					<div class="col-md-2">
-						<div class="form-group" [ngClass] = "{'has-error': !form.controls['pages'].valid && form.controls['pages'].touched}">
-							<label>Pages</label>
-							<input type="number" class="form-control" placeholder="Pages" formControlName="pages">
-							<span class="help-block" *ngIf="!form.controls['pages'].valid && form.controls['pages'].touched">Please enter a valid number of pages.</span>
-						</div>
-					</div>
-					<!-- Language -->
-					<div class="col-md-2">
-						<div class="form-group">
-							<language-selector [selectedLanguage]="selectedLanguage" (select)="selectedLanguage = $event"></language-selector>
-						</div>
-					</div>
-					<!-- About -->
-					<div class="col-md-2">
-						<div class="form-group">
-							<book-buttons
-								[owned]="!!book.owned"
-								[read]="!!book.read"
-								[favorite]="!!book.favorite"
-								[wishlist]="!!book.wishlist"
-							></book-buttons>
-						</div>
-					</div>
-					<!-- Rating -->
-					<div class="col-md-2">
-						<div class="form-group">
-							<label>Rating</label><br>
-							<rating style="font-size: 20px" formControlName="rating" [titles]="['', '', '', '', '']"></rating>
-						</div>
-					</div>
-				</div>
+        <!-- Third row -->
+        <div class="row">
+          <!-- Year -->
+          <div class="col-md-2">
+            <div
+              class="form-group"
+              [ngClass]="{
+                'has-error':
+                  !form.controls['year'].valid && form.controls['year'].touched
+              }"
+            >
+              <label>Year</label>
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Year"
+                formControlName="year"
+              />
+              <span
+                class="help-block"
+                *ngIf="
+                  !form.controls['year'].valid && form.controls['year'].touched
+                "
+                >Please enter a valid year.</span
+              >
+            </div>
+          </div>
+          <!-- Pages -->
+          <div class="col-md-2">
+            <div
+              class="form-group"
+              [ngClass]="{
+                'has-error':
+                  !form.controls['pages'].valid &&
+                  form.controls['pages'].touched
+              }"
+            >
+              <label>Pages</label>
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Pages"
+                formControlName="pages"
+              />
+              <span
+                class="help-block"
+                *ngIf="
+                  !form.controls['pages'].valid &&
+                  form.controls['pages'].touched
+                "
+                >Please enter a valid number of pages.</span
+              >
+            </div>
+          </div>
+          <!-- Language -->
+          <div class="col-md-2">
+            <div class="form-group">
+              <language-selector
+                [selectedLanguage]="selectedLanguage"
+                (select)="selectedLanguage = $event"
+              ></language-selector>
+            </div>
+          </div>
+          <!-- About -->
+          <div class="col-md-2">
+            <div class="form-group">
+              <book-buttons
+                [owned]="!!book.owned"
+                [read]="!!book.read"
+                [favorite]="!!book.favorite"
+                [wishlist]="!!book.wishlist"
+              ></book-buttons>
+            </div>
+          </div>
+          <!-- Rating -->
+          <div class="col-md-2">
+            <div class="form-group">
+              <label>Rating</label><br />
+              <rating
+                style="font-size: 20px"
+                formControlName="rating"
+                [titles]="['', '', '', '', '']"
+              ></rating>
+            </div>
+          </div>
+        </div>
 
-				<!-- Fourth row -->
-				<div class="row">
-					<!-- Genres -->
-					<div class="col-md-4">
-						<div class="form-group">
-							<!-- Genres -->
-							<book-tags
-								title="Genres"
-								placeholder="Add genre..."
-								iconClass="pe-7s-folder"
-								[items]="genres"
-								[suggestions]="allGenres"
-								(getItems)="getGenres($event)"
-								(hasFocus)="preventSubmit = $event"
-								></book-tags>
-						</div>
-					</div>
-					<!-- Tags-->
-					<div class="col-md-4">
-						<div class="form-group">
-							<!-- Tags -->
-							<book-tags
-								title="Tags"
-								placeholder="Add tags..."
-								iconClass="pe-7s-ticket"
-								[items]="tags"
-								[suggestions]="allTags"
-								(getItems)="getTags($event)"
-								(hasFocus)="preventSubmit = $event"
-								tags="true"
-							></book-tags>
-						</div>
-					</div>
-					<!-- Collection -->
-					<div class="col-md-4">
-						<div class="form-group">
-							<label>Collections</label>
-							<div class="dropdown">
-								<button class="btn btn-default dropdown-toggle btn-collections" type="button" data-toggle="dropdown">
-									Add book to a collection
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<ng-container *ngIf="allCollections.length" >
-										<li *ngFor="let collection of allCollections; let i = index">
-											<a href="javascript:void(0);" (click)="moveCollection(allCollections, collections, i)">
-												{{collection}}
-											</a>
-										</li>
-									</ng-container>
-										<li *ngIf="!allCollections.length">
-											<a><i>No collections</i></a>
-										</li>
-								</ul>
-							</div>
-							<div class="collections">
-								<span *ngFor="let collection of collections; let i = index; let lastItem = last" class="collection">
-									<i class="pe-7s-albums icon"></i>
-									{{collection}}
-									<a href="javascript:void(0);" (click)="moveCollection(collections, allCollections, i)">
-										<i class='ti-close close-icon'></i>
-									</a>
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
+        <!-- Fourth row -->
+        <div class="row">
+          <!-- Genres -->
+          <div class="col-md-4">
+            <div class="form-group">
+              <!-- Genres -->
+              <book-tags
+                title="Genres"
+                placeholder="Add genre..."
+                iconClass="pe-7s-folder"
+                [items]="genres"
+                [suggestions]="allGenres"
+                (getItems)="getGenres($event)"
+                (hasFocus)="preventSubmit = $event"
+              ></book-tags>
+            </div>
+          </div>
+          <!-- Tags-->
+          <div class="col-md-4">
+            <div class="form-group">
+              <!-- Tags -->
+              <book-tags
+                title="Tags"
+                placeholder="Add tags..."
+                iconClass="pe-7s-ticket"
+                [items]="tags"
+                [suggestions]="allTags"
+                (getItems)="getTags($event)"
+                (hasFocus)="preventSubmit = $event"
+                tags="true"
+              ></book-tags>
+            </div>
+          </div>
+          <!-- Collection -->
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Collections</label>
+              <div class="dropdown">
+                <button
+                  class="btn btn-default dropdown-toggle btn-collections"
+                  type="button"
+                  data-toggle="dropdown"
+                >
+                  Add book to a collection
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <ng-container *ngIf="allCollections.length">
+                    <li
+                      *ngFor="let collection of allCollections; let i = index"
+                    >
+                      <a
+                        href="javascript:void(0);"
+                        (click)="moveCollection(allCollections, collections, i)"
+                      >
+                        {{ collection }}
+                      </a>
+                    </li>
+                  </ng-container>
+                  <li *ngIf="!allCollections.length">
+                    <a><i>No collections</i></a>
+                  </li>
+                </ul>
+              </div>
+              <div class="collections">
+                <span
+                  *ngFor="
+                    let collection of collections;
+                    let i = index;
+                    let lastItem = last
+                  "
+                  class="collection"
+                >
+                  <i class="pe-7s-albums icon"></i>
+                  {{ collection }}
+                  <a
+                    href="javascript:void(0);"
+                    (click)="moveCollection(collections, allCollections, i)"
+                  >
+                    <i class="ti-close close-icon"></i>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-				<!-- Fifth row -->
-				<div class="row">
-					<div class="col-md-3">
-						<!-- Image -->
-						<div class="image book-image">
-							<loading-overlay [visible]="loadingImage"></loading-overlay>
-							<img
-								class="book-image"
-								[src]="book.imageLarge ? book.imageLarge : (book.imageSmall ? book.imageSmall : '/assets/img/no-book-cover.png')"
-								alt="Book cover"
-								style="cursor: pointer"
-								(click)="imageUpload.click()"
-							>
-							<input style="display: none" [hidden]="true" #imageUpload type="file" (change)="uploadImage($event)">
-						</div>
-					</div>
-					<!-- Path -->
-					<div class="col-md-9">
-						<div class="row">
-							<div class="col-xs-12 form-group" [ngClass] = "{'has-error': !form.controls['imageLarge'].valid && form.controls['imageLarge'].touched}">
-								<label>
-									Book Cover
-									<a href="javascript:void(0);" (click)="this.form.patchValue({ imageLarge: '', imageSmall: '' })">
-										<i class="pe-7s-close-circle" style="font-size: 100%"></i>
-									</a>
-								</label>
-								<input type="text" class="form-control" placeholder="Link to the book cover" formControlName="imageLarge">
-								<span class="help-block" *ngIf="!form.controls['imageLarge'].valid && form.controls['imageLarge'].touched">
-									Please enter a valid link to your book cover.
-								</span>
-							</div>
-						</div>
-				<!-- Notes -->
-						<div class="row">
-							<div class="col-xs-12 form-group">
-								<label>Notes</label>
-								<textarea
-									formControlName="notes"
-									rows="8"
-									class="form-control"
-									placeholder="Leave notes, thoughts, or a full review of the book here :)"
-									value=""
-								></textarea>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12 required">
-						<span style="color: red">*</span> Required fields
-					</div>
-				</div>
-				<!-- Goodreads -->
-				<div *ngIf="book.goodreadsId" class="row">
-					<div class="col-md-12 imported-from-gr">
-						<hr>
-						This book was imported from <img src="/assets/img/goodreads.png">©
-						<hr>
-					</div>
-				</div>
+        <div class="row">
+          <div
+            class="col-xs-12 form-group"
+            [ngClass]="{
+              'has-error':
+                !form.controls['imageLarge'].valid &&
+                form.controls['imageLarge'].touched
+            }"
+          >
+            <label>
+              Book Cover
+              <a
+                href="javascript:void(0);"
+                (click)="
+                  this.form.patchValue({ imageLarge: '', imageSmall: '' })
+                "
+              >
+                <i class="pe-7s-close-circle" style="font-size: 100%"></i>
+              </a>
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Link to the book cover"
+              formControlName="imageLarge"
+            />
+            <span
+              class="help-block"
+              *ngIf="
+                !form.controls['imageLarge'].valid &&
+                form.controls['imageLarge'].touched
+              "
+            >
+              Please enter a valid link to your book cover.
+            </span>
+          </div>
+        </div>
+        <!-- Notes -->
+        <div class="row">
+          <div class="col-xs-12 form-group">
+            <label>Notes</label>
+            <textarea
+              formControlName="notes"
+              rows="8"
+              class="form-control"
+              placeholder="Leave notes, thoughts, or a full review of the book here :)"
+              value=""
+            ></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 required">
+            <span style="color: red">*</span> Required fields
+          </div>
+        </div>
+        <!-- Goodreads -->
+        <div *ngIf="book.goodreadsId" class="row">
+          <div class="col-md-12 imported-from-gr">
+            <hr />
+            This book was imported from <img src="/assets/img/goodreads.png" />©
+            <hr />
+          </div>
+        </div>
 
-				<!-- Buttons -->
-				<hr *ngIf="!book.goodreadsId">
-				<div class="row">
-					<div class="col-md-6">
-						<button type="button" class="btn btn-default" style="width: 100%" (click)="this.router.navigate(['../../'], { relativeTo: this.route })">
-							<i class="pe-7s-back"></i>
-							Cancel
-						</button>
-					</div>
-					<div class="col-md-6">
-						<button type="button" class="btn btn-success" style="width: 100%" (click)="submit(form.value)" [disabled]="!form.valid">
-							<i class="pe-7s-diskette"></i>
-							Save
-						</button>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
+        <!-- Buttons -->
+        <hr *ngIf="!book.goodreadsId" />
+        <div class="row">
+          <div class="col-xs-12">
+            <button
+              type="button"
+              class="btn btn-success"
+              style="width: 100%"
+              (click)="submit(form.value)"
+              [disabled]="!form.valid"
+            >
+              <i class="pe-7s-diskette"></i>
+              Save
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </page-navigator>
 
 <modal
-	*ngIf="displayDelete"
+  *ngIf="displayDelete"
   #deleteBookModal
-  title="Are you sure you want to delete {{book.title}}?"
+  title="Are you sure you want to delete {{ book.title }}?"
   content="This book will be removed permanently from your library."
   cancel="Cancel"
   accept="Accept"
