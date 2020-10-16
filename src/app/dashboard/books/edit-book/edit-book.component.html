@@ -139,14 +139,14 @@
                       class="result"
                       (click)="selectAuthor(author)"
                     >
-                      <div class="fixed-width" (click)="selectAuthor(author)">
-                        <img
-                          *ngIf="author.imageSmall || author.imageLarge"
-                          [src]="author.imageSmall || author.imageLarge"
-                          alt="Author"
-                        />
-                      </div>
-                      <div class="props">
+                      <img
+                        class="author-image"
+                        (click)="selectAuthor(author)"
+                        *ngIf="author.imageSmall || author.imageLarge"
+                        [src]="author.imageSmall || author.imageLarge"
+                        alt="Author"
+                      />
+                      <div class="author-name">
                         {{ author.name }}
                       </div>
                     </li>
