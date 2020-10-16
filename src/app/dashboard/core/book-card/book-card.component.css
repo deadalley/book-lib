@@ -1,3 +1,37 @@
+div > img.tile-icon {
+  -webkit-transform: translate(-15%, -15%);
+}
+
+i.tile-icon {
+  font-size: 1.4em;
+  height: auto;
+  cursor: pointer;
+}
+
+i.owned {
+  color: green;
+}
+
+i.wishlist {
+  color: royalblue;
+}
+
+i.read {
+  color: orangered;
+}
+
+i.favorite {
+  color: violet;
+}
+
+i.inactive {
+  color: #c9c9c9;
+}
+
+hr {
+  margin: 5px 0;
+}
+
 .card {
   margin-bottom: 30px;
   text-align: center;
@@ -14,6 +48,11 @@
 .card-not-selectable {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(101, 105, 24, 1);
   background: #fdf4ec;
+}
+
+.card-clickable:hover {
+  background: #ecfdef;
+  cursor: pointer;
 }
 
 @media only screen and (min-width: 991px) {
@@ -60,6 +99,7 @@
   flex: 1;
   height: auto;
   border-radius: 4px;
+  overflow: hidden;
 }
 
 .image-link {
@@ -80,88 +120,7 @@
   justify-content: space-between;
   flex: 1;
   height: 100%;
-}
-
-div > img.tile-icon {
-  -webkit-transform: translate(-15%, -15%);
-}
-
-i.tile-icon {
-  font-size: 1.4em;
-  height:auto;
-  cursor: pointer;
-}
-
-i.owned {
-  color: green;
-}
-
-i.wishlist {
-  color: royalblue;
-}
-
-i.read {
-  color: orangered;
-}
-
-i.favorite {
-  color: violet;
-}
-
-i.inactive {
-  color: #c9c9c9;
-}
-
-hr {
-  margin: 5px 0;
-}
-
-.img-rounded {
-  border-radius: 4px;  
-}
-
-.btn::-moz-placeholder {
-  color: #DDDDDD;
-  opacity: 1;
-  filter: alpha(opacity=100);
-}
-
-.btn:-moz-placeholder {
-  color: #DDDDDD;
-  opacity: 1;
-  filter: alpha(opacity=100);
-}
-
-.btn::-webkit-input-placeholder {
-  color: #DDDDDD;
-  opacity: 1;
-  filter: alpha(opacity=100);
-}
-
-.btn:-ms-input-placeholder {
-  color: #DDDDDD;
-  opacity: 1;
-  filter: alpha(opacity=100);
-}
-
-.btn {
-  background-color: #FFFFFF;
-  border: 1px solid #E3E3E3;
-  border-radius: 4px;
-  color: #565656;
-  padding: 8px 12px;
-  height: 40px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-
-.btn:focus {
-  background-color: #FFFFFF;
-  border: 1px solid #AAAAAA;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  outline: 0 !important;
-  color: #333333;
+  overflow: hidden;
 }
 
 .text-ellipsis {
@@ -172,9 +131,4 @@ hr {
 
 .text-ellipsis:hover {
   white-space: normal;
-}
-
-.card-clickable:hover {
-  background: #ecfdef;
-  cursor: pointer;
 }
