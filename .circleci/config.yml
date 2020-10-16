@@ -24,15 +24,6 @@ jobs:
       - run:
           name: Decrypt environment files
           command: npm run decrypt
-      - run:
-          name: Linting
-          command: npm run lint
-      - run:
-          name: Testing
-          command: npm run test
-      - run:
-          name: Building
-          command: npm run build:production
       - save_cache:
           key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
@@ -40,6 +31,22 @@ jobs:
             - package.json
             - firebase.json
             - .firebaserc
+  test:
+    docker:
+      - image: circleci/node:10.16.3-browsers
+    working_directory: ~/project
+    steps:
+      - run:
+          name: Testing
+          command: npm run test
+  lint:
+    docker:
+      - image: circleci/node:10.16.3-browsers
+    working_directory: ~/project
+    steps:
+      - run:
+          name: Linting
+          command: npm run lint
   deploy:
     docker:
       - image: circleci/node:10.16.3-browsers
@@ -50,6 +57,9 @@ jobs:
           command: echo ${CIRCLE_BRANCH}
       - restore_cache:
           key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+      - run:
+          name: Building
+          command: npm run build:production
       - run:
           name: Install Firebase
           command: npm install --save-dev firebase-tools
