@@ -72,6 +72,10 @@ workflows:
   -deploy:
     jobs:
       - build
+      - test
+        requires: build
+      - lint
+        requires: build
       - deploy:
           requires:
             - build
