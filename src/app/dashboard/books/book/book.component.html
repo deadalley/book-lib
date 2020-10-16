@@ -6,14 +6,20 @@
         <div class="col-md-4">
           <div class="image book-image">
             <img
-              [src]="book.imageLarge ? book.imageLarge : (book.imageSmall ? book.imageSmall : '/assets/img/no-book-cover.png')"
+              [src]="
+                book.imageLarge
+                  ? book.imageLarge
+                  : book.imageSmall
+                  ? book.imageSmall
+                  : '/assets/img/no-book-cover.png'
+              "
               alt="Book cover"
-            >
+            />
           </div>
         </div>
         <div class="col-md-8">
           <div class="book-title">
-            <h4 class="">{{book.title}}</h4>
+            <h4 class="">{{ book.title }}</h4>
             <button
               *ngIf="!book.goodreadsId"
               type="button"
@@ -25,51 +31,61 @@
               (click)="findBookOnGoodreads()"
             >
               <i class="pe-7s-search"></i>
-              <img class="gr-logo" src="/assets/img/goodreads.png">
+              <img class="gr-logo" src="/assets/img/goodreads.png" />
             </button>
           </div>
           <div class="row">
             <div class="col-xs-12">
               <label>Author:</label>
-                <p><a href="javascript:void(0);" (click)="authorRoute()">
-                  {{book.author}}
-                </a></p>
+              <p>
+                <a href="javascript:void(0);" (click)="authorRoute()">
+                  {{ book.author }}
+                </a>
+              </p>
             </div>
           </div>
           <div class="row">
             <div class="col-xs-12">
               <label>Original title:</label>
-              <p [ngClass]="{'unavailable': !book.original }">
-                {{book.original ? book.original : 'Not available' }}
+              <p [ngClass]="{ unavailable: !book.original }">
+                {{ book.original ? book.original : 'Not available' }}
               </p>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12 col-xs-6">
               <label>Publisher:</label>
-              <p [ngClass]="{'unavailable': !book.publisher }">
-                {{book.publisher ? book.publisher : 'Not available' }}
+              <p [ngClass]="{ unavailable: !book.publisher }">
+                {{ book.publisher ? book.publisher : 'Not available' }}
               </p>
             </div>
             <div class="col-md-12 col-xs-6">
               <label>Language:</label>
-              <p [ngClass]="{'unavailable': !book.language }">
-                {{book.language ? book.language : 'Not available'}}
+              <p [ngClass]="{ unavailable: !book.language }">
+                {{ book.language ? book.language : 'Not available' }}
               </p>
             </div>
           </div>
           <div class="row">
             <div class="col-md-2 col-xs-3">
               <label>Year</label>
-              <p [ngClass]="{'unavailable': !book.year }">{{book.year ? book.year : 'Not available'}}</p>
+              <p [ngClass]="{ unavailable: !book.year }">
+                {{ book.year ? book.year : 'Not available' }}
+              </p>
             </div>
             <div class="col-md-2 col-xs-3">
               <label>Pages</label>
-              <p [ngClass]="{'unavailable': !book.pages }">{{book.pages ? book.pages : 'Not available'}}</p>
+              <p [ngClass]="{ unavailable: !book.pages }">
+                {{ book.pages ? book.pages : 'Not available' }}
+              </p>
             </div>
             <div class="col-md-8 col-xs-6">
-              <label>Rating</label><br>
-              <rating [(ngModel)]="book.rating" [readonly]="true" [titles]="['', '', '', '', '']"></rating>
+              <label>Rating</label><br />
+              <rating
+                [(ngModel)]="book.rating"
+                [readonly]="true"
+                [titles]="['', '', '', '', '']"
+              ></rating>
             </div>
           </div>
           <div class="row">
@@ -77,37 +93,107 @@
               <label>Favorites</label>
             </div>
             <div class="col-xs-3" style="text-align: center">
-              <i class="pe-7s-check about-icon" [ngClass]="{'about-icon-unavailable': !book.owned, 'owned': book.owned }"></i>
-              <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.owned, 'owned': book.owned }">Owned</div>
+              <i
+                class="pe-7s-check about-icon"
+                [ngClass]="{
+                  'about-icon-unavailable': !book.owned,
+                  owned: book.owned
+                }"
+              ></i>
+              <div
+                class="text-muted"
+                style="font-size: 0.8em"
+                [ngClass]="{
+                  'about-icon-unavailable': !book.owned,
+                  owned: book.owned
+                }"
+              >
+                Owned
+              </div>
             </div>
             <div class="col-xs-3" style="text-align: center">
-              <i class="pe-7s-gift about-icon" [ngClass]="{'about-icon-unavailable': !book.wishlist, 'wishlist': book.wishlist }"></i>
-              <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.wishlist, 'wishlist': book.wishlist }">Wishlist</div>
+              <i
+                class="pe-7s-gift about-icon"
+                [ngClass]="{
+                  'about-icon-unavailable': !book.wishlist,
+                  wishlist: book.wishlist
+                }"
+              ></i>
+              <div
+                class="text-muted"
+                style="font-size: 0.8em"
+                [ngClass]="{
+                  'about-icon-unavailable': !book.wishlist,
+                  wishlist: book.wishlist
+                }"
+              >
+                Wishlist
+              </div>
             </div>
             <div class="col-xs-3" style="text-align: center">
-              <i class="pe-7s-glasses about-icon" [ngClass]="{'about-icon-unavailable': !book.read, 'read': book.read }"></i>
-              <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.read, 'read': book.read }">Read</div>
+              <i
+                class="pe-7s-glasses about-icon"
+                [ngClass]="{
+                  'about-icon-unavailable': !book.read,
+                  read: book.read
+                }"
+              ></i>
+              <div
+                class="text-muted"
+                style="font-size: 0.8em"
+                [ngClass]="{
+                  'about-icon-unavailable': !book.read,
+                  read: book.read
+                }"
+              >
+                Read
+              </div>
             </div>
             <div class="col-xs-3" style="text-align: center">
-              <i class="pe-7s-like about-icon" [ngClass]="{'about-icon-unavailable': !book.favorite, 'favorite': book.favorite }"></i>
-              <div class="text-muted" style="font-size: 0.8em" [ngClass]="{'about-icon-unavailable': !book.favorite, 'favorite': book.favorite }">Favorite</div>
+              <i
+                class="pe-7s-like about-icon"
+                [ngClass]="{
+                  'about-icon-unavailable': !book.favorite,
+                  favorite: book.favorite
+                }"
+              ></i>
+              <div
+                class="text-muted"
+                style="font-size: 0.8em"
+                [ngClass]="{
+                  'about-icon-unavailable': !book.favorite,
+                  favorite: book.favorite
+                }"
+              >
+                Favorite
+              </div>
             </div>
           </div>
           <div class="row">
             <div class="col-xs-12">
               <label>Collections</label>
               <div>
-                <p *ngIf="!book.collections" [ngClass]="{'unavailable': !book.collections }">
+                <p
+                  *ngIf="!book.collections"
+                  [ngClass]="{ unavailable: !book.collections }"
+                >
                   No collections
                 </p>
-                <ng-container *ngFor="let collection of book.collections; let lastItem = last">
+                <ng-container
+                  *ngFor="
+                    let collection of book.collections;
+                    let lastItem = last
+                  "
+                >
                   <i class="pe-7s-albums"></i>
                   <a
                     href="javascript:void(0);"
                     routerLink="/dashboard/collections"
                     [fragment]="removeSpaces(collection)"
-                  > {{collection}}</a>
-                  {{lastItem ? '' : ', '}}
+                  >
+                    {{ collection }}</a
+                  >
+                  {{ lastItem ? '' : ', ' }}
                 </ng-container>
               </div>
             </div>
@@ -116,19 +202,26 @@
             <div class="col-xs-12">
               <label>Genres</label>
               <div>
-                <p *ngIf="!book.genres" [ngClass]="{'unavailable': !book.genres }">
+                <p
+                  *ngIf="!book.genres"
+                  [ngClass]="{ unavailable: !book.genres }"
+                >
                   No genres
                 </p>
-                <ng-container *ngFor="let genre of book.genres; let lastItem = last">
+                <ng-container
+                  *ngFor="let genre of book.genres; let lastItem = last"
+                >
                   <i class="pe-7s-folder"></i>
                   <a
                     href="javascript:void(0);"
                     routerLink="/dashboard/books"
                     [queryParams]="{ grouping: 'genre' }"
                     [fragment]="removeSpaces(genre)"
-                    queryParamsHandling="merge"                    
-                  > {{genre}}</a>
-                  {{lastItem ? '' : ', '}}
+                    queryParamsHandling="merge"
+                  >
+                    {{ genre }}</a
+                  >
+                  {{ lastItem ? '' : ', ' }}
                 </ng-container>
               </div>
             </div>
@@ -137,7 +230,9 @@
           <div class="row">
             <div class="col-xs-12">
               <label>Notes</label>
-              <p [ngClass]="{'unavailable': !book.notes }">{{book.notes ? book.notes : 'No notes available'}}</p>
+              <p [ngClass]="{ unavailable: !book.notes }">
+                {{ book.notes ? book.notes : 'No notes available' }}
+              </p>
             </div>
           </div>
         </div>
@@ -145,20 +240,24 @@
       <!-- Goodreads -->
       <div *ngIf="book.goodreadsId" class="row">
         <div class="col-md-12 imported-from-gr">
-          <hr>
-          This book was imported from <img src="/assets/img/goodreads.png">©
-          <hr>
+          <hr />
+          This book was imported from <img src="/assets/img/goodreads.png" />©
+          <hr />
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-12 col-md-6" style="padding-top: 2px; padding-bottom: 2px">
-          <button type="button" class="btn btn-danger" style="width: 100%" (click)="this.modal.openModal()">
+        <div class="col-xs-12 col-md-6 button-wrapper">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="this.modal.openModal()"
+          >
             <i class="pe-7s-trash"></i>
             Delete
           </button>
         </div>
-        <div class="col-xs-12 col-md-6" style="padding-top: 2px; padding-bottom: 2px">
-          <button type="button" class="btn btn-default" style="width: 100%" routerLink="./edit">
+        <div class="col-xs-12 col-md-6 button-wrapper">
+          <button type="button" class="btn btn-default" routerLink="./edit">
             <i class="pe-7s-note"></i>
             Edit
           </button>
@@ -170,7 +269,7 @@
 
 <modal
   #deleteBookModal
-  title="Are you sure you want to delete {{book.title}}?"
+  title="Are you sure you want to delete {{ book.title }}?"
   content="This book will be removed permanently from your library."
   cancel="Cancel"
   accept="Accept"
