@@ -44,7 +44,7 @@ jobs:
           name: Install dependencies
           command: npm install
       - restore_cache:
-          - v1-dependencies-
+          key: v1-dependencies-
       - run:
           name: Testing
           command: npm run test
