@@ -108,7 +108,9 @@
 
 .btn-collections {
   width: 100%;
-  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .required {
