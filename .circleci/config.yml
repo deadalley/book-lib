@@ -40,7 +40,7 @@ jobs:
     working_directory: ~/project
     steps:
       - restore_cache:
-          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          key: v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: Testing
           command: npm run test
@@ -50,7 +50,7 @@ jobs:
     working_directory: ~/project
     steps:
       - restore_cache:
-          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          key: v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: Linting
           command: npm run lint
