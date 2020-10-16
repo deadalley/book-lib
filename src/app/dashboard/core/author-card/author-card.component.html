@@ -1,7 +1,10 @@
 <div
   class="card"
   (click)="select()"
-  [ngClass]="{'card-clickable': clickable && !author.canBeSelected, 'selected': clickable && author.isSelected}"
+  [ngClass]="{
+    'card-clickable': clickable && !author.canBeSelected,
+    selected: clickable && author.isSelected
+  }"
 >
   <div class="header">
     <!-- Header -->
@@ -10,20 +13,22 @@
         *ngIf="linkable"
         href="#"
         routerLink="/dashboard/authors/{{ author.id }}"
-      >{{author.name}}</a>
+        >{{ author.name }}</a
+      >
       {{ linkable ? '' : author.name }}
     </h4>
     <hr />
   </div>
   <div class="content">
     <!-- Image -->
-    <div class="image img-rounded">
+    <div class="image-wrapper">
       <a
         *ngIf="linkable"
         href="javascript:void(0);"
         routerLink="/dashboard/authors/{{ author.id }}"
       >
         <img
+          class="image img-rounded"
           [src]="
             author.imageLarge
               ? author.imageLarge
