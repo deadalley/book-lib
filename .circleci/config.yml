@@ -31,11 +31,14 @@ jobs:
             - package.json
             - firebase.json
             - .firebaserc
+            - node_modules
   test:
     docker:
       - image: circleci/node:10.16.3-browsers
     working_directory: ~/project
     steps:
+      - restore_cache:
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           name: Testing
           command: npm run test
@@ -44,6 +47,8 @@ jobs:
       - image: circleci/node:10.16.3-browsers
     working_directory: ~/project
     steps:
+      - restore_cache:
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           name: Linting
           command: npm run lint
