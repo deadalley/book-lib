@@ -50,9 +50,9 @@ jobs:
       - restore_cache:
           key: v1-package-json
       - restore_cache:
-          keys:
-            - v1-environment-{{ checksum "package.json" }}
-            - v1-dependencies-{{ checksum "package.json" }}
+          key: v1-environment-{{ checksum "package.json" }}
+      - restore_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: Testing
           command: npm run test
@@ -65,9 +65,7 @@ jobs:
       - restore_cache:
           key: v1-package-json
       - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-environment-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: Linting
           command: npm run lint
