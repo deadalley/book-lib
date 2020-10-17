@@ -28,6 +28,7 @@ import { TableItemsComponent } from './table-items/table-items.component'
 import { PagesComponent } from './pages/pages.component'
 import { SearchBoxComponent } from './search-box/search-box.component'
 import { LoadingOverlayComponent } from './loading-overlay/loading-overlay.component'
+import { PoweredByGoodreadsComponent } from './powered-by-goodreads/powered-by-goodreads.component'
 
 import { BookFilterPipe } from 'pipes/book-filter.pipe'
 import { PagePipe } from 'pipes/page.pipe'
@@ -56,6 +57,7 @@ import { SearchFilterPipe } from 'pipes/search-filter.pipe'
     PagesComponent,
     SearchBoxComponent,
     LoadingOverlayComponent,
+    PoweredByGoodreadsComponent,
     BookFilterPipe,
     PagePipe,
     SearchFilterPipe,
@@ -97,6 +99,7 @@ import { SearchFilterPipe } from 'pipes/search-filter.pipe'
     PagesComponent,
     SearchBoxComponent,
     LoadingOverlayComponent,
+    PoweredByGoodreadsComponent,
     BookFilterPipe,
     PagePipe,
     SearchFilterPipe,
