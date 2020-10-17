@@ -1,14 +1,6 @@
-.popover-container {
-  position: absolute;
-  z-index: 2;
-  width: 500px;
-  right: 0;
-  margin: 20px 0;
-}
-
 p {
   font-size: 16px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 200;
 }
 
@@ -20,7 +12,15 @@ a {
 }
 
 a:hover > p {
-  color: #AAAAAA;
+  color: #aaaaaa;
+}
+
+.popover-container {
+  position: absolute;
+  z-index: 2;
+  width: 500px;
+  right: 0;
+  margin: 20px 0;
 }
 
 .bold {
