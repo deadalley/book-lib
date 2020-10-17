@@ -30,6 +30,7 @@ jobs:
       - save_cache:
           key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
+            - src/environments
             - dist
             - package.json
             - firebase.json
@@ -41,11 +42,9 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
       - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: Testing
           command: npm run test
@@ -55,6 +54,10 @@ jobs:
     working_directory: ~/project
     steps:
       - checkout
+      - restore_cache:
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: Linting
           command: npm run lint
