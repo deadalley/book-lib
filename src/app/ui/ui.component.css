@@ -1,0 +1,18 @@
+.wrapper {
+  padding: 25px;
+}
+
+.wrapper.dark-theme {
+  background-color: var(--color-dark-04);
+}
+
+.cards-wrapper {
+  display: flex;
+}
+
+.card-example {
+  width: 100px;
+  height: 100px;
+  content: "''";
+  margin-right: 20px;
+}

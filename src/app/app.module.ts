@@ -12,6 +12,8 @@ import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading'
 import { AppComponent } from './app.component'
 import { AppRoutes } from './app.routing'
 
+import { UiComponent } from './ui/ui.component'
+
 import { AuthService } from '../services/auth.service'
 import { AuthGuardService } from '../services/auth.guard'
 import { DatabaseService } from '../services/database.service'
@@ -23,7 +25,7 @@ import { ImportService } from 'services/import.service'
 import { environment } from 'environments/environment'
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, UiComponent],
   providers: [
     AuthService,
     AuthGuardService,
