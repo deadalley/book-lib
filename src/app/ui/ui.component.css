@@ -8,6 +8,7 @@
 
 .cards-wrapper {
   display: flex;
+  margin: 15px 0px;
 }
 
 .card-example {
@@ -24,4 +25,8 @@
 
 .typography-padding {
   padding: 5px 0px;
+}
+
+.button-padding {
+  margin-right: 5px;
 }

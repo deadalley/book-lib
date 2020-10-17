@@ -7,6 +7,13 @@
 
 @font-face {
   font-family: 'Inter';
+  src: url('src/assets/fonts/Inter-Medium-slnt=0.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter';
   src: url('src/assets/fonts/Inter-SemiBold-slnt=0.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
@@ -31,6 +38,28 @@
   --color-dark-03: #555770;
   --color-dark-04: #28293d;
   --color-dark-05: #1c1c28;
+
+  --color-primary-01: #6698fa;
+  --color-primary-02: #3e7bfa;
+  --color-primary-03: #3568d4;
+
+  --color-red-01: #ffe6e6;
+  --color-red-02: #ff8080;
+  --color-red-03: #ff5c5c;
+  --color-red-04: #ff3b3b;
+  --color-red-05: #e63535;
+
+  --color-blue-01: #e5f0ff;
+  --color-blue-02: #9dbff9;
+  --color-blue-03: #5b8def;
+  --color-blue-04: #0063f7;
+  --color-blue-05: #004fc4;
+
+  --color-green-01: #e3fff1;
+  --color-green-02: #57eba1;
+  --color-green-03: #39d98a;
+  --color-green-04: #06c270;
+  --color-green-05: #05a660;
 
   --primary-color: var(--color-light-01);
 
@@ -195,5 +224,54 @@ h6 {
 
   .dark-theme {
     background-color: #32334d;
+  }
+}
+
+button {
+  padding: 8px;
+  color: var(--color-light-01);
+  font-weight: 500;
+  border-radius: 8px;
+  border: 0;
+  box-shadow: var(--elevation-02);
+  background-color: var(--color-primary-02);
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: var(--color-primary-01);
+  }
+
+  &:active {
+    background-color: var(--color-primary-03);
+  }
+
+  &:disabled {
+    color: var(--color-dark-01);
+    background-color: var(--color-light-05);
+  }
+}
+
+button.success {
+  background-color: var(--color-green-04);
+
+  &:hover {
+    background-color: var(--color-green-03);
+  }
+
+  &:active {
+    background-color: var(--color-green-05);
+  }
+}
+
+button.danger {
+  background-color: var(--color-red-04);
+
+  &:hover {
+    background-color: var(--color-red-03);
+  }
+
+  &:active {
+    background-color: var(--color-red-05);
   }
 }
