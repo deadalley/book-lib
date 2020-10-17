@@ -1,3 +1,7 @@
+h5 {
+  margin-bottom: 0;
+}
+
 .header {
   text-align: center;
 }
@@ -32,10 +36,6 @@
 .container-with-icon {
   display: flex;
   justify-content: left;
-}
-
-h5 {
-  margin-bottom: 0;
 }
 
 .list-group {
