@@ -39,6 +39,7 @@ jobs:
       - image: circleci/node:10.16.3-browsers
     working_directory: ~/project
     steps:
+      - checkout
       - restore_cache:
           keys:
             - v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
