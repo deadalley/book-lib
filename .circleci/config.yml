@@ -51,8 +51,8 @@ jobs:
           key: v1-package-json
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
             - v1-environment-{{ checksum "package.json" }}
+            - v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: Testing
           command: npm run test
@@ -79,6 +79,8 @@ jobs:
       - run:
           name: Show current branch
           command: echo ${CIRCLE_BRANCH}
+      - restore_cache:
+          key: v1-package-json
       - restore_cache:
           key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
       - run:
