@@ -16,3 +16,12 @@
   content: "''";
   margin-right: 20px;
 }
+
+.typography-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.typography-padding {
+  padding: 5px 0px;
+}
