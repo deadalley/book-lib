@@ -59,7 +59,7 @@
     "ngx-loading": "^3.0.1",
     "ngx-rating": "0.0.9",
     "ngx-tooltip": "0.0.9",
-    "npm": "^6.11.2",
+    "npm": "^6.14.6",
     "npm-install-missing": "^0.1.4",
     "popper.js": "^1.15.0",
     "rxjs": "^6.5.2",
