@@ -1,3 +1,13 @@
+p {
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 200;
+}
+
+li > a:hover > p {
+  color: #aaaaaa;
+}
+
 .navbar-default {
   background: rgb(9, 41, 53);
   margin-bottom: 0;
@@ -21,14 +31,4 @@
 .brand {
   font-size: 20px;
   line-height: 1;
-}
-
-p {
-  font-size: 16px;
-  color: #ffffff;
-  font-weight: 200;
-}
-
-li > a:hover > p {
-  color: #aaaaaa;
 }
