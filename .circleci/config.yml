@@ -39,12 +39,12 @@ jobs:
       - image: circleci/node:10.16.3-browsers
     working_directory: ~/project
     steps:
-      - checkout
-      - run:
-          name: Install dependencies
-          command: npm install
       - restore_cache:
-          key: v1-dependencies-
+          key:
+            - v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: Testing
           command: npm run test
