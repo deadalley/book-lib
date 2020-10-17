@@ -3,20 +3,18 @@
     <div class="header">
       <h4 class="title">
         We couldn't find this author
-        <div class="powered-by-gr">
-          Powered by <img src="/assets/img/goodreads.png">
-          ©
-        </div>
+        <powered-by-goodreads></powered-by-goodreads>
       </h4>
-      <hr>
-        <p class="category" placement="bottom" style="padding-bottom: 10px">
-          Unfortunately, we couldn't find any information on this author.<br>
-          Here are some suggestions from Goodreads.
-          You can choose one of the authors below and then choose to which books you'd like to associate this author.
-        </p>
+      <hr />
+      <p class="category" placement="bottom" style="padding-bottom: 10px">
+        Unfortunately, we couldn't find any information on this author.<br />
+        Here are some suggestions from Goodreads. You can choose one of the
+        authors below and then choose to which books you'd like to associate
+        this author.
+      </p>
     </div>
     <div class="content">
-      <hr>
+      <hr />
       <loading [visible]="isLoading"></loading>
       <authors-display
         *ngIf="!isLoading"
@@ -28,12 +26,12 @@
 
       <div *ngIf="selectedAuthor" class="row" style="text-align: left">
         <div class="col-xs-12">
-          <hr>
-          <h5>Select books written by {{selectedAuthor.name}}</h5>
+          <hr />
+          <h5>Select books written by {{ selectedAuthor.name }}</h5>
         </div>
 
         <div class="col-xs-12">
-          <hr>
+          <hr />
           <books-display
             [books]="books"
             [selectable]="true"
@@ -42,14 +40,16 @@
         </div>
 
         <div class="col-xs-12" style="text-align: center;">
-          <hr>
+          <hr />
           <button
             type="button"
             class="btn btn-success"
             style="width: 100%;"
             (click)="updateBooks()"
             [disabled]="!hasSelectedBooks"
-          >Associate books</button>
+          >
+            Associate books
+          </button>
         </div>
       </div>
     </div>

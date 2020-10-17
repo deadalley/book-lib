@@ -1,48 +1,72 @@
 <div class="card">
   <div class="header">
     <h4 class="title">Import book</h4>
-    <div class="powered-by-gr">
-      Powered by <img src="/assets/img/goodreads.png">
-      ©
-    </div>
+    <powered-by-goodreads></powered-by-goodreads>
   </div>
   <loading [visible]="isLoading"></loading>
   <div class="content" *ngIf="!isLoading && libraryBook && selectedBook">
     <div class="row" style="text-align: left">
       <div class="col-md-12">
-        <hr>
+        <hr />
         <p>
-          This process will link your book in BookLib to a book in the Goodreads database.<br>
-          All data that you edit will not affect the Goodreads book entry and will only be seen by yourself.
+          This process will link your book in BookLib to a book in the Goodreads
+          database.<br />
+          All data that you edit will not affect the Goodreads book entry and
+          will only be seen by yourself.
         </p>
-        <hr>
+        <hr />
         <p>
-          Select which information you want to keep and which you want to overwrite with data from Goodreads.
+          Select which information you want to keep and which you want to
+          overwrite with data from Goodreads.
         </p>
       </div>
     </div>
     <form [formGroup]="form" (ngSubmit)="submit(form.value)">
       <div class="row" *ngFor="let field of inputFields; let i = index">
         <div class="col-xs-12">
-          <hr>
-          <label class="field">{{field}}:</label>
+          <hr />
+          <label class="field">{{ field }}:</label>
           <div class="row">
             <label class="option-wrapper col-md-6">
-              <input type="radio" [id]="field1" formControlName="{{field}}" [checked]="!!libraryBook[field]" [value]="libraryBook[field] + '_#1'">
+              <input
+                type="radio"
+                [id]="field1"
+                formControlName="{{ field }}"
+                [checked]="!!libraryBook[field]"
+                [value]="libraryBook[field] + '_#1'"
+              />
               <div class="option">
                 <div class="icon">
-                  <img [ngClass]="{'img-unavailable': !libraryBook[field]}" class="booklib" src="/assets/img/angular.png">
+                  <img
+                    [ngClass]="{ 'img-unavailable': !libraryBook[field] }"
+                    class="booklib"
+                    src="/assets/img/angular.png"
+                  />
                 </div>
-                <p [ngClass]="{unavailable: !libraryBook[field]}">{{libraryBook[field] || 'Not available'}}</p>
+                <p [ngClass]="{ unavailable: !libraryBook[field] }">
+                  {{ libraryBook[field] || 'Not available' }}
+                </p>
               </div>
             </label>
             <label class="option-wrapper col-md-6">
-              <input type="radio" [id]="field2" formControlName="{{field}}" [checked]="!libraryBook[field] && selectedBook[field]" [value]="selectedBook[field] + '_#2'">
+              <input
+                type="radio"
+                [id]="field2"
+                formControlName="{{ field }}"
+                [checked]="!libraryBook[field] && selectedBook[field]"
+                [value]="selectedBook[field] + '_#2'"
+              />
               <div class="option">
                 <div class="icon">
-                  <img [ngClass]="{'img-unavailable': !selectedBook[field]}" class="gr" src="/assets/img/goodreads_icon_32x32.png">
+                  <img
+                    [ngClass]="{ 'img-unavailable': !selectedBook[field] }"
+                    class="gr"
+                    src="/assets/img/goodreads_icon_32x32.png"
+                  />
                 </div>
-                <p [ngClass]="{unavailable: !selectedBook[field]}">{{selectedBook[field] || 'Not available'}}</p>
+                <p [ngClass]="{ unavailable: !selectedBook[field] }">
+                  {{ selectedBook[field] || 'Not available' }}
+                </p>
               </div>
             </label>
           </div>
@@ -50,35 +74,67 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <hr>
+          <hr />
           <label class="field">Cover:</label>
           <div class="row">
             <label class="option-wrapper col-md-6">
-              <input type="radio" [id]="field1" formControlName="cover" [checked]="!!libraryBook.imageLarge" [value]="libraryBook.imageLarge + '_#1'">
+              <input
+                type="radio"
+                [id]="field1"
+                formControlName="cover"
+                [checked]="!!libraryBook.imageLarge"
+                [value]="libraryBook.imageLarge + '_#1'"
+              />
               <div class="option">
                 <div class="icon">
-                  <img [ngClass]="{'img-unavailable': !libraryBook.imageLarge}" class="booklib" src="/assets/img/angular.png">
+                  <img
+                    [ngClass]="{ 'img-unavailable': !libraryBook.imageLarge }"
+                    class="booklib"
+                    src="/assets/img/angular.png"
+                  />
                 </div>
                 <img
                   *ngIf="!!libraryBook.imageLarge"
                   class="cover"
-                  [ngClass]="{unavailable: !libraryBook.imageLarge}"
-                  [src]="libraryBook.imageLarge">
-                <p [ngClass]="{unavailable: !libraryBook.imageLarge}" *ngIf="!libraryBook.imageLarge">Not available</p>
+                  [ngClass]="{ unavailable: !libraryBook.imageLarge }"
+                  [src]="libraryBook.imageLarge"
+                />
+                <p
+                  [ngClass]="{ unavailable: !libraryBook.imageLarge }"
+                  *ngIf="!libraryBook.imageLarge"
+                >
+                  Not available
+                </p>
               </div>
             </label>
             <label class="option-wrapper col-md-6">
-              <input type="radio" [id]="field2" formControlName="cover" [checked]="!libraryBook.imageLarge && selectedBook.imageLarge" [value]="selectedBook.imageLarge + '_#2'">
+              <input
+                type="radio"
+                [id]="field2"
+                formControlName="cover"
+                [checked]="!libraryBook.imageLarge && selectedBook.imageLarge"
+                [value]="selectedBook.imageLarge + '_#2'"
+              />
               <div class="option">
                 <div class="icon">
-                  <img [ngClass]="{'img-unavailable': !selectedBook.imageLarge}" class="gr" src="/assets/img/goodreads_icon_32x32.png">
+                  <img
+                    [ngClass]="{ 'img-unavailable': !selectedBook.imageLarge }"
+                    class="gr"
+                    src="/assets/img/goodreads_icon_32x32.png"
+                  />
                 </div>
                 <img
                   *ngIf="!!selectedBook.imageLarge"
                   class="cover"
-                  [ngClass]="{unavailable: !selectedBook.imageLarge}"
-                  [src]="selectedBook.imageLarge">
-                <p [ngClass]="{unavailable: !selectedBook.imageLarge}" *ngIf="!selectedBook.imageLarge">Not available</p>
+                  [ngClass]="{ unavailable: !selectedBook.imageLarge }"
+                  [src]="selectedBook.imageLarge"
+                />
+                <p
+                  [ngClass]="{ unavailable: !selectedBook.imageLarge }"
+                  *ngIf="!selectedBook.imageLarge"
+                >
+                  Not available
+                </p>
               </div>
             </label>
           </div>
@@ -86,16 +142,26 @@
       </div>
 
       <!-- Buttons -->
-      <hr>
+      <hr />
       <div class="row">
         <div class="col-md-6">
-          <button type="button" class="btn btn-default" style="width: 100%" (click)="return()">
+          <button
+            type="button"
+            class="btn btn-default"
+            style="width: 100%"
+            (click)="return()"
+          >
             <i class="pe-7s-back"></i>
             Cancel
           </button>
         </div>
         <div class="col-md-6">
-          <button type="button" class="btn btn-success" style="width: 100%" (click)="submit(form.value)">
+          <button
+            type="button"
+            class="btn btn-success"
+            style="width: 100%"
+            (click)="submit(form.value)"
+          >
             <i class="pe-7s-diskette"></i>
             Save
           </button>

@@ -1,3 +1,11 @@
+h4 {
+  margin-top: 0;
+}
+
+h5 {
+  margin-bottom: 0;
+}
+
 .container-with-icon {
   display: flex;
   justify-content: left;
@@ -11,12 +19,4 @@
   align-self: center;
   padding: 0 6px;
   font-size: 50px;
-}
-
-h4 {
-  margin-top: 0;
-}
-
-h5 {
-  margin-bottom: 0;
 }

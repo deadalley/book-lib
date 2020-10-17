@@ -1,17 +1,34 @@
 <loading [visible]="isLoading"></loading>
-<library-navbar *ngIf="!isLoading" [groupings]="collectionGroupings" [filters]="filters" addButtonContent="Add a new collection"></library-navbar>
-<tags-list *ngIf="filterMethod === 'tags'" [tags]="tags" (selectedTags)="tagFilter=$event"></tags-list>
+<library-navbar
+  *ngIf="!isLoading"
+  [groupings]="collectionGroupings"
+  [filters]="filters"
+  addButtonContent="Add a new collection"
+></library-navbar>
+<tags-list
+  *ngIf="filterMethod === 'tags'"
+  [tags]="tags"
+  (selectedTags)="tagFilter = $event"
+></tags-list>
 <!-- No books -->
-<div class="card" style="text-align: center;" [@card] *ngIf="!isLoading && !bookCount">
+<div
+  class="card"
+  style="text-align: center;"
+  [@card]
+  *ngIf="!isLoading && !bookCount"
+>
   <div class="header">
     <!-- Header -->
     <h4 class="title">
       Oh no, your library is empty :(.
     </h4>
-    <hr>
+    <hr />
     <p class="category" placement="bottom" style="padding-bottom: 10px">
-      You don't seem to have any books in your library. Why don't you try adding a new book before creating a collection?<br>
-      You can add a new book by visiting the <a routerLink="/dashboard/books"><b>books</b></a> page on the sidebar and clicking on <a routerLink="/dashboard/books/new"><b>add new book</b></a> ;)
+      You don't seem to have any books in your library. Why don't you try adding
+      a new book before creating a collection?<br />
+      You can add a new book by visiting the
+      <a routerLink="/dashboard/books"><b>books</b></a> page on the sidebar and
+      clicking on <a routerLink="/dashboard/books/new"><b>add new book</b></a>
     </p>
   </div>
 </div>
@@ -24,13 +41,18 @@
       <h4 class="title">
         You don't have any collections yet.
       </h4>
-      <hr>
+      <hr />
       <p class="category" placement="bottom" style="padding-bottom: 10px">
-        Do you want to add a new collection?
-        Collections let your organize your books in any way you want!<br>
+        Do you want to add a new collection? Collections let your organize your
+        books in any way you want!<br />
         Click the button below to add a new collection :)
       </p>
-      <button type="button" class="btn btn-success library-nav-tile" routerLink="{{router.url.split('?')[0]}}/new" style="margin: 10px 5px">
+      <button
+        type="button"
+        class="btn btn-success library-nav-tile"
+        routerLink="{{ router.url.split('?')[0] }}/new"
+        style="margin: 10px 5px"
+      >
         <span class="ti-plus" aria-hidden="true"></span>
         Add a new collection
       </button>
@@ -38,65 +60,110 @@
   </div>
 </ng-container>
 <ng-container [ngSwitch]="tilesDisplay">
-  <table-items (displayItems)="tableDisplayItems=$event" *ngSwitchCase="false"></table-items>
-  <ng-container *ngFor="let collection of collections | collectionGrouping: groupingMethod">
+  <table-items
+    (displayItems)="tableDisplayItems = $event"
+    *ngSwitchCase="false"
+  ></table-items>
+  <ng-container
+    *ngFor="let collection of collections | collectionGrouping: groupingMethod"
+  >
     <!-- Separator -->
-    <div class="row" id="{{removeSpaces(collection.title)}}">
+    <div class="row" id="{{ removeSpaces(collection.title) }}">
       <div class="col-md-9">
         <!-- Title -->
         <h4 class="title collection-title">
-          {{collection.title}}
-          <a *ngIf="collection.books.length" href="#{{collection.id}}" class="collapse-button" data-toggle="collapse" (click)="displayAll[collection.id] = !displayAll[collection.id]">
-            <i [ngClass]="{'pe-7s-angle-down': !displayAll[collection.id], 'pe-7s-angle-up': displayAll[collection.id]}"></i>
+          {{ collection.title }}
+          <a
+            *ngIf="collection.books.length"
+            href="#{{ collection.id }}"
+            class="collapse-button"
+            data-toggle="collapse"
+            (click)="displayAll[collection.id] = !displayAll[collection.id]"
+          >
+            <i
+              [ngClass]="{
+                'pe-7s-angle-down': !displayAll[collection.id],
+                'pe-7s-angle-up': displayAll[collection.id]
+              }"
+            ></i>
           </a>
         </h4>
       </div>
       <div class="col-md-3 buttons">
-        <button class="btn btn-default btn-margin" routerLink="./{{collection.id}}/edit">
+        <button
+          class="btn btn-default btn-margin"
+          routerLink="./{{ collection.id }}/edit"
+        >
           <i class="pe-7s-note"></i>
           Edit
         </button>
-        <button class="btn btn-danger btn-margin" (click)="confirmDeleteCollection(collection)">
+        <button
+          class="btn btn-danger btn-margin"
+          (click)="confirmDeleteCollection(collection)"
+        >
           <i class="pe-7s-trash"></i>
           Delete
         </button>
       </div>
     </div>
-    <hr class="library-hr">
-    <p class="text-muted">{{collection.description}}</p>
-  
+    <hr class="library-hr" />
+    <p class="text-muted">{{ collection.description }}</p>
+
     <!-- Books -->
     <div
       *ngIf="collection.books && collection.books.length > 0"
       class="collapse in books"
-      id="{{collection.id}}"
+      id="{{ collection.id }}"
     >
       <!-- No books -->
-      <div *ngIf="!(collection.books | page: collectionPages[collection.id].page:maxBooks | bookFilter: filterMethod:tagFilter).length">
-        <h5 class="text-muted" style="font-style: italic; font-size: 0.9em; margin: 4px 0;">
+      <div
+        *ngIf="
+          !(
+            collection.books
+            | page: collectionPages[collection.id].page:maxBooks
+            | bookFilter: filterMethod:tagFilter
+          ).length
+        "
+      >
+        <h5
+          class="text-muted"
+          style="font-style: italic; font-size: 0.9em; margin: 4px 0;"
+        >
           No books available for this filter.
         </h5>
       </div>
       <books-section
         *ngSwitchCase="true"
-        [books]="collection.books | page: collectionPages[collection.id].page:maxBooks | bookFilter: filterMethod:tagFilter"
+        [books]="
+          collection.books
+            | page: collectionPages[collection.id].page:maxBooks
+            | bookFilter: filterMethod:tagFilter
+        "
         [withButtons]="true"
         [linkable]="true"
       ></books-section>
       <books-table
         *ngSwitchCase="false"
-        [books]="collection.books | page: collectionPages[collection.id].page:maxBooks | bookFilter: filterMethod:tagFilter"
+        [books]="
+          collection.books
+            | page: collectionPages[collection.id].page:maxBooks
+            | bookFilter: filterMethod:tagFilter
+        "
         [withButtons]="true"
         [linkable]="true"
         [displayItems]="tableDisplayItems"
       ></books-table>
-      <pages [count]="collectionPages[collection.id].pageCount" [withRoute]="false" (nextSelectedPage)="changePage(collection.id, $event)"></pages>
+      <pages
+        [count]="collectionPages[collection.id].pageCount"
+        [withRoute]="false"
+        (nextSelectedPage)="changePage(collection.id, $event)"
+      ></pages>
     </div>
     <!-- No books -->
     <div *ngIf="!collection.books || collection.books.length === 0">
       <h5 class="text-muted no-books">
-        You currently don't have any books in this collection. Click on the edit button above
-        to add books to it.
+        You currently don't have any books in this collection. Click on the edit
+        button above to add books to it.
       </h5>
     </div>
   </ng-container>
@@ -104,7 +171,7 @@
 
 <modal
   #deleteCollectionModal
-  title="Are you sure you want to delete {{selectedCollection.title}}?"
+  title="Are you sure you want to delete {{ selectedCollection.title }}?"
   content="This collection will be removed permanently from your library. All books related to this collection will be kept."
   cancel="Cancel"
   accept="Accept"

@@ -1,9 +1,23 @@
+hr {
+  margin: 5px 0;
+}
+
+img {
+  border-radius: 4px;
+}
+
 .card {
   margin-bottom: 30px;
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+@media only screen and (min-width: 991px) {
+  .card {
+    height: 27vw;
+  }
 }
 
 .card-clickable:hover {
@@ -15,29 +29,8 @@
   background: #ecfdef;
 }
 
-@media only screen and (min-width: 991px) {
-  .card {
-    height: 27vw;
-  }
-}
-
 .title {
   font-size: 1.2em;
-}
-
-.select-icon {
-  font-size: 20px;
-}
-
-.ti-control-stop {
-  font-size: 25px;
-  margin-top: -2px;
-  margin-left: -3px;
-  margin-bottom: -4px;
-}
-
-.ti-check-box {
-  color: #18b518;
 }
 
 .content {
@@ -46,22 +39,17 @@
   justify-content: space-between;
   flex: 1;
   height: 100%;
-}
-
-hr {
-  margin: 5px 0;
+  overflow: hidden;
 }
 
 .image {
   height: auto;
   flex: 1;
+  border-radius: 4px;
 }
 
-.img-rounded {
-  border-radius: 4px;  
-}
-
-
-img {
-  border-radius: 4px;  
+.image-wrapper {
+  height: 100%;
+  overflow: hidden;
+  border-radius: 4px;
 }

@@ -12,12 +12,12 @@ import { GoodreadsModule } from './goodreads/goodreads.module'
 import { BooksModule } from './books/books.module'
 import { AuthorsModule } from './authors/authors.module'
 import { CollectionsModule } from './collections/collections.module'
+import { ProfileModule } from './profile/profile.module'
 
 import { DashboardComponent } from './dashboard.component'
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component'
 import { ImportComponent } from './import/import.component'
 import { GoodreadsComponent } from './goodreads/goodreads.component'
-import { ProfileModule } from './profile/profile.module'
 
 const dashboardRoutes: Routes = [
   {
