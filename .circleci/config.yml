@@ -24,15 +24,21 @@ jobs:
       - run:
           name: Decrypt environment files
           command: npm run decrypt
+      - save_cache:
+          key: v1-environment-{{ checksum "package.json" }}
+          paths:
+            - src/environments
       - run:
           name: Building
           command: npm run build:production
       - save_cache:
+          key: v1-package-json
+          paths:
+            - package.json
+      - save_cache:
           key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
-            - src/environments
             - dist
-            - package.json
             - firebase.json
             - .firebaserc
   test:
@@ -42,9 +48,11 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          key: v1-package-json
       - restore_cache:
-          key: v1-dependencies-{{ checksum "package.json" }}
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-environment-{{ checksum "package.json" }}
       - run:
           name: Testing
           command: npm run test
@@ -55,9 +63,11 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          key: v1-package-json
       - restore_cache:
-          key: v1-dependencies-{{ checksum "package.json" }}
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-environment-{{ checksum "package.json" }}
       - run:
           name: Linting
           command: npm run lint
