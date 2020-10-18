@@ -1,12 +1,19 @@
 [data-theme='dark'],
 .dark-theme {
   --primary-color: var(--color-dark-04);
+
   --button-inverted-background-color: var(--color-dark-04);
+
   --button-rounded-background-color: var(--color-dark-03);
   --button-rounded-hover-color: var(--color-dark-02);
   --button-rounded-active-color: var(--color-dark-03);
   --button-rounded-disabled-color: var(--color-dark-02);
   --button-rounded-color: var(--color-light-01);
+
+  --accordion-background-color: var(--color-dark-04);
+  --accordion-hover-color: var(--color-dark-03);
+  --accordion-label-color: var(--color-dark-02);
+  --accordion-label-active-color: var(--color-dark-01);
 
   --elevation-01: 0px 0px 1px rgba(40, 41, 61, 0.08),
     0px 1px 2px rgba(0, 0, 0, 0.32);

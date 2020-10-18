@@ -37,12 +37,19 @@
   --color-green-05: #05a660;
 
   --primary-color: var(--color-light-01);
+
   --button-inverted-background-color: var(--color-light-01);
+
   --button-rounded-background-color: var(--color-light-01);
   --button-rounded-hover-color: var(--color-light-03);
   --button-rounded-active-color: var(--color-light-05);
   --button-rounded-disabled-color: var(--color-dark-01);
   --button-rounded-color: var(--color-primary-02);
+
+  --accordion-background-color: var(--color-light-01);
+  --accordion-hover-color: var(--color-light-03);
+  --accordion-label-color: var(--color-dark-02);
+  --accordion-label-active-color: var(--color-dark-03);
 
   --elevation-01: 0px 0px 1px rgba(40, 41, 61, 0.08),
     0px 0.5px 2px rgba(96, 97, 112, 0.16);
@@ -294,4 +301,60 @@ h6 {
   border-radius: 50%;
   padding: 10px 14px;
   font-weight: 600;
+}
+
+.accordion {
+  overflow: hidden;
+}
+
+.accordion-item {
+  @extend .card;
+  overflow: hidden;
+  margin: 4px;
+
+  label {
+    padding: 12px 8px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+    color: var(--accordion-label-color);
+    background: var(--accordion-background-color);
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--accordion-hover-color);
+    }
+  }
+
+  .content {
+    max-height: 0;
+    background: var(--accordion-background-color);
+    transition: all 0.35s;
+    padding: 0px 0px 0px 32px;
+  }
+}
+
+.accordion-item-checkbox {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+
+  &:checked {
+    + .accordion-item {
+      box-shadow: var(--elevation-02);
+
+      & > label {
+        color: var(--accordion-label-active-color);
+
+        &:hover {
+          background-color: var(--accordion-background-color);
+        }
+      }
+
+      & > .content {
+        max-height: 100vh;
+        padding: 4px 0px 12px 32px;
+      }
+    }
+  }
 }
