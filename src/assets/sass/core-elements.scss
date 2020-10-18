@@ -36,6 +36,12 @@
   --color-green-04: #06c270;
   --color-green-05: #05a660;
 
+  --color-orange-01: #fff8e6;
+  --color-orange-02: #fdac42;
+  --color-orange-03: #fdac42;
+  --color-orange-04: #ff8800;
+  --color-orange-05: #e67a00;
+
   --primary-color: var(--color-light-01);
 
   --button-inverted-background-color: var(--color-light-01);
@@ -50,6 +56,12 @@
   --accordion-hover-color: var(--color-light-03);
   --accordion-label-color: var(--color-dark-02);
   --accordion-label-active-color: var(--color-dark-03);
+
+  --alert-background-color: var(--color-blue-01);
+  --alert-border-color: var(--color-blue-03);
+  --alert-header-color: var(--color-dark-04);
+  --alert-color: var(--color-dark-03);
+  --alert-icon-content: '\e086';
 
   --elevation-01: 0px 0px 1px rgba(40, 41, 61, 0.08),
     0px 0.5px 2px rgba(96, 97, 112, 0.16);
@@ -191,116 +203,126 @@ h6 {
       box-shadow: var(--elevation-02);
     }
   }
-}
 
-.button.success {
-  background-color: var(--color-green-04);
-
-  &:hover {
-    background-color: var(--color-green-03);
-  }
-
-  &:active {
-    background-color: var(--color-green-05);
-  }
-}
-
-.button.danger {
-  background-color: var(--color-red-04);
-
-  &:hover {
-    background-color: var(--color-red-03);
-  }
-
-  &:active {
-    background-color: var(--color-red-05);
-  }
-}
-
-%inverted {
-  background-color: var(--button-inverted-background-color);
-  border: 1px var(--color-primary-02) solid;
-  color: var(--color-primary-02);
-
-  &:hover {
-    background-color: var(--color-light-03);
-  }
-
-  &:active {
-    background-color: var(--color-light-05);
-  }
-
-  &:disabled {
-    color: var(--color-dark-01);
-    border: 1px var(--color-dark-01) solid;
+  &.success {
+    background-color: var(--color-green-04);
 
     &:hover {
-      background-color: var(--color-light-01);
+      background-color: var(--color-green-03);
+    }
+
+    &:active {
+      background-color: var(--color-green-05);
     }
   }
-}
 
-.button.inverted {
-  @extend %inverted;
-}
-
-.button.inverted.success {
-  @extend %inverted;
-  border: 1px var(--color-green-04) solid;
-  color: var(--color-green-04);
-}
-
-.button.inverted.danger {
-  @extend %inverted;
-  border: 1px var(--color-red-04) solid;
-  color: var(--color-red-04);
-}
-
-.button.small {
-  padding: 6px 12px;
-  font-size: 12px;
-}
-
-.button.large {
-  padding: 10px 20px;
-  font-size: 16px;
-}
-
-.button.rounded {
-  border-radius: 360px;
-  color: var(--button-rounded-color);
-  background-color: var(--button-rounded-background-color);
-  padding: 10px 22px;
-
-  &:hover {
-    background-color: var(--button-rounded-hover-color);
-  }
-
-  &:active {
-    background-color: var(--button-rounded-active-color);
-  }
-
-  &:disabled {
-    color: var(--button-rounded-disabled-color);
+  &.danger {
+    background-color: var(--color-red-04);
 
     &:hover {
-      background-color: var(--button-rounded-background-color);
+      background-color: var(--color-red-03);
+    }
+
+    &:active {
+      background-color: var(--color-red-05);
     }
   }
-}
 
-.button.rounded.small {
-  padding: 8px 18px;
-}
+  &.warning {
+    background-color: var(--color-orange-04);
 
-.button.rounded.large {
-  padding: 10px 30px;
-}
+    &:hover {
+      background-color: var(--color-orange-03);
+    }
 
-.button.icon {
-  border-radius: 50%;
-  padding: 10px 14px;
-  font-weight: 600;
+    &:active {
+      background-color: var(--color-orange-05);
+    }
+  }
+
+  &.inverted {
+    background-color: unset;
+    border: 1px var(--color-primary-02) solid;
+    color: var(--color-primary-02);
+
+    &:hover {
+      background-color: unset !important;
+    }
+
+    &:active {
+      background-color: unset !important;
+    }
+
+    &:disabled {
+      color: var(--color-dark-01);
+      border: 1px var(--color-dark-01) solid;
+    }
+  }
+
+  &.inverted.success {
+    @extend .inverted;
+    border: 1px var(--color-green-04) solid;
+    color: var(--color-green-04);
+  }
+
+  &.inverted.danger {
+    @extend .inverted;
+    border: 1px var(--color-red-04) solid;
+    color: var(--color-red-04);
+  }
+
+  &.inverted.warning {
+    @extend .inverted;
+    border: 1px var(--color-orange-04) solid;
+    color: var(--color-orange-04);
+  }
+
+  &.small {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  &.large {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+
+  &.rounded {
+    border-radius: 360px;
+    color: var(--button-rounded-color);
+    background-color: var(--button-rounded-background-color);
+    padding: 10px 22px;
+
+    &:hover {
+      background-color: var(--button-rounded-hover-color);
+    }
+
+    &:active {
+      background-color: var(--button-rounded-active-color);
+    }
+
+    &:disabled {
+      color: var(--button-rounded-disabled-color);
+
+      &:hover {
+        background-color: var(--button-rounded-background-color);
+      }
+    }
+  }
+
+  &.rounded.small {
+    padding: 8px 18px;
+  }
+
+  &.rounded.large {
+    padding: 10px 30px;
+  }
+
+  &.icon {
+    border-radius: 50%;
+    padding: 10px 14px;
+    font-weight: 600;
+  }
 }
 
 .accordion {
@@ -325,7 +347,7 @@ h6 {
       background-color: var(--accordion-hover-color);
     }
 
-    & > i {
+    & i {
       display: flex;
       align-items: center;
       font-size: 32px;
@@ -350,22 +372,159 @@ h6 {
     + .accordion-item {
       box-shadow: var(--elevation-02);
 
-      & > label {
+      & label {
         color: var(--accordion-label-active-color);
 
         &:hover {
           background-color: var(--accordion-background-color);
         }
 
-        & > i {
+        & i {
           transform: rotate(180deg);
         }
       }
 
-      & > .content {
+      & .content {
         max-height: 100vh;
         padding: 4px 0px 12px 32px;
       }
+    }
+  }
+}
+
+.alert {
+  background-color: var(--alert-background-color);
+  border-left: 2px solid var(--alert-border-color);
+  border-radius: 2px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  color: var(--alert-color);
+  max-width: 400px;
+  margin: 5px 0px;
+
+  %iccon {
+    content: var(--alert-icon-content);
+    font-family: 'GlyphIcons';
+    color: var(--alert-border-color);
+  }
+
+  %dismiss-icon {
+    @extend %dismiss-icon;
+    content: '\e680';
+    font-family: 'Pe-icon-7-stroke';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    float: right;
+    cursor: pointer;
+  }
+
+  %bbutton {
+    @extend .button, .inverted, .small;
+    width: max-content;
+    align-self: flex-end;
+    float: right;
+  }
+
+  & .message {
+    font-size: 14px;
+    margin: 4px 0px 14px 0px;
+
+    font-weight: 600;
+    color: var(--alert-header-color);
+    margin: 0px;
+
+    & button {
+      @extend %bbutton;
+    }
+  }
+
+  & button {
+    @extend %bbutton;
+  }
+
+  & .header {
+    color: var(--alert-header-color);
+    font-size: 16px;
+    font-weight: 600;
+    display: block;
+
+    &:after {
+      @extend %dismiss-icon;
+    }
+
+    & ~ .message {
+      font-weight: 400;
+      color: var(--color-dark-03);
+      margin: 4px 0px 14px 0px;
+      line-height: 20px;
+    }
+  }
+
+  &.icon-right {
+    & .message:after {
+      @extend %iccon;
+      float: right;
+    }
+  }
+
+  &.icon-left {
+    & .message:before {
+      @extend %iccon;
+      float: left;
+      margin-right: 16px;
+    }
+  }
+
+  &.dismissable {
+    display: flex;
+    flex-direction: column;
+
+    & .message:after {
+      @extend %dismiss-icon;
+    }
+  }
+
+  &.success {
+    --alert-background-color: var(--color-green-01);
+    --alert-border-color: var(--color-green-03);
+    --alert-icon-content: '\e084';
+
+    & .message button {
+      @extend .success;
+    }
+
+    & button {
+      @extend .success;
+    }
+  }
+
+  &.danger {
+    --alert-background-color: var(--color-red-01);
+    --alert-border-color: var(--color-red-03);
+    --alert-icon-content: '\e083';
+
+    & .message button {
+      @extend .danger;
+    }
+
+    & button {
+      @extend .danger;
+    }
+  }
+
+  &.warning {
+    --alert-background-color: var(--color-orange-01);
+    --alert-border-color: var(--color-orange-03);
+    --alert-icon-content: '\e083';
+
+    & .message button {
+      @extend .warning;
+    }
+
+    & button {
+      @extend .warning;
     }
   }
 }
