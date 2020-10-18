@@ -20,11 +20,16 @@
 
 .typography-wrapper {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
 }
 
 .typography-padding {
   padding: 5px 0px;
+}
+
+.buttons-wrapper {
+  display: flex;
+  margin: 6px 0px;
 }
 
 .button-padding {
