@@ -324,6 +324,13 @@ h6 {
     &:hover {
       background-color: var(--accordion-hover-color);
     }
+
+    & > i {
+      display: flex;
+      align-items: center;
+      font-size: 32px;
+      transition: all 0.35s;
+    }
   }
 
   .content {
@@ -348,6 +355,10 @@ h6 {
 
         &:hover {
           background-color: var(--accordion-background-color);
+        }
+
+        & > i {
+          transform: rotate(180deg);
         }
       }
 
