@@ -3,6 +3,7 @@
   --primary-color: var(--color-dark-04);
 
   --button-inverted-background-color: var(--color-dark-04);
+  --button-inverted-color: var(--color-light-01);
 
   --button-rounded-background-color: var(--color-dark-03);
   --button-rounded-hover-color: var(--color-dark-02);
@@ -14,6 +15,10 @@
   --accordion-hover-color: var(--color-dark-03);
   --accordion-label-color: var(--color-dark-02);
   --accordion-label-active-color: var(--color-dark-01);
+
+  --alert-border-color: var(--color-blue-03);
+  --alert-header-color: var(--color-light-01);
+  --alert-color: var(--color-light-01) !important;
 
   --elevation-01: 0px 0px 1px rgba(40, 41, 61, 0.08),
     0px 1px 2px rgba(0, 0, 0, 0.32);
@@ -64,17 +69,24 @@
     background-color: #32334d;
   }
 
-  %inverted {
-    &:hover {
-      background-color: var(--button-inverted-background-color);
+  .alert {
+    background-color: var(--color-dark-03);
+    border-top: 2px solid var(--alert-border-color);
+    border-left: unset;
+
+    %iccon {
+      color: var(--color-light-01);
     }
 
-    &:disabled {
-      border-color: var(--color-dark-03);
-      color: var(--color-dark-02);
+    &.danger,
+    &.success,
+    &.warning {
+      & .message button {
+        color: var(--alert-color);
+      }
 
-      &:hover {
-        background-color: var(--button-inverted-background-color);
+      & button {
+        color: var(--alert-color);
       }
     }
   }
