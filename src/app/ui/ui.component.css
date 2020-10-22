@@ -51,3 +51,12 @@
   background-color: var(--color-blue-04);
   color: var(--color-light-01);
 }
+
+.badges-wrapper {
+  display: flex;
+  padding: 5px 0px;
+}
+
+.badge-padding {
+  margin-right: 6px;
+}

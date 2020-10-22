@@ -90,4 +90,29 @@
       }
     }
   }
+
+  .badge {
+    color: var(--color-light-01);
+    background-color: var(--color-primary-03);
+
+    &.info {
+      color: var(--color-light-01);
+      background-color: var(--color-blue-03);
+    }
+
+    &.success {
+      color: var(--color-light-01);
+      background-color: var(--color-green-03);
+    }
+
+    &.danger {
+      color: var(--color-light-01);
+      background-color: var(--color-red-03);
+    }
+
+    &.warning {
+      color: var(--color-light-01);
+      background-color: var(--color-orange-03);
+    }
+  }
 }
