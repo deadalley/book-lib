@@ -34,3 +34,20 @@
 .button-padding {
   margin-right: 5px;
 }
+
+.chips-wrapper {
+  display: flex;
+}
+
+.chip-padding {
+  margin: 6px 6px 6px 0px;
+}
+
+.chip-color {
+  background-color: var(--color-blue-02);
+}
+
+.chip-color-dark {
+  background-color: var(--color-blue-04);
+  color: var(--color-light-01);
+}

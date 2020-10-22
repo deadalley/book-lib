@@ -409,7 +409,6 @@ h6 {
   }
 
   %dismiss-icon {
-    @extend %dismiss-icon;
     content: '\e680';
     font-family: 'Pe-icon-7-stroke';
     font-weight: normal;
@@ -500,5 +499,36 @@ h6 {
     --alert-background-color: var(--color-orange-01);
     --alert-border-color: var(--color-orange-03);
     --alert-icon-content: '\e083';
+  }
+}
+
+.chip {
+  border-radius: 360px;
+  box-shadow: var(--elevation-02);
+  padding: 6px 14px;
+  width: max-content;
+  min-width: max-content;
+  background-color: var(--color-light-01);
+  color: var(--color-dark-05);
+  font-size: 14px;
+  line-height: 14.5px;
+  font-weight: 500;
+
+  & > i {
+    margin-right: 6px;
+    font-weight: bold;
+  }
+
+  &.dismissable {
+    &:after {
+      content: '\e680';
+      font-family: 'Pe-icon-7-stroke';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      float: right;
+      cursor: pointer;
+      width: 16px;
+    }
   }
 }
