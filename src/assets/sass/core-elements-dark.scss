@@ -115,4 +115,27 @@
       background-color: var(--color-orange-03);
     }
   }
+
+  input[type='checkbox'],
+  input[type='radio'] {
+    &:disabled + label:before {
+      background-color: var(--color-dark-02);
+      border-color: var(--color-dark-02);
+    }
+
+    &:disabled:checked {
+      & + label:before {
+        background-color: var(--color-dark-02);
+        border-color: var(--color-dark-02);
+      }
+
+      & + label:after {
+        border-color: var(--color-dark-01);
+      }
+    }
+  }
+
+  input[type='radio']:disabled:checked + label:after {
+    background-color: var(--color-dark-01);
+  }
 }

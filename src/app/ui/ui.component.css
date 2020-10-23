@@ -60,3 +60,12 @@
 .badge-padding {
   margin-right: 6px;
 }
+
+.checkboxes-wrapper {
+  display: flex;
+  padding: 6px 0px;
+}
+
+.checkbox-padding + label {
+  margin-right: 6px;
+}
