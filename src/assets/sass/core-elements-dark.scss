@@ -136,6 +136,19 @@
         border-color: var(--color-dark-01);
       }
     }
+
+    &.switch {
+      &:disabled {
+        & + label:before {
+          border-color: var(--color-dark-02);
+        }
+
+        & + label:after {
+          background-color: var(--color-dark-01);
+          border-color: var(--color-dark-01);
+        }
+      }
+    }
   }
 
   input[type='radio']:disabled:checked + label:after {
