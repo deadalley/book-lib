@@ -118,6 +118,9 @@
 
   input[type='checkbox'],
   input[type='radio'] {
+    & + label {
+      color: var(--color-light-01);
+    }
     &:disabled + label:before {
       background-color: var(--color-dark-02);
       border-color: var(--color-dark-02);
