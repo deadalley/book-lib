@@ -1,6 +1,7 @@
 [data-theme='dark'],
 .dark-theme {
   --primary-color: var(--color-dark-04);
+  --primary-text-color: var(--color-light-01);
 
   --button-inverted-background-color: var(--color-dark-04);
   --button-inverted-color: var(--color-light-01);
@@ -20,6 +21,9 @@
   --alert-header-color: var(--color-light-01);
   --alert-color: var(--color-light-01) !important;
 
+  --dropdown-color: var(--color-light-01);
+  --dropdown-background-color-hover: var(--color-dark-03);
+
   --elevation-01: 0px 0px 1px rgba(40, 41, 61, 0.08),
     0px 1px 2px rgba(0, 0, 0, 0.32);
   --elevation-02: 0px 0px 1px rgba(0, 0, 0, 0.04),
@@ -33,7 +37,7 @@
   --elevation-06: 0px 2px 8px rgba(0, 0, 0, 0.08),
     0px 20px 32px rgba(0, 0, 0, 0.32);
 
-  color: var(--color-dark-01);
+  color: var(--primary-text-color);
 
   .heading {
     color: var(--color-light-01);
@@ -118,29 +122,34 @@
 
   input[type='checkbox'],
   input[type='radio'] {
-    & + label {
-      color: var(--color-light-01);
-    }
-    &:disabled + label:before {
-      background-color: var(--color-dark-02);
-      border-color: var(--color-dark-02);
-    }
+    &.checkbox {
+      & + label {
+        color: var(--color-light-01);
+      }
 
-    &:disabled:checked {
-      & + label:before {
+      &:disabled + label:before {
         background-color: var(--color-dark-02);
         border-color: var(--color-dark-02);
       }
 
-      & + label:after {
-        border-color: var(--color-dark-01);
+      &:disabled:checked {
+        & + label:before {
+          background-color: var(--color-dark-02);
+          border-color: var(--color-dark-02);
+        }
+
+        & + label:after {
+          border-color: var(--color-dark-01);
+        }
       }
     }
 
     &.switch {
-      &:disabled {
+      &:disabled,
+      &:disabled:checked {
         & + label:before {
           border-color: var(--color-dark-02);
+          background-color: var(--color-dark-02);
         }
 
         & + label:after {
@@ -153,5 +162,9 @@
 
   input[type='radio']:disabled:checked + label:after {
     background-color: var(--color-dark-01);
+  }
+
+  .dropdown > label:after {
+    color: var(--primary-text-color);
   }
 }

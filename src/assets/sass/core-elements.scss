@@ -43,6 +43,7 @@
   --color-orange-05: #e67a00;
 
   --primary-color: var(--color-light-01);
+  --primary-text-color: var(--color-dark-03);
 
   --button-inverted-background-color: var(--color-light-01);
   --button-inverted-color: var(--color-primary-02);
@@ -64,6 +65,9 @@
   --alert-color: var(--color-dark-03);
   --alert-icon-content: '\e086';
 
+  --dropdown-color: var(--color-dark-04);
+  --dropdown-background-color-hover: var(--color-light-02);
+
   --elevation-01: 0px 0px 1px rgba(40, 41, 61, 0.08),
     0px 0.5px 2px rgba(96, 97, 112, 0.16);
   --elevation-02: 0px 0px 1px rgba(40, 41, 61, 0.04),
@@ -76,7 +80,7 @@
     0px 16px 24px rgba(96, 97, 112, 0.16);
   --elevation-06: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
-  color: var(--color-dark-03);
+  color: var(--primary-text-color);
   font-size: 16px;
   font-weight: normal;
   line-height: 24px;
@@ -145,9 +149,14 @@ h6 {
   letter-spacing: 2px;
 }
 
-.card {
+%card-base {
   background-color: var(--primary-color);
+  color: var(--primary-text-color);
   border-radius: 8px;
+}
+
+.card {
+  @extend %card-base;
 }
 
 .card.elevation-01 {
@@ -328,11 +337,11 @@ h6 {
 }
 
 .accordion-item {
-  @extend .card;
+  @extend %card-base;
   overflow: hidden;
   margin: 4px;
 
-  label {
+  & > label {
     padding: 12px 8px;
     display: flex;
     justify-content: space-between;
@@ -346,10 +355,14 @@ h6 {
       background-color: var(--accordion-hover-color);
     }
 
-    & i {
+    &:after {
       display: flex;
       align-items: center;
       font-size: 32px;
+      content: '\e688';
+      font-family: 'Pe-icon-7-stroke';
+      font-weight: normal;
+      font-style: normal;
       transition: all 0.35s;
     }
   }
@@ -378,7 +391,7 @@ h6 {
           background-color: var(--accordion-background-color);
         }
 
-        & i {
+        &:after {
           transform: rotate(180deg);
         }
       }
@@ -605,13 +618,7 @@ h6 {
     content: '';
     position: absolute;
     display: block;
-    left: 6px;
-    top: 6px;
-    border-bottom: 2px var(--color-light-01) solid;
-    border-right: 2px var(--color-light-01) solid;
-    width: 4px;
-    height: 8px;
-    transform: rotate(45deg);
+
     box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.25);
   }
 
@@ -626,11 +633,21 @@ h6 {
   }
 }
 
-input[type='checkbox'] {
+input[type='checkbox'].checkbox {
   @extend %basic-input;
 
   &:checked + label:before {
     background-color: var(--color-primary-02);
+  }
+
+  &:checked + label:after {
+    left: 6px;
+    top: 6px;
+    border-bottom: 2px var(--color-light-01) solid;
+    border-right: 2px var(--color-light-01) solid;
+    width: 4px;
+    height: 8px;
+    transform: rotate(45deg);
   }
 }
 
@@ -663,6 +680,8 @@ input[type='radio'] {
 input[type='checkbox'],
 input[type='radio'] {
   &.switch {
+    @extend %basic-input;
+
     &:hover {
       cursor: pointer;
     }
@@ -695,7 +714,101 @@ input[type='radio'] {
     }
 
     &:checked + label:after {
-      left: 13px;
+      left: 12px;
+    }
+
+    &:checked + label:before {
+      background-color: var(--color-primary-02);
+    }
+  }
+}
+
+.dropdown {
+  position: relative;
+
+  & > .dropdown-checkbox {
+    display: none;
+
+    &:checked {
+      & ~ .dropdown-menu {
+        max-height: 300px;
+        width: 100%;
+      }
+
+      & ~ label:after {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  & > label {
+    @extend .card;
+    box-shadow: var(--elevation-02);
+    border: 0;
+    padding: 12px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    color: var(--dropdown-color);
+    background: var(--primary-color);
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--dropdown-background-color-hover);
+    }
+
+    &:after {
+      display: flex;
+      align-items: center;
+      font-size: 32px;
+      content: '\e688';
+      font-family: 'Pe-icon-7-stroke';
+      font-weight: normal;
+      font-style: normal;
+      transition: all 0.35s;
+      line-height: 14px;
+      transition: all 0.35s;
+      color: var(--color-primary-02);
+    }
+  }
+
+  & > .dropdown-menu {
+    @extend .card;
+    position: absolute;
+    margin-top: 4px;
+    background: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+    max-height: 0;
+    width: 0;
+    overflow-y: scroll;
+
+    & > .dropdown-item {
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--dropdown-color);
+      cursor: pointer;
+
+      &:first-child {
+        border-radius: 8px 8px 0px 0px;
+      }
+
+      &:last-child {
+        border-radius: 0px 0px 8px 8px;
+      }
+
+      &:hover {
+        background-color: var(--color-primary-02);
+        color: var(--color-light-01);
+      }
     }
   }
 }
