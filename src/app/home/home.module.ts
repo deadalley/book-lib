@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { RouterModule, Routes } from '@angular/router'
+import { RouterModule, Route } from '@angular/router'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { HomeComponent } from './home.component'
@@ -13,7 +13,7 @@ import { HomeSectionComponent } from './home-section/home-section.component'
 import { PopoverContainerComponent } from './popover-container/popover-container.component'
 import { ClickOutsideDirective } from 'directives/click-outside.directive'
 
-const homeRoutes: Routes = [{ path: '', component: HomeComponent }]
+const homeRoutes: Route[] = [{ path: '', component: HomeComponent }]
 
 @NgModule({
   imports: [

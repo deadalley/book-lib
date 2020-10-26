@@ -1,6 +1,15 @@
 import { storiesOf } from '@storybook/angular'
 import { UiComponent } from './ui.component'
 
-storiesOf('UI', module).add('default', () => ({
+export default {
+  title: 'UI',
+}
+
+export const DefaultTheme = () => ({
   component: UiComponent,
-}))
+})
+
+export const DarkTheme = () => ({
+  component: UiComponent,
+  props: { dark: true },
+})

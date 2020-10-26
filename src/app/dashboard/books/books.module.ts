@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { RouterModule, Routes } from '@angular/router'
+import { RouterModule, Route } from '@angular/router'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { RatingModule } from 'ngx-bootstrap/rating'
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
@@ -20,7 +20,7 @@ import { PushToBottomPipe } from 'pipes/push-to-bottom.pipe'
 import { IterableObjectPipe } from 'pipes//iterable-object.pipe'
 import { BookGroupingPipe } from 'pipes/book-grouping.pipe'
 
-const routes: Routes = [
+const routes: Route[] = [
   {
     path: '',
     component: BooksComponent,

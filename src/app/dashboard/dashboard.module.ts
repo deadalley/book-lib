@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router'
+import { RouterModule, Route } from '@angular/router'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { CoreModule } from './core/core.module'
@@ -19,7 +19,7 @@ import { DashboardHomeComponent } from './dashboard-home/dashboard-home.componen
 import { ImportComponent } from './import/import.component'
 import { GoodreadsComponent } from './goodreads/goodreads.component'
 
-const dashboardRoutes: Routes = [
+const dashboardRoutes: Route[] = [
   {
     path: '',
     component: DashboardComponent,

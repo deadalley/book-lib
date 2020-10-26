@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" [ngClass]="{ 'dark-theme': dark }">
   <div>
     <h1>Heading 1</h1>
     <h2>Heading 2</h2>
@@ -369,404 +369,67 @@
     <input class="dropdown-checkbox" type="checkbox" id="_dropdowncheckbox" />
     <label for="_dropdowncheckbox">Dropdown Menu</label>
     <div class="dropdown-menu">
-      <label for="_dropdowncheckbox" class="dropdown-item">Item 1</label>
-      <label for="_dropdowncheckbox" class="dropdown-item">Item 2</label>
-      <label for="_dropdowncheckbox" class="dropdown-item">Item 3</label>
-      <label for="_dropdowncheckbox" class="dropdown-item">Item 4</label>
-      <label for="_dropdowncheckbox" class="dropdown-item">Item 5</label>
-      <label for="_dropdowncheckbox" class="dropdown-item">Item 6</label>
-      <label for="_dropdowncheckbox" class="dropdown-item">Item 7</label>
+      <div class="dropdown-menu-inner">
+        <label for="_dropdowncheckbox" class="dropdown-item">Item 1</label>
+        <label for="_dropdowncheckbox" class="dropdown-item">Item 2</label>
+        <label for="_dropdowncheckbox" class="dropdown-item">Item 3</label>
+        <label for="_dropdowncheckbox" class="dropdown-item">Item 4</label>
+        <label for="_dropdowncheckbox" class="dropdown-item">Item 5</label>
+        <label for="_dropdowncheckbox" class="dropdown-item">Item 6</label>
+        <label for="_dropdowncheckbox" class="dropdown-item">Item 7</label>
+      </div>
     </div>
   </div>
-</div>
+  <div class="input-wrapper">
+    <div class="input input-padding">
+      <input type="text" placeholder="Placeholder" />
+    </div>
+    <div class="input input-padding">
+      <input type="text" placeholder="Required" required />
+    </div>
+    <div class="input input-padding">
+      <input type="text" placeholder="Disabled" disabled />
+    </div>
+    <div class="input input-padding">
+      <input class="icon-left" type="text" placeholder="Icon left" /><i
+        class="pe-7s-disk left"
+      ></i>
+    </div>
+    <div class="input input-padding">
+      <input class="icon-right" type="text" placeholder="Icon right" /><i
+        class="pe-7s-bookmarks right"
+      ></i>
+    </div>
+    <div class="input input-padding">
+      <label class="label">Label</label>
+      <input type="text" placeholder="Label" />
+    </div>
+    <div class="input input-padding">
+      <input type="text" placeholder="Assistive text" />
 
-<div class="wrapper dark-theme">
-  <div>
-    <h1>Heading 1</h1>
-    <h2>Heading 2</h2>
-    <h3>Heading 3</h3>
-    <h4>Heading 4</h4>
-    <h5>Heading 5</h5>
-    <h6>Heading 6</h6>
+      <label class="info"
+        ><i class="pe-7s-info info-icon"></i>Assistive info text</label
+      >
+    </div>
   </div>
-  <div>
-    Apparently we had reached a great height in the atmosphere, for the sky was
-    a dead black, and the stars had ceased to twinkle.
+  <div class="input input-padding">
+    <input class="icon-left icon-left" type="email" placeholder="E-mail" />
+    <i class="pe-7s-mail left"></i>
   </div>
-  <div class="small typography-padding">
-    Apparently we had reached a great height in the atmosphere, for the sky was
-    a dead black, and the stars had ceased to twinkle.
-  </div>
-  <div class="tiny typography-padding">
-    Apparently we had reached a great height in the atmosphere, for the sky was
-    a dead black, and the stars had ceased to twinkle.
-  </div>
-  <div class="capitalized typography-padding">
-    Find an alternative
-  </div>
-  <div class="typography-wrapper">
-    <span class="typography-padding" style="font-weight: 700"
-      >Inter - Bold</span
-    >
-    <span class="typography-padding" style="font-weight: 600"
-      >Inter - SemiBold</span
-    >
-    <span class="typography-padding" style="font-weight: 500"
-      >Inter - Medium</span
-    >
-    <span class="typography-padding" style="font-weight: 400"
-      >Inter - Regular</span
-    >
-  </div>
-  <div class="cards-wrapper">
-    <div class="card elevation-01 card-example"></div>
-    <div class="card elevation-02 card-example"></div>
-    <div class="card elevation-03 card-example"></div>
-    <div class="card elevation-04 card-example"></div>
-    <div class="card elevation-05 card-example"></div>
-    <div class="card elevation-06 card-example"></div>
-  </div>
-  <div class="buttons-wrapper">
-    <button class="small button button-padding">Default</button>
-    <button class="small button button-padding success">Success</button>
-    <button class="small button button-padding danger">Danger</button>
-    <button class="small button button-padding" disabled>Disabled</button>
-    <button class="small button button-padding">
-      <i class="pe-7s-add-user"></i>
-      Icon
-    </button>
-  </div>
-  <div class="buttons-wrapper">
-    <button class="button button-padding">Default</button>
-    <button class="button button-padding success">Success</button>
-    <button class="button button-padding danger">Danger</button>
-    <button class="button button-padding" disabled>Disabled</button>
-    <button class="button button-padding">
-      <i class="pe-7s-add-user"></i>
-      Icon
-    </button>
-  </div>
-  <div class="buttons-wrapper">
-    <button class="button inverted button-padding">Default</button>
-    <button class="button inverted button-padding success">Success</button>
-    <button class="button inverted button-padding danger">Danger</button>
-    <button class="button inverted button-padding" disabled>Disabled</button>
-    <button class="button inverted button-padding">
-      <i class="pe-7s-add-user"></i>
-      Icon
-    </button>
-  </div>
-  <div class="buttons-wrapper">
-    <button class="large button button-padding">Default</button>
-    <button class="large button button-padding success">Success</button>
-    <button class="large button button-padding danger">Danger</button>
-    <button class="large button button-padding" disabled>Disabled</button>
-    <button class="large button button-padding">
-      <i class="pe-7s-add-user"></i>
-      Icon
-    </button>
-  </div>
-  <div class="buttons-wrapper">
-    <button class="rounded button small button-padding">Small</button>
-    <button class="rounded button button-padding">Default</button>
-    <button class="rounded button large button-padding">Large</button>
-    <button class="rounded button button-padding" disabled>Disabled</button>
-    <button class="rounded button icon button-padding">
-      <i class="pe-7s-alarm"></i>
-    </button>
-  </div>
-  <div class="accordion">
+  <div class="input input-padding">
+    <i class="pe-7s-lock left"></i>
     <input
-      class="accordion-item-checkbox"
-      type="checkbox"
-      id="_checkbox_dark1"
+      class="icon-left icon-right"
+      type="password"
+      placeholder="Password"
     />
-    <div class="accordion-item">
-      <label for="_checkbox_dark1">Item 1</label>
-      <div class="content">
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
-      </div>
-    </div>
-    <input
-      class="accordion-item-checkbox"
-      type="checkbox"
-      id="_checkbox_dark2"
-    />
-    <div class="accordion-item">
-      <label for="_checkbox_dark2"
-        >Item 2<i class="pe-7s-angle-down"></i
-      ></label>
-      <div class="content">
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
-      </div>
-    </div>
+    <i class="pe-7s-look right clickable"></i>
   </div>
-  <div class="alert">
-    <span class="message">Some text here</span>
+  <div class="input search input-padding">
+    <input class="icon-left" type="text" placeholder="Search" />
+    <i class="pe-7s-search left"></i>
   </div>
-  <div class="alert dismissable">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert icon-right">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert icon-left">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert icon-left dismissable">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert">
-    <span class="message"
-      >Some text here<button class="button small inverted">
-        Execute
-      </button></span
-    >
-  </div>
-  <div class="alert">
-    <span class="header">Alert Header</span>
-    <span class="message">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      Lorem Ipsum has been the industry's standard dummy text ever since the
-      1500s, when an unknown printer took a galley of type and scrambled it to
-      make a type specimen book.
-    </span>
-    <button class="button small inverted">Execute</button>
-  </div>
-  <div class="alert success">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert success dismissable">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert success icon-right">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert success icon-left">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert success icon-left dismissable">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert success">
-    <span class="message"
-      >Some text here<button class="button small inverted success">
-        Execute
-      </button></span
-    >
-  </div>
-  <div class="alert success">
-    <span class="header">Alert Header</span>
-    <span class="message">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      Lorem Ipsum has been the industry's standard dummy text ever since the
-      1500s, when an unknown printer took a galley of type and scrambled it to
-      make a type specimen book.
-    </span>
-    <button class="button small inverted success">Execute</button>
-  </div>
-  <div class="alert danger">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert danger dismissable">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert danger icon-right">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert danger icon-left">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert danger icon-left dismissable">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert danger">
-    <span class="message"
-      >Some text here<button class="button small inverted danger">
-        Execute
-      </button></span
-    >
-  </div>
-  <div class="alert danger">
-    <span class="header">Alert Header</span>
-    <span class="message">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      Lorem Ipsum has been the industry's standard dummy text ever since the
-      1500s, when an unknown printer took a galley of type and scrambled it to
-      make a type specimen book.
-    </span>
-    <button class="button small inverted danger">Execute</button>
-  </div>
-  <div class="alert warning">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert warning dismissable">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert warning icon-right">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert warning icon-left">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert warning icon-left dismissable">
-    <span class="message">Some text here</span>
-  </div>
-  <div class="alert warning">
-    <span class="message"
-      >Some text here<button class="button small inverted warning">
-        Execute
-      </button></span
-    >
-  </div>
-  <div class="alert warning">
-    <span class="header">Alert Header</span>
-    <span class="message">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      Lorem Ipsum has been the industry's standard dummy text ever since the
-      1500s, when an unknown printer took a galley of type and scrambled it to
-      make a type specimen book.
-    </span>
-    <button class="button small inverted warning">Execute</button>
-  </div>
-  <div class="chips-wrapper">
-    <div class="chip chip-padding dismissable">Chip</div>
-    <div class="chip chip-padding chip-color dismissable">Chip</div>
-    <div class="chip chip-padding chip-color-dark dismissable">Chip</div>
-  </div>
-  <div class="chips-wrapper">
-    <div class="chip chip-padding "><i class="pe-7s-alarm"></i>Chip</div>
-    <div class="chip chip-padding chip-color">
-      <i class="pe-7s-alarm"></i>Chip
-    </div>
-    <div class="chip chip-padding chip-color-dark">
-      <i class="pe-7s-alarm"></i>Chip
-    </div>
-  </div>
-  <div class="badges-wrapper">
-    <div class="badge badge-padding">Primary</div>
-    <div class="badge badge-padding info">Info</div>
-    <div class="badge badge-padding success">Success</div>
-    <div class="badge badge-padding danger">Danger</div>
-    <div class="badge badge-padding warning">Warning</div>
-  </div>
-  <div class="checkboxes-wrapper">
-    <input
-      type="checkbox"
-      id="checkboxdark1"
-      class="checkbox checkbox-padding"
-    /><label for="checkboxdark1">Checkbox</label>
-    <input
-      type="checkbox"
-      id="checkboxdark2"
-      class="checkbox checkbox-padding"
-      checked
-    /><label for="checkboxdark2">Checkbox</label>
-    <input
-      type="checkbox"
-      id="checkboxdark3"
-      class="checkbox checkbox-padding"
-      disabled
-    /><label for="checkboxdark3">Checkbox</label>
-    <input
-      type="checkbox"
-      id="checkboxdark4"
-      class="checkbox checkbox-padding"
-      checked
-      disabled
-    /><label for="checkboxdark4">Checkbox</label>
-  </div>
-  <div class="checkboxes-wrapper">
-    <input
-      type="radio"
-      name="exampledark"
-      id="radiodark1"
-      class="checkbox checkbox-padding"
-    /><label for="radiodark1">Radio</label>
-    <input
-      type="radio"
-      name="exampledark"
-      id="radiodark2"
-      class="checkbox checkbox-padding"
-      checked
-    /><label for="radiodark2">Radio</label>
-    <input
-      type="radio"
-      name="exampledark"
-      id="radiodark3"
-      class="checkbox checkbox-padding"
-      disabled
-    /><label for="radiodark3">Radio</label>
-    <input
-      type="radio"
-      name="exampledark"
-      id="radiodark4"
-      class="checkbox checkbox-padding"
-      checked
-      disabled
-    /><label for="radiodark4">Radio</label>
-  </div>
-  <div class="checkboxes-wrapper">
-    <input
-      type="checkbox"
-      name="exampledarkswitch"
-      id="switchdark1"
-      class="switch checkbox-padding"
-    /><label for="switchdark1">Switch</label>
-    <input
-      type="checkbox"
-      name="exampledarkswitch"
-      id="switchdark2"
-      class="switch checkbox-padding"
-      checked
-    /><label for="switchdark2">Switch</label>
-    <input
-      type="checkbox"
-      name="exampledarkswitch"
-      id="switchdark3"
-      class="switch checkbox-padding"
-      disabled
-    /><label for="switchdark3">Switch</label>
-    <input
-      type="checkbox"
-      name="exampledarkswitch"
-      id="switchdark4"
-      class="switch checkbox-padding"
-      checked
-      disabled
-    /><label for="switchdark4">Switch</label>
-  </div>
-  <div class="dropdown">
-    <input
-      class="dropdown-checkbox"
-      type="checkbox"
-      id="_dropdowncheckboxdark"
-    />
-    <label for="_dropdowncheckboxdark">Dropdown Menu</label>
-    <div class="dropdown-menu">
-      <label for="_dropdowncheckboxdark" class="dropdown-item">Item 1</label>
-      <label for="_dropdowncheckboxdark" class="dropdown-item">Item 2</label>
-      <label for="_dropdowncheckboxdark" class="dropdown-item">Item 3</label>
-      <label for="_dropdowncheckboxdark" class="dropdown-item">Item 4</label>
-      <label for="_dropdowncheckboxdark" class="dropdown-item">Item 5</label>
-      <label for="_dropdowncheckboxdark" class="dropdown-item">Item 6</label>
-      <label for="_dropdowncheckboxdark" class="dropdown-item">Item 7</label>
-    </div>
+  <div class="input search input-padding">
+    <textarea placeholder="Textarea"></textarea>
   </div>
 </div>

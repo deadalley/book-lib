@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { RouterModule, Routes } from '@angular/router'
+import { RouterModule, Route } from '@angular/router'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { RatingModule } from 'ngx-bootstrap/rating'
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
@@ -13,7 +13,7 @@ import { AuthorComponent } from './author/author.component'
 import { AuthorsHomeComponent } from './authors-home/authors-home.component'
 import { TruncatePipe } from 'pipes/truncate.pipe'
 
-const routes: Routes = [
+const routes: Route[] = [
   {
     path: '',
     component: AuthorsComponent,

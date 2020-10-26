@@ -69,3 +69,13 @@
 .checkbox-padding + label {
   margin-right: 6px;
 }
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 0;
+}
+
+.input-padding {
+  margin: 4px 0px;
+}

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { RouterModule, Routes } from '@angular/router'
+import { RouterModule, Route } from '@angular/router'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ImageCropperModule } from 'ngx-image-cropper'
 
@@ -12,7 +12,7 @@ import { GoodreadsInfoComponent } from './goodreads-info/goodreads-info.componen
 import { EditUserInfoComponent } from './edit-user-info/edit-user-info.component'
 import { DeleteAccountComponent } from './delete-account/delete-account.component'
 
-const routes: Routes = [
+const routes: Route[] = [
   {
     path: '',
     component: ProfileComponent,

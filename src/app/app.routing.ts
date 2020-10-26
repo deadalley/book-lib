@@ -1,9 +1,9 @@
-import { Routes } from '@angular/router'
+import { Route } from '@angular/router'
 import { AuthGuardService } from '../services/auth.guard'
 import { DashboardModule } from './dashboard/dashboard.module'
 import { HomeModule } from './home/home.module'
 
-export const AppRoutes: Routes = [
+export const AppRoutes: Route[] = [
   {
     path: '',
     redirectTo: 'dashboard',
@@ -23,9 +23,4 @@ export const AppRoutes: Routes = [
     loadChildren: () => DashboardModule,
     canActivate: [AuthGuardService],
   },
-  // {
-  //     path: '**',
-  //     redirectTo: 'home',
-  //     pathMatch: 'full',
-  // }
 ]

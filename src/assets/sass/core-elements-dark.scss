@@ -3,6 +3,9 @@
   --primary-color: var(--color-dark-04);
   --primary-text-color: var(--color-light-01);
 
+  --scrollbar-primary-color: var(--color-primary-01);
+  --scrollbar-background-color: var(--color-dark-03);
+
   --button-inverted-background-color: var(--color-dark-04);
   --button-inverted-color: var(--color-light-01);
 
@@ -23,6 +26,21 @@
 
   --dropdown-color: var(--color-light-01);
   --dropdown-background-color-hover: var(--color-dark-03);
+
+  --input-shadow-color: var(--color-dark-05);
+  --input-color: var(--color-light-01);
+  --input-placeholder-color: var(--color-dark-02);
+  --input-textarea-placeholder-color: var(--color-dark-02);
+  --input-normal-border-color: var(--color-dark-03);
+  --input-border-color: var(--color-primary-02);
+  --input-background-color: var(--primary-color);
+  --input-invalid-border-color: var(--color-red-03);
+  --input-disabled-background-color: var(--color-dark-03);
+  --input-disabled-placeholder-color: var(--color-dark-02);
+  --input-caret-color: var(--color-dark-02);
+  --input-label-color: var(--color-dark-02);
+  --input-info-icon-color: var(--color-primary-02);
+  --input-icon-hover-color: var(--color-light-01);
 
   --elevation-01: 0px 0px 1px rgba(40, 41, 61, 0.08),
     0px 1px 2px rgba(0, 0, 0, 0.32);
