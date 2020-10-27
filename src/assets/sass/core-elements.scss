@@ -51,6 +51,9 @@
   --button-inverted-background-color: var(--color-light-01);
   --button-inverted-color: var(--color-primary-02);
 
+  --button-clear-color: var(--color-dark-04);
+  --button-clear-border-color: var(--color-light-05);
+
   --button-rounded-background-color: var(--color-light-01);
   --button-rounded-hover-color: var(--color-light-03);
   --button-rounded-active-color: var(--color-light-05);
@@ -177,32 +180,32 @@ h6 {
   @extend %card-base;
 }
 
-.card.elevation-01 {
+.elevation-01 {
   box-shadow: var(--elevation-01);
 }
 
-.card.elevation-02 {
+.elevation-02 {
   box-shadow: var(--elevation-02);
 }
 
-.card.elevation-03 {
+.elevation-03 {
   box-shadow: var(--elevation-03);
 }
 
-.card.elevation-04 {
+.elevation-04 {
   box-shadow: var(--elevation-04);
 }
 
-.card.elevation-05 {
+.elevation-05 {
   box-shadow: var(--elevation-05);
 }
 
-.card.elevation-06 {
+.elevation-06 {
   box-shadow: var(--elevation-06);
 }
 
 .button {
-  padding: 8px 12px;
+  padding: 12px 20px;
   color: var(--color-light-01);
   font-weight: 500;
   font-size: 14px;
@@ -230,6 +233,11 @@ h6 {
     &:active {
       box-shadow: var(--elevation-02);
     }
+  }
+
+  &.clear {
+    background-color: var(--primary-color);
+    color: var(--button-clear-color);
   }
 
   &.success {
@@ -308,7 +316,7 @@ h6 {
   }
 
   &.large {
-    padding: 10px 20px;
+    padding: 16px 28px;
     font-size: 16px;
   }
 
@@ -629,7 +637,7 @@ h6 {
     border: 1px var(--color-primary-02) solid;
     width: 16px;
     height: 16px;
-    margin-right: 4px;
+    margin-right: 10px;
   }
 
   &:checked + label:after {
@@ -965,5 +973,53 @@ input[type='radio'] {
     i.right {
       color: var(--input-border-color);
     }
+  }
+}
+
+.modal {
+  @extend %card-base, .elevation-05;
+  padding: 24px;
+  border-radius: 16px;
+  position: relative;
+
+  & > .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 8px;
+
+    & > button.button {
+      margin-left: 12px;
+    }
+  }
+
+  & > .checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+
+  &.vertical > .buttons {
+    flex-direction: column;
+
+    & > button.button {
+      margin-top: 12px;
+      margin-left: 0px;
+      flex: 1;
+      width: 100%;
+    }
+  }
+
+  & > i.dismiss {
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    right: 24px;
+    top: 24px;
+  }
+
+  & > .header {
+    margin: 0px;
   }
 }
