@@ -89,6 +89,9 @@
   --input-info-icon-color: var(--color-primary-02);
   --input-icon-hover-color: var(--color-primary-02);
 
+  --sidebar-button-hover: var(--color-light-04);
+  --sidebar-divider-color: var(--color-light-04);
+
   --elevation-01: 0px 0px 1px rgba(40, 41, 61, 0.08),
     0px 0.5px 2px rgba(96, 97, 112, 0.16);
   --elevation-02: 0px 0px 1px rgba(40, 41, 61, 0.04),
@@ -1021,5 +1024,91 @@ input[type='radio'] {
 
   & > .header {
     margin: 0px;
+  }
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--primary-color);
+  box-shadow: var(--elevation-06);
+  padding: 18px 12px;
+  border-radius: 0px 8px 8px 0px;
+  width: 300px;
+  height: 100%;
+}
+
+.sidebar-toggle-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px;
+
+  & > i {
+    color: var(--color-primary-02);
+    font-weight: 500;
+    font-size: 24px;
+    cursor: pointer;
+  }
+}
+
+.sidebar-header {
+  margin-top: 0px;
+  margin-left: 14px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  & > .main-icon {
+    font-size: 32px;
+    margin-right: 16px;
+  }
+}
+
+.sidebar-divider {
+  width: 90%;
+  border: 1px solid var(--sidebar-divider-color);
+  border-radius: 8px;
+}
+
+.sidebar-top {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  & > .sidebar-button > i {
+    color: var(--color-dark-04);
+  }
+}
+
+.sidebar-button {
+  display: flex;
+  align-items: center;
+  background-color: var(--primary-color);
+  margin-right: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--primary-text-color);
+  padding: 14px 24px;
+  margin: 4px 0px;
+  border-radius: 6px;
+  transition: all 0.35s;
+  cursor: pointer;
+
+  & > i {
+    color: var(--color-primary-02);
+    font-weight: 500;
+    font-size: 24px;
+    margin-right: 8px;
+  }
+
+  &:hover {
+    background-color: var(--sidebar-button-hover);
   }
 }

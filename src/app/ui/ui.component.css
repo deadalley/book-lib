@@ -83,3 +83,8 @@
 .modal-padding {
   margin-top: 12px;
 }
+
+.sidebar-wrapper {
+  height: 500px;
+  margin: 54px 0px;
+}
