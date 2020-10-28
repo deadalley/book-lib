@@ -70,6 +70,15 @@
   margin-right: 6px;
 }
 
+.labels-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.label-padding {
+  margin: 6px 0;
+}
+
 .input-wrapper {
   display: flex;
   flex-direction: column;
@@ -87,4 +96,8 @@
 .sidebar-wrapper {
   height: 500px;
   margin: 54px 0px;
+}
+
+.navbar {
+  margin: 6px 0px;
 }

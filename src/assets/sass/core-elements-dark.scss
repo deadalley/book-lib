@@ -30,7 +30,7 @@
   --dropdown-color: var(--color-light-01);
   --dropdown-background-color-hover: var(--color-dark-03);
 
-  --input-shadow-color: var(--color-dark-05);
+  --input-shadow-color: rgba(0, 0, 0, 0.2);
   --input-color: var(--color-light-01);
   --input-placeholder-color: var(--color-dark-02);
   --input-textarea-placeholder-color: var(--color-dark-02);
@@ -47,6 +47,9 @@
 
   --sidebar-button-hover: var(--color-dark-03);
   --sidebar-divider-color: var(--color-dark-03);
+
+  --footer-color: var(--color-dark-02);
+  --footer-background-color: var(--color-dark-05);
 
   --elevation-01: 0px 0px 1px rgba(40, 41, 61, 0.08),
     0px 1px 2px rgba(0, 0, 0, 0.32);
