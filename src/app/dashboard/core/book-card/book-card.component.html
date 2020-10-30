@@ -1,72 +1,56 @@
 <div
-  class="card"
+  class="card elevation-04 container"
   (click)="clickable ? onClick.emit(book) : select()"
   [ngClass]="{
-    'card-clickable': clickable,
-    'card-selectable': selectable && book.canBeSelected,
-    'card-selected': (selectable || clickable) && book.isSelected,
-    'card-not-selectable': selectable && !book.canBeSelected,
+    clickable: clickable,
+    selectable: selectable && book.canBeSelected && !book.isSelected,
+    'not-selectable': selectable && !book.canBeSelected,
+    selected: (selectable || clickable) && book.isSelected,
     'no-buttons': !withButtons || selectable || clickable
   }"
 >
-  <div class="header">
-    <!-- Header -->
-    <div class="row">
-      <h4
-        class="title col-md-8 col-md-offset-2 text-ellipsis"
-        [ngClass]="{
-          'col-md-8 col-md-offset-2': selectable && book.canBeSelected,
-          'col-md-12': !(selectable && book.canBeSelected)
-        }"
-      >
-        <a
-          *ngIf="linkable"
-          class="text-ellipsis"
-          href="#"
-          routerLink="/dashboard/books/{{ book.id }}"
-        >
-          {{ book.title }}
-        </a>
-        {{ linkable ? '' : book.title }}
-      </h4>
-      <i class="col-md-2 select-icon" *ngIf="selectable && book.canBeSelected" [ngClass]="{
-        'ti-check-box': book.isSelected,
-        'ti-control-stop': !book.isSelected
-      }"></i>
-    </div>
-    <hr>
-    <p class="category" placement="bottom">
-      <a *ngIf="linkable" href="javascript:void(0);" (click)="authorRoute()">{{
-        book.author
-      }}</a>
-      {{ linkable ? '' : book.author }}
-    </p>
-  </div>
+  <h4
+    class="title text-ellipsis"
+    [ngClass]="{
+      'col-md-8 col-md-offset-2': selectable && book.canBeSelected,
+      'col-md-12': !(selectable && book.canBeSelected)
+    }"
+  >
+    <a
+      *ngIf="linkable"
+      class="text-ellipsis"
+      href="#"
+      routerLink="/dashboard/books/{{ book.id }}"
+    >
+      {{ book.title }}
+    </a>
+    {{ linkable ? '' : book.title }}
+  </h4>
+  <i
+    class="col-md-2 select-icon"
+    *ngIf="selectable && book.canBeSelected"
+    [ngClass]="{
+      'ti-check-box': book.isSelected,
+      'ti-control-stop': !book.isSelected
+    }"
+  ></i>
+  <hr />
+  <p class="capitalized" placement="bottom">
+    <a *ngIf="linkable" href="javascript:void(0);" (click)="authorRoute()">{{
+      book.author
+    }}</a>
+    {{ linkable ? '' : book.author }}
+  </p>
 
-  <div class="content">
-    <!-- Image -->
-    <div class="image">
-      <a
-        *ngIf="linkable"
-        href="javascript:void(0);"
-        routerLink="/dashboard/books/{{ book.id }}"
-        class="image-link"
-      >
-        <img
-          class="image-src"
-          [src]="
-            book.imageLarge
-              ? book.imageLarge
-              : book.imageSmall
-              ? book.imageSmall
-              : '/assets/img/no-book-cover.png'
-          "
-          alt="Book cover"
-        />
-      </a>
+  <div class="image-wrapper">
+    <a
+      *ngIf="linkable"
+      href="javascript:void(0);"
+      routerLink="/dashboard/books/{{ book.id }}"
+      class="image-link"
+    >
       <img
-        class="image-src"
-        *ngIf="!linkable"
+        class="image"
         [src]="
           book.imageLarge
             ? book.imageLarge
@@ -76,54 +60,45 @@
         "
         alt="Book cover"
       />
-    </div>
+    </a>
+    <img
+      class="image"
+      *ngIf="!linkable"
+      [src]="
+        book.imageLarge
+          ? book.imageLarge
+          : book.imageSmall
+          ? book.imageSmall
+          : '/assets/img/no-book-cover.png'
+      "
+      alt="Book cover"
+    />
+  </div>
 
-    <!-- Icons -->
-    <div class="row icons" *ngIf="withButtons && !selectable && !clickable">
-      <div class="col-xs-3">
-        <i
-          class="pe-7s-check tile-icon"
-          (click)="updateFavoriteIcon({ owned: !book.owned })"
-          [ngClass]="{ inactive: !book.owned, owned: book.owned }"
-          tooltip="{{ book.owned ? 'Owned' : 'Not owned' }}"
-          [isDisabled]="false"
-          [tooltipAnimation]="true"
-          placement="bottom"
-        ></i>
-      </div>
-      <div class="col-xs-3">
-          <i
-            class="pe-7s-gift tile-icon"
-            (click)="updateFavoriteIcon({ wishlist: !book.wishlist })"
-            [ngClass]="{ inactive: !book.wishlist, wishlist: book.wishlist }"
-            tooltip="{{ book.wishlist ? 'In wishlist' : 'Not in wishlist' }}"
-            [isDisabled]="false"
-            [tooltipAnimation]="true"
-            placement="bottom"
-          ></i>
-        </div>
-      <div class="col-xs-3">
-        <i
-          class="pe-7s-glasses tile-icon"
-          (click)="updateFavoriteIcon({ read: !book.read })"
-          [ngClass]="{ inactive: !book.read, read: book.read }"
-          tooltip="{{ book.read ? 'Read' : 'Not read' }}"
-          [isDisabled]="false"
-          [tooltipAnimation]="true"
-          placement="bottom"
-        ></i>
-      </div>
-      <div class="col-xs-3">
-        <i
-          class="pe-7s-like tile-icon"
-          (click)="updateFavoriteIcon({ favorite: !book.favorite })"
-          [ngClass]="{ inactive: !book.favorite, favorite: book.favorite }"
-          tooltip="{{ book.favorite ? 'Favorite' : 'Not a favorite' }}"
-          [isDisabled]="false"
-          [tooltipAnimation]="true"
-          placement="bottom"
-        ></i>
-      </div>
-    </div>
+  <div class="icons" *ngIf="withButtons && !selectable && !clickable">
+    <i
+      class="ti-briefcase tile-icon button clear"
+      (click)="updateFavoriteIcon({ owned: !book.owned })"
+      [ngClass]="{ inactive: !book.owned, active: book.owned }"
+      placement="bottom"
+    ></i>
+    <i
+      class="ti-gift tile-icon button clear"
+      (click)="updateFavoriteIcon({ wishlist: !book.wishlist })"
+      [ngClass]="{ inactive: !book.wishlist, active: book.wishlist }"
+      placement="bottom"
+    ></i>
+    <i
+      class="ti-eye tile-icon button clear"
+      (click)="updateFavoriteIcon({ read: !book.read })"
+      [ngClass]="{ inactive: !book.read, active: true || book.read }"
+      placement="bottom"
+    ></i>
+    <i
+      class="ti-heart tile-icon button clear"
+      (click)="updateFavoriteIcon({ favorite: !book.favorite })"
+      [ngClass]="{ inactive: !book.favorite, active: book.favorite }"
+      placement="bottom"
+    ></i>
   </div>
 </div>

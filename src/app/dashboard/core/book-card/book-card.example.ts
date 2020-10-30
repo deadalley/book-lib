@@ -22,7 +22,7 @@ import {
 } from 'angularfire2/storage'
 import { AppRoutes } from '../../../app.routing'
 
-const book = BookFactory.build({ canBeSelected: true })
+const book = BookFactory.build({ canBeSelected: true, read: true })
 const bookCannotBeSelected = BookFactory.build({ canBeSelected: false })
 
 storiesOf('Book Card', module)
@@ -74,6 +74,15 @@ storiesOf('Book Card', module)
     component: BookCardComponent,
     props: {
       book,
+      selectable: true,
+      selectBtnContent: 'Add to library',
+      selectBtnContentDisabled: 'Already in libray',
+    },
+  }))
+  .add('selected', () => ({
+    component: BookCardComponent,
+    props: {
+      book: { ...book, isSelected: true },
       selectable: true,
       selectBtnContent: 'Add to library',
       selectBtnContentDisabled: 'Already in libray',

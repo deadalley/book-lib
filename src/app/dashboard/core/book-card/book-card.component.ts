@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router'
 @Component({
   selector: 'book-card',
   templateUrl: './book-card.component.html',
-  styleUrls: ['./book-card.component.css'],
+  styleUrls: ['./book-card.component.scss'],
   animations: [ANIMATIONS.CARD],
 })
 export class BookCardComponent implements OnInit {

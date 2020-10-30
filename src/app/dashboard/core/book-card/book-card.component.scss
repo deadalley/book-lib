@@ -1,0 +1,138 @@
+@import './../../../../assets/sass/core-elements.scss';
+
+@media only screen and (max-width: 991px) {
+  .image-wrapper {
+    align-self: stretch;
+  }
+}
+
+hr {
+  @extend %divider;
+  width: 98%;
+  margin: 0px;
+}
+
+img {
+  border-radius: 4px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  margin: 24px 0px 12px 0px;
+}
+
+.content {
+  width: 100%;
+  margin: 24px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.image {
+  height: auto;
+  border-radius: 4px;
+}
+
+.image-wrapper {
+  height: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+  margin: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.image-link {
+  flex: 1;
+}
+
+.selected {
+  background: var(--color-green-01);
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.selectable:hover {
+  background: var(--color-orange-01);
+  cursor: pointer;
+}
+
+.not-selectable {
+  background: var(--color-red-01);
+}
+
+.clickable:hover {
+  background: var(--color-green-01);
+  cursor: pointer;
+}
+
+div > img.tile-icon {
+  -webkit-transform: translate(-15%, -15%);
+  transform: translate(-15%, -15%);
+}
+
+.icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  margin: 0px 10px 10px 10px;
+}
+
+i.tile-icon {
+  font-size: 20px;
+  font-weight: 500;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  color: var(--color-primary-02) !important;
+  cursor: pointer;
+}
+
+i.active {
+  box-shadow: var(--elevation-99) !important;
+  background-color: var(--color-light-03) !important;
+}
+
+i.inactive {
+  color: #c9c9c9;
+}
+
+.select-icon {
+  font-size: 20px;
+}
+
+.ti-control-stop {
+  font-size: 25px;
+  margin-top: -2px;
+  margin-left: -3px;
+  margin-bottom: -4px;
+}
+
+.ti-check-box {
+  color: #18b518;
+}
+
+.text-ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
+  &:hover {
+    white-space: normal;
+  }
+}

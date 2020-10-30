@@ -5,7 +5,7 @@ import { ANIMATIONS } from 'utils/constants'
 @Component({
   selector: 'author-card',
   templateUrl: './author-card.component.html',
-  styleUrls: ['./author-card.component.css'],
+  styleUrls: ['./author-card.component.scss'],
   animations: [ANIMATIONS.CARD],
 })
 export class AuthorCardComponent implements OnInit {

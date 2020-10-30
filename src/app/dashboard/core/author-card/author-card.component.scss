@@ -1,0 +1,52 @@
+@import './../../../../assets/sass/core-elements.scss';
+
+@media only screen and (max-width: 991px) {
+  .image-wrapper {
+    align-self: stretch;
+  }
+}
+
+hr {
+  @extend %divider;
+  width: 98%;
+  margin: 0px;
+}
+
+img {
+  border-radius: 4px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.clickable:hover {
+  background: #ecfdef;
+  cursor: pointer;
+}
+
+.selected {
+  background: #ecfdef;
+}
+
+.title {
+  margin: 24px 0px;
+}
+
+.image {
+  height: auto;
+  border-radius: 4px;
+}
+
+.image-wrapper {
+  height: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+  margin: 24px;
+  display: flex;
+  justify-content: center;
+}
