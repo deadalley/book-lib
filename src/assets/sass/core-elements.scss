@@ -95,6 +95,9 @@
   --footer-color: var(--color-dark-02);
   --footer-background-color: var(--color-light-04);
 
+  --table-border-color: var(--color-light-05);
+  --table-header-color: var(--color-dark-04);
+
   --tiny-font-size: 12px;
   --small-font-size: 14px;
   --regular-font-size: 16px;
@@ -1252,7 +1255,7 @@ input[type='radio'] {
 
 %table-cell {
   text-align: start;
-  border-bottom: 1px solid var(--color-light-05);
+  border-bottom: 1px solid var(--table-border-color);
   padding: 16px 20px;
   vertical-align: middle;
   border-spacing: 0px;
@@ -1274,7 +1277,7 @@ input[type='radio'] {
 
   & > thead > th {
     @extend %table-cell;
-    color: var(--color-dark-04);
+    color: var(--table-header-color);
     font-weight: 500;
     padding: 22px 20px;
   }
@@ -1285,5 +1288,9 @@ input[type='radio'] {
     &.min-width {
       width: 1%;
     }
+  }
+
+  & > tbody > tr:last-child > td {
+    border-width: 0px;
   }
 }
