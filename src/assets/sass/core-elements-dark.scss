@@ -214,4 +214,16 @@
     }
     color: var(--color-dark-02);
   }
+
+  .pagination {
+    & > .number {
+      color: var(--color-dark-02);
+    }
+
+    & > .icon-left,
+    .icon-right {
+      border: 1px solid var(--color-primary-02);
+      color: var(--color-light-01);
+    }
+  }
 }

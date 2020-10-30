@@ -648,6 +648,11 @@ h6 {
     position: relative;
     font-size: var(--small-font-size);
     font-weight: 500;
+    min-height: 24px;
+  }
+
+  & + label:empty:before {
+    margin-right: 0px;
   }
 
   & + label:before {
@@ -1193,4 +1198,92 @@ input[type='radio'] {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+%pagination-button {
+  color: var(--color-primary-02);
+  background-color: var(--primary-color);
+  padding: 4px;
+  border-radius: 360px;
+  box-shadow: var(--elevation-03);
+  font-size: 32px;
+  cursor: pointer;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 12px 0px;
+  width: fit-content;
+
+  & > .icon-left {
+    @extend %pagination-button;
+    margin-right: 36px;
+  }
+
+  & > .icon-right {
+    @extend %pagination-button;
+    margin-left: 36px;
+  }
+
+  & > .number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 12px;
+    height: 10px;
+    width: 10px;
+    padding: 8px;
+    font-size: var(--small-font-size);
+    color: var(--primary-text-color);
+    border-radius: 360px;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--color-primary-02);
+    }
+
+    &.selected {
+      color: var(--color-primary-02);
+    }
+  }
+}
+
+%table-cell {
+  text-align: start;
+  border-bottom: 1px solid var(--color-light-05);
+  padding: 16px 20px;
+  vertical-align: middle;
+  border-spacing: 0px;
+  border-collapse: unset;
+}
+
+%table-cell-bold {
+  color: var(--color-dark-04);
+  font-weight: 500;
+}
+
+.table {
+  width: 100%;
+  box-shadow: var(--elevation-02);
+  background-color: var(--primary-color);
+  color: var(--primary-text-color);
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  & > thead > th {
+    @extend %table-cell;
+    color: var(--color-dark-04);
+    font-weight: 500;
+    padding: 22px 20px;
+  }
+
+  & > tbody > tr > td {
+    @extend %table-cell;
+
+    &.min-width {
+      width: 1%;
+    }
+  }
 }
