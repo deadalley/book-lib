@@ -65,6 +65,7 @@
     "popper.js": "^1.15.0",
     "rxjs": "^6.6.3",
     "rxjs-compat": "^6.5.2",
+    "storybook-addon-themes": "^6.0.0",
     "stream": "0.0.2",
     "timers": "^0.1.1",
     "tslib": "^1.10.0",

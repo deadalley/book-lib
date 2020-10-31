@@ -98,6 +98,10 @@
   --table-border-color: var(--color-light-05);
   --table-header-color: var(--color-dark-04);
 
+  --tab-color: var(--color-dark-01);
+  --tab-color-selected: var(--color-dark-04);
+  --tab-border-color: var(--color-light-05);
+
   --tiny-font-size: 12px;
   --small-font-size: 14px;
   --regular-font-size: 16px;
@@ -1313,5 +1317,44 @@ input[type='radio'] {
 
   & > tbody > tr:last-child > td {
     border-width: 0px;
+  }
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+
+  & > .tab {
+    color: var(--tab-color);
+    font-weight: 600;
+    font-size: var(--large-font-size);
+    border: 0;
+    padding: 10px 36px;
+    background-color: unset;
+    position: relative;
+    outline: 0px;
+    cursor: pointer;
+
+    &:focus {
+      color: var(--tab-color-selected);
+
+      &:before {
+        background-color: var(--color-primary-02);
+      }
+    }
+
+    &:active {
+      color: var(--tab-color-selected);
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background-color: var(--tab-border-color);
+    }
   }
 }

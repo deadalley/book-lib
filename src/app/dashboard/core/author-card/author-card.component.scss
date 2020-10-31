@@ -25,7 +25,7 @@ img {
 }
 
 .clickable:hover {
-  background: #ecfdef;
+  background: var(--color-green-01);
   cursor: pointer;
 }
 
