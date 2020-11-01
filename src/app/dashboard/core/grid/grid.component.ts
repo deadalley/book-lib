@@ -4,6 +4,7 @@ import {
   Input,
   ContentChild,
   TemplateRef,
+  ViewChild,
 } from '@angular/core'
 
 @Component({
@@ -11,13 +12,15 @@ import {
   // tslint:disable-next-line:component-selector
   selector: 'grid',
   templateUrl: 'grid.component.html',
-  styleUrls: [],
+  styleUrls: ['grid.component.scss'],
 })
 export class GridComponent implements OnInit {
   @Input() items: any[]
   @Input() itemsInRow = 4
 
-  @ContentChild(TemplateRef, { static: false }) contentTemplate
+  // @ViewChild(TemplateRef) contentTemplate
+  @ContentChild(TemplateRef) contentTemplate
+  // @ContentChild(TemplateRef) puppyTemplate: TemplateRef<NgForOfContext<Puppy>>;
 
   gridColumns = {}
 

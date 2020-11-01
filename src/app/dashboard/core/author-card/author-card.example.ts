@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { storiesOf, moduleMetadata, Meta } from '@storybook/angular'
+import { moduleMetadata } from '@storybook/angular'
 import AuthorFactory from 'factories/author.factory'
 import { AuthorCardComponent } from './author-card.component'
 

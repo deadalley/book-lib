@@ -1,9 +1,10 @@
-<ng-container *ngFor="let item of items; let i = index;">
-  <div class="clearfix" *ngIf="i % itemsInRow == 0"></div>
-  <div [ngClass]="gridColumns">
-    <ng-template
-      [ngTemplateOutlet]="contentTemplate"
-      [ngTemplateOutletContext]="{$implicit: item}"
-    ></ng-template>
-  </div>
-</ng-container>
+<div
+  class="container"
+  [ngStyle]="{ 'grid-template-columns': 'auto '.repeat(itemsInRow) }"
+>
+  <ng-template
+    *ngFor="let item of items; let i = index"
+    [ngTemplateOutlet]="contentTemplate"
+    [ngTemplateOutletContext]="{ $implicit: item }"
+  ></ng-template>
+</div>

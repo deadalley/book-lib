@@ -12,10 +12,6 @@ hr {
   margin: 0px;
 }
 
-img {
-  border-radius: 4px;
-}
-
 .container {
   display: flex;
   flex-direction: column;
@@ -39,11 +35,11 @@ img {
 
 .image {
   height: auto;
+  width: 100%;
   border-radius: 4px;
 }
 
 .image-wrapper {
-  height: 100%;
   overflow: hidden;
   border-radius: 4px;
   margin: 24px;
@@ -87,7 +83,7 @@ div > img.tile-icon {
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
-  margin: 0px 10px 10px 10px;
+  margin: 0px 24px 24px 24px;
 }
 
 i.tile-icon {

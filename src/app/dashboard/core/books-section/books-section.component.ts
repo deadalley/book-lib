@@ -7,7 +7,7 @@ import { removeSpaces } from 'utils/helpers'
   moduleId: module.id,
   selector: 'books-section',
   templateUrl: 'books-section.component.html',
-  styleUrls: ['books-section.component.css'],
+  styleUrls: ['books-section.component.scss'],
   animations: [ANIMATIONS.CARD],
 })
 export class BooksSectionComponent implements OnInit {
