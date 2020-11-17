@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { ModalModule } from 'ngx-bootstrap/modal'
-import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading'
+import { NgxLoadingModule } from 'ngx-loading'
 
 import { AuthorCardComponent } from './author-card/author-card.component'
 import { BookCardComponent } from './book-card/book-card.component'
@@ -33,6 +33,8 @@ import { PoweredByGoodreadsComponent } from './powered-by-goodreads/powered-by-g
 import { BookFilterPipe } from 'pipes/book-filter.pipe'
 import { PagePipe } from 'pipes/page.pipe'
 import { SearchFilterPipe } from 'pipes/search-filter.pipe'
+
+import loadingConfig from 'utils/loading.config'
 
 @NgModule({
   declarations: [
@@ -66,13 +68,7 @@ import { SearchFilterPipe } from 'pipes/search-filter.pipe'
     CommonModule,
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
-    NgxLoadingModule.forRoot({
-      animationType: ngxLoadingAnimationTypes.circleSwish,
-      backdropBackgroundColour: 'rgba(100,0,0,0)',
-      primaryColour: 'rgb(120, 216, 236)',
-      secondaryColour: '#ffffff',
-      tertiaryColour: '#ffffff',
-    }),
+    NgxLoadingModule.forRoot(loadingConfig),
     RouterModule,
     FormsModule,
     ReactiveFormsModule,

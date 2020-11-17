@@ -1,0 +1,46 @@
+@import './../../../../assets/sass/core-elements.scss';
+
+h4 {
+  margin: 0;
+  display: flex;
+}
+
+hr {
+  @extend %divider;
+  width: 100%;
+  margin: 32px 0px;
+  align-self: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle-checkbox {
+  display: none;
+}
+
+.toggle-icon {
+  margin-left: 12px;
+  color: var(--color-primary-02);
+  font-size: 20px;
+  transition: all 0.15s;
+  cursor: pointer;
+
+  &.toggled {
+    transform: rotate(180deg);
+  }
+}
+
+.books-container {
+  overflow: hidden;
+  transition: transform 0.3s ease-out; // note that we're transitioning transform, not height!
+  height: auto;
+  transform: scaleY(1); // implicit, but good to specify explicitly
+  transform-origin: top; // keep the top of the element in the same place. this is optional.
+
+  &.collapsed {
+    transform: scaleY(0); // *squish*
+  }
+}

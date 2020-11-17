@@ -235,7 +235,7 @@ h6 {
   box-shadow: var(--elevation-06);
 }
 
-.button {
+%standard-button {
   padding: 8px 20px;
   color: var(--color-light-01);
   font-weight: 500;
@@ -260,15 +260,49 @@ h6 {
     box-shadow: var(--elevation-03);
   }
 
-  &:disabled {
+  &:disabled,
+  &.disabled {
     color: var(--color-dark-02);
     background-color: var(--color-light-05);
     cursor: not-allowed;
 
     &:active {
+      box-shadow: var(--elevation-05);
+    }
+  }
+}
+
+%rounded-button {
+  border-radius: 360px;
+  color: var(--button-rounded-color);
+  background-color: var(--button-rounded-background-color);
+  padding: 10px 22px;
+
+  &:hover {
+    background-color: var(--button-rounded-hover-color);
+  }
+
+  &:active {
+    background-color: var(--button-rounded-active-color);
+  }
+
+  &:disabled,
+  &.disabled {
+    color: var(--button-rounded-disabled-color);
+    cursor: default;
+
+    &:hover {
+      background-color: var(--button-rounded-background-color);
+    }
+
+    &:active {
       box-shadow: var(--elevation-02);
     }
   }
+}
+
+.button {
+  @extend %standard-button;
 
   &.clear {
     background-color: var(--primary-color);
@@ -332,7 +366,8 @@ h6 {
       background-color: unset !important;
     }
 
-    &:disabled {
+    &:disabled,
+    &.disabled {
       color: var(--color-dark-01);
       border: 1px var(--color-dark-01) solid;
     }
@@ -364,26 +399,7 @@ h6 {
   }
 
   &.rounded {
-    border-radius: 360px;
-    color: var(--button-rounded-color);
-    background-color: var(--button-rounded-background-color);
-    padding: 10px 22px;
-
-    &:hover {
-      background-color: var(--button-rounded-hover-color);
-    }
-
-    &:active {
-      background-color: var(--button-rounded-active-color);
-    }
-
-    &:disabled {
-      color: var(--button-rounded-disabled-color);
-
-      &:hover {
-        background-color: var(--button-rounded-background-color);
-      }
-    }
+    @extend %rounded-button;
   }
 
   &.rounded.small {
@@ -993,7 +1009,7 @@ input[type='radio'] {
   & > i {
     &.left,
     &.right {
-      font-size: 22px;
+      font-size: 18px;
       position: absolute;
       top: 11px;
       color: var(--input-placeholder-color);
@@ -1229,12 +1245,12 @@ input[type='radio'] {
 }
 
 %pagination-button {
-  color: var(--color-primary-02);
-  background-color: var(--primary-color);
-  padding: 4px;
+  @extend %rounded-button;
   border-radius: 360px;
   box-shadow: var(--elevation-03);
-  font-size: 32px;
+  font-size: 14px;
+  padding: 10px 12px;
+  font-weight: 600;
   cursor: pointer;
 }
 
@@ -1274,6 +1290,14 @@ input[type='radio'] {
 
     &.selected {
       color: var(--color-primary-02);
+    }
+
+    &.disabled {
+      cursor: default;
+
+      &:hover {
+        color: unset;
+      }
     }
   }
 }

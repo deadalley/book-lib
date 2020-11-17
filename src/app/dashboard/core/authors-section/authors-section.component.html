@@ -1,20 +1,31 @@
-<div class="row" *ngIf="!!sectionTitle" id="{{removeSpaces(sectionTitle)}}">
-  <div class="col-md-12">
-    <h4 class="title">
-      {{sectionTitle}}
-      <a href="#{{sectionId}}" class="collapse-button" data-toggle="collapse" (click)="displayAll = !displayAll">
-        <i [ngClass]="{'pe-7s-angle-down': !displayAll, 'pe-7s-angle-up': displayAll}"></i>
-      </a>
-    </h4>
-    <hr *ngIf="sectionTitle">
-  </div>
+<div
+  class="container"
+  *ngIf="!!sectionTitle"
+  id="{{ removeSpaces(sectionTitle) }}"
+>
+  <h4 class="title">
+    {{ sectionTitle }}
+    <input
+      class="toggle-checkbox"
+      type="checkbox"
+      id="_{{ removeSpaces(sectionTitle) }}"
+    />
+    <label
+      class="toggle-icon"
+      for="_{{ removeSpaces(sectionTitle) }}"
+      [ngClass]="{ toggled: !displayAll }"
+    >
+      <i (click)="displayAll = !displayAll" class="ti-angle-down"></i>
+    </label>
+  </h4>
+  <hr />
 </div>
 
-<div class="row" class="collapsable in" id="{{sectionId}}">
+<div class="books-container" [ngClass]="{ collapsed: !displayAll }">
   <grid [items]="authors" [itemsInRow]="cardsInRow">
-    <ng-template let-author>
+    <ng-template let-item>
       <author-card
-        [author]="author"
+        [author]="item"
         [clickable]="clickable"
         [linkable]="linkable"
         (onClick)="onClick.emit($event)"

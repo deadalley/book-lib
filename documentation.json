@@ -6733,7 +6733,7 @@
         },
         {
             "name": "AuthorsSectionComponent",
-            "id": "component-AuthorsSectionComponent-8e297cecbc99a580697372e704c569b4",
+            "id": "component-AuthorsSectionComponent-9c19ae362db2fc3c1583596af3ab2fe4",
             "file": "src/app/dashboard/core/authors-section/authors-section.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6743,7 +6743,7 @@
             "providers": [],
             "selector": "authors-section",
             "styleUrls": [
-                "authors-section.component.css"
+                "authors-section.component.scss"
             ],
             "styles": [],
             "templateUrl": [
@@ -6823,19 +6823,19 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'\nimport { ANIMATIONS } from 'utils/constants'\nimport { removeSpaces } from 'utils/helpers'\nimport { Author } from 'models/author.model'\n\n@Component({\n  moduleId: module.id,\n  selector: 'authors-section',\n  templateUrl: 'authors-section.component.html',\n  styleUrls: ['authors-section.component.css'],\n  animations: [ANIMATIONS.CARD],\n})\nexport class AuthorsSectionComponent implements OnInit {\n  @Input() sectionId: string\n  @Input() sectionTitle: string\n  @Input() authors: Author[]\n\n  @Input() clickable: boolean\n  @Input() linkable: boolean\n  @Input() cardsInRow = 4\n\n  @Output() onClick = new EventEmitter<Author>()\n\n  removeSpaces = removeSpaces\n  displayAll = true\n\n  ngOnInit() {}\n}\n",
+            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'\nimport { ANIMATIONS } from 'utils/constants'\nimport { removeSpaces } from 'utils/helpers'\nimport { Author } from 'models/author.model'\n\n@Component({\n  moduleId: module.id,\n  selector: 'authors-section',\n  templateUrl: 'authors-section.component.html',\n  styleUrls: ['authors-section.component.scss'],\n  animations: [ANIMATIONS.CARD],\n})\nexport class AuthorsSectionComponent implements OnInit {\n  @Input() sectionId: string\n  @Input() sectionTitle: string\n  @Input() authors: Author[]\n\n  @Input() clickable: boolean\n  @Input() linkable: boolean\n  @Input() cardsInRow = 4\n\n  @Output() onClick = new EventEmitter<Author>()\n\n  removeSpaces = removeSpaces\n  displayAll = true\n\n  ngOnInit() {}\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "h4 {\n  margin: 0;\n  display: flex;\n}\n\n.collapse-button {\n  display: flex;\n  align-items: center;\n}\n\n.collapse-button > i {\n  font-size: 28px;\n}",
-                    "styleUrl": "authors-section.component.css"
+                    "data": "@import './../../../../assets/sass/core-elements.scss';\n\nh4 {\n  margin: 0;\n  display: flex;\n}\n\nhr {\n  @extend %divider;\n  width: 100%;\n  margin: 32px 0px;\n  align-self: center;\n}\n\n.container {\n  display: flex;\n  flex-direction: column;\n}\n\n.toggle-checkbox {\n  display: none;\n}\n\n.toggle-icon {\n  margin-left: 12px;\n  color: var(--color-primary-02);\n  font-size: 20px;\n  transition: all 0.15s;\n  cursor: pointer;\n\n  &.toggled {\n    transform: rotate(180deg);\n  }\n}\n\n.books-container {\n  overflow: hidden;\n  transition: transform 0.3s ease-out; // note that we're transitioning transform, not height!\n  height: auto;\n  transform: scaleY(1); // implicit, but good to specify explicitly\n  transform-origin: top; // keep the top of the element in the same place. this is optional.\n\n  &.collapsed {\n    transform: scaleY(0); // *squish*\n  }\n}\n",
+                    "styleUrl": "authors-section.component.scss"
                 }
             ],
             "stylesData": "",
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"row\" *ngIf=\"!!sectionTitle\" id=\"{{removeSpaces(sectionTitle)}}\">\n  <div class=\"col-md-12\">\n    <h4 class=\"title\">\n      {{sectionTitle}}\n      <a href=\"#{{sectionId}}\" class=\"collapse-button\" data-toggle=\"collapse\" (click)=\"displayAll = !displayAll\">\n        <i [ngClass]=\"{'pe-7s-angle-down': !displayAll, 'pe-7s-angle-up': displayAll}\"></i>\n      </a>\n    </h4>\n    <hr *ngIf=\"sectionTitle\">\n  </div>\n</div>\n\n<div class=\"row\" class=\"collapsable in\" id=\"{{sectionId}}\">\n  <grid [items]=\"authors\" [itemsInRow]=\"cardsInRow\">\n    <ng-template let-author>\n      <author-card\n        [author]=\"author\"\n        [clickable]=\"clickable\"\n        [linkable]=\"linkable\"\n        (onClick)=\"onClick.emit($event)\"\n      ></author-card>\n    </ng-template>\n  </grid>\n</div>"
+            "templateData": "<div\n  class=\"container\"\n  *ngIf=\"!!sectionTitle\"\n  id=\"{{ removeSpaces(sectionTitle) }}\"\n>\n  <h4 class=\"title\">\n    {{ sectionTitle }}\n    <input\n      class=\"toggle-checkbox\"\n      type=\"checkbox\"\n      id=\"_{{ removeSpaces(sectionTitle) }}\"\n    />\n    <label\n      class=\"toggle-icon\"\n      for=\"_{{ removeSpaces(sectionTitle) }}\"\n      [ngClass]=\"{ toggled: !displayAll }\"\n    >\n      <i (click)=\"displayAll = !displayAll\" class=\"ti-angle-down\"></i>\n    </label>\n  </h4>\n  <hr />\n</div>\n\n<div class=\"books-container\" [ngClass]=\"{ collapsed: !displayAll }\">\n  <grid [items]=\"authors\" [itemsInRow]=\"cardsInRow\">\n    <ng-template let-item>\n      <author-card\n        [author]=\"item\"\n        [clickable]=\"clickable\"\n        [linkable]=\"linkable\"\n        (onClick)=\"onClick.emit($event)\"\n      ></author-card>\n    </ng-template>\n  </grid>\n</div>\n"
         },
         {
             "name": "AuthorsTableComponent",
@@ -7122,7 +7122,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "@import './../../../../assets/sass/core-elements.scss';\n\n@media only screen and (max-width: 991px) {\n  .image-wrapper {\n    align-self: stretch;\n  }\n}\n\nhr {\n  @extend %divider;\n  width: 98%;\n  margin: 0px;\n}\n\nimg {\n  border-radius: 4px;\n}\n\n.container {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-items: center;\n  text-align: center;\n}\n\n.title {\n  margin: 24px 0px 12px 0px;\n}\n\n.content {\n  width: 100%;\n  margin: 24px 0px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  flex: 1;\n}\n\n.image {\n  height: auto;\n  border-radius: 4px;\n}\n\n.image-wrapper {\n  height: 100%;\n  overflow: hidden;\n  border-radius: 4px;\n  margin: 24px;\n  display: flex;\n  justify-content: center;\n}\n\n.image-link {\n  flex: 1;\n}\n\n.selected {\n  background: var(--color-green-01);\n\n  &:hover {\n    cursor: pointer;\n  }\n}\n\n.selectable:hover {\n  background: var(--color-orange-01);\n  cursor: pointer;\n}\n\n.not-selectable {\n  background: var(--color-red-01);\n}\n\n.clickable:hover {\n  background: var(--color-green-01);\n  cursor: pointer;\n}\n\ndiv > img.tile-icon {\n  -webkit-transform: translate(-15%, -15%);\n  transform: translate(-15%, -15%);\n}\n\n.icons {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  align-self: stretch;\n  margin: 0px 10px 10px 10px;\n}\n\ni.tile-icon {\n  font-size: 20px;\n  font-weight: 500;\n  width: 42px;\n  height: 42px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 0;\n  color: var(--color-primary-02) !important;\n  cursor: pointer;\n}\n\ni.active {\n  box-shadow: var(--elevation-99) !important;\n  background-color: var(--color-light-03) !important;\n}\n\ni.inactive {\n  color: #c9c9c9;\n}\n\n.select-icon {\n  font-size: 20px;\n}\n\n.ti-control-stop {\n  font-size: 25px;\n  margin-top: -2px;\n  margin-left: -3px;\n  margin-bottom: -4px;\n}\n\n.ti-check-box {\n  color: #18b518;\n}\n\n.text-ellipsis {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden;\n\n  &:hover {\n    white-space: normal;\n  }\n}\n",
+                    "data": "@import './../../../../assets/sass/core-elements.scss';\n\n@media only screen and (max-width: 991px) {\n  .image-wrapper {\n    align-self: stretch;\n  }\n}\n\nhr {\n  @extend %divider;\n  width: 98%;\n  margin: 0px;\n}\n\n.container {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-items: center;\n  text-align: center;\n}\n\n.title {\n  margin: 24px 0px 12px 0px;\n}\n\n.content {\n  width: 100%;\n  margin: 24px 0px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  flex: 1;\n}\n\n.image {\n  height: auto;\n  width: 100%;\n  border-radius: 4px;\n}\n\n.image-wrapper {\n  overflow: hidden;\n  border-radius: 4px;\n  margin: 24px;\n  display: flex;\n  justify-content: center;\n}\n\n.image-link {\n  flex: 1;\n}\n\n.selected {\n  background: var(--color-green-01);\n\n  &:hover {\n    cursor: pointer;\n  }\n}\n\n.selectable:hover {\n  background: var(--color-orange-01);\n  cursor: pointer;\n}\n\n.not-selectable {\n  background: var(--color-red-01);\n}\n\n.clickable:hover {\n  background: var(--color-green-01);\n  cursor: pointer;\n}\n\ndiv > img.tile-icon {\n  -webkit-transform: translate(-15%, -15%);\n  transform: translate(-15%, -15%);\n}\n\n.icons {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  align-self: stretch;\n  margin: 0px 24px 24px 24px;\n}\n\ni.tile-icon {\n  font-size: 20px;\n  font-weight: 500;\n  width: 42px;\n  height: 42px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 0;\n  color: var(--color-primary-02) !important;\n  cursor: pointer;\n}\n\ni.active {\n  box-shadow: var(--elevation-99) !important;\n  background-color: var(--color-light-03) !important;\n}\n\ni.inactive {\n  color: #c9c9c9;\n}\n\n.select-icon {\n  font-size: 20px;\n}\n\n.ti-control-stop {\n  font-size: 25px;\n  margin-top: -2px;\n  margin-left: -3px;\n  margin-bottom: -4px;\n}\n\n.ti-check-box {\n  color: #18b518;\n}\n\n.text-ellipsis {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden;\n\n  &:hover {\n    white-space: normal;\n  }\n}\n",
                     "styleUrl": "./book-card.component.scss"
                 }
             ],
@@ -7423,7 +7423,7 @@
         },
         {
             "name": "BooksDisplayComponent",
-            "id": "component-BooksDisplayComponent-5bf081360aead883bfc52bc2ef7983d0",
+            "id": "component-BooksDisplayComponent-59163136aa075989e1e59d6953a2f5bc",
             "file": "src/app/dashboard/core/books-display/books-display.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -7433,7 +7433,7 @@
             "providers": [],
             "selector": "books-display",
             "styleUrls": [
-                "books-display.component.css"
+                "books-display.component.scss"
             ],
             "styles": [],
             "templateUrl": [
@@ -7619,19 +7619,19 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'\nimport { Book } from 'models/book.model'\nimport { removeSpaces } from 'utils/helpers'\nimport {\n  MAX_BOOKS_DISPLAY,\n  DEFAULT_TABLE_ITEMS,\n  MAX_BOOKS_DISPLAY_LIST,\n} from 'utils/constants'\nimport { FormControl } from '@angular/forms'\nimport { debounceTime, distinctUntilChanged } from 'rxjs/operators'\n\n@Component({\n  moduleId: module.id,\n  selector: 'books-display',\n  templateUrl: 'books-display.component.html',\n  styleUrls: ['books-display.component.css'],\n})\nexport class BooksDisplayComponent implements OnInit {\n  @Input() books: Book[]\n\n  @Input() withButtons: boolean\n  @Input() clickable: boolean\n  @Input() linkable: boolean\n  @Input() selectable: boolean\n  @Input() bookCardsInRow = 4\n  @Input() maxBooks\n  @Input() fullSearchBar = false\n  @Input() displayBooksInLibraryInfo = false\n  @Input() displayOnlySelectedBtn = false\n\n  @Input() tableDisplayItems = DEFAULT_TABLE_ITEMS\n  @Input() tilesDisplay = true\n\n  @Output() selectedBooks = new EventEmitter<Book[]>()\n  @Output() onClick = new EventEmitter<Book>()\n\n  searchInput = new FormControl()\n  displayAll = false\n  selectedAll = false\n  onlySelected = false\n  page = 1\n  pageCount = 1\n  immutableMaxBooks = false\n  searchValue\n  removeSpaces = removeSpaces\n\n  ngOnInit() {\n    if (this.maxBooks) {\n      this.immutableMaxBooks = true\n    } else {\n      this.maxBooks = MAX_BOOKS_DISPLAY\n    }\n\n    this.pageCount = Math.ceil(this.books.length / this.maxBooks)\n    this.searchInput.valueChanges\n      .pipe(\n        debounceTime(200),\n        distinctUntilChanged()\n      )\n      .subscribe(value => (this.searchValue = value))\n  }\n\n  selectAll() {\n    this.selectedAll = !this.selectedAll\n    this.books.forEach(book => (book.isSelected = this.selectedAll))\n    this.selectedBooks.emit(this.books.filter(book => book.isSelected))\n  }\n\n  toggleTilesDisplay() {\n    this.tilesDisplay = !this.tilesDisplay\n    if (!this.immutableMaxBooks) {\n      this.maxBooks = this.tilesDisplay\n        ? MAX_BOOKS_DISPLAY\n        : MAX_BOOKS_DISPLAY_LIST\n      this.pageCount = Math.ceil(this.books.length / this.maxBooks)\n      if (this.page > this.pageCount) {\n        this.page = this.pageCount\n      }\n    }\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'\nimport { Book } from 'models/book.model'\nimport { removeSpaces } from 'utils/helpers'\nimport {\n  MAX_BOOKS_DISPLAY,\n  DEFAULT_TABLE_ITEMS,\n  MAX_BOOKS_DISPLAY_LIST,\n} from 'utils/constants'\nimport { FormControl } from '@angular/forms'\nimport { debounceTime, distinctUntilChanged } from 'rxjs/operators'\n\n@Component({\n  moduleId: module.id,\n  selector: 'books-display',\n  templateUrl: 'books-display.component.html',\n  styleUrls: ['books-display.component.scss'],\n})\nexport class BooksDisplayComponent implements OnInit {\n  @Input() books: Book[]\n\n  @Input() withButtons: boolean\n  @Input() clickable: boolean\n  @Input() linkable: boolean\n  @Input() selectable: boolean\n  @Input() bookCardsInRow = 4\n  @Input() maxBooks\n  @Input() fullSearchBar = false\n  @Input() displayBooksInLibraryInfo = false\n  @Input() displayOnlySelectedBtn = false\n\n  @Input() tableDisplayItems = DEFAULT_TABLE_ITEMS\n  @Input() tilesDisplay = true\n\n  @Output() selectedBooks = new EventEmitter<Book[]>()\n  @Output() onClick = new EventEmitter<Book>()\n\n  searchInput = new FormControl()\n  displayAll = false\n  selectedAll = false\n  onlySelected = false\n  page = 1\n  pageCount = 1\n  immutableMaxBooks = false\n  searchValue\n  removeSpaces = removeSpaces\n\n  ngOnInit() {\n    if (this.maxBooks) {\n      this.immutableMaxBooks = true\n    } else {\n      this.maxBooks = MAX_BOOKS_DISPLAY\n    }\n\n    this.pageCount = Math.ceil(this.books.length / this.maxBooks)\n    this.searchInput.valueChanges\n      .pipe(\n        debounceTime(200),\n        distinctUntilChanged()\n      )\n      .subscribe(value => (this.searchValue = value))\n  }\n\n  selectAll() {\n    this.selectedAll = !this.selectedAll\n    this.books.forEach(book => (book.isSelected = this.selectedAll))\n    this.selectedBooks.emit(this.books.filter(book => book.isSelected))\n  }\n\n  toggleTilesDisplay() {\n    this.tilesDisplay = !this.tilesDisplay\n    if (!this.immutableMaxBooks) {\n      this.maxBooks = this.tilesDisplay\n        ? MAX_BOOKS_DISPLAY\n        : MAX_BOOKS_DISPLAY_LIST\n      this.pageCount = Math.ceil(this.books.length / this.maxBooks)\n      if (this.page > this.pageCount) {\n        this.page = this.pageCount\n      }\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".buttons {\n  margin-bottom: 8px;\n}\n\n.btn-margin {\n  margin: 0 8px 0 0;\n}\n\n.full-search-bar {\n  width: 100%;\n  margin: 0;\n}\n\n.not-selectable {\n  color: #9A9A9A;\n}\n\n.ti-info-alt {\n  background: #fdf4ec;\n  color: rgba(101, 105, 24, 1);\n  border-radius: 6px;\n}\n",
-                    "styleUrl": "books-display.component.css"
+                    "data": ".buttons {\n  display: flex;\n  justify-content: flex-end;\n  margin-bottom: 8px;\n}\n\n.button {\n  margin-left: 6px;\n}\n\n.btn-margin {\n  margin: 0 8px 0 0;\n}\n\n.search-bar {\n  max-width: 300px;\n  margin-left: 6px;\n}\n\n.full-search-bar {\n  width: 100%;\n  margin: 0;\n}\n\n.not-selectable {\n  color: #9a9a9a;\n}\n\n.ti-info-alt {\n  background: #fdf4ec;\n  color: rgba(101, 105, 24, 1);\n  border-radius: 6px;\n}\n",
+                    "styleUrl": "books-display.component.scss"
                 }
             ],
             "stylesData": "",
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div style=\"display: grid\">\n  <!-- Buttons -->\n  <div *ngIf=\"books && books.length > 0\" class=\"row buttons\">\n    <div class=\"col-md-12\" style=\"display: flex;\">\n      <button type=\"button\" class=\"btn btn-default btn-margin\" (click)=\"toggleTilesDisplay()\">\n        <i [ngClass]=\"{'ti-view-list': tilesDisplay, 'ti-layout-grid2': !tilesDisplay}\"></i>\n        {{tilesDisplay ? 'Table' : 'Tiles'}}\n      </button>\n      <button\n        *ngIf=\"selectable\"\n        type=\"button\"\n        class=\"btn btn-margin\"\n        [ngClass]=\"{'btn-success': !selectedAll, 'btn-danger': selectedAll}\"\n        (click)=\"selectAll()\"\n      >\n        {{selectedAll ? 'Deselect all' : 'Select all'}}\n      </button>\n      <button\n        *ngIf=\"displayOnlySelectedBtn\"\n        type=\"button\"\n        class=\"btn btn-margin\"\n        [ngClass]=\"{'btn-success': !onlySelected, 'btn-danger': onlySelected}\"\n        (click)=\"onlySelected = !onlySelected\"\n      >\n        {{onlySelected ? 'All books' : 'Only books in collection'}}\n      </button>\n      <div class=\"input-group btn-margin\" [ngClass]=\"{'full-search-bar': fullSearchBar}\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"Search\" [formControl]=\"searchInput\">\n        <span class=\"input-group-addon\" id=\"sizing-addon2\">\n          <i class=\"pe-7s-search search-icon\"></i>\n        </span>\n      </div>\n    </div>\n  </div>\n  <!-- Tiles -->\n  <ng-container *ngIf=\"tilesDisplay\">\n    <books-section\n      [books]=\"books | bookFilter: (onlySelected ? 'isSelected' : null) | searchFilter: searchValue:['title', 'author', 'original'] | page: page:maxBooks\"\n      [cardsInRow]=\"bookCardsInRow\"\n      [withButtons]=\"withButtons\"\n      [clickable]=\"clickable\"\n      [selectable]=\"selectable\"\n      [linkable]=\"linkable\"\n      (selectedBooks)=\"selectedBooks.emit($event)\"\n      (onClick)=\"onClick.emit($event)\"\n    ></books-section>\n  </ng-container>\n  <!-- Table -->\n  <ng-container *ngIf=\"!tilesDisplay && books && books.length > 0\">\n    <table-items [items]=\"tableDisplayItems\" (displayItems)=\"tableDisplayItems=$event\"></table-items>\n    <books-table\n      [displayItems]=\"tableDisplayItems\"\n      [books]=\"books | bookFilter: (onlySelected ? 'isSelected' : null) | searchFilter: searchValue:['title', 'author', 'original'] | page:page:maxBooks\"\n      [withButtons]=\"withButtons\"\n      [clickable]=\"clickable\"\n      [selectable]=\"selectable\"\n      [linkable]=\"linkable\"\n      (selectedBooks)=\"selectedBooks.emit($event)\"\n      (onClick)=\"onClick.emit($event)\"\n    ></books-table>\n  </ng-container>\n  <!-- Can't be selected info -->\n  <div *ngIf=\"displayBooksInLibraryInfo\" class=\"row\">\n    <div class=\"col-md-12 not-selectable\">\n      <div class=\"col-md-12\">\n        <i class=\"ti-info-alt\"></i>\n        These books are already in your library\n      </div>\n    </div>\n  </div>\n  <!-- Pages -->\n  <pages\n    *ngIf=\"books && books.length\"\n    [count]=\"pageCount\"\n    [withRoute]=\"false\"\n    (nextSelectedPage)=\"page = $event\"\n  ></pages>\n</div>\n\n"
+            "templateData": "<div style=\"display: grid\">\n  <!-- Buttons -->\n  <div *ngIf=\"books && books.length > 0\" class=\"buttons\">\n    <button type=\"button\" class=\"button\" (click)=\"toggleTilesDisplay()\">\n      <i\n        [ngClass]=\"{\n          'ti-view-list': tilesDisplay,\n          'ti-layout-grid2': !tilesDisplay\n        }\"\n      ></i>\n      {{ tilesDisplay ? 'Table' : 'Tiles' }}\n    </button>\n    <button\n      *ngIf=\"selectable\"\n      type=\"button\"\n      class=\"button\"\n      [ngClass]=\"{ success: !selectedAll, danger: selectedAll }\"\n      (click)=\"selectAll()\"\n    >\n      {{ selectedAll ? 'Deselect all' : 'Select all' }}\n    </button>\n    <button\n      *ngIf=\"displayOnlySelectedBtn\"\n      type=\"button\"\n      class=\"button\"\n      [ngClass]=\"{ success: !onlySelected, danger: onlySelected }\"\n      (click)=\"onlySelected = !onlySelected\"\n    >\n      {{ onlySelected ? 'All books' : 'Only books in collection' }}\n    </button>\n    <div\n      class=\"input search-bar\"\n      [ngClass]=\"{ 'full-search-bar': fullSearchBar }\"\n    >\n      <input\n        type=\"text\"\n        class=\"icon-left\"\n        placeholder=\"Search\"\n        [formControl]=\"searchInput\"\n      />\n      <i class=\"ti-search left\"></i>\n    </div>\n  </div>\n  <!-- Tiles -->\n  <ng-container *ngIf=\"tilesDisplay\">\n    <books-section\n      [books]=\"\n        books\n          | bookFilter: (onlySelected ? 'isSelected' : null)\n          | searchFilter: searchValue:['title', 'author', 'original']\n          | page: page:maxBooks\n      \"\n      [cardsInRow]=\"bookCardsInRow\"\n      [withButtons]=\"withButtons\"\n      [clickable]=\"clickable\"\n      [selectable]=\"selectable\"\n      [linkable]=\"linkable\"\n      (selectedBooks)=\"selectedBooks.emit($event)\"\n      (onClick)=\"onClick.emit($event)\"\n    ></books-section>\n  </ng-container>\n  <!-- Table -->\n  <ng-container *ngIf=\"!tilesDisplay && books && books.length > 0\">\n    <table-items\n      [items]=\"tableDisplayItems\"\n      (displayItems)=\"tableDisplayItems = $event\"\n    ></table-items>\n    <books-table\n      [displayItems]=\"tableDisplayItems\"\n      [books]=\"\n        books\n          | bookFilter: (onlySelected ? 'isSelected' : null)\n          | searchFilter: searchValue:['title', 'author', 'original']\n          | page: page:maxBooks\n      \"\n      [withButtons]=\"withButtons\"\n      [clickable]=\"clickable\"\n      [selectable]=\"selectable\"\n      [linkable]=\"linkable\"\n      (selectedBooks)=\"selectedBooks.emit($event)\"\n      (onClick)=\"onClick.emit($event)\"\n    ></books-table>\n  </ng-container>\n  <!-- Can't be selected info -->\n  <div *ngIf=\"displayBooksInLibraryInfo\" class=\"row\">\n    <div class=\"col-md-12 not-selectable\">\n      <div class=\"col-md-12\">\n        <i class=\"ti-info-alt\"></i>\n        These books are already in your library\n      </div>\n    </div>\n  </div>\n  <!-- Pages -->\n  <pages\n    *ngIf=\"books && books.length\"\n    [count]=\"pageCount\"\n    [withRoute]=\"false\"\n    (nextSelectedPage)=\"page = $event\"\n  ></pages>\n</div>\n"
         },
         {
             "name": "BooksHomeComponent",
@@ -7899,7 +7899,7 @@
         },
         {
             "name": "BooksSectionComponent",
-            "id": "component-BooksSectionComponent-1c56747f9e42eb08fc11ab33daf03f9e",
+            "id": "component-BooksSectionComponent-602fb07a5acb817cc5e9efced276a999",
             "file": "src/app/dashboard/core/books-section/books-section.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -7909,7 +7909,7 @@
             "providers": [],
             "selector": "books-section",
             "styleUrls": [
-                "books-section.component.css"
+                "books-section.component.scss"
             ],
             "styles": [],
             "templateUrl": [
@@ -8018,19 +8018,19 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'\nimport { Book } from 'models/book.model'\nimport { ANIMATIONS } from 'utils/constants'\nimport { removeSpaces } from 'utils/helpers'\n\n@Component({\n  moduleId: module.id,\n  selector: 'books-section',\n  templateUrl: 'books-section.component.html',\n  styleUrls: ['books-section.component.css'],\n  animations: [ANIMATIONS.CARD],\n})\nexport class BooksSectionComponent implements OnInit {\n  @Input() sectionId: string\n  @Input() sectionTitle: string\n  @Input() description: string\n  @Input() books: Book[]\n\n  @Input() withButtons: boolean\n  @Input() clickable: boolean\n  @Input() linkable: boolean\n  @Input() selectable: boolean\n  @Input() cardsInRow = 4\n\n  @Output() selectedBooks = new EventEmitter<Book[]>()\n  @Output() onClick = new EventEmitter<Book>()\n\n  removeSpaces = removeSpaces\n  displayAll = true\n\n  ngOnInit() {}\n\n  updateSelectedBooks() {\n    this.selectedBooks.emit(this.books.filter(book => book.isSelected))\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'\nimport { Book } from 'models/book.model'\nimport { ANIMATIONS } from 'utils/constants'\nimport { removeSpaces } from 'utils/helpers'\n\n@Component({\n  moduleId: module.id,\n  selector: 'books-section',\n  templateUrl: 'books-section.component.html',\n  styleUrls: ['books-section.component.scss'],\n  animations: [ANIMATIONS.CARD],\n})\nexport class BooksSectionComponent implements OnInit {\n  @Input() sectionId: string\n  @Input() sectionTitle: string\n  @Input() description: string\n  @Input() books: Book[]\n\n  @Input() withButtons: boolean\n  @Input() clickable: boolean\n  @Input() linkable: boolean\n  @Input() selectable: boolean\n  @Input() cardsInRow = 4\n\n  @Output() selectedBooks = new EventEmitter<Book[]>()\n  @Output() onClick = new EventEmitter<Book>()\n\n  removeSpaces = removeSpaces\n  displayAll = true\n\n  ngOnInit() {}\n\n  updateSelectedBooks() {\n    this.selectedBooks.emit(this.books.filter(book => book.isSelected))\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "h4 {\n  margin: 0;\n  display: flex;\n}\n\n.collapse-button {\n  display: flex;\n  align-items: center;\n}\n\n.collapse-button > i {\n  font-size: 28px;\n}",
-                    "styleUrl": "books-section.component.css"
+                    "data": "@import './../../../../assets/sass/core-elements.scss';\n\nh4 {\n  margin: 0;\n  display: flex;\n}\n\nhr {\n  @extend %divider;\n  width: 100%;\n  margin: 32px 0px;\n  align-self: center;\n}\n\n.container {\n  display: flex;\n  flex-direction: column;\n}\n\n.toggle-checkbox {\n  display: none;\n}\n\n.toggle-icon {\n  margin-left: 12px;\n  color: var(--color-primary-02);\n  font-size: 20px;\n  transition: all 0.15s;\n  cursor: pointer;\n\n  &.toggled {\n    transform: rotate(180deg);\n  }\n}\n\n.books-container {\n  overflow: hidden;\n  transition: transform 0.3s ease-out; // note that we're transitioning transform, not height!\n  height: auto;\n  transform: scaleY(1); // implicit, but good to specify explicitly\n  transform-origin: top; // keep the top of the element in the same place. this is optional.\n\n  &.collapsed {\n    transform: scaleY(0); // *squish*\n  }\n}\n",
+                    "styleUrl": "books-section.component.scss"
                 }
             ],
             "stylesData": "",
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<ng-container *ngIf=\"!!sectionTitle\">\n  <h4 class=\"title\" id=\"{{ removeSpaces(sectionTitle) }}\">\n    {{ sectionTitle }}\n    <a\n      href=\"#{{ sectionId }}\"\n      class=\"collapse-button\"\n      data-toggle=\"collapse\"\n      (click)=\"displayAll = !displayAll\"\n    >\n      <i\n        [ngClass]=\"{\n          'pe-7s-angle-down': !displayAll,\n          'pe-7s-angle-up': displayAll\n        }\"\n      ></i>\n    </a>\n  </h4>\n  <p class=\"text-muted\">{{ description }}</p>\n  <hr />\n</ng-container>\n\n<grid [items]=\"books\" [itemsInRow]=\"cardsInRow\">\n  <ng-template let-item>\n    <book-card\n      [book]=\"item\"\n      [withButtons]=\"withButtons\"\n      [clickable]=\"clickable\"\n      [linkable]=\"linkable\"\n      [selectable]=\"selectable\"\n      (onClick)=\"onClick.emit($event)\"\n      (selectedChanged)=\"updateSelectedBooks()\"\n    ></book-card>\n  </ng-template>\n</grid>\n"
+            "templateData": "<div class=\"container\" *ngIf=\"!!sectionTitle\">\n  <h4 class=\"title\" id=\"_{ removeSpaces(sectionTitle) }}\">\n    {{ sectionTitle }}\n    <input\n      class=\"toggle-checkbox\"\n      type=\"checkbox\"\n      id=\"_{{ removeSpaces(sectionTitle) }}\"\n    />\n    <label\n      class=\"toggle-icon\"\n      for=\"_{{ removeSpaces(sectionTitle) }}\"\n      [ngClass]=\"{ toggled: !displayAll }\"\n    >\n      <i (click)=\"displayAll = !displayAll\" class=\"ti-angle-down\"></i>\n    </label>\n  </h4>\n  <div>{{ description }}</div>\n  <hr />\n</div>\n<div class=\"books-container\" [ngClass]=\"{ collapsed: !displayAll }\">\n  <grid [items]=\"books\" [itemsInRow]=\"cardsInRow\">\n    <ng-template let-item>\n      <book-card\n        [book]=\"item\"\n        [withButtons]=\"withButtons\"\n        [clickable]=\"clickable\"\n        [linkable]=\"linkable\"\n        [selectable]=\"selectable\"\n        (onClick)=\"onClick.emit($event)\"\n        (selectedChanged)=\"updateSelectedBooks()\"\n      ></book-card>\n    </ng-template>\n  </grid>\n</div>\n"
         },
         {
             "name": "BooksTableComponent",
@@ -11772,7 +11772,7 @@
         },
         {
             "name": "GridComponent",
-            "id": "component-GridComponent-52f5e287d25fdda0d113ae4066ac0f34",
+            "id": "component-GridComponent-4bdec1163323efa4714cc48764910d37",
             "file": "src/app/dashboard/core/grid/grid.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -11781,7 +11781,9 @@
             "outputs": [],
             "providers": [],
             "selector": "grid",
-            "styleUrls": [],
+            "styleUrls": [
+                "grid.component.scss"
+            ],
             "styles": [],
             "templateUrl": [
                 "grid.component.html"
@@ -11790,13 +11792,13 @@
             "inputsClass": [
                 {
                     "name": "items",
-                    "line": 18,
+                    "line": 20,
                     "type": "any[]"
                 },
                 {
                     "name": "itemsInRow",
                     "defaultValue": "4",
-                    "line": 19
+                    "line": 21
                 }
             ],
             "outputsClass": [],
@@ -11806,7 +11808,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 22,
+                    "line": 23,
                     "decorators": [
                         {
                             "name": "ContentChild",
@@ -11815,37 +11817,63 @@
                     ]
                 },
                 {
-                    "name": "gridColumns",
-                    "defaultValue": "{}",
-                    "type": "object",
+                    "name": "innerWidth",
+                    "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 25
+                    "line": 19
                 }
             ],
             "methodsClass": [
+                {
+                    "name": "generateColumns",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 34
+                },
                 {
                     "name": "ngOnInit",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 27
+                    "line": 30
                 }
             ],
             "hostBindings": [],
-            "hostListeners": [],
+            "hostListeners": [
+                {
+                    "name": "window:resize",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": ""
+                        }
+                    ],
+                    "argsDecorator": [
+                        "$event"
+                    ],
+                    "line": 26
+                }
+            ],
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import {\n  Component,\n  OnInit,\n  Input,\n  ContentChild,\n  TemplateRef,\n  ViewChild,\n} from '@angular/core'\n\n@Component({\n  moduleId: module.id,\n  // tslint:disable-next-line:component-selector\n  selector: 'grid',\n  templateUrl: 'grid.component.html',\n  styleUrls: [],\n})\nexport class GridComponent implements OnInit {\n  @Input() items: any[]\n  @Input() itemsInRow = 4\n\n  // @ViewChild(TemplateRef) contentTemplate\n  @ContentChild(TemplateRef) contentTemplate\n  // @ContentChild(TemplateRef) puppyTemplate: TemplateRef<NgForOfContext<Puppy>>;\n\n  gridColumns = {}\n\n  ngOnInit() {\n    const divider = `col-md-${12 / this.itemsInRow}`\n    this.gridColumns[divider] = true\n  }\n}\n",
+            "sourceCode": "import {\n  Component,\n  OnInit,\n  Input,\n  ContentChild,\n  TemplateRef,\n  HostListener,\n} from '@angular/core'\nimport { MOBILE_WIDTH } from 'utils/constants'\n\n@Component({\n  moduleId: module.id,\n  // tslint:disable-next-line:component-selector\n  selector: 'grid',\n  templateUrl: 'grid.component.html',\n  styleUrls: ['grid.component.scss'],\n})\nexport class GridComponent implements OnInit {\n  innerWidth: number\n  @Input() items: any[]\n  @Input() itemsInRow = 4\n\n  @ContentChild(TemplateRef) contentTemplate\n\n  @HostListener('window:resize', ['$event'])\n  onResize(event) {\n    this.innerWidth = window.innerWidth\n  }\n\n  ngOnInit() {\n    this.innerWidth = window.innerWidth\n  }\n\n  generateColumns() {\n    if (this.innerWidth > MOBILE_WIDTH) {\n      return 'auto '.repeat(this.itemsInRow)\n    } else {\n      return 'auto'\n    }\n  }\n}\n",
             "assetsDirs": [],
-            "styleUrlsData": "",
+            "styleUrlsData": [
+                {
+                    "data": ".container {\n  display: grid;\n  gap: 20px;\n}\n",
+                    "styleUrl": "grid.component.scss"
+                }
+            ],
             "stylesData": "",
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div style=\"display: flex; flex-wrap: wrap; height: 200px;\">\n  <!-- <div class=\"clearfix\" *ngIf=\"i % itemsInRow == 0\"></div> -->\n  <!-- <div [ngClass]=\"gridColumns\"> -->\n  <ng-template\n    *ngFor=\"let item of items; let i = index\"\n    [ngTemplateOutlet]=\"contentTemplate\"\n    [ngTemplateOutletContext]=\"{ $implicit: item }\"\n  ></ng-template>\n  <!-- </div> -->\n</div>\n<!-- <ng-template\n  [ngTemplateOutlet]=\"contentTemplate\"\n  [ngTemplateOutletContext]=\"{ $implicit: items[0] }\"\n></ng-template> -->\n"
+            "templateData": "<div\n  class=\"container\"\n  [ngStyle]=\"{ 'grid-template-columns': generateColumns() }\"\n>\n  <ng-template\n    *ngFor=\"let item of items; let i = index\"\n    [ngTemplateOutlet]=\"contentTemplate\"\n    [ngTemplateOutletContext]=\"{ $implicit: item }\"\n  ></ng-template>\n</div>\n"
         },
         {
             "name": "HomeComponent",
@@ -13810,7 +13838,7 @@
         },
         {
             "name": "PagesComponent",
-            "id": "component-PagesComponent-d48cb38cdc081507ddb919fac112e256",
+            "id": "component-PagesComponent-46bdceab317ede174f20e486175d19e6",
             "file": "src/app/dashboard/core/pages/pages.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -13834,16 +13862,26 @@
                     "line": 18
                 },
                 {
-                    "name": "withRoute",
-                    "defaultValue": "true",
+                    "name": "maxCount",
+                    "defaultValue": "5",
+                    "line": 19
+                },
+                {
+                    "name": "selectedPage",
+                    "defaultValue": "3",
                     "line": 20
+                },
+                {
+                    "name": "withRoute",
+                    "defaultValue": "false",
+                    "line": 21
                 }
             ],
             "outputsClass": [
                 {
                     "name": "nextSelectedPage",
                     "defaultValue": "new EventEmitter<number>()",
-                    "line": 21,
+                    "line": 22,
                     "type": "EventEmitter"
                 }
             ],
@@ -13851,38 +13889,38 @@
                 {
                     "name": "pages",
                     "defaultValue": "[]",
-                    "type": "[]",
+                    "type": "Array<number | string>",
                     "optional": false,
                     "description": "",
-                    "line": 22
+                    "line": 23
                 },
                 {
                     "name": "router",
                     "type": "Router",
                     "optional": false,
                     "description": "",
-                    "line": 24,
+                    "line": 25,
                     "modifierKind": [
                         114
                     ]
-                },
-                {
-                    "name": "selectedPage",
-                    "defaultValue": "1",
-                    "type": "number",
-                    "optional": false,
-                    "description": "",
-                    "line": 19
                 }
             ],
             "methodsClass": [
+                {
+                    "name": "calculatePages",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 45
+                },
                 {
                     "name": "ngOnChanges",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 34
+                    "line": 39
                 },
                 {
                     "name": "ngOnInit",
@@ -13890,7 +13928,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 26
+                    "line": 27
                 },
                 {
                     "name": "onClick",
@@ -13903,7 +13941,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 41,
+                    "line": 59,
                     "jsdoctags": [
                         {
                             "name": "page",
@@ -13920,11 +13958,11 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import {\n  Component,\n  OnInit,\n  Input,\n  Output,\n  EventEmitter,\n  OnChanges,\n} from '@angular/core'\nimport { ActivatedRoute, Params, Router } from '@angular/router'\n\n@Component({\n  moduleId: module.id,\n  selector: 'pages',\n  templateUrl: 'pages.component.html',\n  styleUrls: ['./pages.component.css'],\n})\nexport class PagesComponent implements OnInit, OnChanges {\n  @Input() count = 1\n  selectedPage = 1\n  @Input() withRoute = true\n  @Output() nextSelectedPage = new EventEmitter<number>()\n  pages = []\n\n  constructor(public router: Router, private route: ActivatedRoute) {}\n\n  ngOnInit() {\n    if (this.withRoute) {\n      this.route.queryParams.subscribe(\n        params => (this.selectedPage = params.page ? +params.page : 1)\n      )\n    }\n  }\n\n  ngOnChanges() {\n    this.pages = new Array(this.count).fill(0).map((_x, i) => i + 1)\n    if (this.selectedPage > this.count) {\n      this.selectedPage = this.count\n    }\n  }\n\n  onClick(page: number) {\n    const lastPage = page - 1 === this.pages[this.pages.length - 1]\n    const firstPage = page === 0\n    if (firstPage || lastPage) {\n      return\n    }\n    if (this.withRoute) {\n      const queryParams: Params = {\n        ...this.route.snapshot.queryParams,\n        page,\n      }\n      this.router.navigate(['.'], { relativeTo: this.route, queryParams })\n    } else {\n      this.selectedPage = page\n      this.nextSelectedPage.emit(page)\n    }\n  }\n}\n",
+            "sourceCode": "import {\n  Component,\n  OnInit,\n  Input,\n  Output,\n  EventEmitter,\n  OnChanges,\n} from '@angular/core'\nimport { ActivatedRoute, Params, Router } from '@angular/router'\n\n@Component({\n  moduleId: module.id,\n  selector: 'pages',\n  templateUrl: 'pages.component.html',\n  styleUrls: ['./pages.component.css'],\n})\nexport class PagesComponent implements OnInit, OnChanges {\n  @Input() count = 1\n  @Input() maxCount = 5\n  @Input() selectedPage = 3\n  @Input() withRoute = false\n  @Output() nextSelectedPage = new EventEmitter<number>()\n  pages: Array<number | string> = []\n\n  constructor(public router: Router, private route: ActivatedRoute) {}\n\n  ngOnInit() {\n    if (this.withRoute) {\n      this.route.queryParams.subscribe(\n        params =>\n          (this.selectedPage = params.page\n            ? +params.page\n            : this.selectedPage || 1)\n      )\n    }\n    this.calculatePages()\n  }\n\n  ngOnChanges() {\n    if (this.selectedPage > this.count) {\n      this.selectedPage = this.count\n    }\n  }\n\n  calculatePages() {\n    this.pages = new Array(this.count).fill(0).map((_x, i) => i + 1)\n    if (this.count > 5) {\n      if (this.selectedPage < 5) {\n        this.pages.splice(5, this.count - 6, '...')\n      } else if (this.selectedPage >= this.count - 3) {\n        this.pages.splice(1, this.count - 6, '...')\n      } else {\n        this.pages.splice(1, this.selectedPage - 3, '...')\n        this.pages.splice(5, this.pages.length - 6, '...')\n      }\n    }\n  }\n\n  onClick(page: number) {\n    const lastPage = page === this.count + 1\n    const firstPage = page === 0\n    if (firstPage || lastPage) {\n      return\n    }\n    if (this.withRoute) {\n      const queryParams: Params = {\n        ...this.route.snapshot.queryParams,\n        page,\n      }\n      this.router.navigate(['.'], { relativeTo: this.route, queryParams })\n    } else {\n      this.selectedPage = page\n      this.nextSelectedPage.emit(page)\n      this.calculatePages()\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "nav {\n  text-align: center;\n}",
+                    "data": "",
                     "styleUrl": "./pages.component.css"
                 }
             ],
@@ -13942,7 +13980,7 @@
                         "type": "ActivatedRoute"
                     }
                 ],
-                "line": 22,
+                "line": 23,
                 "jsdoctags": [
                     {
                         "name": "router",
@@ -13964,7 +14002,7 @@
                 "OnInit",
                 "OnChanges"
             ],
-            "templateData": "<nav>\n  <ul class=\"pagination\">\n    <li class=\"page-item\" [ngClass]=\"{disabled: selectedPage === pages[0]}\">\n      <a class=\"page-link\" href=\"javascript:void(0);\" (click)=\"onClick(selectedPage - 1)\">Previous</a>\n    </li>\n    <li *ngFor=\"let page of pages\" class=\"page-item\" [ngClass]=\"{active: selectedPage === page}\">\n      <a class=\"page-link\" href=\"javascript:void(0);\" (click)=\"onClick(page)\">{{page}}</a>\n    </li>\n    <li class=\"page-item\" [ngClass]=\"{disabled: selectedPage === pages[pages.length - 1]}\">\n      <a class=\"page-link\" href=\"javascript:void(0);\" (click)=\"onClick(selectedPage + 1)\">Next</a>\n    </li>\n  </ul>\n</nav>"
+            "templateData": "<div class=\"pagination\">\n  <i\n    class=\"ti-angle-left icon-left button\"\n    [ngClass]=\"{ disabled: selectedPage === pages[0] }\"\n    (click)=\"onClick(selectedPage - 1)\"\n  ></i>\n  <span\n    class=\"number\"\n    *ngFor=\"let page of pages\"\n    [ngClass]=\"{ selected: selectedPage === page, disabled: page === '...' }\"\n    (click)=\"onClick(page)\"\n    >{{ page }}</span\n  >\n  <i\n    class=\"ti-angle-right icon-right button\"\n    [ngClass]=\"{ disabled: selectedPage === pages[pages.length - 1] }\"\n    (click)=\"onClick(selectedPage + 1)\"\n  ></i>\n</div>\n"
         },
         {
             "name": "PopoverContainerComponent",
@@ -14868,7 +14906,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"wrapper\" [ngClass]=\"{ 'dark-theme': dark }\">\n  <div>\n    <h1>Heading 1</h1>\n    <h2>Heading 2</h2>\n    <h3>Heading 3</h3>\n    <h4>Heading 4</h4>\n    <h5>Heading 5</h5>\n    <h6>Heading 6</h6>\n  </div>\n  <div>\n    Apparently we had reached a great height in the atmosphere, for the sky was\n    a dead black, and the stars had ceased to twinkle.\n  </div>\n  <div class=\"small typography-padding\">\n    Apparently we had reached a great height in the atmosphere, for the sky was\n    a dead black, and the stars had ceased to twinkle.\n  </div>\n  <div class=\"tiny typography-padding\">\n    Apparently we had reached a great height in the atmosphere, for the sky was\n    a dead black, and the stars had ceased to twinkle.\n  </div>\n  <div class=\"capitalized typography-padding\">\n    Find an alternative\n  </div>\n  <div class=\"typography-wrapper\">\n    <span class=\"typography-padding\" style=\"font-weight: 700\"\n      >Inter - Bold</span\n    >\n    <span class=\"typography-padding\" style=\"font-weight: 600\"\n      >Inter - SemiBold</span\n    >\n    <span class=\"typography-padding\" style=\"font-weight: 500\"\n      >Inter - Medium</span\n    >\n    <span class=\"typography-padding\" style=\"font-weight: 400\"\n      >Inter - Regular</span\n    >\n  </div>\n  <div class=\"cards-wrapper\">\n    <div class=\"card elevation-99 card-example\"></div>\n    <div class=\"card elevation-01 card-example\"></div>\n    <div class=\"card elevation-02 card-example\"></div>\n    <div class=\"card elevation-03 card-example\"></div>\n    <div class=\"card elevation-04 card-example\"></div>\n    <div class=\"card elevation-05 card-example\"></div>\n    <div class=\"card elevation-06 card-example\"></div>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"small button button-padding\">Default</button>\n    <button class=\"small button button-padding success\">Success</button>\n    <button class=\"small button button-padding danger\">Danger</button>\n    <button class=\"small button button-padding clear\">Clear</button>\n    <button class=\"small button button-padding\" disabled>Disabled</button>\n    <button class=\"small button button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"button button-padding\">Default</button>\n    <button class=\"button button-padding success\">Success</button>\n    <button class=\"button button-padding danger\">Danger</button>\n    <button class=\"button button-padding clear\">Clear</button>\n    <button class=\"button button-padding\" disabled>Disabled</button>\n    <button class=\"button button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"button inverted button-padding\">Default</button>\n    <button class=\"button inverted button-padding success\">Success</button>\n    <button class=\"button inverted button-padding danger\">Danger</button>\n    <button class=\"button inverted button-padding\" disabled>Disabled</button>\n    <button class=\"button inverted button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"large button button-padding\">Default</button>\n    <button class=\"large button button-padding success\">Success</button>\n    <button class=\"large button button-padding danger\">Danger</button>\n    <button class=\"large button button-padding clear\">Danger</button>\n    <button class=\"large button button-padding\" disabled>Disabled</button>\n    <button class=\"large button button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"rounded button small button-padding\">Small</button>\n    <button class=\"rounded button button-padding\">Default</button>\n    <button class=\"rounded button large button-padding\">Large</button>\n    <button class=\"rounded button button-padding\" disabled>Disabled</button>\n    <button class=\"rounded button icon button-padding\">\n      <i class=\"pe-7s-alarm\"></i>\n    </button>\n  </div>\n  <div class=\"accordion\">\n    <input class=\"accordion-item-checkbox\" type=\"checkbox\" id=\"_checkbox1\" />\n    <div class=\"accordion-item\">\n      <label for=\"_checkbox1\">Item 1<i class=\"pe-7s-angle-down\"></i></label>\n      <div class=\"content\">\n        Lorem Ipsum is simply dummy text of the printing and typesetting\n        industry. Lorem Ipsum has been the industry's standard dummy text ever\n        since the 1500s, when an unknown printer took a galley of type and\n        scrambled it to make a type specimen book. It has survived not only five\n        centuries, but also the leap into electronic typesetting, remaining\n        essentially unchanged. It was popularised in the 1960s with the release\n        of Letraset sheets containing Lorem Ipsum passages, and more recently\n        with desktop publishing software like Aldus PageMaker including versions\n        of Lorem Ipsum.\n      </div>\n    </div>\n    <input class=\"accordion-item-checkbox\" type=\"checkbox\" id=\"_checkbox2\" />\n    <div class=\"accordion-item\">\n      <label for=\"_checkbox2\">Item 2<i class=\"pe-7s-angle-down\"></i></label>\n      <div class=\"content\">\n        Lorem Ipsum is simply dummy text of the printing and typesetting\n        industry. Lorem Ipsum has been the industry's standard dummy text ever\n        since the 1500s, when an unknown printer took a galley of type and\n        scrambled it to make a type specimen book. It has survived not only five\n        centuries, but also the leap into electronic typesetting, remaining\n        essentially unchanged. It was popularised in the 1960s with the release\n        of Letraset sheets containing Lorem Ipsum passages, and more recently\n        with desktop publishing software like Aldus PageMaker including versions\n        of Lorem Ipsum.\n      </div>\n    </div>\n  </div>\n  <div class=\"alert\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted\">Execute</button>\n  </div>\n  <div class=\"alert success\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted success\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert success\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted success\">Execute</button>\n  </div>\n  <div class=\"alert danger\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted danger\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert danger\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted danger\">Execute</button>\n  </div>\n  <div class=\"alert warning\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted warning\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert warning\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted warning\">Execute</button>\n  </div>\n  <div class=\"chips-wrapper\">\n    <div class=\"chip chip-padding\">Chip</div>\n    <div class=\"chip chip-padding chip-color\">Chip</div>\n    <div class=\"chip chip-padding chip-color-dark\">Chip</div>\n  </div>\n  <div class=\"chips-wrapper\">\n    <div class=\"chip chip-padding dismissable\">Chip</div>\n    <div class=\"chip chip-padding chip-color dismissable\">Chip</div>\n    <div class=\"chip chip-padding chip-color-dark dismissable\">Chip</div>\n  </div>\n  <div class=\"chips-wrapper\">\n    <div class=\"chip chip-padding \"><i class=\"pe-7s-alarm\"></i>Chip</div>\n    <div class=\"chip chip-padding chip-color\">\n      <i class=\"pe-7s-alarm\"></i>Chip\n    </div>\n    <div class=\"chip chip-padding chip-color-dark\">\n      <i class=\"pe-7s-alarm\"></i>Chip\n    </div>\n  </div>\n  <div class=\"badges-wrapper\">\n    <div class=\"badge badge-padding\">Primary</div>\n    <div class=\"badge badge-padding info\">Info</div>\n    <div class=\"badge badge-padding success\">Success</div>\n    <div class=\"badge badge-padding danger\">Danger</div>\n    <div class=\"badge badge-padding warning\">Warning</div>\n  </div>\n  <div class=\"checkboxes-wrapper\">\n    <input\n      type=\"checkbox\"\n      id=\"checkbox1\"\n      class=\"checkbox checkbox-padding\"\n    /><label for=\"checkbox1\">Checkbox</label>\n    <input\n      type=\"checkbox\"\n      id=\"checkbox2\"\n      class=\"checkbox checkbox-padding\"\n      checked\n    /><label for=\"checkbox2\">Checkbox</label>\n    <input\n      type=\"checkbox\"\n      id=\"checkbox3\"\n      class=\"checkbox checkbox-padding\"\n      disabled\n    /><label for=\"checkbox3\">Checkbox</label>\n    <input\n      type=\"checkbox\"\n      id=\"checkbox4\"\n      class=\"checkbox checkbox-padding\"\n      checked\n      disabled\n    /><label for=\"checkbox4\">Checkbox</label>\n  </div>\n  <div class=\"checkboxes-wrapper\">\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio1\"\n      class=\"checkbox checkbox-padding\"\n    /><label for=\"radio1\">Radio</label>\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio2\"\n      class=\"checkbox checkbox-padding\"\n      checked\n    /><label for=\"radio2\">Radio</label>\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio3\"\n      class=\"checkbox checkbox-padding\"\n      disabled\n    /><label for=\"radio3\">Radio</label>\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio4\"\n      class=\"checkbox checkbox-padding\"\n      checked\n      disabled\n    /><label for=\"radio4\">Radio</label>\n  </div>\n  <div class=\"checkboxes-wrapper\">\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch1\"\n      class=\"switch checkbox-padding\"\n    /><label for=\"switch1\">Switch</label>\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch2\"\n      class=\"switch checkbox-padding\"\n      checked\n    /><label for=\"switch2\">Switch</label>\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch3\"\n      class=\"switch checkbox-padding\"\n      disabled\n    /><label for=\"switch3\">Switch</label>\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch4\"\n      class=\"switch checkbox-padding\"\n      checked\n      disabled\n    /><label for=\"switch4\">Switch</label>\n  </div>\n  <div class=\"labels-wrapper\">\n    <label class=\"label-padding label label-small\">Label small</label>\n    <label class=\"label-padding label\">Label regular</label>\n    <label class=\"label-padding label label-large\">Label large</label>\n    <label class=\"label-padding label label-small\"\n      ><i class=\"pe-7s-album icon-left\"></i>Label</label\n    >\n    <label class=\"label-padding label\"\n      ><i class=\"pe-7s-album icon-left\"></i>Label</label\n    >\n    <label class=\"label-padding label label-large\"\n      ><i class=\"pe-7s-album icon-left\"></i>Label</label\n    >\n    <label class=\"label-padding label label-small\"\n      ><i class=\"pe-7s-angle-left icon-left primary\"></i>Label<i\n        class=\"pe-7s-angle-right icon-right primary\"\n      ></i\n    ></label>\n    <label class=\"label-padding label\"\n      ><i class=\"pe-7s-angle-left icon-left primary\"></i>Label<i\n        class=\"pe-7s-angle-right icon-right primary\"\n      ></i\n    ></label>\n    <label class=\"label-padding label label-large\"\n      ><i class=\"pe-7s-angle-left icon-left primary\"></i>Label<i\n        class=\"pe-7s-angle-right icon-right primary\"\n      ></i\n    ></label>\n  </div>\n  <div class=\"dropdown\">\n    <input class=\"dropdown-checkbox\" type=\"checkbox\" id=\"_dropdowncheckbox\" />\n    <label for=\"_dropdowncheckbox\">Dropdown Menu</label>\n    <div class=\"dropdown-menu\">\n      <div class=\"dropdown-menu-inner\">\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 1</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 2</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 3</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 4</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 5</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 6</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 7</label>\n      </div>\n    </div>\n  </div>\n  <div class=\"input-wrapper\">\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Placeholder\" />\n    </div>\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Required\" required />\n    </div>\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Disabled\" disabled />\n    </div>\n    <div class=\"input input-padding\">\n      <input class=\"icon-left\" type=\"text\" placeholder=\"Icon left\" /><i\n        class=\"pe-7s-disk left\"\n      ></i>\n    </div>\n    <div class=\"input input-padding\">\n      <input class=\"icon-right\" type=\"text\" placeholder=\"Icon right\" /><i\n        class=\"pe-7s-bookmarks right\"\n      ></i>\n    </div>\n    <div class=\"input input-padding\">\n      <label class=\"label\">Label</label>\n      <input type=\"text\" placeholder=\"Label\" />\n    </div>\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Assistive text\" />\n\n      <label class=\"info\"\n        ><i class=\"pe-7s-info info-icon\"></i>Assistive info text</label\n      >\n    </div>\n  </div>\n  <div class=\"input input-padding\">\n    <input class=\"icon-left icon-left\" type=\"email\" placeholder=\"E-mail\" />\n    <i class=\"pe-7s-mail left\"></i>\n  </div>\n  <div class=\"input input-padding\">\n    <i class=\"pe-7s-lock left\"></i>\n    <input\n      class=\"icon-left icon-right\"\n      type=\"password\"\n      placeholder=\"Password\"\n    />\n    <i class=\"pe-7s-look right clickable\"></i>\n  </div>\n  <div class=\"input search input-padding\">\n    <input class=\"icon-left\" type=\"text\" placeholder=\"Search\" />\n    <i class=\"pe-7s-search left\"></i>\n  </div>\n  <div class=\"input search input-padding\">\n    <textarea placeholder=\"Textarea\"></textarea>\n  </div>\n  <div class=\"modal modal-padding\">\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Cancel</button>\n      <button class=\"button\">Accept</button>\n    </div>\n  </div>\n  <div class=\"modal vertical modal-padding\">\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button large clear\">Cancel</button>\n      <button class=\"button large\">Accept</button>\n    </div>\n  </div>\n  <div class=\"modal dismissable modal-padding\">\n    <i class=\"pe-7s-close dismiss\"></i>\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Learn More</button>\n    </div>\n  </div>\n  <div class=\"modal dismissable modal-padding\">\n    <i class=\"pe-7s-close dismiss\"></i>\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"checkbox-wrapper\">\n      <input type=\"checkbox\" id=\"modalcheckbox\" class=\"checkbox\" /><label\n        for=\"modalcheckbox\"\n        >Don't show again</label\n      >\n      <button class=\"button\">Learn More</button>\n    </div>\n  </div>\n  <div class=\"modal modal-padding\">\n    <h6 class=\"header\">Are you sure you want to delete these files?</h6>\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Cancel</button>\n      <button class=\"button\">Accept</button>\n    </div>\n  </div>\n  <div class=\"modal danger modal-padding\">\n    <h6 class=\"header\">Are you sure you want to delete these files?</h6>\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Cancel</button>\n      <button class=\"button danger\">Delete</button>\n    </div>\n  </div>\n  <div class=\"sidebar-wrapper\">\n    <div class=\"sidebar\">\n      <div class=\"sidebar-toggle-header\">\n        <i class=\"pe-7s-menu\"></i>\n      </div>\n      <div class=\"sidebar-top\">\n        <h6 class=\"sidebar-header\">\n          <i class=\"pe-7s-global main-icon\"></i>BOOKLIB\n        </h6>\n        <hr class=\"sidebar-divider\" />\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-home\"></i>\n          Home\n        </a>\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-user\"></i>\n          Profile\n        </a>\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-mail\"></i>\n          Messages\n        </a>\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-settings\"></i>\n          Settings\n        </a>\n      </div>\n      <div class=\"sidebar-bottom\">\n        <hr class=\"sidebar-divider\" />\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-power\"></i>\n          Logout\n        </a>\n      </div>\n    </div>\n  </div>\n  <div class=\"navbar\">\n    <div class=\"navbar-left\">\n      <label class=\"label\"\n        ><i class=\"pe-7s-global icon-left primary\"></i>Booklib</label\n      >\n    </div>\n    <div class=\"navbar-center\">\n      <div class=\"input search input-padding\">\n        <input class=\"icon-left\" type=\"text\" placeholder=\"Search\" />\n        <i class=\"pe-7s-search left\"></i>\n      </div>\n    </div>\n    <div class=\"navbar-right\">\n      <button class=\"button\">Login</button>\n    </div>\n  </div>\n  <div class=\"navbar\">\n    <div class=\"navbar-left\">\n      <i\n        class=\"pe-7s-menu primary\"\n        style=\"font-weight: 600; font-size: var(--large-font-size);\"\n      ></i>\n    </div>\n    <div class=\"navbar-center\">\n      <label class=\"label\"\n        ><i class=\"pe-7s-global icon-left primary\"></i>Booklib</label\n      >\n    </div>\n    <div class=\"navbar-right\">\n      <i\n        class=\"pe-7s-bell primary\"\n        style=\"font-weight: 600; font-size: var(--large-font-size);\"\n      ></i>\n    </div>\n  </div>\n  <div class=\"footer\">\n    <span>2020 - All rights reserved</span>\n    <span>Terms & Conditions</span>\n  </div>\n  <div class=\"pagination\">\n    <i class=\"pe-7s-angle-left icon-left\"></i>\n    <span class=\"number\">1</span>\n    <span class=\"number\">2</span>\n    <span class=\"number selected\">3</span>\n    <span class=\"number\">...</span>\n    <span class=\"number\">12</span>\n    <i class=\"pe-7s-angle-right icon-right\"></i>\n  </div>\n  <div class=\"tabs tabs-wrapper\">\n    <button class=\"tab\">\n      Home\n    </button>\n    <button class=\"tab\">\n      About\n    </button>\n    <button class=\"tab\">\n      Profile\n    </button>\n  </div>\n  <table class=\"table\">\n    <thead>\n      <th class=\"min-width\">\n        <input type=\"checkbox\" id=\"checkboxtable3\" class=\"checkbox\" /><label\n          for=\"checkboxtable3\"\n        ></label>\n      </th>\n      <th>Name</th>\n      <th>E-Mail</th>\n      <th>Number</th>\n    </thead>\n    <tbody>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable1\" class=\"checkbox\" /><label\n            for=\"checkboxtable1\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable2\" class=\"checkbox\" /><label\n            for=\"checkboxtable2\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable3\" class=\"checkbox\" /><label\n            for=\"checkboxtable3\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable4\" class=\"checkbox\" /><label\n            for=\"checkboxtable4\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable5\" class=\"checkbox\" /><label\n            for=\"checkboxtable5\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable6\" class=\"checkbox\" /><label\n            for=\"checkboxtable6\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable7\" class=\"checkbox\" /><label\n            for=\"checkboxtable7\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
+            "templateData": "<div class=\"wrapper\" [ngClass]=\"{ 'dark-theme': dark }\">\n  <div>\n    <h1>Heading 1</h1>\n    <h2>Heading 2</h2>\n    <h3>Heading 3</h3>\n    <h4>Heading 4</h4>\n    <h5>Heading 5</h5>\n    <h6>Heading 6</h6>\n  </div>\n  <div>\n    Apparently we had reached a great height in the atmosphere, for the sky was\n    a dead black, and the stars had ceased to twinkle.\n  </div>\n  <div class=\"small typography-padding\">\n    Apparently we had reached a great height in the atmosphere, for the sky was\n    a dead black, and the stars had ceased to twinkle.\n  </div>\n  <div class=\"tiny typography-padding\">\n    Apparently we had reached a great height in the atmosphere, for the sky was\n    a dead black, and the stars had ceased to twinkle.\n  </div>\n  <div class=\"capitalized typography-padding\">\n    Find an alternative\n  </div>\n  <div class=\"typography-wrapper\">\n    <span class=\"typography-padding\" style=\"font-weight: 700\"\n      >Inter - Bold</span\n    >\n    <span class=\"typography-padding\" style=\"font-weight: 600\"\n      >Inter - SemiBold</span\n    >\n    <span class=\"typography-padding\" style=\"font-weight: 500\"\n      >Inter - Medium</span\n    >\n    <span class=\"typography-padding\" style=\"font-weight: 400\"\n      >Inter - Regular</span\n    >\n  </div>\n  <div class=\"cards-wrapper\">\n    <div class=\"card elevation-99 card-example\"></div>\n    <div class=\"card elevation-01 card-example\"></div>\n    <div class=\"card elevation-02 card-example\"></div>\n    <div class=\"card elevation-03 card-example\"></div>\n    <div class=\"card elevation-04 card-example\"></div>\n    <div class=\"card elevation-05 card-example\"></div>\n    <div class=\"card elevation-06 card-example\"></div>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"small button button-padding\">Default</button>\n    <button class=\"small button button-padding success\">Success</button>\n    <button class=\"small button button-padding danger\">Danger</button>\n    <button class=\"small button button-padding clear\">Clear</button>\n    <button class=\"small button button-padding\" disabled>Disabled</button>\n    <button class=\"small button button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"button button-padding\">Default</button>\n    <button class=\"button button-padding success\">Success</button>\n    <button class=\"button button-padding danger\">Danger</button>\n    <button class=\"button button-padding clear\">Clear</button>\n    <button class=\"button button-padding\" disabled>Disabled</button>\n    <button class=\"button button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"button inverted button-padding\">Default</button>\n    <button class=\"button inverted button-padding success\">Success</button>\n    <button class=\"button inverted button-padding danger\">Danger</button>\n    <button class=\"button inverted button-padding\" disabled>Disabled</button>\n    <button class=\"button inverted button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"large button button-padding\">Default</button>\n    <button class=\"large button button-padding success\">Success</button>\n    <button class=\"large button button-padding danger\">Danger</button>\n    <button class=\"large button button-padding clear\">Danger</button>\n    <button class=\"large button button-padding\" disabled>Disabled</button>\n    <button class=\"large button button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"rounded button small button-padding\">Small</button>\n    <button class=\"rounded button button-padding\">Default</button>\n    <button class=\"rounded button large button-padding\">Large</button>\n    <button class=\"rounded button button-padding\" disabled>Disabled</button>\n    <button class=\"rounded button icon button-padding\">\n      <i class=\"pe-7s-alarm\"></i>\n    </button>\n  </div>\n  <div class=\"accordion\">\n    <input class=\"accordion-item-checkbox\" type=\"checkbox\" id=\"_checkbox1\" />\n    <div class=\"accordion-item\">\n      <label for=\"_checkbox1\">Item 1<i class=\"pe-7s-angle-down\"></i></label>\n      <div class=\"content\">\n        Lorem Ipsum is simply dummy text of the printing and typesetting\n        industry. Lorem Ipsum has been the industry's standard dummy text ever\n        since the 1500s, when an unknown printer took a galley of type and\n        scrambled it to make a type specimen book. It has survived not only five\n        centuries, but also the leap into electronic typesetting, remaining\n        essentially unchanged. It was popularised in the 1960s with the release\n        of Letraset sheets containing Lorem Ipsum passages, and more recently\n        with desktop publishing software like Aldus PageMaker including versions\n        of Lorem Ipsum.\n      </div>\n    </div>\n    <input class=\"accordion-item-checkbox\" type=\"checkbox\" id=\"_checkbox2\" />\n    <div class=\"accordion-item\">\n      <label for=\"_checkbox2\">Item 2<i class=\"pe-7s-angle-down\"></i></label>\n      <div class=\"content\">\n        Lorem Ipsum is simply dummy text of the printing and typesetting\n        industry. Lorem Ipsum has been the industry's standard dummy text ever\n        since the 1500s, when an unknown printer took a galley of type and\n        scrambled it to make a type specimen book. It has survived not only five\n        centuries, but also the leap into electronic typesetting, remaining\n        essentially unchanged. It was popularised in the 1960s with the release\n        of Letraset sheets containing Lorem Ipsum passages, and more recently\n        with desktop publishing software like Aldus PageMaker including versions\n        of Lorem Ipsum.\n      </div>\n    </div>\n  </div>\n  <div class=\"alert\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted\">Execute</button>\n  </div>\n  <div class=\"alert success\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted success\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert success\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted success\">Execute</button>\n  </div>\n  <div class=\"alert danger\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted danger\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert danger\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted danger\">Execute</button>\n  </div>\n  <div class=\"alert warning\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted warning\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert warning\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted warning\">Execute</button>\n  </div>\n  <div class=\"chips-wrapper\">\n    <div class=\"chip chip-padding\">Chip</div>\n    <div class=\"chip chip-padding chip-color\">Chip</div>\n    <div class=\"chip chip-padding chip-color-dark\">Chip</div>\n  </div>\n  <div class=\"chips-wrapper\">\n    <div class=\"chip chip-padding dismissable\">Chip</div>\n    <div class=\"chip chip-padding chip-color dismissable\">Chip</div>\n    <div class=\"chip chip-padding chip-color-dark dismissable\">Chip</div>\n  </div>\n  <div class=\"chips-wrapper\">\n    <div class=\"chip chip-padding \"><i class=\"pe-7s-alarm\"></i>Chip</div>\n    <div class=\"chip chip-padding chip-color\">\n      <i class=\"pe-7s-alarm\"></i>Chip\n    </div>\n    <div class=\"chip chip-padding chip-color-dark\">\n      <i class=\"pe-7s-alarm\"></i>Chip\n    </div>\n  </div>\n  <div class=\"badges-wrapper\">\n    <div class=\"badge badge-padding\">Primary</div>\n    <div class=\"badge badge-padding info\">Info</div>\n    <div class=\"badge badge-padding success\">Success</div>\n    <div class=\"badge badge-padding danger\">Danger</div>\n    <div class=\"badge badge-padding warning\">Warning</div>\n  </div>\n  <div class=\"checkboxes-wrapper\">\n    <input\n      type=\"checkbox\"\n      id=\"checkbox1\"\n      class=\"checkbox checkbox-padding\"\n    /><label for=\"checkbox1\">Checkbox</label>\n    <input\n      type=\"checkbox\"\n      id=\"checkbox2\"\n      class=\"checkbox checkbox-padding\"\n      checked\n    /><label for=\"checkbox2\">Checkbox</label>\n    <input\n      type=\"checkbox\"\n      id=\"checkbox3\"\n      class=\"checkbox checkbox-padding\"\n      disabled\n    /><label for=\"checkbox3\">Checkbox</label>\n    <input\n      type=\"checkbox\"\n      id=\"checkbox4\"\n      class=\"checkbox checkbox-padding\"\n      checked\n      disabled\n    /><label for=\"checkbox4\">Checkbox</label>\n  </div>\n  <div class=\"checkboxes-wrapper\">\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio1\"\n      class=\"checkbox checkbox-padding\"\n    /><label for=\"radio1\">Radio</label>\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio2\"\n      class=\"checkbox checkbox-padding\"\n      checked\n    /><label for=\"radio2\">Radio</label>\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio3\"\n      class=\"checkbox checkbox-padding\"\n      disabled\n    /><label for=\"radio3\">Radio</label>\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio4\"\n      class=\"checkbox checkbox-padding\"\n      checked\n      disabled\n    /><label for=\"radio4\">Radio</label>\n  </div>\n  <div class=\"checkboxes-wrapper\">\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch1\"\n      class=\"switch checkbox-padding\"\n    /><label for=\"switch1\">Switch</label>\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch2\"\n      class=\"switch checkbox-padding\"\n      checked\n    /><label for=\"switch2\">Switch</label>\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch3\"\n      class=\"switch checkbox-padding\"\n      disabled\n    /><label for=\"switch3\">Switch</label>\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch4\"\n      class=\"switch checkbox-padding\"\n      checked\n      disabled\n    /><label for=\"switch4\">Switch</label>\n  </div>\n  <div class=\"labels-wrapper\">\n    <label class=\"label-padding label label-small\">Label small</label>\n    <label class=\"label-padding label\">Label regular</label>\n    <label class=\"label-padding label label-large\">Label large</label>\n    <label class=\"label-padding label label-small\"\n      ><i class=\"pe-7s-album icon-left\"></i>Label</label\n    >\n    <label class=\"label-padding label\"\n      ><i class=\"pe-7s-album icon-left\"></i>Label</label\n    >\n    <label class=\"label-padding label label-large\"\n      ><i class=\"pe-7s-album icon-left\"></i>Label</label\n    >\n    <label class=\"label-padding label label-small\"\n      ><i class=\"pe-7s-angle-left icon-left primary\"></i>Label<i\n        class=\"pe-7s-angle-right icon-right primary\"\n      ></i\n    ></label>\n    <label class=\"label-padding label\"\n      ><i class=\"pe-7s-angle-left icon-left primary\"></i>Label<i\n        class=\"pe-7s-angle-right icon-right primary\"\n      ></i\n    ></label>\n    <label class=\"label-padding label label-large\"\n      ><i class=\"pe-7s-angle-left icon-left primary\"></i>Label<i\n        class=\"pe-7s-angle-right icon-right primary\"\n      ></i\n    ></label>\n  </div>\n  <div class=\"dropdown\">\n    <input class=\"dropdown-checkbox\" type=\"checkbox\" id=\"_dropdowncheckbox\" />\n    <label for=\"_dropdowncheckbox\">Dropdown Menu</label>\n    <div class=\"dropdown-menu\">\n      <div class=\"dropdown-menu-inner\">\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 1</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 2</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 3</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 4</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 5</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 6</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 7</label>\n      </div>\n    </div>\n  </div>\n  <div class=\"input-wrapper\">\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Placeholder\" />\n    </div>\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Required\" required />\n    </div>\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Disabled\" disabled />\n    </div>\n    <div class=\"input input-padding\">\n      <input class=\"icon-left\" type=\"text\" placeholder=\"Icon left\" /><i\n        class=\"pe-7s-disk left\"\n      ></i>\n    </div>\n    <div class=\"input input-padding\">\n      <input class=\"icon-right\" type=\"text\" placeholder=\"Icon right\" /><i\n        class=\"pe-7s-bookmarks right\"\n      ></i>\n    </div>\n    <div class=\"input input-padding\">\n      <label class=\"label\">Label</label>\n      <input type=\"text\" placeholder=\"Label\" />\n    </div>\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Assistive text\" />\n\n      <label class=\"info\"\n        ><i class=\"pe-7s-info info-icon\"></i>Assistive info text</label\n      >\n    </div>\n  </div>\n  <div class=\"input input-padding\">\n    <input class=\"icon-left icon-left\" type=\"email\" placeholder=\"E-mail\" />\n    <i class=\"pe-7s-mail left\"></i>\n  </div>\n  <div class=\"input input-padding\">\n    <i class=\"pe-7s-lock left\"></i>\n    <input\n      class=\"icon-left icon-right\"\n      type=\"password\"\n      placeholder=\"Password\"\n    />\n    <i class=\"pe-7s-look right clickable\"></i>\n  </div>\n  <div class=\"input search input-padding\">\n    <input class=\"icon-left\" type=\"text\" placeholder=\"Search\" />\n    <i class=\"pe-7s-search left\"></i>\n  </div>\n  <div class=\"input search input-padding\">\n    <textarea placeholder=\"Textarea\"></textarea>\n  </div>\n  <div class=\"modal modal-padding\">\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Cancel</button>\n      <button class=\"button\">Accept</button>\n    </div>\n  </div>\n  <div class=\"modal vertical modal-padding\">\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button large clear\">Cancel</button>\n      <button class=\"button large\">Accept</button>\n    </div>\n  </div>\n  <div class=\"modal dismissable modal-padding\">\n    <i class=\"pe-7s-close dismiss\"></i>\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Learn More</button>\n    </div>\n  </div>\n  <div class=\"modal dismissable modal-padding\">\n    <i class=\"pe-7s-close dismiss\"></i>\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"checkbox-wrapper\">\n      <input type=\"checkbox\" id=\"modalcheckbox\" class=\"checkbox\" /><label\n        for=\"modalcheckbox\"\n        >Don't show again</label\n      >\n      <button class=\"button\">Learn More</button>\n    </div>\n  </div>\n  <div class=\"modal modal-padding\">\n    <h6 class=\"header\">Are you sure you want to delete these files?</h6>\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Cancel</button>\n      <button class=\"button\">Accept</button>\n    </div>\n  </div>\n  <div class=\"modal danger modal-padding\">\n    <h6 class=\"header\">Are you sure you want to delete these files?</h6>\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Cancel</button>\n      <button class=\"button danger\">Delete</button>\n    </div>\n  </div>\n  <div class=\"sidebar-wrapper\">\n    <div class=\"sidebar\">\n      <div class=\"sidebar-toggle-header\">\n        <i class=\"pe-7s-menu\"></i>\n      </div>\n      <div class=\"sidebar-top\">\n        <h6 class=\"sidebar-header\">\n          <i class=\"pe-7s-global main-icon\"></i>BOOKLIB\n        </h6>\n        <hr class=\"sidebar-divider\" />\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-home\"></i>\n          Home\n        </a>\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-user\"></i>\n          Profile\n        </a>\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-mail\"></i>\n          Messages\n        </a>\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-settings\"></i>\n          Settings\n        </a>\n      </div>\n      <div class=\"sidebar-bottom\">\n        <hr class=\"sidebar-divider\" />\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-power\"></i>\n          Logout\n        </a>\n      </div>\n    </div>\n  </div>\n  <div class=\"navbar\">\n    <div class=\"navbar-left\">\n      <label class=\"label\"\n        ><i class=\"pe-7s-global icon-left primary\"></i>Booklib</label\n      >\n    </div>\n    <div class=\"navbar-center\">\n      <div class=\"input search input-padding\">\n        <input class=\"icon-left\" type=\"text\" placeholder=\"Search\" />\n        <i class=\"pe-7s-search left\"></i>\n      </div>\n    </div>\n    <div class=\"navbar-right\">\n      <button class=\"button\">Login</button>\n    </div>\n  </div>\n  <div class=\"navbar\">\n    <div class=\"navbar-left\">\n      <i\n        class=\"pe-7s-menu primary\"\n        style=\"font-weight: 600; font-size: var(--large-font-size);\"\n      ></i>\n    </div>\n    <div class=\"navbar-center\">\n      <label class=\"label\"\n        ><i class=\"pe-7s-global icon-left primary\"></i>Booklib</label\n      >\n    </div>\n    <div class=\"navbar-right\">\n      <i\n        class=\"pe-7s-bell primary\"\n        style=\"font-weight: 600; font-size: var(--large-font-size);\"\n      ></i>\n    </div>\n  </div>\n  <div class=\"footer\">\n    <span>2020 - All rights reserved</span>\n    <span>Terms & Conditions</span>\n  </div>\n  <div class=\"pagination\">\n    <i class=\"pe-7s-angle-left icon-left\"></i>\n    <span class=\"number\">1</span>\n    <span class=\"number\">2</span>\n    <span class=\"number selected\">3</span>\n    <span class=\"number disabled\">...</span>\n    <span class=\"number\">12</span>\n    <i class=\"pe-7s-angle-right icon-right\"></i>\n  </div>\n  <div class=\"tabs tabs-wrapper\">\n    <button class=\"tab\">\n      Home\n    </button>\n    <button class=\"tab\">\n      About\n    </button>\n    <button class=\"tab\">\n      Profile\n    </button>\n  </div>\n  <table class=\"table\">\n    <thead>\n      <th class=\"min-width\">\n        <input type=\"checkbox\" id=\"checkboxtable3\" class=\"checkbox\" /><label\n          for=\"checkboxtable3\"\n        ></label>\n      </th>\n      <th>Name</th>\n      <th>E-Mail</th>\n      <th>Number</th>\n    </thead>\n    <tbody>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable1\" class=\"checkbox\" /><label\n            for=\"checkboxtable1\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable2\" class=\"checkbox\" /><label\n            for=\"checkboxtable2\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable3\" class=\"checkbox\" /><label\n            for=\"checkboxtable3\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable4\" class=\"checkbox\" /><label\n            for=\"checkboxtable4\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable5\" class=\"checkbox\" /><label\n            for=\"checkboxtable5\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable6\" class=\"checkbox\" /><label\n            for=\"checkboxtable6\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable7\" class=\"checkbox\" /><label\n            for=\"checkboxtable7\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
         },
         {
             "name": "UserInfoComponent",
@@ -15938,7 +15976,7 @@
                 "subtype": "variable",
                 "file": "src/utils/constants.ts",
                 "type": "object",
-                "defaultValue": "{\n  om: 'Afaan Oromoo',\n  aa: 'Afaraf',\n  af: 'Afrikaans',\n  ak: 'Akan',\n  an: 'aragonés',\n  ig: 'Asụsụ Igbo',\n  gn: 'Avañe\\'ẽ',\n  ae: 'avesta',\n  ay: 'aymar aru',\n  az: 'azərbaycan dili',\n  id: 'Bahasa Indonesia',\n  ms: 'bahasa Melayu',\n  bm: 'bamanankan',\n  jv: 'basa Jawa',\n  su: 'Basa Sunda',\n  bi: 'Bislama',\n  bs: 'bosanski jezik',\n  br: 'brezhoneg',\n  ca: 'català',\n  ch: 'Chamoru',\n  ny: 'chiCheŵa',\n  sn: 'chiShona',\n  co: 'corsu',\n  cy: 'Cymraeg',\n  da: 'dansk',\n  se: 'Davvisámegiella',\n  de: 'Deutsch',\n  nv: 'Diné bizaad',\n  et: 'eesti',\n  na: 'Ekakairũ Naoero',\n  en: 'English',\n  es: 'español',\n  eo: 'Esperanto',\n  eu: 'euskara',\n  ee: 'Eʋegbe',\n  to: 'faka Tonga',\n  mg: 'fiteny malagasy',\n  fr: 'français',\n  fy: 'Frysk',\n  ff: 'Fulfulde',\n  fo: 'føroyskt',\n  ga: 'Gaeilge',\n  gv: 'Gaelg',\n  sm: 'gagana fa\\'a Samoa',\n  gl: 'galego',\n  sq: 'gjuha shqipe',\n  gd: 'Gàidhlig',\n  ki: 'Gĩkũyũ',\n  ha: 'Hausa',\n  ho: 'Hiri Motu',\n  hr: 'hrvatski jezik',\n  io: 'Ido',\n  rw: 'Ikinyarwanda',\n  rn: 'Ikirundi',\n  ia: 'Interlingua',\n  nd: 'isiNdebele',\n  nr: 'isiNdebele',\n  xh: 'isiXhosa',\n  zu: 'isiZulu',\n  it: 'italiano',\n  ik: 'Iñupiaq',\n  pl: 'polski',\n  mh: 'Kajin M̧ajeļ',\n  kl: 'kalaallisut',\n  kr: 'Kanuri',\n  kw: 'Kernewek',\n  kg: 'KiKongo',\n  sw: 'Kiswahili',\n  ht: 'Kreyòl ayisyen',\n  kj: 'Kuanyama',\n  ku: 'Kurdî',\n  la: 'latine',\n  lv: 'latviešu valoda',\n  lt: 'lietuvių kalba',\n  ro: 'limba română',\n  li: 'Limburgs',\n  ln: 'Lingála',\n  lg: 'Luganda',\n  lb: 'Lëtzebuergesch',\n  hu: 'magyar',\n  mt: 'Malti',\n  nl: 'Nederlands',\n  no: 'Norsk',\n  nb: 'Norsk bokmål',\n  nn: 'Norsk nynorsk',\n  uz: 'O\\'zbek',\n  oc: 'occitan',\n  ie: 'Interlingue',\n  hz: 'Otjiherero',\n  ng: 'Owambo',\n  pt: 'português',\n  ty: 'Reo Tahiti',\n  rm: 'rumantsch grischun',\n  qu: 'Runa Simi',\n  sc: 'sardu',\n  za: 'Saɯ cueŋƅ',\n  st: 'Sesotho',\n  tn: 'Setswana',\n  ss: 'SiSwati',\n  sl: 'slovenski jezik',\n  sk: 'slovenčina',\n  so: 'Soomaaliga',\n  fi: 'suomi',\n  sv: 'Svenska',\n  mi: 'te reo Māori',\n  vi: 'Tiếng Việt',\n  lu: 'Tshiluba',\n  ve: 'Tshivenḓa',\n  tw: 'Twi',\n  tk: 'Türkmen',\n  tr: 'Türkçe',\n  ug: 'Uyƣurqə',\n  vo: 'Volapük',\n  fj: 'vosa Vakaviti',\n  wa: 'walon',\n  tl: 'Wikang Tagalog',\n  wo: 'Wollof',\n  ts: 'Xitsonga',\n  yo: 'Yorùbá',\n  sg: 'yângâ tî sängö',\n  is: 'Íslenska',\n  cs: 'čeština',\n  el: 'ελληνικά',\n  av: 'авар мацӀ',\n  ab: 'аҧсуа бызшәа',\n  ba: 'башҡорт теле',\n  be: 'беларуская мова',\n  bg: 'български език',\n  os: 'ирон æвзаг',\n  kv: 'коми кыв',\n  ky: 'Кыргызча',\n  mk: 'македонски јазик',\n  mn: 'монгол',\n  ce: 'нохчийн мотт',\n  ru: 'Русский язык',\n  sr: 'српски језик',\n  tt: 'татар теле',\n  tg: 'тоҷикӣ',\n  uk: 'українська мова',\n  cv: 'чӑваш чӗлхи',\n  cu: 'ѩзыкъ словѣньскъ',\n  kk: 'қазақ тілі',\n  hy: 'Հայերեն',\n  yi: 'ייִדיש',\n  he: 'עברית',\n  ur: 'اردو',\n  ar: 'العربية',\n  fa: 'فارسی',\n  ps: 'پښتو',\n  ks: 'कश्मीरी',\n  ne: 'नेपाली',\n  pi: 'पाऴि',\n  bh: 'भोजपुरी',\n  mr: 'मराठी',\n  sa: 'संस्कृतम्',\n  sd: 'सिन्धी',\n  hi: 'हिन्दी',\n  as: 'অসমীয়া',\n  bn: 'বাংলা',\n  pa: 'ਪੰਜਾਬੀ',\n  gu: 'ગુજરાતી',\n  or: 'ଓଡ଼ିଆ',\n  ta: 'தமிழ்',\n  te: 'తెలుగు',\n  kn: 'ಕನ್ನಡ',\n  ml: 'മലയാളം',\n  si: 'සිංහල',\n  th: 'ไทย',\n  lo: 'ພາສາລາວ',\n  bo: 'བོད་ཡིག',\n  dz: 'རྫོང་ཁ',\n  my: 'ဗမာစာ',\n  ka: 'ქართული',\n  ti: 'ትግርኛ',\n  am: 'አማርኛ',\n  iu: 'ᐃᓄᒃᑎᑐᑦ',\n  oj: 'ᐊᓂᔑᓈᐯᒧᐎᓐ',\n  cr: 'ᓀᐦᐃᔭᐍᐏᐣ',\n  km: 'ខ្មែរ',\n  zh: '中文 (Zhōngwén)',\n  ja: '日本語 (にほんご)',\n  ii: 'ꆈꌠ꒿ Nuosuhxop',\n  ko: '한국어 (韓國語)',\n}"
+                "defaultValue": "{\n  om: 'Afaan Oromoo',\n  aa: 'Afaraf',\n  af: 'Afrikaans',\n  ak: 'Akan',\n  an: 'aragonés',\n  ig: 'Asụsụ Igbo',\n  gn: \"Avañe'ẽ\",\n  ae: 'avesta',\n  ay: 'aymar aru',\n  az: 'azərbaycan dili',\n  id: 'Bahasa Indonesia',\n  ms: 'bahasa Melayu',\n  bm: 'bamanankan',\n  jv: 'basa Jawa',\n  su: 'Basa Sunda',\n  bi: 'Bislama',\n  bs: 'bosanski jezik',\n  br: 'brezhoneg',\n  ca: 'català',\n  ch: 'Chamoru',\n  ny: 'chiCheŵa',\n  sn: 'chiShona',\n  co: 'corsu',\n  cy: 'Cymraeg',\n  da: 'dansk',\n  se: 'Davvisámegiella',\n  de: 'Deutsch',\n  nv: 'Diné bizaad',\n  et: 'eesti',\n  na: 'Ekakairũ Naoero',\n  en: 'English',\n  es: 'español',\n  eo: 'Esperanto',\n  eu: 'euskara',\n  ee: 'Eʋegbe',\n  to: 'faka Tonga',\n  mg: 'fiteny malagasy',\n  fr: 'français',\n  fy: 'Frysk',\n  ff: 'Fulfulde',\n  fo: 'føroyskt',\n  ga: 'Gaeilge',\n  gv: 'Gaelg',\n  sm: \"gagana fa'a Samoa\",\n  gl: 'galego',\n  sq: 'gjuha shqipe',\n  gd: 'Gàidhlig',\n  ki: 'Gĩkũyũ',\n  ha: 'Hausa',\n  ho: 'Hiri Motu',\n  hr: 'hrvatski jezik',\n  io: 'Ido',\n  rw: 'Ikinyarwanda',\n  rn: 'Ikirundi',\n  ia: 'Interlingua',\n  nd: 'isiNdebele',\n  nr: 'isiNdebele',\n  xh: 'isiXhosa',\n  zu: 'isiZulu',\n  it: 'italiano',\n  ik: 'Iñupiaq',\n  pl: 'polski',\n  mh: 'Kajin M̧ajeļ',\n  kl: 'kalaallisut',\n  kr: 'Kanuri',\n  kw: 'Kernewek',\n  kg: 'KiKongo',\n  sw: 'Kiswahili',\n  ht: 'Kreyòl ayisyen',\n  kj: 'Kuanyama',\n  ku: 'Kurdî',\n  la: 'latine',\n  lv: 'latviešu valoda',\n  lt: 'lietuvių kalba',\n  ro: 'limba română',\n  li: 'Limburgs',\n  ln: 'Lingála',\n  lg: 'Luganda',\n  lb: 'Lëtzebuergesch',\n  hu: 'magyar',\n  mt: 'Malti',\n  nl: 'Nederlands',\n  no: 'Norsk',\n  nb: 'Norsk bokmål',\n  nn: 'Norsk nynorsk',\n  uz: \"O'zbek\",\n  oc: 'occitan',\n  ie: 'Interlingue',\n  hz: 'Otjiherero',\n  ng: 'Owambo',\n  pt: 'português',\n  ty: 'Reo Tahiti',\n  rm: 'rumantsch grischun',\n  qu: 'Runa Simi',\n  sc: 'sardu',\n  za: 'Saɯ cueŋƅ',\n  st: 'Sesotho',\n  tn: 'Setswana',\n  ss: 'SiSwati',\n  sl: 'slovenski jezik',\n  sk: 'slovenčina',\n  so: 'Soomaaliga',\n  fi: 'suomi',\n  sv: 'Svenska',\n  mi: 'te reo Māori',\n  vi: 'Tiếng Việt',\n  lu: 'Tshiluba',\n  ve: 'Tshivenḓa',\n  tw: 'Twi',\n  tk: 'Türkmen',\n  tr: 'Türkçe',\n  ug: 'Uyƣurqə',\n  vo: 'Volapük',\n  fj: 'vosa Vakaviti',\n  wa: 'walon',\n  tl: 'Wikang Tagalog',\n  wo: 'Wollof',\n  ts: 'Xitsonga',\n  yo: 'Yorùbá',\n  sg: 'yângâ tî sängö',\n  is: 'Íslenska',\n  cs: 'čeština',\n  el: 'ελληνικά',\n  av: 'авар мацӀ',\n  ab: 'аҧсуа бызшәа',\n  ba: 'башҡорт теле',\n  be: 'беларуская мова',\n  bg: 'български език',\n  os: 'ирон æвзаг',\n  kv: 'коми кыв',\n  ky: 'Кыргызча',\n  mk: 'македонски јазик',\n  mn: 'монгол',\n  ce: 'нохчийн мотт',\n  ru: 'Русский язык',\n  sr: 'српски језик',\n  tt: 'татар теле',\n  tg: 'тоҷикӣ',\n  uk: 'українська мова',\n  cv: 'чӑваш чӗлхи',\n  cu: 'ѩзыкъ словѣньскъ',\n  kk: 'қазақ тілі',\n  hy: 'Հայերեն',\n  yi: 'ייִדיש',\n  he: 'עברית',\n  ur: 'اردو',\n  ar: 'العربية',\n  fa: 'فارسی',\n  ps: 'پښتو',\n  ks: 'कश्मीरी',\n  ne: 'नेपाली',\n  pi: 'पाऴि',\n  bh: 'भोजपुरी',\n  mr: 'मराठी',\n  sa: 'संस्कृतम्',\n  sd: 'सिन्धी',\n  hi: 'हिन्दी',\n  as: 'অসমীয়া',\n  bn: 'বাংলা',\n  pa: 'ਪੰਜਾਬੀ',\n  gu: 'ગુજરાતી',\n  or: 'ଓଡ଼ିଆ',\n  ta: 'தமிழ்',\n  te: 'తెలుగు',\n  kn: 'ಕನ್ನಡ',\n  ml: 'മലയാളം',\n  si: 'සිංහල',\n  th: 'ไทย',\n  lo: 'ພາສາລາວ',\n  bo: 'བོད་ཡིག',\n  dz: 'རྫོང་ཁ',\n  my: 'ဗမာစာ',\n  ka: 'ქართული',\n  ti: 'ትግርኛ',\n  am: 'አማርኛ',\n  iu: 'ᐃᓄᒃᑎᑐᑦ',\n  oj: 'ᐊᓂᔑᓈᐯᒧᐎᓐ',\n  cr: 'ᓀᐦᐃᔭᐍᐏᐣ',\n  km: 'ខ្មែរ',\n  zh: '中文 (Zhōngwén)',\n  ja: '日本語 (にほんご)',\n  ii: 'ꆈꌠ꒿ Nuosuhxop',\n  ko: '한국어 (韓國語)',\n}"
             },
             {
                 "name": "$",
@@ -16063,14 +16101,6 @@
                 "name": "bookInLibrary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/dashboard/core/books-section/books-section.example.ts",
-                "type": "",
-                "defaultValue": "BookFactory.build({\n  canBeSelected: false,\n  isSelected: false,\n})"
-            },
-            {
-                "name": "bookInLibrary",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/dashboard/core/books-table/books-table.example.ts",
                 "type": "",
                 "defaultValue": "BookFactory.build({\n  canBeSelected: false,\n  isSelected: false,\n})"
@@ -16114,6 +16144,30 @@
                 "file": "src/app/dashboard/core/author-card/author-card.example.ts",
                 "type": "",
                 "defaultValue": "() => ({\n  component: AuthorCardComponent,\n  props: {\n    author,\n    clickable: true,\n  },\n})"
+            },
+            {
+                "name": "Clickable",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/authors-section/authors-section.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: AuthorsSectionComponent,\n  props: {\n    authors,\n    clickable: true,\n  },\n})"
+            },
+            {
+                "name": "Clickable",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/books-display/books-display.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    sectionTitle: 'Section title',\n    description: 'A description',\n    clickable: true,\n  },\n})"
+            },
+            {
+                "name": "Clickable",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    clickable: true,\n  },\n})"
             },
             {
                 "name": "COLLECTION_GROUPINGS",
@@ -16172,6 +16226,22 @@
                 "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
             },
             {
+                "name": "Count5",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/pages/pages.component.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: PagesComponent,\n  props: { count: 5, selectedPage: 2 },\n})"
+            },
+            {
+                "name": "CountNotGiven",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/pages/pages.component.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: PagesComponent,\n  props: { selectedPage: 4 },\n})"
+            },
+            {
                 "name": "DarkTheme",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -16199,9 +16269,33 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/dashboard/core/authors-section/authors-section.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: AuthorsSectionComponent,\n  props: {\n    authors,\n  },\n})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/books-display/books-display.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    sectionTitle: 'Sectioaaaaasdasn title',\n    description: 'A description',\n  },\n})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/dashboard/core/books-section/books-section.example.ts",
                 "type": "",
-                "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section tfdditle',\n    description: 'A description',\n    withButtons: true,\n  },\n})"
+                "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n  },\n})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/pages/pages.component.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: PagesComponent,\n  props: { count: 12, selectedPage: 7 },\n})"
             },
             {
                 "name": "DEFAULT_TABLE_ITEMS",
@@ -16292,6 +16386,14 @@
                 "defaultValue": "(object: object, value: any) =>\n  _.findKey(object, _value => _value === value)"
             },
             {
+                "name": "First",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/pages/pages.component.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: PagesComponent,\n  props: { count: 12, selectedPage: 1 },\n})"
+            },
+            {
                 "name": "formatDate",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -16348,6 +16450,14 @@
                 "defaultValue": "objectToArray(_LANGUAGES)\n  .map(language => upperCaseFirstLetter(language))\n  .sort()"
             },
             {
+                "name": "Last",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/pages/pages.component.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: PagesComponent,\n  props: { count: 12, selectedPage: 12 },\n})"
+            },
+            {
                 "name": "MAX_BOOKS",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -16386,6 +16496,14 @@
                 "file": "src/utils/constants.ts",
                 "type": "number",
                 "defaultValue": "24"
+            },
+            {
+                "name": "MOBILE_WIDTH",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/utils/constants.ts",
+                "type": "number",
+                "defaultValue": "991"
             },
             {
                 "name": "notify",
@@ -16539,6 +16657,22 @@
                 "defaultValue": "(location: string, wait: number): void => {\n  const element = document.querySelector('#' + location)\n  if (element) {\n    setTimeout(() => {\n      element.scrollIntoView({\n        behavior: 'smooth',\n        block: 'start',\n        inline: 'nearest',\n      })\n    }, wait)\n  }\n}"
             },
             {
+                "name": "Selectable",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/books-display/books-display.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books: [...books, bookInLibrary],\n    sectionTitle: 'Section title',\n    description: 'A description',\n    selectable: true,\n    statusIncluded: 'In library',\n    statusNotIncluded: 'Not in library',\n    statusCannotBeSelected: 'Already in library',\n    selectBtnContent: 'Add to library',\n    selectBtnContentDisabled: 'Already in library',\n  },\n})"
+            },
+            {
+                "name": "Selectable",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    selectable: true,\n  },\n})"
+            },
+            {
                 "name": "tableItems",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -16640,7 +16774,7 @@
                     "subtype": "variable",
                     "file": "src/utils/constants.ts",
                     "type": "object",
-                    "defaultValue": "{\n  om: 'Afaan Oromoo',\n  aa: 'Afaraf',\n  af: 'Afrikaans',\n  ak: 'Akan',\n  an: 'aragonés',\n  ig: 'Asụsụ Igbo',\n  gn: 'Avañe\\'ẽ',\n  ae: 'avesta',\n  ay: 'aymar aru',\n  az: 'azərbaycan dili',\n  id: 'Bahasa Indonesia',\n  ms: 'bahasa Melayu',\n  bm: 'bamanankan',\n  jv: 'basa Jawa',\n  su: 'Basa Sunda',\n  bi: 'Bislama',\n  bs: 'bosanski jezik',\n  br: 'brezhoneg',\n  ca: 'català',\n  ch: 'Chamoru',\n  ny: 'chiCheŵa',\n  sn: 'chiShona',\n  co: 'corsu',\n  cy: 'Cymraeg',\n  da: 'dansk',\n  se: 'Davvisámegiella',\n  de: 'Deutsch',\n  nv: 'Diné bizaad',\n  et: 'eesti',\n  na: 'Ekakairũ Naoero',\n  en: 'English',\n  es: 'español',\n  eo: 'Esperanto',\n  eu: 'euskara',\n  ee: 'Eʋegbe',\n  to: 'faka Tonga',\n  mg: 'fiteny malagasy',\n  fr: 'français',\n  fy: 'Frysk',\n  ff: 'Fulfulde',\n  fo: 'føroyskt',\n  ga: 'Gaeilge',\n  gv: 'Gaelg',\n  sm: 'gagana fa\\'a Samoa',\n  gl: 'galego',\n  sq: 'gjuha shqipe',\n  gd: 'Gàidhlig',\n  ki: 'Gĩkũyũ',\n  ha: 'Hausa',\n  ho: 'Hiri Motu',\n  hr: 'hrvatski jezik',\n  io: 'Ido',\n  rw: 'Ikinyarwanda',\n  rn: 'Ikirundi',\n  ia: 'Interlingua',\n  nd: 'isiNdebele',\n  nr: 'isiNdebele',\n  xh: 'isiXhosa',\n  zu: 'isiZulu',\n  it: 'italiano',\n  ik: 'Iñupiaq',\n  pl: 'polski',\n  mh: 'Kajin M̧ajeļ',\n  kl: 'kalaallisut',\n  kr: 'Kanuri',\n  kw: 'Kernewek',\n  kg: 'KiKongo',\n  sw: 'Kiswahili',\n  ht: 'Kreyòl ayisyen',\n  kj: 'Kuanyama',\n  ku: 'Kurdî',\n  la: 'latine',\n  lv: 'latviešu valoda',\n  lt: 'lietuvių kalba',\n  ro: 'limba română',\n  li: 'Limburgs',\n  ln: 'Lingála',\n  lg: 'Luganda',\n  lb: 'Lëtzebuergesch',\n  hu: 'magyar',\n  mt: 'Malti',\n  nl: 'Nederlands',\n  no: 'Norsk',\n  nb: 'Norsk bokmål',\n  nn: 'Norsk nynorsk',\n  uz: 'O\\'zbek',\n  oc: 'occitan',\n  ie: 'Interlingue',\n  hz: 'Otjiherero',\n  ng: 'Owambo',\n  pt: 'português',\n  ty: 'Reo Tahiti',\n  rm: 'rumantsch grischun',\n  qu: 'Runa Simi',\n  sc: 'sardu',\n  za: 'Saɯ cueŋƅ',\n  st: 'Sesotho',\n  tn: 'Setswana',\n  ss: 'SiSwati',\n  sl: 'slovenski jezik',\n  sk: 'slovenčina',\n  so: 'Soomaaliga',\n  fi: 'suomi',\n  sv: 'Svenska',\n  mi: 'te reo Māori',\n  vi: 'Tiếng Việt',\n  lu: 'Tshiluba',\n  ve: 'Tshivenḓa',\n  tw: 'Twi',\n  tk: 'Türkmen',\n  tr: 'Türkçe',\n  ug: 'Uyƣurqə',\n  vo: 'Volapük',\n  fj: 'vosa Vakaviti',\n  wa: 'walon',\n  tl: 'Wikang Tagalog',\n  wo: 'Wollof',\n  ts: 'Xitsonga',\n  yo: 'Yorùbá',\n  sg: 'yângâ tî sängö',\n  is: 'Íslenska',\n  cs: 'čeština',\n  el: 'ελληνικά',\n  av: 'авар мацӀ',\n  ab: 'аҧсуа бызшәа',\n  ba: 'башҡорт теле',\n  be: 'беларуская мова',\n  bg: 'български език',\n  os: 'ирон æвзаг',\n  kv: 'коми кыв',\n  ky: 'Кыргызча',\n  mk: 'македонски јазик',\n  mn: 'монгол',\n  ce: 'нохчийн мотт',\n  ru: 'Русский язык',\n  sr: 'српски језик',\n  tt: 'татар теле',\n  tg: 'тоҷикӣ',\n  uk: 'українська мова',\n  cv: 'чӑваш чӗлхи',\n  cu: 'ѩзыкъ словѣньскъ',\n  kk: 'қазақ тілі',\n  hy: 'Հայերեն',\n  yi: 'ייִדיש',\n  he: 'עברית',\n  ur: 'اردو',\n  ar: 'العربية',\n  fa: 'فارسی',\n  ps: 'پښتو',\n  ks: 'कश्मीरी',\n  ne: 'नेपाली',\n  pi: 'पाऴि',\n  bh: 'भोजपुरी',\n  mr: 'मराठी',\n  sa: 'संस्कृतम्',\n  sd: 'सिन्धी',\n  hi: 'हिन्दी',\n  as: 'অসমীয়া',\n  bn: 'বাংলা',\n  pa: 'ਪੰਜਾਬੀ',\n  gu: 'ગુજરાતી',\n  or: 'ଓଡ଼ିଆ',\n  ta: 'தமிழ்',\n  te: 'తెలుగు',\n  kn: 'ಕನ್ನಡ',\n  ml: 'മലയാളം',\n  si: 'සිංහල',\n  th: 'ไทย',\n  lo: 'ພາສາລາວ',\n  bo: 'བོད་ཡིག',\n  dz: 'རྫོང་ཁ',\n  my: 'ဗမာစာ',\n  ka: 'ქართული',\n  ti: 'ትግርኛ',\n  am: 'አማርኛ',\n  iu: 'ᐃᓄᒃᑎᑐᑦ',\n  oj: 'ᐊᓂᔑᓈᐯᒧᐎᓐ',\n  cr: 'ᓀᐦᐃᔭᐍᐏᐣ',\n  km: 'ខ្មែរ',\n  zh: '中文 (Zhōngwén)',\n  ja: '日本語 (にほんご)',\n  ii: 'ꆈꌠ꒿ Nuosuhxop',\n  ko: '한국어 (韓國語)',\n}"
+                    "defaultValue": "{\n  om: 'Afaan Oromoo',\n  aa: 'Afaraf',\n  af: 'Afrikaans',\n  ak: 'Akan',\n  an: 'aragonés',\n  ig: 'Asụsụ Igbo',\n  gn: \"Avañe'ẽ\",\n  ae: 'avesta',\n  ay: 'aymar aru',\n  az: 'azərbaycan dili',\n  id: 'Bahasa Indonesia',\n  ms: 'bahasa Melayu',\n  bm: 'bamanankan',\n  jv: 'basa Jawa',\n  su: 'Basa Sunda',\n  bi: 'Bislama',\n  bs: 'bosanski jezik',\n  br: 'brezhoneg',\n  ca: 'català',\n  ch: 'Chamoru',\n  ny: 'chiCheŵa',\n  sn: 'chiShona',\n  co: 'corsu',\n  cy: 'Cymraeg',\n  da: 'dansk',\n  se: 'Davvisámegiella',\n  de: 'Deutsch',\n  nv: 'Diné bizaad',\n  et: 'eesti',\n  na: 'Ekakairũ Naoero',\n  en: 'English',\n  es: 'español',\n  eo: 'Esperanto',\n  eu: 'euskara',\n  ee: 'Eʋegbe',\n  to: 'faka Tonga',\n  mg: 'fiteny malagasy',\n  fr: 'français',\n  fy: 'Frysk',\n  ff: 'Fulfulde',\n  fo: 'føroyskt',\n  ga: 'Gaeilge',\n  gv: 'Gaelg',\n  sm: \"gagana fa'a Samoa\",\n  gl: 'galego',\n  sq: 'gjuha shqipe',\n  gd: 'Gàidhlig',\n  ki: 'Gĩkũyũ',\n  ha: 'Hausa',\n  ho: 'Hiri Motu',\n  hr: 'hrvatski jezik',\n  io: 'Ido',\n  rw: 'Ikinyarwanda',\n  rn: 'Ikirundi',\n  ia: 'Interlingua',\n  nd: 'isiNdebele',\n  nr: 'isiNdebele',\n  xh: 'isiXhosa',\n  zu: 'isiZulu',\n  it: 'italiano',\n  ik: 'Iñupiaq',\n  pl: 'polski',\n  mh: 'Kajin M̧ajeļ',\n  kl: 'kalaallisut',\n  kr: 'Kanuri',\n  kw: 'Kernewek',\n  kg: 'KiKongo',\n  sw: 'Kiswahili',\n  ht: 'Kreyòl ayisyen',\n  kj: 'Kuanyama',\n  ku: 'Kurdî',\n  la: 'latine',\n  lv: 'latviešu valoda',\n  lt: 'lietuvių kalba',\n  ro: 'limba română',\n  li: 'Limburgs',\n  ln: 'Lingála',\n  lg: 'Luganda',\n  lb: 'Lëtzebuergesch',\n  hu: 'magyar',\n  mt: 'Malti',\n  nl: 'Nederlands',\n  no: 'Norsk',\n  nb: 'Norsk bokmål',\n  nn: 'Norsk nynorsk',\n  uz: \"O'zbek\",\n  oc: 'occitan',\n  ie: 'Interlingue',\n  hz: 'Otjiherero',\n  ng: 'Owambo',\n  pt: 'português',\n  ty: 'Reo Tahiti',\n  rm: 'rumantsch grischun',\n  qu: 'Runa Simi',\n  sc: 'sardu',\n  za: 'Saɯ cueŋƅ',\n  st: 'Sesotho',\n  tn: 'Setswana',\n  ss: 'SiSwati',\n  sl: 'slovenski jezik',\n  sk: 'slovenčina',\n  so: 'Soomaaliga',\n  fi: 'suomi',\n  sv: 'Svenska',\n  mi: 'te reo Māori',\n  vi: 'Tiếng Việt',\n  lu: 'Tshiluba',\n  ve: 'Tshivenḓa',\n  tw: 'Twi',\n  tk: 'Türkmen',\n  tr: 'Türkçe',\n  ug: 'Uyƣurqə',\n  vo: 'Volapük',\n  fj: 'vosa Vakaviti',\n  wa: 'walon',\n  tl: 'Wikang Tagalog',\n  wo: 'Wollof',\n  ts: 'Xitsonga',\n  yo: 'Yorùbá',\n  sg: 'yângâ tî sängö',\n  is: 'Íslenska',\n  cs: 'čeština',\n  el: 'ελληνικά',\n  av: 'авар мацӀ',\n  ab: 'аҧсуа бызшәа',\n  ba: 'башҡорт теле',\n  be: 'беларуская мова',\n  bg: 'български език',\n  os: 'ирон æвзаг',\n  kv: 'коми кыв',\n  ky: 'Кыргызча',\n  mk: 'македонски јазик',\n  mn: 'монгол',\n  ce: 'нохчийн мотт',\n  ru: 'Русский язык',\n  sr: 'српски језик',\n  tt: 'татар теле',\n  tg: 'тоҷикӣ',\n  uk: 'українська мова',\n  cv: 'чӑваш чӗлхи',\n  cu: 'ѩзыкъ словѣньскъ',\n  kk: 'қазақ тілі',\n  hy: 'Հայերեն',\n  yi: 'ייִדיש',\n  he: 'עברית',\n  ur: 'اردو',\n  ar: 'العربية',\n  fa: 'فارسی',\n  ps: 'پښتو',\n  ks: 'कश्मीरी',\n  ne: 'नेपाली',\n  pi: 'पाऴि',\n  bh: 'भोजपुरी',\n  mr: 'मराठी',\n  sa: 'संस्कृतम्',\n  sd: 'सिन्धी',\n  hi: 'हिन्दी',\n  as: 'অসমীয়া',\n  bn: 'বাংলা',\n  pa: 'ਪੰਜਾਬੀ',\n  gu: 'ગુજરાતી',\n  or: 'ଓଡ଼ିଆ',\n  ta: 'தமிழ்',\n  te: 'తెలుగు',\n  kn: 'ಕನ್ನಡ',\n  ml: 'മലയാളം',\n  si: 'සිංහල',\n  th: 'ไทย',\n  lo: 'ພາສາລາວ',\n  bo: 'བོད་ཡིག',\n  dz: 'རྫོང་ཁ',\n  my: 'ဗမာစာ',\n  ka: 'ქართული',\n  ti: 'ትግርኛ',\n  am: 'አማርኛ',\n  iu: 'ᐃᓄᒃᑎᑐᑦ',\n  oj: 'ᐊᓂᔑᓈᐯᒧᐎᓐ',\n  cr: 'ᓀᐦᐃᔭᐍᐏᐣ',\n  km: 'ខ្មែរ',\n  zh: '中文 (Zhōngwén)',\n  ja: '日本語 (にほんご)',\n  ii: 'ꆈꌠ꒿ Nuosuhxop',\n  ko: '한국어 (韓國語)',\n}"
                 },
                 {
                     "name": "ANIMATIONS",
@@ -16729,6 +16863,14 @@
                     "file": "src/utils/constants.ts",
                     "type": "number",
                     "defaultValue": "24"
+                },
+                {
+                    "name": "MOBILE_WIDTH",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/utils/constants.ts",
+                    "type": "number",
+                    "defaultValue": "991"
                 }
             ],
             "src/app/dashboard/sidebar/sidebar.component.ts": [
@@ -16966,6 +17108,22 @@
                     "file": "src/app/dashboard/core/authors-section/authors-section.example.ts",
                     "type": "",
                     "defaultValue": "AuthorFactory.buildList(4)"
+                },
+                {
+                    "name": "Clickable",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/authors-section/authors-section.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: AuthorsSectionComponent,\n  props: {\n    authors,\n    clickable: true,\n  },\n})"
+                },
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/authors-section/authors-section.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: AuthorsSectionComponent,\n  props: {\n    authors,\n  },\n})"
                 }
             ],
             "src/app/dashboard/core/authors-table/authors-table.example.ts": [
@@ -17032,32 +17190,30 @@
                     "file": "src/app/dashboard/core/books-display/books-display.example.ts",
                     "type": "",
                     "defaultValue": "BookFactory.buildList(13, {\n  canBeSelected: true,\n  isSelected: true,\n})"
-                }
-            ],
-            "src/app/dashboard/core/books-section/books-section.example.ts": [
-                {
-                    "name": "bookInLibrary",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/dashboard/core/books-section/books-section.example.ts",
-                    "type": "",
-                    "defaultValue": "BookFactory.build({\n  canBeSelected: false,\n  isSelected: false,\n})"
                 },
                 {
-                    "name": "books",
+                    "name": "Clickable",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                    "file": "src/app/dashboard/core/books-display/books-display.example.ts",
                     "type": "",
-                    "defaultValue": "BookFactory.buildList(5, {\n  canBeSelected: true,\n  isSelected: true,\n})"
+                    "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    sectionTitle: 'Section title',\n    description: 'A description',\n    clickable: true,\n  },\n})"
                 },
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                    "file": "src/app/dashboard/core/books-display/books-display.example.ts",
                     "type": "",
-                    "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section tfdditle',\n    description: 'A description',\n    withButtons: true,\n  },\n})"
+                    "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    sectionTitle: 'Sectioaaaaasdasn title',\n    description: 'A description',\n  },\n})"
+                },
+                {
+                    "name": "Selectable",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-display/books-display.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books: [...books, bookInLibrary],\n    sectionTitle: 'Section title',\n    description: 'A description',\n    selectable: true,\n    statusIncluded: 'In library',\n    statusNotIncluded: 'Not in library',\n    statusCannotBeSelected: 'Already in library',\n    selectBtnContent: 'Add to library',\n    selectBtnContentDisabled: 'Already in library',\n  },\n})"
                 }
             ],
             "src/app/dashboard/core/books-table/books-table.example.ts": [
@@ -17084,6 +17240,40 @@
                     "file": "src/app/dashboard/core/books-table/books-table.example.ts",
                     "type": "object",
                     "defaultValue": "{\n  Cover: false,\n  'Original title': false,\n  Author: true,\n  'Added on': false,\n  Year: false,\n  Publisher: false,\n  Language: false,\n  Pages: false,\n  Rating: false,\n  Favorites: true,\n}"
+                }
+            ],
+            "src/app/dashboard/core/books-section/books-section.example.ts": [
+                {
+                    "name": "books",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                    "type": "",
+                    "defaultValue": "BookFactory.buildList(5, {\n  canBeSelected: true,\n  isSelected: true,\n})"
+                },
+                {
+                    "name": "Clickable",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    clickable: true,\n  },\n})"
+                },
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n  },\n})"
+                },
+                {
+                    "name": "Selectable",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    selectable: true,\n  },\n})"
                 }
             ],
             "src/factories/collection.factory.ts": [
@@ -17130,6 +17320,48 @@
                     "file": "src/utils/validators.ts",
                     "type": "",
                     "defaultValue": "(control: AbstractControl) =>\n  confirmField(control, 'password')"
+                }
+            ],
+            "src/app/dashboard/core/pages/pages.component.example.ts": [
+                {
+                    "name": "Count5",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/pages/pages.component.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: PagesComponent,\n  props: { count: 5, selectedPage: 2 },\n})"
+                },
+                {
+                    "name": "CountNotGiven",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/pages/pages.component.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: PagesComponent,\n  props: { selectedPage: 4 },\n})"
+                },
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/pages/pages.component.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: PagesComponent,\n  props: { count: 12, selectedPage: 7 },\n})"
+                },
+                {
+                    "name": "First",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/pages/pages.component.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: PagesComponent,\n  props: { count: 12, selectedPage: 1 },\n})"
+                },
+                {
+                    "name": "Last",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/pages/pages.component.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: PagesComponent,\n  props: { count: 12, selectedPage: 12 },\n})"
                 }
             ],
             "src/app/ui/ui.component.example.ts": [
@@ -17656,6 +17888,26 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/dashboard/core/authors-section/authors-section.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Clickable",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/authors-section/authors-section.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/dashboard/core/authors-table/authors-table.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -17751,22 +18003,42 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/dashboard/core/books-display/books-display.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Clickable",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/books-display/books-display.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/books-display/books-display.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Selectable",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/dashboard/core/books-section/books-section.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "BooksSectionComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/16",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/dashboard/core/books-section/books-section.example.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "bookInLibrary",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -17784,7 +18056,27 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "Clickable",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/books-section/books-section.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
                 "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/books-section/books-section.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Selectable",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -17834,7 +18126,7 @@
                 "linktype": "component",
                 "name": "GridComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/8",
                 "status": "low"
             },
             {
@@ -17892,12 +18184,62 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/dashboard/core/pages/pages.component.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Count5",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/pages/pages.component.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "CountNotGiven",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/pages/pages.component.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/pages/pages.component.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "First",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/pages/pages.component.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Last",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/dashboard/core/pages/pages.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "PagesComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/11",
+                "coverageCount": "0/13",
                 "status": "low"
             },
             {
@@ -18770,6 +19112,16 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "MAX_BOOKS_LIST",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/utils/constants.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "MOBILE_WIDTH",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

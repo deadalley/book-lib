@@ -1,6 +1,6 @@
 <div
   class="container"
-  [ngStyle]="{ 'grid-template-columns': 'auto '.repeat(itemsInRow) }"
+  [ngStyle]="{ 'grid-template-columns': generateColumns() }"
 >
   <ng-template
     *ngFor="let item of items; let i = index"

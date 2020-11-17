@@ -1,29 +1,42 @@
 import { CommonModule, APP_BASE_HREF } from '@angular/common'
 import { RouterModule } from '@angular/router'
-import { storiesOf, moduleMetadata } from '@storybook/angular'
+import { moduleMetadata } from '@storybook/angular'
 import { AppRoutes } from '../../../app.routing'
 import { PagesComponent } from './pages.component'
 
-storiesOf('Pages', module)
-  .addDecorator(
+export default {
+  title: 'Pages',
+  component: PagesComponent,
+  decorators: [
     moduleMetadata({
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
       imports: [CommonModule, RouterModule.forRoot(AppRoutes)],
       declarations: [PagesComponent],
-    })
-  )
-  .add('default', () => ({
-    component: PagesComponent,
-    props: { count: 12, selectedPage: 4 },
-  }))
-  .add('first', () => ({
-    component: PagesComponent,
-    props: { count: 12, selectedPage: 1 },
-  }))
-  .add('last', () => ({
-    component: PagesComponent,
-    props: { count: 12, selectedPage: 12 },
-  }))
-  .add('with no count given', () => ({
-    component: PagesComponent,
-  }))
+    }),
+  ],
+}
+
+export const Default = () => ({
+  component: PagesComponent,
+  props: { count: 12, selectedPage: 7 },
+})
+
+export const Count5 = () => ({
+  component: PagesComponent,
+  props: { count: 5, selectedPage: 2 },
+})
+
+export const First = () => ({
+  component: PagesComponent,
+  props: { count: 12, selectedPage: 1 },
+})
+
+export const Last = () => ({
+  component: PagesComponent,
+  props: { count: 12, selectedPage: 12 },
+})
+
+export const CountNotGiven = () => ({
+  component: PagesComponent,
+  props: { selectedPage: 4 },
+})

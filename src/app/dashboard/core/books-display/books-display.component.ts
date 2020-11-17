@@ -13,7 +13,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators'
   moduleId: module.id,
   selector: 'books-display',
   templateUrl: 'books-display.component.html',
-  styleUrls: ['books-display.component.css'],
+  styleUrls: ['books-display.component.scss'],
 })
 export class BooksDisplayComponent implements OnInit {
   @Input() books: Book[]

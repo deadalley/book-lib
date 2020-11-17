@@ -4,8 +4,9 @@ import {
   Input,
   ContentChild,
   TemplateRef,
-  ViewChild,
+  HostListener,
 } from '@angular/core'
+import { MOBILE_WIDTH } from 'utils/constants'
 
 @Component({
   moduleId: module.id,
@@ -15,17 +16,26 @@ import {
   styleUrls: ['grid.component.scss'],
 })
 export class GridComponent implements OnInit {
+  innerWidth: number
   @Input() items: any[]
   @Input() itemsInRow = 4
 
-  // @ViewChild(TemplateRef) contentTemplate
   @ContentChild(TemplateRef) contentTemplate
-  // @ContentChild(TemplateRef) puppyTemplate: TemplateRef<NgForOfContext<Puppy>>;
 
-  gridColumns = {}
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerWidth = window.innerWidth
+  }
 
   ngOnInit() {
-    const divider = `col-md-${12 / this.itemsInRow}`
-    this.gridColumns[divider] = true
+    this.innerWidth = window.innerWidth
+  }
+
+  generateColumns() {
+    if (this.innerWidth > MOBILE_WIDTH) {
+      return 'auto '.repeat(this.itemsInRow)
+    } else {
+      return 'auto'
+    }
   }
 }

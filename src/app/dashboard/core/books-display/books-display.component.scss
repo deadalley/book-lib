@@ -1,9 +1,20 @@
 .buttons {
+  display: flex;
+  justify-content: flex-end;
   margin-bottom: 8px;
+}
+
+.button {
+  margin-left: 6px;
 }
 
 .btn-margin {
   margin: 0 8px 0 0;
+}
+
+.search-bar {
+  max-width: 300px;
+  margin-left: 6px;
 }
 
 .full-search-bar {
@@ -12,7 +23,7 @@
 }
 
 .not-selectable {
-  color: #9A9A9A;
+  color: #9a9a9a;
 }
 
 .ti-info-alt {

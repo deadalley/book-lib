@@ -1,13 +1,19 @@
-<nav>
-  <ul class="pagination">
-    <li class="page-item" [ngClass]="{disabled: selectedPage === pages[0]}">
-      <a class="page-link" href="javascript:void(0);" (click)="onClick(selectedPage - 1)">Previous</a>
-    </li>
-    <li *ngFor="let page of pages" class="page-item" [ngClass]="{active: selectedPage === page}">
-      <a class="page-link" href="javascript:void(0);" (click)="onClick(page)">{{page}}</a>
-    </li>
-    <li class="page-item" [ngClass]="{disabled: selectedPage === pages[pages.length - 1]}">
-      <a class="page-link" href="javascript:void(0);" (click)="onClick(selectedPage + 1)">Next</a>
-    </li>
-  </ul>
-</nav>
+<div class="pagination">
+  <i
+    class="ti-angle-left icon-left button"
+    [ngClass]="{ disabled: selectedPage === pages[0] }"
+    (click)="onClick(selectedPage - 1)"
+  ></i>
+  <span
+    class="number"
+    *ngFor="let page of pages"
+    [ngClass]="{ selected: selectedPage === page, disabled: page === '...' }"
+    (click)="onClick(page)"
+    >{{ page }}</span
+  >
+  <i
+    class="ti-angle-right icon-right button"
+    [ngClass]="{ disabled: selectedPage === pages[pages.length - 1] }"
+    (click)="onClick(selectedPage + 1)"
+  ></i>
+</div>

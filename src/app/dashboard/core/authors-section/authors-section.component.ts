@@ -7,7 +7,7 @@ import { Author } from 'models/author.model'
   moduleId: module.id,
   selector: 'authors-section',
   templateUrl: 'authors-section.component.html',
-  styleUrls: ['authors-section.component.css'],
+  styleUrls: ['authors-section.component.scss'],
   animations: [ANIMATIONS.CARD],
 })
 export class AuthorsSectionComponent implements OnInit {

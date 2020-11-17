@@ -22,6 +22,8 @@ import { GoodreadsService } from '../services/goodreads.service'
 import { SessionService } from '../services/session.service'
 import { UiService } from '../services/ui.service'
 import { ImportService } from 'services/import.service'
+
+import loadingConfig from 'utils/loading.config'
 import { environment } from 'environments/environment'
 
 @NgModule({
@@ -38,13 +40,7 @@ import { environment } from 'environments/environment'
   ],
   imports: [
     RouterModule.forRoot(AppRoutes),
-    NgxLoadingModule.forRoot({
-      animationType: ngxLoadingAnimationTypes.circleSwish,
-      backdropBackgroundColour: 'rgba(100,0,0,0)',
-      primaryColour: 'rgb(120, 216, 236)',
-      secondaryColour: '#ffffff',
-      tertiaryColour: '#ffffff',
-    }),
+    NgxLoadingModule.forRoot(loadingConfig),
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,

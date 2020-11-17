@@ -2,7 +2,7 @@ import { CommonModule, APP_BASE_HREF } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { storiesOf, moduleMetadata } from '@storybook/angular'
+import { moduleMetadata } from '@storybook/angular'
 import { GridComponent } from '../grid/grid.component'
 import { BookCardComponent } from '../book-card/book-card.component'
 import { BooksSectionComponent } from '../books-section/books-section.component'
@@ -24,9 +24,12 @@ import {
 import BookFactory from 'factories/book.factory'
 import { UiService } from 'services/ui.service'
 import { PagePipe } from 'pipes/page.pipe'
+import { SearchFilterPipe } from 'pipes/search-filter.pipe'
+import { BookFilterPipe } from 'pipes/book-filter.pipe'
 import { PagesComponent } from '../pages/pages.component'
 import { AppRoutes } from '../../../app.routing'
 import { TableItemsComponent } from '../table-items/table-items.component'
+import { ReactiveFormsModule } from '@angular/forms'
 
 const books = BookFactory.buildList(13, {
   canBeSelected: true,
@@ -37,8 +40,10 @@ const bookInLibrary = BookFactory.build({
   isSelected: false,
 })
 
-storiesOf('Books Display', module)
-  .addDecorator(
+export default {
+  title: 'Books Display',
+  component: BooksDisplayComponent,
+  decorators: [
     moduleMetadata({
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
@@ -54,6 +59,7 @@ storiesOf('Books Display', module)
         RouterModule.forRoot(AppRoutes),
         TooltipModule.forRoot(),
         AngularFireModule.initializeApp(environment.firebaseConfig),
+        ReactiveFormsModule,
         AngularFireDatabaseModule,
         AngularFireStorageModule,
         BrowserAnimationsModule,
@@ -67,37 +73,43 @@ storiesOf('Books Display', module)
         PagesComponent,
         TableItemsComponent,
         PagePipe,
+        SearchFilterPipe,
+        BookFilterPipe,
       ],
-    })
-  )
-  .add('default', () => ({
-    component: BooksDisplayComponent,
-    props: {
-      books,
-      sectionTitle: 'Section title',
-      description: 'A description',
-    },
-  }))
-  .add('selectable', () => ({
-    component: BooksDisplayComponent,
-    props: {
-      books: [...books, bookInLibrary],
-      sectionTitle: 'Section title',
-      description: 'A description',
-      selectable: true,
-      statusIncluded: 'In library',
-      statusNotIncluded: 'Not in library',
-      statusCannotBeSelected: 'Already in library',
-      selectBtnContent: 'Add to library',
-      selectBtnContentDisabled: 'Already in library',
-    },
-  }))
-  .add('clickable', () => ({
-    component: BooksDisplayComponent,
-    props: {
-      books,
-      sectionTitle: 'Section title',
-      description: 'A description',
-      clickable: true,
-    },
-  }))
+    }),
+  ],
+}
+
+export const Default = () => ({
+  component: BooksDisplayComponent,
+  props: {
+    books,
+    sectionTitle: 'Sectioaaaaasdasn title',
+    description: 'A description',
+  },
+})
+
+export const Clickable = () => ({
+  component: BooksDisplayComponent,
+  props: {
+    books,
+    sectionTitle: 'Section title',
+    description: 'A description',
+    clickable: true,
+  },
+})
+
+export const Selectable = () => ({
+  component: BooksDisplayComponent,
+  props: {
+    books: [...books, bookInLibrary],
+    sectionTitle: 'Section title',
+    description: 'A description',
+    selectable: true,
+    statusIncluded: 'In library',
+    statusNotIncluded: 'Not in library',
+    statusCannotBeSelected: 'Already in library',
+    selectBtnContent: 'Add to library',
+    selectBtnContentDisabled: 'Already in library',
+  },
+})

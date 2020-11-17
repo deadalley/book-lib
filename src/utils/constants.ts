@@ -7,6 +7,8 @@ export const MAX_BOOKS_COLLECTION = 8
 export const MAX_BOOKS_DISPLAY = 8
 export const MAX_BOOKS_DISPLAY_LIST = 16
 
+export const MOBILE_WIDTH = 991
+
 export const DEFAULT_TABLE_ITEMS = {
   Cover: true,
   'Original title': false,
@@ -87,7 +89,7 @@ export const _LANGUAGES = {
   ak: 'Akan',
   an: 'aragonés',
   ig: 'Asụsụ Igbo',
-  gn: 'Avañe\'ẽ',
+  gn: "Avañe'ẽ",
   ae: 'avesta',
   ay: 'aymar aru',
   az: 'azərbaycan dili',
@@ -124,7 +126,7 @@ export const _LANGUAGES = {
   fo: 'føroyskt',
   ga: 'Gaeilge',
   gv: 'Gaelg',
-  sm: 'gagana fa\'a Samoa',
+  sm: "gagana fa'a Samoa",
   gl: 'galego',
   sq: 'gjuha shqipe',
   gd: 'Gàidhlig',
@@ -166,7 +168,7 @@ export const _LANGUAGES = {
   no: 'Norsk',
   nb: 'Norsk bokmål',
   nn: 'Norsk nynorsk',
-  uz: 'O\'zbek',
+  uz: "O'zbek",
   oc: 'occitan',
   ie: 'Interlingue',
   hz: 'Otjiherero',

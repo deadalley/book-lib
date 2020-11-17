@@ -1,27 +1,23 @@
 import { CommonModule } from '@angular/common'
-import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading'
-import { storiesOf, moduleMetadata } from '@storybook/angular'
+import { NgxLoadingModule } from 'ngx-loading'
+import { moduleMetadata } from '@storybook/angular'
 import { LoadingComponent } from './loading.component'
+import loadingConfig from 'utils/loading.config'
 
-storiesOf('Loading', module)
-  .addDecorator(
+export default {
+  title: 'Loading',
+  component: LoadingComponent,
+  decorators: [
     moduleMetadata({
       declarations: [LoadingComponent],
-      imports: [
-        CommonModule,
-        NgxLoadingModule.forRoot({
-          animationType: ngxLoadingAnimationTypes.circleSwish,
-          backdropBackgroundColour: 'rgba(100,0,0,0)',
-          primaryColour: 'rgb(120, 216, 236)',
-          secondaryColour: '#ffffff',
-          tertiaryColour: '#ffffff',
-        }),
-      ],
-    })
-  )
-  .add('default', () => ({
-    component: LoadingComponent,
-    props: {
-      visible: true,
-    },
-  }))
+      imports: [CommonModule, NgxLoadingModule.forRoot(loadingConfig)],
+    }),
+  ],
+}
+
+export const Default = () => ({
+  component: LoadingComponent,
+  props: {
+    visible: true,
+  },
+})
