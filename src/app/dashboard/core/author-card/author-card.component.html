@@ -25,7 +25,7 @@
       routerLink="/dashboard/authors/{{ author.id }}"
     >
       <img
-        class="image img-rounded"
+        class="image"
         [src]="
           author.imageLarge
             ? author.imageLarge
@@ -37,6 +37,7 @@
       />
     </a>
     <img
+      class="image"
       *ngIf="!linkable"
       [src]="
         author.imageLarge

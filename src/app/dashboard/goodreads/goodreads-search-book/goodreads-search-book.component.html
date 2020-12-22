@@ -20,7 +20,7 @@
     <div class="books-display" *ngIf="!isLoading && books && books.length">
       <books-display
         [fullSearchBar]="true"
-        [maxBooks]="4"
+        [maxBooksPerPage]='4'
         [bookCardsInRow]="2"
         [tilesDisplay]="false"
         [tableDisplayItems]="tableItems"

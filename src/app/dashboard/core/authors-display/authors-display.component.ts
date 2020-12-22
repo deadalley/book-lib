@@ -9,14 +9,14 @@ import { Author } from 'models/author.model'
   moduleId: module.id,
   selector: 'authors-display',
   templateUrl: 'authors-display.component.html',
-  styleUrls: ['authors-display.component.css'],
+  styleUrls: ['authors-display.component.scss'],
 })
 export class AuthorsDisplayComponent implements OnInit {
   @Input() authors: Author[]
   @Input() clickable: boolean
   @Input() linkable: boolean
   @Input() cardsInRow = 4
-  @Input() maxAuthors
+  @Input() maxAuthors: number
   @Input() fullSearchBar = false
   @Input() tilesDisplay = true
 
@@ -28,7 +28,7 @@ export class AuthorsDisplayComponent implements OnInit {
   page = 1
   pageCount = 1
   immutableMaxAuthors = false
-  searchValue
+  searchValue: string
   removeSpaces = removeSpaces
 
   ngOnInit() {

@@ -2,7 +2,7 @@ import { CommonModule, APP_BASE_HREF } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { storiesOf, moduleMetadata } from '@storybook/angular'
+import { moduleMetadata } from '@storybook/angular'
 import { GridComponent } from '../grid/grid.component'
 import { AuthorCardComponent } from '../author-card/author-card.component'
 import { AuthorsSectionComponent } from '../authors-section/authors-section.component'
@@ -31,8 +31,10 @@ import { AppRoutes } from '../../../app.routing'
 
 const authors = AuthorFactory.buildList(13)
 
-storiesOf('Authors Display', module)
-  .addDecorator(
+export default {
+  title: 'Authors Display',
+  component: AuthorsDisplayComponent,
+  decorators: [
     moduleMetadata({
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
@@ -64,18 +66,21 @@ storiesOf('Authors Display', module)
         PagePipe,
         SearchFilterPipe,
       ],
-    })
-  )
-  .add('default', () => ({
-    component: AuthorsDisplayComponent,
-    props: {
-      authors,
-    },
-  }))
-  .add('clickable', () => ({
-    component: AuthorsDisplayComponent,
-    props: {
-      authors,
-      clickable: true,
-    },
-  }))
+    }),
+  ],
+}
+
+export const Default = () => ({
+  component: AuthorsDisplayComponent,
+  props: {
+    authors,
+  },
+})
+
+export const Clickable = () => ({
+  component: AuthorsDisplayComponent,
+  props: {
+    authors,
+    clickable: true,
+  },
+})

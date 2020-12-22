@@ -6204,7 +6204,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "@import './../../../../assets/sass/core-elements.scss';\n\n@media only screen and (max-width: 991px) {\n  .image-wrapper {\n    align-self: stretch;\n  }\n}\n\nhr {\n  @extend %divider;\n  width: 98%;\n  margin: 0px;\n}\n\nimg {\n  border-radius: 4px;\n}\n\n.container {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-items: center;\n  text-align: center;\n}\n\n.clickable:hover {\n  background: var(--color-green-01);\n  cursor: pointer;\n}\n\n.selected {\n  background: #ecfdef;\n}\n\n.title {\n  margin: 24px 0px;\n}\n\n.image {\n  height: auto;\n  border-radius: 4px;\n}\n\n.image-wrapper {\n  height: 100%;\n  overflow: hidden;\n  border-radius: 4px;\n  margin: 24px;\n  display: flex;\n  justify-content: center;\n}\n",
+                    "data": "@import './../../../../assets/sass/core-elements.scss';\n\n@media only screen and (max-width: 991px) {\n  .image-wrapper {\n    align-self: stretch;\n  }\n}\n\nhr {\n  @extend %divider;\n  width: 98%;\n  margin: 0px;\n}\n\n.container {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-items: center;\n  text-align: center;\n}\n\n.clickable:hover {\n  background: var(--color-green-01);\n  cursor: pointer;\n}\n\n.selected {\n  background: #ecfdef;\n}\n\n.title {\n  margin: 24px 0px;\n}\n\n.image {\n  height: auto;\n  width: 100%;\n  border-radius: 4px;\n}\n\n.image-wrapper {\n  overflow: hidden;\n  border-radius: 4px;\n  margin: 24px;\n  display: flex;\n  justify-content: center;\n}\n",
                     "styleUrl": "./author-card.component.scss"
                 }
             ],
@@ -6441,7 +6441,7 @@
         },
         {
             "name": "AuthorsDisplayComponent",
-            "id": "component-AuthorsDisplayComponent-714cf20eee3019ad6f60cffb80266c76",
+            "id": "component-AuthorsDisplayComponent-33b836c9b4a2d9609faa18c25c0f6034",
             "file": "src/app/dashboard/core/authors-display/authors-display.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6451,7 +6451,7 @@
             "providers": [],
             "selector": "authors-display",
             "styleUrls": [
-                "authors-display.component.css"
+                "authors-display.component.scss"
             ],
             "styles": [],
             "templateUrl": [
@@ -6486,7 +6486,8 @@
                 },
                 {
                     "name": "maxAuthors",
-                    "line": 19
+                    "line": 19,
+                    "type": "number"
                 },
                 {
                     "name": "tilesDisplay",
@@ -6553,7 +6554,7 @@
                 },
                 {
                     "name": "searchValue",
-                    "type": "",
+                    "type": "string",
                     "optional": false,
                     "description": "",
                     "line": 31
@@ -6590,19 +6591,19 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'\nimport { removeSpaces } from 'utils/helpers'\nimport { MAX_BOOKS_DISPLAY, MAX_BOOKS_DISPLAY_LIST } from 'utils/constants'\nimport { FormControl } from '@angular/forms'\nimport { debounceTime, distinctUntilChanged } from 'rxjs/operators'\nimport { Author } from 'models/author.model'\n\n@Component({\n  moduleId: module.id,\n  selector: 'authors-display',\n  templateUrl: 'authors-display.component.html',\n  styleUrls: ['authors-display.component.css'],\n})\nexport class AuthorsDisplayComponent implements OnInit {\n  @Input() authors: Author[]\n  @Input() clickable: boolean\n  @Input() linkable: boolean\n  @Input() cardsInRow = 4\n  @Input() maxAuthors\n  @Input() fullSearchBar = false\n  @Input() tilesDisplay = true\n\n  @Output() onClick = new EventEmitter<Author>()\n\n  searchInput = new FormControl()\n  displayAll = false\n  selectedAll = false\n  page = 1\n  pageCount = 1\n  immutableMaxAuthors = false\n  searchValue\n  removeSpaces = removeSpaces\n\n  ngOnInit() {\n    if (this.maxAuthors) {\n      this.immutableMaxAuthors = true\n    } else {\n      this.maxAuthors = MAX_BOOKS_DISPLAY\n    }\n\n    this.pageCount = Math.ceil((this.authors || []).length / this.maxAuthors)\n    this.searchInput.valueChanges\n      .pipe(\n        debounceTime(200),\n        distinctUntilChanged()\n      )\n      .subscribe(value => (this.searchValue = value))\n  }\n\n  toggleTilesDisplay() {\n    this.tilesDisplay = !this.tilesDisplay\n    if (!this.immutableMaxAuthors) {\n      this.maxAuthors = this.tilesDisplay\n        ? MAX_BOOKS_DISPLAY\n        : MAX_BOOKS_DISPLAY_LIST\n    }\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'\nimport { removeSpaces } from 'utils/helpers'\nimport { MAX_BOOKS_DISPLAY, MAX_BOOKS_DISPLAY_LIST } from 'utils/constants'\nimport { FormControl } from '@angular/forms'\nimport { debounceTime, distinctUntilChanged } from 'rxjs/operators'\nimport { Author } from 'models/author.model'\n\n@Component({\n  moduleId: module.id,\n  selector: 'authors-display',\n  templateUrl: 'authors-display.component.html',\n  styleUrls: ['authors-display.component.scss'],\n})\nexport class AuthorsDisplayComponent implements OnInit {\n  @Input() authors: Author[]\n  @Input() clickable: boolean\n  @Input() linkable: boolean\n  @Input() cardsInRow = 4\n  @Input() maxAuthors: number\n  @Input() fullSearchBar = false\n  @Input() tilesDisplay = true\n\n  @Output() onClick = new EventEmitter<Author>()\n\n  searchInput = new FormControl()\n  displayAll = false\n  selectedAll = false\n  page = 1\n  pageCount = 1\n  immutableMaxAuthors = false\n  searchValue: string\n  removeSpaces = removeSpaces\n\n  ngOnInit() {\n    if (this.maxAuthors) {\n      this.immutableMaxAuthors = true\n    } else {\n      this.maxAuthors = MAX_BOOKS_DISPLAY\n    }\n\n    this.pageCount = Math.ceil((this.authors || []).length / this.maxAuthors)\n    this.searchInput.valueChanges\n      .pipe(\n        debounceTime(200),\n        distinctUntilChanged()\n      )\n      .subscribe(value => (this.searchValue = value))\n  }\n\n  toggleTilesDisplay() {\n    this.tilesDisplay = !this.tilesDisplay\n    if (!this.immutableMaxAuthors) {\n      this.maxAuthors = this.tilesDisplay\n        ? MAX_BOOKS_DISPLAY\n        : MAX_BOOKS_DISPLAY_LIST\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".buttons {\n  margin-bottom: 8px;\n}\n\n.btn-margin {\n  margin: 0 8px 0 0;\n}\n\n.full-search-bar {\n  width: 100%;\n}",
-                    "styleUrl": "authors-display.component.css"
+                    "data": ".buttons {\n  display: flex;\n  justify-content: flex-end;\n  margin-bottom: 8px;\n}\n\n.button {\n  margin-left: 6px;\n}\n\n.search-bar {\n  max-width: 300px;\n  margin-left: 6px;\n}\n\n.full-search-bar {\n  width: 100%;\n  margin: 0;\n}\n\n.not-selectable {\n  color: #9a9a9a;\n}\n\n.ti-info-alt {\n  background: #fdf4ec;\n  color: rgba(101, 105, 24, 1);\n  border-radius: 6px;\n}\n",
+                    "styleUrl": "authors-display.component.scss"
                 }
             ],
             "stylesData": "",
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div style=\"display: grid\">\n  <!-- Buttons -->\n  <div *ngIf=\"authors && authors.length > 0\" class=\"row buttons\">\n    <div class=\"col-md-12\" style=\"display: flex;\">\n      <button type=\"button\" class=\"btn btn-default btn-margin\" (click)=\"toggleTilesDisplay()\">\n        <i [ngClass]=\"{'ti-view-list': tilesDisplay, 'ti-layout-grid2': !tilesDisplay}\"></i>\n        {{tilesDisplay ? 'Table' : 'Tiles'}}\n      </button>\n      <div class=\"input-group btn-margin\" [ngClass]=\"{'full-search-bar': fullSearchBar}\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"Search\" [formControl]=\"searchInput\">\n        <span class=\"input-group-addon\" id=\"sizing-addon2\">\n          <i class=\"pe-7s-search search-icon\"></i>\n        </span>\n      </div>\n    </div>\n  </div>\n  <!-- Tiles -->\n  <ng-container *ngIf=\"tilesDisplay && authors && authors.length > 0\">\n    <authors-section\n      [authors]=\"authors | searchFilter: searchValue:['name'] | page: page:maxAuthors\"\n      [cardsInRow]=\"cardsInRow\"\n      [clickable]=\"clickable\"\n      [linkable]=\"linkable\"\n      (onClick)=\"onClick.emit($event)\"\n    ></authors-section>\n  </ng-container>\n  <!-- Table -->\n  <ng-container *ngIf=\"!tilesDisplay && authors && authors.length > 0\">\n    <authors-table\n      [authors]=\"authors | searchFilter: searchValue:['name'] | page:page:maxAuthors\"\n      [clickable]=\"clickable\"\n      [linkable]=\"linkable\"\n      (onClick)=\"onClick.emit($event)\"\n    ></authors-table>\n  </ng-container>\n  <!-- Pages -->\n  <pages\n    *ngIf=\"authors && authors.length\"\n    [count]=\"pageCount\"\n    [withRoute]=\"false\"\n    (nextSelectedPage)=\"page = $event\"\n  ></pages>\n</div>\n\n"
+            "templateData": "<div style=\"display: grid\">\n  <!-- Buttons -->\n  <div *ngIf=\"authors && authors.length > 0\" class=\"buttons\">\n    <button type=\"button\" class=\"button\" (click)=\"toggleTilesDisplay()\">\n      <i\n        [ngClass]=\"{\n          'ti-view-list': tilesDisplay,\n          'ti-layout-grid2': !tilesDisplay\n        }\"\n      ></i>\n      {{ tilesDisplay ? 'Table' : 'Tiles' }}\n    </button>\n    <div\n      class=\"input search-bar\"\n      [ngClass]=\"{ 'full-search-bar': fullSearchBar }\"\n    >\n      <input\n        type=\"text\"\n        class=\"icon-left\"\n        placeholder=\"Search\"\n        [formControl]=\"searchInput\"\n      />\n      <i class=\"ti-search left\"></i>\n    </div>\n  </div>\n  <!-- Tiles -->\n  <ng-container *ngIf=\"tilesDisplay && authors && authors.length > 0\">\n    <authors-section\n      [authors]=\"\n        authors | searchFilter: searchValue:['name'] | page: page:maxAuthors\n      \"\n      [cardsInRow]=\"cardsInRow\"\n      [clickable]=\"clickable\"\n      [linkable]=\"linkable\"\n      (onClick)=\"onClick.emit($event)\"\n    ></authors-section>\n  </ng-container>\n  <!-- Table -->\n  <ng-container *ngIf=\"!tilesDisplay && authors && authors.length > 0\">\n    <authors-table\n      [authors]=\"\n        authors | searchFilter: searchValue:['name'] | page: page:maxAuthors\n      \"\n      [clickable]=\"clickable\"\n      [linkable]=\"linkable\"\n      (onClick)=\"onClick.emit($event)\"\n    ></authors-table>\n  </ng-container>\n  <!-- Pages -->\n  <pages\n    *ngIf=\"authors && authors.length\"\n    [count]=\"pageCount\"\n    [withRoute]=\"false\"\n    (nextSelectedPage)=\"page = $event\"\n  ></pages>\n</div>\n"
         },
         {
             "name": "AuthorsHomeComponent",
@@ -6835,7 +6836,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div\n  class=\"container\"\n  *ngIf=\"!!sectionTitle\"\n  id=\"{{ removeSpaces(sectionTitle) }}\"\n>\n  <h4 class=\"title\">\n    {{ sectionTitle }}\n    <input\n      class=\"toggle-checkbox\"\n      type=\"checkbox\"\n      id=\"_{{ removeSpaces(sectionTitle) }}\"\n    />\n    <label\n      class=\"toggle-icon\"\n      for=\"_{{ removeSpaces(sectionTitle) }}\"\n      [ngClass]=\"{ toggled: !displayAll }\"\n    >\n      <i (click)=\"displayAll = !displayAll\" class=\"ti-angle-down\"></i>\n    </label>\n  </h4>\n  <hr />\n</div>\n\n<div class=\"books-container\" [ngClass]=\"{ collapsed: !displayAll }\">\n  <grid [items]=\"authors\" [itemsInRow]=\"cardsInRow\">\n    <ng-template let-item>\n      <author-card\n        [author]=\"item\"\n        [clickable]=\"clickable\"\n        [linkable]=\"linkable\"\n        (onClick)=\"onClick.emit($event)\"\n      ></author-card>\n    </ng-template>\n  </grid>\n</div>\n"
+            "templateData": "<div class=\"container\" *ngIf=\"!!sectionTitle\">\n  <h4 class=\"title\" id=\"{{ removeSpaces(sectionTitle) }}\">\n    {{ sectionTitle }}\n    <input\n      class=\"toggle-checkbox\"\n      type=\"checkbox\"\n      id=\"_{{ removeSpaces(sectionTitle) }}\"\n    />\n    <label\n      class=\"toggle-icon\"\n      for=\"_{{ removeSpaces(sectionTitle) }}\"\n      [ngClass]=\"{ toggled: !displayAll }\"\n    >\n      <i (click)=\"displayAll = !displayAll\" class=\"ti-angle-down\"></i>\n    </label>\n  </h4>\n  <hr />\n</div>\n<div class=\"books-container\" [ngClass]=\"{ collapsed: !displayAll }\">\n  <grid [items]=\"authors\" [itemsInRow]=\"cardsInRow\">\n    <ng-template let-item>\n      <author-card\n        [author]=\"item\"\n        [clickable]=\"clickable\"\n        [linkable]=\"linkable\"\n        (onClick)=\"onClick.emit($event)\"\n      ></author-card>\n    </ng-template>\n  </grid>\n</div>\n"
         },
         {
             "name": "AuthorsTableComponent",
@@ -16149,9 +16150,17 @@
                 "name": "Clickable",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/dashboard/core/authors-display/authors-display.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: AuthorsDisplayComponent,\n  props: {\n    authors,\n    clickable: true,\n  },\n})"
+            },
+            {
+                "name": "Clickable",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/dashboard/core/authors-section/authors-section.example.ts",
                 "type": "",
-                "defaultValue": "() => ({\n  component: AuthorsSectionComponent,\n  props: {\n    authors,\n    clickable: true,\n  },\n})"
+                "defaultValue": "() => ({\n  component: AuthorsSectionComponent,\n  props: {\n    authors,\n    sectionTitle: 'Section Name',\n    clickable: true,\n  },\n})"
             },
             {
                 "name": "Clickable",
@@ -16269,9 +16278,17 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/dashboard/core/authors-display/authors-display.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: AuthorsDisplayComponent,\n  props: {\n    authors,\n  },\n})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/dashboard/core/authors-section/authors-section.example.ts",
                 "type": "",
-                "defaultValue": "() => ({\n  component: AuthorsSectionComponent,\n  props: {\n    authors,\n  },\n})"
+                "defaultValue": "() => ({\n  component: AuthorsSectionComponent,\n  props: {\n    authors,\n    sectionTitle: 'Section Name',\n  },\n})"
             },
             {
                 "name": "Default",
@@ -16288,6 +16305,14 @@
                 "file": "src/app/dashboard/core/books-section/books-section.example.ts",
                 "type": "",
                 "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n  },\n})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/loading/loading.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: LoadingComponent,\n  props: {\n    visible: true,\n  },\n})"
             },
             {
                 "name": "Default",
@@ -17098,6 +17123,22 @@
                     "file": "src/app/dashboard/core/authors-display/authors-display.example.ts",
                     "type": "",
                     "defaultValue": "AuthorFactory.buildList(13)"
+                },
+                {
+                    "name": "Clickable",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/authors-display/authors-display.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: AuthorsDisplayComponent,\n  props: {\n    authors,\n    clickable: true,\n  },\n})"
+                },
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/authors-display/authors-display.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: AuthorsDisplayComponent,\n  props: {\n    authors,\n  },\n})"
                 }
             ],
             "src/app/dashboard/core/authors-section/authors-section.example.ts": [
@@ -17115,7 +17156,7 @@
                     "subtype": "variable",
                     "file": "src/app/dashboard/core/authors-section/authors-section.example.ts",
                     "type": "",
-                    "defaultValue": "() => ({\n  component: AuthorsSectionComponent,\n  props: {\n    authors,\n    clickable: true,\n  },\n})"
+                    "defaultValue": "() => ({\n  component: AuthorsSectionComponent,\n  props: {\n    authors,\n    sectionTitle: 'Section Name',\n    clickable: true,\n  },\n})"
                 },
                 {
                     "name": "Default",
@@ -17123,7 +17164,7 @@
                     "subtype": "variable",
                     "file": "src/app/dashboard/core/authors-section/authors-section.example.ts",
                     "type": "",
-                    "defaultValue": "() => ({\n  component: AuthorsSectionComponent,\n  props: {\n    authors,\n  },\n})"
+                    "defaultValue": "() => ({\n  component: AuthorsSectionComponent,\n  props: {\n    authors,\n    sectionTitle: 'Section Name',\n  },\n})"
                 }
             ],
             "src/app/dashboard/core/authors-table/authors-table.example.ts": [
@@ -17390,6 +17431,16 @@
                     "file": "src/app/dashboard/dashboard.module.ts",
                     "type": "Route[]",
                     "defaultValue": "[\n  {\n    path: '',\n    component: DashboardComponent,\n    children: [\n      { path: '', redirectTo: 'home', pathMatch: 'full' },\n      { path: 'home', component: DashboardHomeComponent },\n      { path: 'books', loadChildren: () => BooksModule },\n      {\n        path: 'collections',\n        loadChildren: () => CollectionsModule,\n      },\n      {\n        path: 'authors',\n        loadChildren: () => AuthorsModule,\n      },\n      {\n        path: 'goodreads',\n        component: GoodreadsComponent,\n        // loadChildren: () => GoodreadsModule,\n      },\n      {\n        path: 'import',\n        component: ImportComponent,\n      },\n      {\n        path: 'profile',\n        loadChildren: () => ProfileModule,\n      },\n    ],\n  },\n]"
+                }
+            ],
+            "src/app/dashboard/core/loading/loading.example.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/loading/loading.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: LoadingComponent,\n  props: {\n    visible: true,\n  },\n})"
                 }
             ],
             "src/environments/environment.prod.ts": [
@@ -17869,6 +17920,26 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/dashboard/core/authors-display/authors-display.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Clickable",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/authors-display/authors-display.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/dashboard/core/authors-section/authors-section.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -18163,6 +18234,16 @@
                 "name": "LoadingComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/loading/loading.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {

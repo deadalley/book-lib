@@ -89,3 +89,14 @@ export const Selectable = () => ({
     selectable: true,
   },
 })
+
+export const Linkable = () => ({
+  component: BooksSectionComponent,
+  props: {
+    books,
+    sectionTitle: 'Section Name',
+    description: 'A description',
+    withButtons: true,
+    linkable: true,
+  },
+})

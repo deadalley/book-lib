@@ -1,9 +1,5 @@
-<div
-  class="container"
-  *ngIf="!!sectionTitle"
-  id="{{ removeSpaces(sectionTitle) }}"
->
-  <h4 class="title">
+<div class="container" *ngIf="!!sectionTitle">
+  <h4 class="title" id="{{ removeSpaces(sectionTitle) }}">
     {{ sectionTitle }}
     <input
       class="toggle-checkbox"
@@ -20,7 +16,6 @@
   </h4>
   <hr />
 </div>
-
 <div class="books-container" [ngClass]="{ collapsed: !displayAll }">
   <grid [items]="authors" [itemsInRow]="cardsInRow">
     <ng-template let-item>

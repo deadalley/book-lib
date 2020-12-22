@@ -16,8 +16,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router'
 })
 export class PagesComponent implements OnInit, OnChanges {
   @Input() count = 1
-  @Input() maxCount = 5
-  @Input() selectedPage = 3
+  @Input() selectedPage = 1
   @Input() withRoute = false
   @Output() nextSelectedPage = new EventEmitter<number>()
   pages: Array<number | string> = []

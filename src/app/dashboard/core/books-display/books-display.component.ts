@@ -23,17 +23,16 @@ export class BooksDisplayComponent implements OnInit {
   @Input() linkable: boolean
   @Input() selectable: boolean
   @Input() bookCardsInRow = 4
-  @Input() maxBooks
+  @Input() maxBooksPerPage: number
   @Input() fullSearchBar = false
   @Input() displayBooksInLibraryInfo = false
   @Input() displayOnlySelectedBtn = false
 
-  @Input() tableDisplayItems = DEFAULT_TABLE_ITEMS
-  @Input() tilesDisplay = true
-
   @Output() selectedBooks = new EventEmitter<Book[]>()
   @Output() onClick = new EventEmitter<Book>()
 
+  tableDisplayItems = DEFAULT_TABLE_ITEMS
+  tilesDisplay = true
   searchInput = new FormControl()
   displayAll = false
   selectedAll = false
@@ -41,17 +40,17 @@ export class BooksDisplayComponent implements OnInit {
   page = 1
   pageCount = 1
   immutableMaxBooks = false
-  searchValue
+  searchValue: string
   removeSpaces = removeSpaces
 
   ngOnInit() {
-    if (this.maxBooks) {
+    if (this.maxBooksPerPage) {
       this.immutableMaxBooks = true
     } else {
-      this.maxBooks = MAX_BOOKS_DISPLAY
+      this.maxBooksPerPage = MAX_BOOKS_DISPLAY
     }
 
-    this.pageCount = Math.ceil(this.books.length / this.maxBooks)
+    this.pageCount = Math.ceil(this.books.length / this.maxBooksPerPage)
     this.searchInput.valueChanges
       .pipe(
         debounceTime(200),
@@ -69,10 +68,10 @@ export class BooksDisplayComponent implements OnInit {
   toggleTilesDisplay() {
     this.tilesDisplay = !this.tilesDisplay
     if (!this.immutableMaxBooks) {
-      this.maxBooks = this.tilesDisplay
+      this.maxBooksPerPage = this.tilesDisplay
         ? MAX_BOOKS_DISPLAY
         : MAX_BOOKS_DISPLAY_LIST
-      this.pageCount = Math.ceil(this.books.length / this.maxBooks)
+      this.pageCount = Math.ceil(this.books.length / this.maxBooksPerPage)
       if (this.page > this.pageCount) {
         this.page = this.pageCount
       }

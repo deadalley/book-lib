@@ -57,6 +57,7 @@ export const Default = () => ({
   component: AuthorsSectionComponent,
   props: {
     authors,
+    sectionTitle: 'Section Name',
   },
 })
 
@@ -64,6 +65,7 @@ export const Clickable = () => ({
   component: AuthorsSectionComponent,
   props: {
     authors,
+    sectionTitle: 'Section Name',
     clickable: true,
   },
 })

@@ -6,7 +6,7 @@ import { Book } from 'database/models/book.model'
 })
 export class PagePipe implements PipeTransform {
   transform(books: Book[], page?: number, maxBooks?: number): any {
-    if (!page && !maxBooks) {
+    if (!page || !maxBooks) {
       return books
     }
 

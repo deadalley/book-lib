@@ -9,7 +9,7 @@
     <div class="books-display" *ngIf="!isLoading && books && books.length">
       <books-display
         [fullSearchBar]="true"
-        [maxBooks]="8"
+        [maxBooksPerPage]='8'
         [tilesDisplay]="false"
         [tableDisplayItems]="tableItems"
         [books]="books"

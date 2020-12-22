@@ -197,6 +197,11 @@ h6 {
   letter-spacing: 2px;
 }
 
+a {
+  text-decoration: none;
+  color: var(--color-primary-02);
+}
+
 %card-base {
   background-color: var(--primary-color);
   color: var(--primary-text-color);

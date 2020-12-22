@@ -1,26 +1,29 @@
 import { CommonModule, APP_BASE_HREF } from '@angular/common'
 import { RouterModule } from '@angular/router'
-import { TooltipModule } from 'ngx-bootstrap/tooltip'
+import { HttpClientModule } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { ReactiveFormsModule } from '@angular/forms'
 import { moduleMetadata } from '@storybook/angular'
+import { AngularFireModule } from 'angularfire2'
+import {
+  AngularFireDatabase,
+  AngularFireDatabaseModule,
+} from 'angularfire2/database'
+import {
+  AngularFireStorage,
+  AngularFireStorageModule,
+} from 'angularfire2/storage'
+import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { GridComponent } from '../grid/grid.component'
 import { BookCardComponent } from '../book-card/book-card.component'
 import { BooksSectionComponent } from '../books-section/books-section.component'
 import { BooksTableComponent } from '../books-table/books-table.component'
 import { BooksDisplayComponent } from './books-display.component'
 import { LibraryService } from 'services/library.service'
+import { GoodreadsService } from 'services/goodreads.service'
 import { DatabaseService } from 'services/database.service'
 import { SessionService } from 'services/session.service'
-import { AngularFireModule } from 'angularfire2'
-import {
-  AngularFireDatabase,
-  AngularFireDatabaseModule,
-} from 'angularfire2/database'
 import { environment } from 'environments/environment'
-import {
-  AngularFireStorage,
-  AngularFireStorageModule,
-} from 'angularfire2/storage'
 import BookFactory from 'factories/book.factory'
 import { UiService } from 'services/ui.service'
 import { PagePipe } from 'pipes/page.pipe'
@@ -29,15 +32,10 @@ import { BookFilterPipe } from 'pipes/book-filter.pipe'
 import { PagesComponent } from '../pages/pages.component'
 import { AppRoutes } from '../../../app.routing'
 import { TableItemsComponent } from '../table-items/table-items.component'
-import { ReactiveFormsModule } from '@angular/forms'
 
-const books = BookFactory.buildList(13, {
+const books = BookFactory.buildList(23, {
   canBeSelected: true,
   isSelected: true,
-})
-const bookInLibrary = BookFactory.build({
-  canBeSelected: false,
-  isSelected: false,
 })
 
 export default {
@@ -48,6 +46,7 @@ export default {
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
         DatabaseService,
+        GoodreadsService,
         LibraryService,
         SessionService,
         UiService,
@@ -55,6 +54,7 @@ export default {
         AngularFireStorage,
       ],
       imports: [
+        HttpClientModule,
         CommonModule,
         RouterModule.forRoot(AppRoutes),
         TooltipModule.forRoot(),
@@ -84,8 +84,23 @@ export const Default = () => ({
   component: BooksDisplayComponent,
   props: {
     books,
-    sectionTitle: 'Sectioaaaaasdasn title',
-    description: 'A description',
+  },
+})
+
+export const WithMoreBooksPerPage = () => ({
+  component: BooksDisplayComponent,
+  props: {
+    books,
+    bookCardsInRow: 5,
+    maxBooksPerPage: 15,
+  },
+})
+
+export const WithButtons = () => ({
+  component: BooksDisplayComponent,
+  props: {
+    books,
+    withButtons: true,
   },
 })
 
@@ -93,23 +108,23 @@ export const Clickable = () => ({
   component: BooksDisplayComponent,
   props: {
     books,
-    sectionTitle: 'Section title',
-    description: 'A description',
     clickable: true,
+  },
+})
+
+export const Linkable = () => ({
+  component: BooksDisplayComponent,
+  props: {
+    books,
+    linkable: true,
+    withButtons: true,
   },
 })
 
 export const Selectable = () => ({
   component: BooksDisplayComponent,
   props: {
-    books: [...books, bookInLibrary],
-    sectionTitle: 'Section title',
-    description: 'A description',
+    books,
     selectable: true,
-    statusIncluded: 'In library',
-    statusNotIncluded: 'Not in library',
-    statusCannotBeSelected: 'Already in library',
-    selectBtnContent: 'Add to library',
-    selectBtnContentDisabled: 'Already in library',
   },
 })

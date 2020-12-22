@@ -1,8 +1,9 @@
-<div style="display: grid">
+<div class='books-display'>
   <!-- Buttons -->
-  <div *ngIf="books && books.length > 0" class="buttons">
+  <div *ngIf="books && books.length" class="buttons">
     <button type="button" class="button" (click)="toggleTilesDisplay()">
       <i
+        class='toggle-icon'
         [ngClass]="{
           'ti-view-list': tilesDisplay,
           'ti-layout-grid2': !tilesDisplay
@@ -48,7 +49,7 @@
         books
           | bookFilter: (onlySelected ? 'isSelected' : null)
           | searchFilter: searchValue:['title', 'author', 'original']
-          | page: page:maxBooks
+          | page: page:maxBooksPerPage
       "
       [cardsInRow]="bookCardsInRow"
       [withButtons]="withButtons"
@@ -71,7 +72,7 @@
         books
           | bookFilter: (onlySelected ? 'isSelected' : null)
           | searchFilter: searchValue:['title', 'author', 'original']
-          | page: page:maxBooks
+          | page: page:maxBooksPerPage
       "
       [withButtons]="withButtons"
       [clickable]="clickable"

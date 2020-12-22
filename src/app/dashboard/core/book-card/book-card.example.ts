@@ -75,8 +75,6 @@ storiesOf('Book Card', module)
     props: {
       book,
       selectable: true,
-      selectBtnContent: 'Add to library',
-      selectBtnContentDisabled: 'Already in libray',
     },
   }))
   .add('selected', () => ({
@@ -84,8 +82,6 @@ storiesOf('Book Card', module)
     props: {
       book: { ...book, isSelected: true },
       selectable: true,
-      selectBtnContent: 'Add to library',
-      selectBtnContentDisabled: 'Already in libray',
     },
   }))
   .add('selectable and book cannot be selected', () => ({
@@ -93,7 +89,5 @@ storiesOf('Book Card', module)
     props: {
       book: bookCannotBeSelected,
       selectable: true,
-      selectBtnContent: 'Add to library',
-      selectBtnContentDisabled: 'Already in libray',
     },
   }))

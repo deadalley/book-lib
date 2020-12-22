@@ -1,4 +1,4 @@
-@import './../../../../assets/sass/core-elements.scss';
+@import '../../../../assets/sass/core-elements.scss';
 
 h4 {
   margin: 0;
@@ -35,6 +35,7 @@ hr {
 
 .books-container {
   overflow: hidden;
+  padding: 10px 6px 16px;
   transition: transform 0.3s ease-out; // note that we're transitioning transform, not height!
   height: auto;
   transform: scaleY(1); // implicit, but good to specify explicitly
