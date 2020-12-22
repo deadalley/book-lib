@@ -188,7 +188,7 @@
         },
         {
             "name": "PagePipe",
-            "id": "pipe-PagePipe-c56a087559df2ff274203e902efcca66",
+            "id": "pipe-PagePipe-691c23bb9ba3f7553f25f677cb30f808",
             "file": "src/pipes/page.pipe.ts",
             "type": "pipe",
             "description": "",
@@ -244,7 +244,7 @@
                 }
             ],
             "ngname": "page",
-            "sourceCode": "import { Pipe, PipeTransform } from '@angular/core'\nimport { Book } from 'database/models/book.model'\n\n@Pipe({\n  name: 'page',\n})\nexport class PagePipe implements PipeTransform {\n  transform(books: Book[], page?: number, maxBooks?: number): any {\n    if (!page && !maxBooks) {\n      return books\n    }\n\n    return books.slice((page - 1) * maxBooks, page * maxBooks)\n  }\n}\n"
+            "sourceCode": "import { Pipe, PipeTransform } from '@angular/core'\nimport { Book } from 'database/models/book.model'\n\n@Pipe({\n  name: 'page',\n})\nexport class PagePipe implements PipeTransform {\n  transform(books: Book[], page?: number, maxBooks?: number): any {\n    if (!page || !maxBooks) {\n      return books\n    }\n\n    return books.slice((page - 1) * maxBooks, page * maxBooks)\n  }\n}\n"
         },
         {
             "name": "PushToBottomPipe",
@@ -6135,7 +6135,7 @@
         },
         {
             "name": "AuthorCardComponent",
-            "id": "component-AuthorCardComponent-811944b6f9f19268e9445723ea3db3d8",
+            "id": "component-AuthorCardComponent-407516aa527851d6d7e9875468c2117a",
             "file": "src/app/dashboard/core/author-card/author-card.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6155,7 +6155,7 @@
                 {
                     "name": "author",
                     "line": 12,
-                    "type": ""
+                    "type": "Author"
                 },
                 {
                     "name": "clickable",
@@ -6200,7 +6200,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'\nimport { Author } from 'models/author.model'\nimport { ANIMATIONS } from 'utils/constants'\n\n@Component({\n  selector: 'author-card',\n  templateUrl: './author-card.component.html',\n  styleUrls: ['./author-card.component.scss'],\n  animations: [ANIMATIONS.CARD],\n})\nexport class AuthorCardComponent implements OnInit {\n  @Input() author: Author & any\n  @Input() clickable: boolean\n  @Input() linkable: boolean\n  @Output() onClick = new EventEmitter<Author>()\n\n  constructor() {}\n\n  ngOnInit() {}\n\n  select() {\n    if (!this.clickable) {\n      return\n    }\n    this.onClick.emit(this.author)\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'\nimport { Author } from 'models/author.model'\nimport { ANIMATIONS } from 'utils/constants'\n\n@Component({\n  selector: 'author-card',\n  templateUrl: './author-card.component.html',\n  styleUrls: ['./author-card.component.scss'],\n  animations: [ANIMATIONS.CARD],\n})\nexport class AuthorCardComponent implements OnInit {\n  @Input() author: Author\n  @Input() clickable: boolean\n  @Input() linkable: boolean\n  @Output() onClick = new EventEmitter<Author>()\n\n  constructor() {}\n\n  ngOnInit() {}\n\n  select() {\n    if (!this.clickable) {\n      return\n    }\n    this.onClick.emit(this.author)\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -6218,7 +6218,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div\n  class=\"card elevation-04 container\"\n  (click)=\"select()\"\n  [ngClass]=\"{\n    clickable: clickable && !author.canBeSelected,\n    selected: clickable && author.isSelected\n  }\"\n>\n  <!-- Header -->\n  <h4 class=\"title\">\n    <a\n      *ngIf=\"linkable\"\n      href=\"#\"\n      routerLink=\"/dashboard/authors/{{ author.id }}\"\n      >{{ author.name }}</a\n    >\n    {{ linkable ? '' : author.name }}\n  </h4>\n  <hr />\n  <!-- Image -->\n  <div class=\"image-wrapper\">\n    <a\n      *ngIf=\"linkable\"\n      href=\"javascript:void(0);\"\n      routerLink=\"/dashboard/authors/{{ author.id }}\"\n    >\n      <img\n        class=\"image img-rounded\"\n        [src]=\"\n          author.imageLarge\n            ? author.imageLarge\n            : author.imageSmall\n            ? author.imageSmall\n            : '/assets/img/no-book-cover.png'\n        \"\n        alt=\"Author picture\"\n      />\n    </a>\n    <img\n      *ngIf=\"!linkable\"\n      [src]=\"\n        author.imageLarge\n          ? author.imageLarge\n          : author.imageSmall\n          ? author.imageSmall\n          : '/assets/img/no-book-cover.png'\n      \"\n      alt=\"Author picture\"\n    />\n  </div>\n</div>\n"
+            "templateData": "<div\n  class=\"card elevation-04 container\"\n  (click)=\"select()\"\n  [ngClass]=\"{\n    clickable: clickable && !author.canBeSelected,\n    selected: clickable && author.isSelected\n  }\"\n>\n  <!-- Header -->\n  <h4 class=\"title\">\n    <a\n      *ngIf=\"linkable\"\n      href=\"#\"\n      routerLink=\"/dashboard/authors/{{ author.id }}\"\n      >{{ author.name }}</a\n    >\n    {{ linkable ? '' : author.name }}\n  </h4>\n  <hr />\n  <!-- Image -->\n  <div class=\"image-wrapper\">\n    <a\n      *ngIf=\"linkable\"\n      href=\"javascript:void(0);\"\n      routerLink=\"/dashboard/authors/{{ author.id }}\"\n    >\n      <img\n        class=\"image\"\n        [src]=\"\n          author.imageLarge\n            ? author.imageLarge\n            : author.imageSmall\n            ? author.imageSmall\n            : '/assets/img/no-book-cover.png'\n        \"\n        alt=\"Author picture\"\n      />\n    </a>\n    <img\n      class=\"image\"\n      *ngIf=\"!linkable\"\n      [src]=\"\n        author.imageLarge\n          ? author.imageLarge\n          : author.imageSmall\n          ? author.imageSmall\n          : '/assets/img/no-book-cover.png'\n      \"\n      alt=\"Author picture\"\n    />\n  </div>\n</div>\n"
         },
         {
             "name": "AuthorComponent",
@@ -6828,7 +6828,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "@import './../../../../assets/sass/core-elements.scss';\n\nh4 {\n  margin: 0;\n  display: flex;\n}\n\nhr {\n  @extend %divider;\n  width: 100%;\n  margin: 32px 0px;\n  align-self: center;\n}\n\n.container {\n  display: flex;\n  flex-direction: column;\n}\n\n.toggle-checkbox {\n  display: none;\n}\n\n.toggle-icon {\n  margin-left: 12px;\n  color: var(--color-primary-02);\n  font-size: 20px;\n  transition: all 0.15s;\n  cursor: pointer;\n\n  &.toggled {\n    transform: rotate(180deg);\n  }\n}\n\n.books-container {\n  overflow: hidden;\n  transition: transform 0.3s ease-out; // note that we're transitioning transform, not height!\n  height: auto;\n  transform: scaleY(1); // implicit, but good to specify explicitly\n  transform-origin: top; // keep the top of the element in the same place. this is optional.\n\n  &.collapsed {\n    transform: scaleY(0); // *squish*\n  }\n}\n",
+                    "data": "@import './../../../../assets/sass/core-elements.scss';\n\nh4 {\n  margin: 0;\n  display: flex;\n}\n\nhr {\n  @extend %divider;\n  width: 100%;\n  margin: 32px 0px;\n  align-self: center;\n}\n\n.container {\n  display: flex;\n  flex-direction: column;\n}\n\n.toggle-checkbox {\n  display: none;\n}\n\n.toggle-icon {\n  margin-left: 12px;\n  color: var(--color-primary-02);\n  font-size: 20px;\n  transition: all 0.15s;\n  cursor: pointer;\n\n  &.toggled {\n    transform: rotate(180deg);\n  }\n}\n\n.books-container {\n  overflow: hidden;\n  padding: 10px 6px 16px;\n  transition: transform 0.3s ease-out; // note that we're transitioning transform, not height!\n  height: auto;\n  transform: scaleY(1); // implicit, but good to specify explicitly\n  transform-origin: top; // keep the top of the element in the same place. this is optional.\n\n  &.collapsed {\n    transform: scaleY(0); // *squish*\n  }\n}\n",
                     "styleUrl": "authors-section.component.scss"
                 }
             ],
@@ -6916,6 +6916,62 @@
                 "OnInit"
             ],
             "templateData": "<div class=\"row\" *ngIf=\"authors.length\">\n  <div class=\"col-md-12\">\n    <div class=\"card\">\n      <div class=\"content table-responsive table-full-width\">\n        <table class=\"table\">\n          \n          <tbody>\n            <tr\n              *ngFor=\"let author of authors\"\n              [ngClass]=\"{'row-clickable': clickable}\"\n              (click)=\"onClick.emit(author)\"\n            >\n              <!-- Image -->\n              <td class=\"col-md-1\">\n                <a\n                  *ngIf=\"linkable\"\n                  href=\"javascript:void(0);\"\n                  routerLink=\"/dashboard/authors/{{ author.id }}\"\n                >\n                  <img\n                    [src]=\"\n                      author.imageLarge\n                        ? author.imageLarge\n                        : author.imageSmall\n                        ? author.imageSmall\n                        : '/assets/img/no-book-cover.png'\n                    \"\n                    alt=\"Author picture\"\n                  />\n                </a>\n                <img\n                  *ngIf=\"!linkable\"\n                  [src]=\"\n                    author.imageLarge\n                      ? author.imageLarge\n                      : author.imageSmall\n                      ? author.imageSmall\n                      : '/assets/img/no-book-cover.png'\n                  \"\n                  alt=\"Author picture\"\n                />\n              </td>\n              <!-- Name -->\n              <td class=\"col\">\n                <a *ngIf=\"linkable\" href=\"#\" routerLink=\"{{author.id}}\">{{author.name}}</a>\n                {{linkable ? '' : author.name}}\n              </td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n  </div>\n</div>"
+        },
+        {
+            "name": "BookButtonComponent",
+            "id": "component-BookButtonComponent-0853d7ddbced2c8fd392504ed3b0a6d7",
+            "file": "src/app/dashboard/core/book-button/book-button.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "book-button",
+            "styleUrls": [
+                "./book-button.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./book-button.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 11
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core'\n\n@Component({\n  selector: 'book-button',\n  templateUrl: './book-button.component.html',\n  styleUrls: ['./book-button.component.scss'],\n})\nexport class BookButtonComponent implements OnInit {\n  constructor() {}\n\n  ngOnInit(): void {}\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "i.tile-icon {\n  font-size: 20px;\n  font-weight: 500;\n  width: 42px;\n  height: 42px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 0;\n  margin: 0px 6px;\n  cursor: pointer;\n}\n\ni.owned {\n  color: var(--color-green-03);\n}\n\ni.wishlist {\n  color: var(--color-blue-03);\n}\n\ni.read {\n  color: var(--color-orange-03);\n}\n\ni.favorite {\n  color: var(--color-purple-03);\n}\n\ni.inactive {\n  color: var(--color-light-03);\n}\n",
+                    "styleUrl": "./book-button.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 8
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<i class=\"tile-icon button clear\"></i>\n"
         },
         {
             "name": "BookButtonsComponent",
@@ -7123,7 +7179,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "@import './../../../../assets/sass/core-elements.scss';\n\n@media only screen and (max-width: 991px) {\n  .image-wrapper {\n    align-self: stretch;\n  }\n}\n\nhr {\n  @extend %divider;\n  width: 98%;\n  margin: 0px;\n}\n\n.container {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-items: center;\n  text-align: center;\n}\n\n.title {\n  margin: 24px 0px 12px 0px;\n}\n\n.content {\n  width: 100%;\n  margin: 24px 0px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  flex: 1;\n}\n\n.image {\n  height: auto;\n  width: 100%;\n  border-radius: 4px;\n}\n\n.image-wrapper {\n  overflow: hidden;\n  border-radius: 4px;\n  margin: 24px;\n  display: flex;\n  justify-content: center;\n}\n\n.image-link {\n  flex: 1;\n}\n\n.selected {\n  background: var(--color-green-01);\n\n  &:hover {\n    cursor: pointer;\n  }\n}\n\n.selectable:hover {\n  background: var(--color-orange-01);\n  cursor: pointer;\n}\n\n.not-selectable {\n  background: var(--color-red-01);\n}\n\n.clickable:hover {\n  background: var(--color-green-01);\n  cursor: pointer;\n}\n\ndiv > img.tile-icon {\n  -webkit-transform: translate(-15%, -15%);\n  transform: translate(-15%, -15%);\n}\n\n.icons {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  align-self: stretch;\n  margin: 0px 24px 24px 24px;\n}\n\ni.tile-icon {\n  font-size: 20px;\n  font-weight: 500;\n  width: 42px;\n  height: 42px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 0;\n  color: var(--color-primary-02) !important;\n  cursor: pointer;\n}\n\ni.active {\n  box-shadow: var(--elevation-99) !important;\n  background-color: var(--color-light-03) !important;\n}\n\ni.inactive {\n  color: #c9c9c9;\n}\n\n.select-icon {\n  font-size: 20px;\n}\n\n.ti-control-stop {\n  font-size: 25px;\n  margin-top: -2px;\n  margin-left: -3px;\n  margin-bottom: -4px;\n}\n\n.ti-check-box {\n  color: #18b518;\n}\n\n.text-ellipsis {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden;\n\n  &:hover {\n    white-space: normal;\n  }\n}\n",
+                    "data": "@import './../../../../assets/sass/core-elements.scss';\n\n@media only screen and (max-width: 991px) {\n  .image-wrapper {\n    align-self: stretch;\n  }\n}\n\nhr {\n  @extend %divider;\n  width: 98%;\n  margin: 0px;\n}\n\n.container {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-items: center;\n  text-align: center;\n}\n\n.title {\n  margin: 24px 0px 12px 0px;\n}\n\n.content {\n  width: 100%;\n  margin: 24px 0px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  flex: 1;\n}\n\n.image {\n  height: auto;\n  width: 100%;\n  border-radius: 4px;\n}\n\n.image-wrapper {\n  overflow: hidden;\n  border-radius: 4px;\n  margin: 24px;\n  display: flex;\n  justify-content: center;\n}\n\n.image-link {\n  flex: 1;\n}\n\n.selected {\n  background: var(--color-green-01);\n\n  &:hover {\n    cursor: pointer;\n  }\n}\n\n.selectable:hover {\n  background: var(--color-orange-01);\n  cursor: pointer;\n}\n\n.not-selectable {\n  background: var(--color-red-01);\n}\n\n.clickable:hover {\n  background: var(--color-green-01);\n  cursor: pointer;\n}\n\ndiv > img.tile-icon {\n  -webkit-transform: translate(-15%, -15%);\n  transform: translate(-15%, -15%);\n}\n\n.icons {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  align-self: stretch;\n  margin: 0px 24px 24px 24px;\n}\n\ni.tile-icon {\n  font-size: 20px;\n  font-weight: 500;\n  width: 42px;\n  height: 42px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 0;\n  color: var(--color-primary-02);\n  margin: 0px 6px;\n  cursor: pointer;\n}\n\ni.active {\n  // box-shadow: var(--elevation-99) !important;\n  // background-color: var(--color-light-03) !important;\n}\n\ni.inactive {\n  color: var(--color-light-03);\n}\n\ni.owned {\n  color: var(--color-green-03);\n}\n\ni.wishlist {\n  color: var(--color-blue-03);\n}\n\ni.read {\n  color: var(--color-orange-03);\n}\n\ni.favorite {\n  color: var(--color-purple-03);\n}\n\ni.inactive {\n  color: var(--color-light-03);\n}\n\n.select-icon {\n  font-size: 20px;\n}\n\n.ti-control-stop {\n  font-size: 25px;\n  margin-top: -2px;\n  margin-left: -3px;\n  margin-bottom: -4px;\n}\n\n.ti-check-box {\n  color: #18b518;\n}\n\n.text-ellipsis {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden;\n\n  &:hover {\n    white-space: normal;\n  }\n}\n",
                     "styleUrl": "./book-card.component.scss"
                 }
             ],
@@ -7173,7 +7229,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div\n  class=\"card elevation-04 container\"\n  (click)=\"clickable ? onClick.emit(book) : select()\"\n  [ngClass]=\"{\n    clickable: clickable,\n    selectable: selectable && book.canBeSelected && !book.isSelected,\n    'not-selectable': selectable && !book.canBeSelected,\n    selected: (selectable || clickable) && book.isSelected,\n    'no-buttons': !withButtons || selectable || clickable\n  }\"\n>\n  <h4\n    class=\"title text-ellipsis\"\n    [ngClass]=\"{\n      'col-md-8 col-md-offset-2': selectable && book.canBeSelected,\n      'col-md-12': !(selectable && book.canBeSelected)\n    }\"\n  >\n    <a\n      *ngIf=\"linkable\"\n      class=\"text-ellipsis\"\n      href=\"#\"\n      routerLink=\"/dashboard/books/{{ book.id }}\"\n    >\n      {{ book.title }}\n    </a>\n    {{ linkable ? '' : book.title }}\n  </h4>\n  <i\n    class=\"col-md-2 select-icon\"\n    *ngIf=\"selectable && book.canBeSelected\"\n    [ngClass]=\"{\n      'ti-check-box': book.isSelected,\n      'ti-control-stop': !book.isSelected\n    }\"\n  ></i>\n  <hr />\n  <p class=\"capitalized\" placement=\"bottom\">\n    <a *ngIf=\"linkable\" href=\"javascript:void(0);\" (click)=\"authorRoute()\">{{\n      book.author\n    }}</a>\n    {{ linkable ? '' : book.author }}\n  </p>\n\n  <div class=\"image-wrapper\">\n    <a\n      *ngIf=\"linkable\"\n      href=\"javascript:void(0);\"\n      routerLink=\"/dashboard/books/{{ book.id }}\"\n      class=\"image-link\"\n    >\n      <img\n        class=\"image\"\n        [src]=\"\n          book.imageLarge\n            ? book.imageLarge\n            : book.imageSmall\n            ? book.imageSmall\n            : '/assets/img/no-book-cover.png'\n        \"\n        alt=\"Book cover\"\n      />\n    </a>\n    <img\n      class=\"image\"\n      *ngIf=\"!linkable\"\n      [src]=\"\n        book.imageLarge\n          ? book.imageLarge\n          : book.imageSmall\n          ? book.imageSmall\n          : '/assets/img/no-book-cover.png'\n      \"\n      alt=\"Book cover\"\n    />\n  </div>\n\n  <div class=\"icons\" *ngIf=\"withButtons && !selectable && !clickable\">\n    <i\n      class=\"ti-briefcase tile-icon button clear\"\n      (click)=\"updateFavoriteIcon({ owned: !book.owned })\"\n      [ngClass]=\"{ inactive: !book.owned, active: book.owned }\"\n      placement=\"bottom\"\n    ></i>\n    <i\n      class=\"ti-gift tile-icon button clear\"\n      (click)=\"updateFavoriteIcon({ wishlist: !book.wishlist })\"\n      [ngClass]=\"{ inactive: !book.wishlist, active: book.wishlist }\"\n      placement=\"bottom\"\n    ></i>\n    <i\n      class=\"ti-eye tile-icon button clear\"\n      (click)=\"updateFavoriteIcon({ read: !book.read })\"\n      [ngClass]=\"{ inactive: !book.read, active: true || book.read }\"\n      placement=\"bottom\"\n    ></i>\n    <i\n      class=\"ti-heart tile-icon button clear\"\n      (click)=\"updateFavoriteIcon({ favorite: !book.favorite })\"\n      [ngClass]=\"{ inactive: !book.favorite, active: book.favorite }\"\n      placement=\"bottom\"\n    ></i>\n  </div>\n</div>\n"
+            "templateData": "<div\n  class=\"card elevation-04 container\"\n  (click)=\"clickable ? onClick.emit(book) : select()\"\n  [ngClass]=\"{\n    clickable: clickable,\n    selectable: selectable && book.canBeSelected && !book.isSelected,\n    'not-selectable': selectable && !book.canBeSelected,\n    selected: (selectable || clickable) && book.isSelected,\n    'no-buttons': !withButtons || selectable || clickable\n  }\"\n>\n  <h4\n    class=\"title text-ellipsis\"\n    [ngClass]=\"{\n      'col-md-8 col-md-offset-2': selectable && book.canBeSelected,\n      'col-md-12': !(selectable && book.canBeSelected)\n    }\"\n  >\n    <a\n      *ngIf=\"linkable\"\n      class=\"text-ellipsis\"\n      href=\"#\"\n      routerLink=\"/dashboard/books/{{ book.id }}\"\n    >\n      {{ book.title }}\n    </a>\n    {{ linkable ? '' : book.title }}\n  </h4>\n  <i\n    class=\"col-md-2 select-icon\"\n    *ngIf=\"selectable && book.canBeSelected\"\n    [ngClass]=\"{\n      'ti-check-box': book.isSelected,\n      'ti-control-stop': !book.isSelected\n    }\"\n  ></i>\n  <hr />\n  <p class=\"capitalized\" placement=\"bottom\">\n    <a *ngIf=\"linkable\" href=\"javascript:void(0);\" (click)=\"authorRoute()\">{{\n      book.author\n    }}</a>\n    {{ linkable ? '' : book.author }}\n  </p>\n\n  <div class=\"image-wrapper\">\n    <a\n      *ngIf=\"linkable\"\n      href=\"javascript:void(0);\"\n      routerLink=\"/dashboard/books/{{ book.id }}\"\n      class=\"image-link\"\n    >\n      <img\n        class=\"image\"\n        [src]=\"\n          book.imageLarge\n            ? book.imageLarge\n            : book.imageSmall\n            ? book.imageSmall\n            : '/assets/img/no-book-cover.png'\n        \"\n        alt=\"Book cover\"\n      />\n    </a>\n    <img\n      class=\"image\"\n      *ngIf=\"!linkable\"\n      [src]=\"\n        book.imageLarge\n          ? book.imageLarge\n          : book.imageSmall\n          ? book.imageSmall\n          : '/assets/img/no-book-cover.png'\n      \"\n      alt=\"Book cover\"\n    />\n  </div>\n\n  <div class=\"icons\" *ngIf=\"withButtons && !selectable && !clickable\">\n    <i\n      class=\"ti-briefcase tile-icon button clear\"\n      (click)=\"updateFavoriteIcon({ owned: !book.owned })\"\n      [ngClass]=\"{\n        inactive: !book.owned,\n        active: book.owned,\n        owned: book.owned\n      }\"\n      placement=\"bottom\"\n    ></i>\n    <i\n      class=\"ti-gift tile-icon button clear\"\n      (click)=\"updateFavoriteIcon({ wishlist: !book.wishlist })\"\n      [ngClass]=\"{\n        inactive: !book.wishlist,\n        active: book.wishlist,\n        wishlist: book.wishlist\n      }\"\n      placement=\"bottom\"\n    ></i>\n    <i\n      class=\"ti-eye tile-icon button clear\"\n      (click)=\"updateFavoriteIcon({ read: !book.read })\"\n      [ngClass]=\"{ inactive: !book.read, active: book.read, read: book.read }\"\n      placement=\"bottom\"\n    ></i>\n    <i\n      class=\"ti-heart tile-icon button clear\"\n      (click)=\"updateFavoriteIcon({ favorite: !book.favorite })\"\n      [ngClass]=\"{\n        inactive: !book.favorite,\n        active: book.favorite,\n        favorite: book.favorite\n      }\"\n      placement=\"bottom\"\n    ></i>\n  </div>\n</div>\n"
         },
         {
             "name": "BookComponent",
@@ -7424,7 +7480,7 @@
         },
         {
             "name": "BooksDisplayComponent",
-            "id": "component-BooksDisplayComponent-59163136aa075989e1e59d6953a2f5bc",
+            "id": "component-BooksDisplayComponent-96033ccd71f55f6a271080e59a4d3eac",
             "file": "src/app/dashboard/core/books-display/books-display.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -7478,23 +7534,14 @@
                     "type": "boolean"
                 },
                 {
-                    "name": "maxBooks",
-                    "line": 26
+                    "name": "maxBooksPerPage",
+                    "line": 26,
+                    "type": "number"
                 },
                 {
                     "name": "selectable",
                     "line": 24,
                     "type": "boolean"
-                },
-                {
-                    "name": "tableDisplayItems",
-                    "defaultValue": "DEFAULT_TABLE_ITEMS",
-                    "line": 31
-                },
-                {
-                    "name": "tilesDisplay",
-                    "defaultValue": "true",
-                    "line": 32
                 },
                 {
                     "name": "withButtons",
@@ -7506,13 +7553,13 @@
                 {
                     "name": "onClick",
                     "defaultValue": "new EventEmitter<Book>()",
-                    "line": 35,
+                    "line": 32,
                     "type": "EventEmitter"
                 },
                 {
                     "name": "selectedBooks",
                     "defaultValue": "new EventEmitter<Book[]>()",
-                    "line": 34,
+                    "line": 31,
                     "type": "EventEmitter"
                 }
             ],
@@ -7523,7 +7570,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 38
+                    "line": 37
                 },
                 {
                     "name": "immutableMaxBooks",
@@ -7531,7 +7578,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 43
+                    "line": 42
                 },
                 {
                     "name": "onlySelected",
@@ -7539,7 +7586,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 40
+                    "line": 39
                 },
                 {
                     "name": "page",
@@ -7547,7 +7594,7 @@
                     "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 41
+                    "line": 40
                 },
                 {
                     "name": "pageCount",
@@ -7555,7 +7602,7 @@
                     "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 42
+                    "line": 41
                 },
                 {
                     "name": "removeSpaces",
@@ -7563,7 +7610,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 45
+                    "line": 44
                 },
                 {
                     "name": "searchInput",
@@ -7571,14 +7618,14 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 37
+                    "line": 36
                 },
                 {
                     "name": "searchValue",
-                    "type": "",
+                    "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 44
+                    "line": 43
                 },
                 {
                     "name": "selectedAll",
@@ -7586,7 +7633,23 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 39
+                    "line": 38
+                },
+                {
+                    "name": "tableDisplayItems",
+                    "defaultValue": "DEFAULT_TABLE_ITEMS",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 34
+                },
+                {
+                    "name": "tilesDisplay",
+                    "defaultValue": "true",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 35
                 }
             ],
             "methodsClass": [
@@ -7596,7 +7659,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 47
+                    "line": 46
                 },
                 {
                     "name": "selectAll",
@@ -7604,7 +7667,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 63
+                    "line": 62
                 },
                 {
                     "name": "toggleTilesDisplay",
@@ -7612,7 +7675,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 69
+                    "line": 68
                 }
             ],
             "hostBindings": [],
@@ -7620,11 +7683,11 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'\nimport { Book } from 'models/book.model'\nimport { removeSpaces } from 'utils/helpers'\nimport {\n  MAX_BOOKS_DISPLAY,\n  DEFAULT_TABLE_ITEMS,\n  MAX_BOOKS_DISPLAY_LIST,\n} from 'utils/constants'\nimport { FormControl } from '@angular/forms'\nimport { debounceTime, distinctUntilChanged } from 'rxjs/operators'\n\n@Component({\n  moduleId: module.id,\n  selector: 'books-display',\n  templateUrl: 'books-display.component.html',\n  styleUrls: ['books-display.component.scss'],\n})\nexport class BooksDisplayComponent implements OnInit {\n  @Input() books: Book[]\n\n  @Input() withButtons: boolean\n  @Input() clickable: boolean\n  @Input() linkable: boolean\n  @Input() selectable: boolean\n  @Input() bookCardsInRow = 4\n  @Input() maxBooks\n  @Input() fullSearchBar = false\n  @Input() displayBooksInLibraryInfo = false\n  @Input() displayOnlySelectedBtn = false\n\n  @Input() tableDisplayItems = DEFAULT_TABLE_ITEMS\n  @Input() tilesDisplay = true\n\n  @Output() selectedBooks = new EventEmitter<Book[]>()\n  @Output() onClick = new EventEmitter<Book>()\n\n  searchInput = new FormControl()\n  displayAll = false\n  selectedAll = false\n  onlySelected = false\n  page = 1\n  pageCount = 1\n  immutableMaxBooks = false\n  searchValue\n  removeSpaces = removeSpaces\n\n  ngOnInit() {\n    if (this.maxBooks) {\n      this.immutableMaxBooks = true\n    } else {\n      this.maxBooks = MAX_BOOKS_DISPLAY\n    }\n\n    this.pageCount = Math.ceil(this.books.length / this.maxBooks)\n    this.searchInput.valueChanges\n      .pipe(\n        debounceTime(200),\n        distinctUntilChanged()\n      )\n      .subscribe(value => (this.searchValue = value))\n  }\n\n  selectAll() {\n    this.selectedAll = !this.selectedAll\n    this.books.forEach(book => (book.isSelected = this.selectedAll))\n    this.selectedBooks.emit(this.books.filter(book => book.isSelected))\n  }\n\n  toggleTilesDisplay() {\n    this.tilesDisplay = !this.tilesDisplay\n    if (!this.immutableMaxBooks) {\n      this.maxBooks = this.tilesDisplay\n        ? MAX_BOOKS_DISPLAY\n        : MAX_BOOKS_DISPLAY_LIST\n      this.pageCount = Math.ceil(this.books.length / this.maxBooks)\n      if (this.page > this.pageCount) {\n        this.page = this.pageCount\n      }\n    }\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'\nimport { Book } from 'models/book.model'\nimport { removeSpaces } from 'utils/helpers'\nimport {\n  MAX_BOOKS_DISPLAY,\n  DEFAULT_TABLE_ITEMS,\n  MAX_BOOKS_DISPLAY_LIST,\n} from 'utils/constants'\nimport { FormControl } from '@angular/forms'\nimport { debounceTime, distinctUntilChanged } from 'rxjs/operators'\n\n@Component({\n  moduleId: module.id,\n  selector: 'books-display',\n  templateUrl: 'books-display.component.html',\n  styleUrls: ['books-display.component.scss'],\n})\nexport class BooksDisplayComponent implements OnInit {\n  @Input() books: Book[]\n\n  @Input() withButtons: boolean\n  @Input() clickable: boolean\n  @Input() linkable: boolean\n  @Input() selectable: boolean\n  @Input() bookCardsInRow = 4\n  @Input() maxBooksPerPage: number\n  @Input() fullSearchBar = false\n  @Input() displayBooksInLibraryInfo = false\n  @Input() displayOnlySelectedBtn = false\n\n  @Output() selectedBooks = new EventEmitter<Book[]>()\n  @Output() onClick = new EventEmitter<Book>()\n\n  tableDisplayItems = DEFAULT_TABLE_ITEMS\n  tilesDisplay = true\n  searchInput = new FormControl()\n  displayAll = false\n  selectedAll = false\n  onlySelected = false\n  page = 1\n  pageCount = 1\n  immutableMaxBooks = false\n  searchValue: string\n  removeSpaces = removeSpaces\n\n  ngOnInit() {\n    if (this.maxBooksPerPage) {\n      this.immutableMaxBooks = true\n    } else {\n      this.maxBooksPerPage = MAX_BOOKS_DISPLAY\n    }\n\n    this.pageCount = Math.ceil(this.books.length / this.maxBooksPerPage)\n    this.searchInput.valueChanges\n      .pipe(\n        debounceTime(200),\n        distinctUntilChanged()\n      )\n      .subscribe(value => (this.searchValue = value))\n  }\n\n  selectAll() {\n    this.selectedAll = !this.selectedAll\n    this.books.forEach(book => (book.isSelected = this.selectedAll))\n    this.selectedBooks.emit(this.books.filter(book => book.isSelected))\n  }\n\n  toggleTilesDisplay() {\n    this.tilesDisplay = !this.tilesDisplay\n    if (!this.immutableMaxBooks) {\n      this.maxBooksPerPage = this.tilesDisplay\n        ? MAX_BOOKS_DISPLAY\n        : MAX_BOOKS_DISPLAY_LIST\n      this.pageCount = Math.ceil(this.books.length / this.maxBooksPerPage)\n      if (this.page > this.pageCount) {\n        this.page = this.pageCount\n      }\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".buttons {\n  display: flex;\n  justify-content: flex-end;\n  margin-bottom: 8px;\n}\n\n.button {\n  margin-left: 6px;\n}\n\n.btn-margin {\n  margin: 0 8px 0 0;\n}\n\n.search-bar {\n  max-width: 300px;\n  margin-left: 6px;\n}\n\n.full-search-bar {\n  width: 100%;\n  margin: 0;\n}\n\n.not-selectable {\n  color: #9a9a9a;\n}\n\n.ti-info-alt {\n  background: #fdf4ec;\n  color: rgba(101, 105, 24, 1);\n  border-radius: 6px;\n}\n",
+                    "data": ".books-display {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n\n.buttons {\n  display: flex;\n  justify-content: flex-end;\n  width: 100%;\n  margin-bottom: 8px;\n}\n\n.button {\n  margin-left: 6px;\n}\n\n.toggle-icon {\n  font-weight: normal;\n}\n\n.search-bar {\n  max-width: 300px;\n  margin-left: 6px;\n}\n\n.full-search-bar {\n  width: 100%;\n  margin: 0;\n}\n\n.not-selectable {\n  color: #9a9a9a;\n}\n\n.ti-info-alt {\n  background: #fdf4ec;\n  color: rgba(101, 105, 24, 1);\n  border-radius: 6px;\n}\n",
                     "styleUrl": "books-display.component.scss"
                 }
             ],
@@ -7632,7 +7695,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div style=\"display: grid\">\n  <!-- Buttons -->\n  <div *ngIf=\"books && books.length > 0\" class=\"buttons\">\n    <button type=\"button\" class=\"button\" (click)=\"toggleTilesDisplay()\">\n      <i\n        [ngClass]=\"{\n          'ti-view-list': tilesDisplay,\n          'ti-layout-grid2': !tilesDisplay\n        }\"\n      ></i>\n      {{ tilesDisplay ? 'Table' : 'Tiles' }}\n    </button>\n    <button\n      *ngIf=\"selectable\"\n      type=\"button\"\n      class=\"button\"\n      [ngClass]=\"{ success: !selectedAll, danger: selectedAll }\"\n      (click)=\"selectAll()\"\n    >\n      {{ selectedAll ? 'Deselect all' : 'Select all' }}\n    </button>\n    <button\n      *ngIf=\"displayOnlySelectedBtn\"\n      type=\"button\"\n      class=\"button\"\n      [ngClass]=\"{ success: !onlySelected, danger: onlySelected }\"\n      (click)=\"onlySelected = !onlySelected\"\n    >\n      {{ onlySelected ? 'All books' : 'Only books in collection' }}\n    </button>\n    <div\n      class=\"input search-bar\"\n      [ngClass]=\"{ 'full-search-bar': fullSearchBar }\"\n    >\n      <input\n        type=\"text\"\n        class=\"icon-left\"\n        placeholder=\"Search\"\n        [formControl]=\"searchInput\"\n      />\n      <i class=\"ti-search left\"></i>\n    </div>\n  </div>\n  <!-- Tiles -->\n  <ng-container *ngIf=\"tilesDisplay\">\n    <books-section\n      [books]=\"\n        books\n          | bookFilter: (onlySelected ? 'isSelected' : null)\n          | searchFilter: searchValue:['title', 'author', 'original']\n          | page: page:maxBooks\n      \"\n      [cardsInRow]=\"bookCardsInRow\"\n      [withButtons]=\"withButtons\"\n      [clickable]=\"clickable\"\n      [selectable]=\"selectable\"\n      [linkable]=\"linkable\"\n      (selectedBooks)=\"selectedBooks.emit($event)\"\n      (onClick)=\"onClick.emit($event)\"\n    ></books-section>\n  </ng-container>\n  <!-- Table -->\n  <ng-container *ngIf=\"!tilesDisplay && books && books.length > 0\">\n    <table-items\n      [items]=\"tableDisplayItems\"\n      (displayItems)=\"tableDisplayItems = $event\"\n    ></table-items>\n    <books-table\n      [displayItems]=\"tableDisplayItems\"\n      [books]=\"\n        books\n          | bookFilter: (onlySelected ? 'isSelected' : null)\n          | searchFilter: searchValue:['title', 'author', 'original']\n          | page: page:maxBooks\n      \"\n      [withButtons]=\"withButtons\"\n      [clickable]=\"clickable\"\n      [selectable]=\"selectable\"\n      [linkable]=\"linkable\"\n      (selectedBooks)=\"selectedBooks.emit($event)\"\n      (onClick)=\"onClick.emit($event)\"\n    ></books-table>\n  </ng-container>\n  <!-- Can't be selected info -->\n  <div *ngIf=\"displayBooksInLibraryInfo\" class=\"row\">\n    <div class=\"col-md-12 not-selectable\">\n      <div class=\"col-md-12\">\n        <i class=\"ti-info-alt\"></i>\n        These books are already in your library\n      </div>\n    </div>\n  </div>\n  <!-- Pages -->\n  <pages\n    *ngIf=\"books && books.length\"\n    [count]=\"pageCount\"\n    [withRoute]=\"false\"\n    (nextSelectedPage)=\"page = $event\"\n  ></pages>\n</div>\n"
+            "templateData": "<div class='books-display'>\n  <!-- Buttons -->\n  <div *ngIf=\"books && books.length\" class=\"buttons\">\n    <button type=\"button\" class=\"button\" (click)=\"toggleTilesDisplay()\">\n      <i\n        class='toggle-icon'\n        [ngClass]=\"{\n          'ti-view-list': tilesDisplay,\n          'ti-layout-grid2': !tilesDisplay\n        }\"\n      ></i>\n      {{ tilesDisplay ? 'Table' : 'Tiles' }}\n    </button>\n    <button\n      *ngIf=\"selectable\"\n      type=\"button\"\n      class=\"button\"\n      [ngClass]=\"{ success: !selectedAll, danger: selectedAll }\"\n      (click)=\"selectAll()\"\n    >\n      {{ selectedAll ? 'Deselect all' : 'Select all' }}\n    </button>\n    <button\n      *ngIf=\"displayOnlySelectedBtn\"\n      type=\"button\"\n      class=\"button\"\n      [ngClass]=\"{ success: !onlySelected, danger: onlySelected }\"\n      (click)=\"onlySelected = !onlySelected\"\n    >\n      {{ onlySelected ? 'All books' : 'Only books in collection' }}\n    </button>\n    <div\n      class=\"input search-bar\"\n      [ngClass]=\"{ 'full-search-bar': fullSearchBar }\"\n    >\n      <input\n        type=\"text\"\n        class=\"icon-left\"\n        placeholder=\"Search\"\n        [formControl]=\"searchInput\"\n      />\n      <i class=\"ti-search left\"></i>\n    </div>\n  </div>\n  <!-- Tiles -->\n  <ng-container *ngIf=\"tilesDisplay\">\n    <books-section\n      [books]=\"\n        books\n          | bookFilter: (onlySelected ? 'isSelected' : null)\n          | searchFilter: searchValue:['title', 'author', 'original']\n          | page: page:maxBooksPerPage\n      \"\n      [cardsInRow]=\"bookCardsInRow\"\n      [withButtons]=\"withButtons\"\n      [clickable]=\"clickable\"\n      [selectable]=\"selectable\"\n      [linkable]=\"linkable\"\n      (selectedBooks)=\"selectedBooks.emit($event)\"\n      (onClick)=\"onClick.emit($event)\"\n    ></books-section>\n  </ng-container>\n  <!-- Table -->\n  <ng-container *ngIf=\"!tilesDisplay && books && books.length > 0\">\n    <table-items\n      [items]=\"tableDisplayItems\"\n      (displayItems)=\"tableDisplayItems = $event\"\n    ></table-items>\n    <books-table\n      [displayItems]=\"tableDisplayItems\"\n      [books]=\"\n        books\n          | bookFilter: (onlySelected ? 'isSelected' : null)\n          | searchFilter: searchValue:['title', 'author', 'original']\n          | page: page:maxBooksPerPage\n      \"\n      [withButtons]=\"withButtons\"\n      [clickable]=\"clickable\"\n      [selectable]=\"selectable\"\n      [linkable]=\"linkable\"\n      (selectedBooks)=\"selectedBooks.emit($event)\"\n      (onClick)=\"onClick.emit($event)\"\n    ></books-table>\n  </ng-container>\n  <!-- Can't be selected info -->\n  <div *ngIf=\"displayBooksInLibraryInfo\" class=\"row\">\n    <div class=\"col-md-12 not-selectable\">\n      <div class=\"col-md-12\">\n        <i class=\"ti-info-alt\"></i>\n        These books are already in your library\n      </div>\n    </div>\n  </div>\n  <!-- Pages -->\n  <pages\n    *ngIf=\"books && books.length\"\n    [count]=\"pageCount\"\n    [withRoute]=\"false\"\n    (nextSelectedPage)=\"page = $event\"\n  ></pages>\n</div>\n"
         },
         {
             "name": "BooksHomeComponent",
@@ -8023,7 +8086,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "@import './../../../../assets/sass/core-elements.scss';\n\nh4 {\n  margin: 0;\n  display: flex;\n}\n\nhr {\n  @extend %divider;\n  width: 100%;\n  margin: 32px 0px;\n  align-self: center;\n}\n\n.container {\n  display: flex;\n  flex-direction: column;\n}\n\n.toggle-checkbox {\n  display: none;\n}\n\n.toggle-icon {\n  margin-left: 12px;\n  color: var(--color-primary-02);\n  font-size: 20px;\n  transition: all 0.15s;\n  cursor: pointer;\n\n  &.toggled {\n    transform: rotate(180deg);\n  }\n}\n\n.books-container {\n  overflow: hidden;\n  transition: transform 0.3s ease-out; // note that we're transitioning transform, not height!\n  height: auto;\n  transform: scaleY(1); // implicit, but good to specify explicitly\n  transform-origin: top; // keep the top of the element in the same place. this is optional.\n\n  &.collapsed {\n    transform: scaleY(0); // *squish*\n  }\n}\n",
+                    "data": "@import '../../../../assets/sass/core-elements.scss';\n\nh4 {\n  margin: 0;\n  display: flex;\n}\n\nhr {\n  @extend %divider;\n  width: 100%;\n  margin: 32px 0px;\n  align-self: center;\n}\n\n.container {\n  display: flex;\n  flex-direction: column;\n}\n\n.toggle-checkbox {\n  display: none;\n}\n\n.toggle-icon {\n  margin-left: 12px;\n  color: var(--color-primary-02);\n  font-size: 20px;\n  transition: all 0.15s;\n  cursor: pointer;\n\n  &.toggled {\n    transform: rotate(180deg);\n  }\n}\n\n.books-container {\n  overflow: hidden;\n  padding: 10px 6px 16px;\n  transition: transform 0.3s ease-out; // note that we're transitioning transform, not height!\n  height: auto;\n  transform: scaleY(1); // implicit, but good to specify explicitly\n  transform-origin: top; // keep the top of the element in the same place. this is optional.\n\n  &.collapsed {\n    transform: scaleY(0); // *squish*\n  }\n}\n",
                     "styleUrl": "books-section.component.scss"
                 }
             ],
@@ -8031,11 +8094,11 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"container\" *ngIf=\"!!sectionTitle\">\n  <h4 class=\"title\" id=\"_{ removeSpaces(sectionTitle) }}\">\n    {{ sectionTitle }}\n    <input\n      class=\"toggle-checkbox\"\n      type=\"checkbox\"\n      id=\"_{{ removeSpaces(sectionTitle) }}\"\n    />\n    <label\n      class=\"toggle-icon\"\n      for=\"_{{ removeSpaces(sectionTitle) }}\"\n      [ngClass]=\"{ toggled: !displayAll }\"\n    >\n      <i (click)=\"displayAll = !displayAll\" class=\"ti-angle-down\"></i>\n    </label>\n  </h4>\n  <div>{{ description }}</div>\n  <hr />\n</div>\n<div class=\"books-container\" [ngClass]=\"{ collapsed: !displayAll }\">\n  <grid [items]=\"books\" [itemsInRow]=\"cardsInRow\">\n    <ng-template let-item>\n      <book-card\n        [book]=\"item\"\n        [withButtons]=\"withButtons\"\n        [clickable]=\"clickable\"\n        [linkable]=\"linkable\"\n        [selectable]=\"selectable\"\n        (onClick)=\"onClick.emit($event)\"\n        (selectedChanged)=\"updateSelectedBooks()\"\n      ></book-card>\n    </ng-template>\n  </grid>\n</div>\n"
+            "templateData": "<div class=\"container\" *ngIf=\"!!sectionTitle\">\n  <h4 class=\"title\" id=\"{{ removeSpaces(sectionTitle) }}\">\n    {{ sectionTitle }}\n    <input\n      class=\"toggle-checkbox\"\n      type=\"checkbox\"\n      id=\"_{{ removeSpaces(sectionTitle) }}\"\n    />\n    <label\n      class=\"toggle-icon\"\n      for=\"_{{ removeSpaces(sectionTitle) }}\"\n      [ngClass]=\"{ toggled: !displayAll }\"\n    >\n      <i (click)=\"displayAll = !displayAll\" class=\"ti-angle-down\"></i>\n    </label>\n  </h4>\n  <div>{{ description }}</div>\n  <hr />\n</div>\n<div class=\"books-container\" [ngClass]=\"{ collapsed: !displayAll }\">\n  <grid [items]=\"books\" [itemsInRow]=\"cardsInRow\">\n    <ng-template let-item>\n      <book-card\n        [book]=\"item\"\n        [withButtons]=\"withButtons\"\n        [clickable]=\"clickable\"\n        [linkable]=\"linkable\"\n        [selectable]=\"selectable\"\n        (onClick)=\"onClick.emit($event)\"\n        (selectedChanged)=\"updateSelectedBooks()\"\n      ></book-card>\n    </ng-template>\n  </grid>\n</div>\n"
         },
         {
             "name": "BooksTableComponent",
-            "id": "component-BooksTableComponent-fee8fdf78d122181cb708f09d4b494b8",
+            "id": "component-BooksTableComponent-3d55dd2bcc9971c7e56ef894c2b3172e",
             "file": "src/app/dashboard/core/books-table/books-table.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -8045,7 +8108,7 @@
             "providers": [],
             "selector": "books-table",
             "styleUrls": [
-                "./books-table.component.css"
+                "./books-table.component.scss"
             ],
             "styles": [],
             "templateUrl": [
@@ -8055,62 +8118,52 @@
             "inputsClass": [
                 {
                     "name": "books",
-                    "line": 18,
+                    "line": 16,
                     "type": "Book[]"
                 },
                 {
                     "name": "clickable",
-                    "line": 21,
+                    "line": 19,
                     "type": "boolean"
-                },
-                {
-                    "name": "description",
-                    "line": 17,
-                    "type": "string"
                 },
                 {
                     "name": "displayItems",
                     "defaultValue": "{}",
-                    "line": 29
+                    "line": 27
                 },
                 {
                     "name": "linkable",
-                    "line": 22,
-                    "type": "boolean"
-                },
-                {
-                    "name": "sectionTitle",
-                    "line": 16,
-                    "type": "string"
-                },
-                {
-                    "name": "selectable",
-                    "line": 23,
-                    "type": "boolean"
-                },
-                {
-                    "name": "statusCannotBeSelected",
-                    "line": 28,
-                    "type": "string"
-                },
-                {
-                    "name": "statusIncluded",
-                    "line": 26,
-                    "type": "string"
-                },
-                {
-                    "name": "statusNotIncluded",
-                    "line": 27,
-                    "type": "string"
-                },
-                {
-                    "name": "withButtons",
                     "line": 20,
                     "type": "boolean"
                 },
                 {
-                    "name": "withDisplayItems",
+                    "name": "selectable",
+                    "line": 21,
+                    "type": "boolean"
+                },
+                {
+                    "name": "statusCannotBeSelected",
+                    "line": 26,
+                    "type": "string"
+                },
+                {
+                    "name": "statusIncluded",
                     "line": 24,
+                    "type": "string"
+                },
+                {
+                    "name": "statusNotIncluded",
+                    "line": 25,
+                    "type": "string"
+                },
+                {
+                    "name": "withButtons",
+                    "line": 18,
+                    "type": "boolean"
+                },
+                {
+                    "name": "withDisplayItems",
+                    "line": 22,
                     "type": "boolean"
                 }
             ],
@@ -8118,13 +8171,13 @@
                 {
                     "name": "onClick",
                     "defaultValue": "new EventEmitter<Book>()",
-                    "line": 32,
+                    "line": 30,
                     "type": "EventEmitter"
                 },
                 {
                     "name": "selectedBooks",
                     "defaultValue": "new EventEmitter<Book[]>()",
-                    "line": 31,
+                    "line": 29,
                     "type": "EventEmitter"
                 }
             ],
@@ -8135,7 +8188,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 34
+                    "line": 32
                 }
             ],
             "methodsClass": [
@@ -8150,7 +8203,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 49,
+                    "line": 47,
                     "jsdoctags": [
                         {
                             "name": "book",
@@ -8167,7 +8220,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 42
+                    "line": 40
                 },
                 {
                     "name": "updateFavoriteIcon",
@@ -8184,7 +8237,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 60,
+                    "line": 58,
                     "jsdoctags": [
                         {
                             "name": "book",
@@ -8213,7 +8266,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 44,
+                    "line": 42,
                     "jsdoctags": [
                         {
                             "name": "selectedBook",
@@ -8230,12 +8283,12 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'\nimport { Book } from 'models/book.model'\nimport { ANIMATIONS } from 'utils/constants'\nimport { formatDate } from 'utils/helpers'\nimport { LibraryService } from 'services/library.service'\nimport { ActivatedRoute, Router } from '@angular/router'\n\n@Component({\n  moduleId: module.id,\n  selector: 'books-table',\n  templateUrl: 'books-table.component.html',\n  styleUrls: ['./books-table.component.css'],\n  animations: [ANIMATIONS.CARD],\n})\nexport class BooksTableComponent implements OnInit {\n  @Input() sectionTitle: string\n  @Input() description: string\n  @Input() books: Book[]\n\n  @Input() withButtons: boolean\n  @Input() clickable: boolean\n  @Input() linkable: boolean\n  @Input() selectable: boolean\n  @Input() withDisplayItems: boolean\n\n  @Input() statusIncluded: string\n  @Input() statusNotIncluded: string\n  @Input() statusCannotBeSelected: string\n  @Input() displayItems = {}\n\n  @Output() selectedBooks = new EventEmitter<Book[]>()\n  @Output() onClick = new EventEmitter<Book>()\n\n  formatDate = formatDate\n\n  constructor(\n    private libraryService: LibraryService,\n    private route: ActivatedRoute,\n    private router: Router\n  ) {}\n\n  ngOnInit() {}\n\n  updateSelectedBooks(selectedBook: Book) {\n    selectedBook.isSelected = !selectedBook.isSelected\n    this.selectedBooks.emit(this.books.filter(book => book.isSelected))\n  }\n\n  authorRoute(book: Book) {\n    return book.goodreadsAuthorId\n      ? this.router.navigate([`/dashboard/authors/${book.goodreadsAuthorId}`], {\n          relativeTo: this.route,\n        })\n      : this.router.navigate(['/dashboard/authors/find'], {\n          relativeTo: this.route,\n          queryParams: { name: book.author },\n        })\n  }\n\n  updateFavoriteIcon(book: Book, values: {}) {\n    this.libraryService.updateBook({ ...book, ...values })\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'\nimport { Book } from 'models/book.model'\nimport { ANIMATIONS } from 'utils/constants'\nimport { formatDate } from 'utils/helpers'\nimport { LibraryService } from 'services/library.service'\nimport { ActivatedRoute, Router } from '@angular/router'\n\n@Component({\n  moduleId: module.id,\n  selector: 'books-table',\n  templateUrl: 'books-table.component.html',\n  styleUrls: ['./books-table.component.scss'],\n  animations: [ANIMATIONS.CARD],\n})\nexport class BooksTableComponent implements OnInit {\n  @Input() books: Book[]\n\n  @Input() withButtons: boolean\n  @Input() clickable: boolean\n  @Input() linkable: boolean\n  @Input() selectable: boolean\n  @Input() withDisplayItems: boolean\n\n  @Input() statusIncluded: string\n  @Input() statusNotIncluded: string\n  @Input() statusCannotBeSelected: string\n  @Input() displayItems = {}\n\n  @Output() selectedBooks = new EventEmitter<Book[]>()\n  @Output() onClick = new EventEmitter<Book>()\n\n  formatDate = formatDate\n\n  constructor(\n    private libraryService: LibraryService,\n    private route: ActivatedRoute,\n    private router: Router\n  ) {}\n\n  ngOnInit() {}\n\n  updateSelectedBooks(selectedBook: Book) {\n    selectedBook.isSelected = !selectedBook.isSelected\n    this.selectedBooks.emit(this.books.filter(book => book.isSelected))\n  }\n\n  authorRoute(book: Book) {\n    return book.goodreadsAuthorId\n      ? this.router.navigate([`/dashboard/authors/${book.goodreadsAuthorId}`], {\n          relativeTo: this.route,\n        })\n      : this.router.navigate(['/dashboard/authors/find'], {\n          relativeTo: this.route,\n          queryParams: { name: book.author },\n        })\n  }\n\n  updateFavoriteIcon(book: Book, values: {}) {\n    this.libraryService.updateBook({ ...book, ...values })\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "i.tile-icon {\n  font-size: 24px;\n  height: auto;\n  cursor: pointer;\n}\n\ni.owned {\n  color: green;\n}\n\ni.wishlist {\n  color: royalblue;\n}\n\ni.read {\n  color: orangered;\n}\n\ni.favorite {\n  color: violet;\n}\n\ni.inactive {\n  color: #c9c9c9;\n}\n\ntable {\n  margin: 0;\n}\n\nimg {\n  height: 160px;\n  width: auto;\n}\n\n.icons {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n\n.row-selectable {\n  cursor: pointer;\n}\n\n.row-selected {\n  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(24, 181, 24, 1);\n  background: #ecfdef;\n}\n\n.row-not-selectable {\n  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(101, 105, 24, 1);\n  background: #fdf4ec;\n}\n\n.row-clickable:hover {\n  background: #ecfdef;\n  cursor: pointer;\n}\n\n.select-icon {\n  font-size: 20px;\n}\n\n.ti-control-stop {\n  /* font-size: 24px; */\n  margin-left: -3px;\n}\n\n.ti-check-box {\n  color: #18b518;\n}\n",
-                    "styleUrl": "./books-table.component.css"
+                    "data": "i.tile-icon {\n  font-size: 20px;\n  font-weight: 500;\n  width: 42px;\n  height: 42px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 0;\n  margin: 0px 6px;\n  cursor: pointer;\n}\n\ni.owned {\n  color: var(--color-green-03);\n}\n\ni.wishlist {\n  color: var(--color-blue-03);\n}\n\ni.read {\n  color: var(--color-orange-03);\n}\n\ni.favorite {\n  color: var(--color-purple-03);\n}\n\ni.inactive {\n  color: var(--color-light-03);\n}\n\ntable {\n  margin: 0;\n}\n\nimg {\n  height: 160px;\n  width: auto;\n}\n\n.icons {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n\n.row-selectable {\n  cursor: pointer;\n}\n\n.row-selected {\n  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(24, 181, 24, 1);\n  background: #ecfdef;\n}\n\n.row-not-selectable {\n  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(101, 105, 24, 1);\n  background: #fdf4ec;\n}\n\n.row-clickable:hover {\n  background: #ecfdef;\n  cursor: pointer;\n}\n\n.select-icon {\n  font-size: 20px;\n}\n\n.ti-control-stop {\n  /* font-size: 24px; */\n  margin-left: -3px;\n}\n\n.ti-check-box {\n  color: #18b518;\n}\n",
+                    "styleUrl": "./books-table.component.scss"
                 }
             ],
             "stylesData": "",
@@ -8256,7 +8309,7 @@
                         "type": "Router"
                     }
                 ],
-                "line": 34,
+                "line": 32,
                 "jsdoctags": [
                     {
                         "name": "libraryService",
@@ -8284,7 +8337,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"row\" *ngIf=\"books.length\">\n  <div class=\"col-md-12\">\n    <div class=\"card\">\n      <div class=\"content table-responsive table-full-width\">\n        <table class=\"table\">\n          \n          <thead>\n            <tr>\n              <th *ngIf=\"selectable\" class=\"col-md-1\">Selected</th>\n              <th *ngIf=\"displayItems['Cover']\" class=\"col-md-1\"></th>\n              <th class=\"col\">Title</th>\n              <th *ngIf=\"displayItems['Original title']\" class=\"col-md-2\">Original title</th>\n              <th *ngIf=\"displayItems['Author']\" class=\"col-md-2\">Author</th>\n              <th *ngIf=\"displayItems['Added on']\" class=\"col\">Added on</th>\n              <th *ngIf=\"displayItems['Year']\" class=\"col\">Year</th>\n              <th *ngIf=\"displayItems['Publisher']\" class=\"col\">Publisher</th>\n              <th *ngIf=\"displayItems['Language']\" class=\"col\">Language</th>\n              <th *ngIf=\"displayItems['Pages']\" class=\"col\">Pages</th>\n              <th *ngIf=\"displayItems['Rating']\" class=\"col\">Rating</th>\n              <th *ngIf=\"displayItems['Favorites'] && withButtons\" class=\"col-md-1\"></th>\n            </tr>\n          \n          <tbody>\n            <tr\n              *ngFor=\"let book of books\"\n              (click)=\"clickable ? onClick.emit(book) : updateSelectedBooks(book)\"\n              [ngClass]=\"{\n                'row-clickable': clickable,\n                'row-selectable': selectable && book.canBeSelected,\n                'row-selected': (selectable || clickable) && book.isSelected,\n                'row-not-selectable': selectable && !book.canBeSelected\n              }\"\n            >\n              <!-- Select button -->\n              <td *ngIf=\"selectable\">\n                <i *ngIf=\"book.canBeSelected\" class=\"select-icon\"[ngClass]=\"{\n                  'ti-check-box': book.isSelected,\n                  'ti-control-stop': !book.isSelected\n                }\"></i>\n              </td>\n              <!-- Cover -->\n              <td *ngIf=\"displayItems['Cover']\">\n                <a\n                  *ngIf=\"linkable\"\n                  href=\"javascript:void(0);\"\n                  routerLink=\"/dashboard/books/{{ book.id }}\"\n                >\n                  <img\n                    [src]=\"\n                      book.imageLarge\n                        ? book.imageLarge\n                        : book.imageSmall\n                        ? book.imageSmall\n                        : '/assets/img/no-book-cover.png'\n                    \"\n                    alt=\"Book cover\"\n                  />\n                </a>\n                <img\n                  *ngIf=\"!linkable\"\n                  [src]=\"\n                    book.imageLarge\n                      ? book.imageLarge\n                      : book.imageSmall\n                      ? book.imageSmall\n                      : '/assets/img/no-book-cover.png'\n                  \"\n                  alt=\"Book cover\"\n                />\n              </td>\n              <!-- Title -->\n              <td class=\"col\">\n                <a *ngIf=\"linkable\" href=\"#\" routerLink=\"{{book.id}}\">{{book.title}}</a>\n                {{linkable ? '' : book.title}}\n              </td>\n              <!-- Original title -->\n              <td *ngIf=\"displayItems['Original title']\" class=\"col-md-2\">{{book.original}}</td>\n              <!-- Author -->\n              <td *ngIf=\"displayItems['Author']\" class=\"col-md-2\">\n                <a *ngIf=\"linkable\" href=\"javascript:void(0);\" (click)=\"authorRoute(book)\">{{book.author}}</a>\n                {{linkable ? '' : book.author}}\n              </td>\n              <!-- Date -->\n              <td *ngIf=\"displayItems['Added on']\" class=\"col\">{{formatDate(book.date)}}</td>\n              <!-- Year -->\n              <td *ngIf=\"displayItems['Year']\" class=\"col\">{{book.year}}</td>\n              <!-- Publisher -->\n              <td *ngIf=\"displayItems['Publisher']\" class=\"col\">{{book.publisher}}</td>\n              <!-- Language -->\n              <td *ngIf=\"displayItems['Language']\" class=\"col\">{{book.language}}</td>\n              <!-- Pages -->\n              <td *ngIf=\"displayItems['Pages']\" class=\"col\">{{book.pages}}</td>\n              <!-- Rating -->\n              <td *ngIf=\"displayItems['Rating']\" class=\"col\">{{book.Rating || 0}}</td>\n              <!-- Favorites -->\n              <td *ngIf=\"displayItems['Favorites'] && withButtons\" class=\"col-md-2\">\n                <div class=\"icons\">\n                  <i class=\"pe-7s-check tile-icon\"\n                    (click)=\"updateFavoriteIcon(book, { owned: !book.owned })\"\n                    [ngClass] = \"{'inactive': !book.owned, 'owned': book.owned}\"\n                    tooltip=\"{{book.owned ? 'Owned' : 'Not owned'}}\"\n                    [isDisabled]=\"false\"\n                    [tooltipAnimation]=\"true\"\n                    placement=\"bottom\"></i>\n                  <i class=\"pe-7s-gift tile-icon\"\n                    (click)=\"updateFavoriteIcon(book, { wishlist: !book.wishlist })\"\n                    [ngClass] = \"{'inactive': !book.wishlist, 'wishlist': book.wishlist}\"\n                    tooltip=\"{{book.wishlist ? 'In wishlist' : 'Not in wishlist'}}\"\n                    [isDisabled]=\"false\"\n                    [tooltipAnimation]=\"true\"\n                    placement=\"bottom\"></i>\n                  <i class=\"pe-7s-glasses tile-icon\"\n                    (click)=\"updateFavoriteIcon(book, { read: !book.read })\"\n                    [ngClass] = \"{'inactive': !book.read, 'read': book.read}\"\n                    tooltip=\"{{book.read ? 'Read' : 'Not read'}}\"\n                    [isDisabled]=\"false\"\n                    [tooltipAnimation]=\"true\"\n                    placement=\"bottom\"></i>\n                  <i class=\"pe-7s-like tile-icon\"\n                    (click)=\"updateFavoriteIcon(book, { favorite: !book.favorite })\"\n                    [ngClass] = \"{'inactive': !book.favorite, 'favorite': book.favorite}\"\n                    tooltip=\"{{book.favorite ? 'Favorite' : 'Not a favorite'}}\"\n                    [isDisabled]=\"false\"\n                    [tooltipAnimation]=\"true\"\n                    placement=\"bottom\"></i>\n                </div>\n              </td>\n\n              <!-- <td *ngIf=\"selectable\" class=\"col-xs-3\">\n                <div class=\"text-muted\" style=\"font-style: italic\">\n                  <i style=\"font-size: 0.9em\" [ngClass]=\"{'ti-check': book.isSelected || !book.canBeSelected, 'ti-close': !book.isSelected}\"></i>\n                  {{\n                    book.canBeSelected \n                    ? (book.isSelected ? statusIncluded : statusNotIncluded)\n                    : statusCannotBeSelected\n                  }}\n                </div>\n              </td> -->\n\n              <!-- <td *ngIf=\"selectable\" class=\"col-xs-3\">\n                <button\n                  style=\"text-align: center\"\n                  class=\"btn btn-default\"\n                  type=\"button\"\n                  [disabled]=\"!book.canBeSelected\"\n                  (click)=\"updateSelectedBooks(book)\"\n                >{{book.isSelected ? 'Remove' : 'Add'}}</button>\n              </td> -->\n\n              <!-- <td *ngIf=\"clickable\" class=\"col-xs-3\">\n                <button\n                  style=\"text-align: center\"\n                  class=\"btn btn-default\"\n                  type=\"button\"\n                  (click)=\"updateSelectedBooks(book)\"\n                >Select</button>\n              </td> -->\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n  </div>\n</div>"
+            "templateData": "<div class=\"row\" *ngIf=\"books.length\">\n  <div class=\"col-md-12\">\n    <div class=\"card\">\n      <div class=\"content table-responsive table-full-width\">\n        <table class=\"table\">\n          <thead>\n            <tr>\n              <th *ngIf=\"selectable\" class=\"col-md-1\">Selected</th>\n              <th *ngIf=\"displayItems['Cover']\" class=\"col-md-1\"></th>\n              <th class=\"col\">Title</th>\n              <th *ngIf=\"displayItems['Original title']\" class=\"col-md-2\">\n                Original title\n              </th>\n              <th *ngIf=\"displayItems['Author']\" class=\"col-md-2\">Author</th>\n              <th *ngIf=\"displayItems['Added on']\" class=\"col\">Added on</th>\n              <th *ngIf=\"displayItems['Year']\" class=\"col\">Year</th>\n              <th *ngIf=\"displayItems['Publisher']\" class=\"col\">Publisher</th>\n              <th *ngIf=\"displayItems['Language']\" class=\"col\">Language</th>\n              <th *ngIf=\"displayItems['Pages']\" class=\"col\">Pages</th>\n              <th *ngIf=\"displayItems['Rating']\" class=\"col\">Rating</th>\n              <th\n                *ngIf=\"displayItems['Favorites'] && withButtons\"\n                class=\"col-md-1\"\n              ></th>\n            </tr>\n          </thead>\n\n          <tbody>\n            <tr\n              *ngFor=\"let book of books\"\n              (click)=\"\n                clickable ? onClick.emit(book) : updateSelectedBooks(book)\n              \"\n              [ngClass]=\"{\n                'row-clickable': clickable,\n                'row-selectable': selectable && book.canBeSelected,\n                'row-selected': (selectable || clickable) && book.isSelected,\n                'row-not-selectable': selectable && !book.canBeSelected\n              }\"\n            >\n              <!-- Select button -->\n              <td *ngIf=\"selectable\">\n                <i\n                  *ngIf=\"book.canBeSelected\"\n                  class=\"select-icon\"\n                  [ngClass]=\"{\n                    'ti-check-box': book.isSelected,\n                    'ti-control-stop': !book.isSelected\n                  }\"\n                ></i>\n              </td>\n              <!-- Cover -->\n              <td *ngIf=\"displayItems['Cover']\">\n                <a\n                  *ngIf=\"linkable\"\n                  href=\"javascript:void(0);\"\n                  routerLink=\"/dashboard/books/{{ book.id }}\"\n                >\n                  <img\n                    [src]=\"\n                      book.imageLarge\n                        ? book.imageLarge\n                        : book.imageSmall\n                        ? book.imageSmall\n                        : '/assets/img/no-book-cover.png'\n                    \"\n                    alt=\"Book cover\"\n                  />\n                </a>\n                <img\n                  *ngIf=\"!linkable\"\n                  [src]=\"\n                    book.imageLarge\n                      ? book.imageLarge\n                      : book.imageSmall\n                      ? book.imageSmall\n                      : '/assets/img/no-book-cover.png'\n                  \"\n                  alt=\"Book cover\"\n                />\n              </td>\n              <!-- Title -->\n              <td class=\"col\">\n                <a *ngIf=\"linkable\" href=\"#\" routerLink=\"{{ book.id }}\">{{\n                  book.title\n                }}</a>\n                {{ linkable ? '' : book.title }}\n              </td>\n              <!-- Original title -->\n              <td *ngIf=\"displayItems['Original title']\" class=\"col-md-2\">\n                {{ book.original }}\n              </td>\n              <!-- Author -->\n              <td *ngIf=\"displayItems['Author']\" class=\"col-md-2\">\n                <a\n                  *ngIf=\"linkable\"\n                  href=\"javascript:void(0);\"\n                  (click)=\"authorRoute(book)\"\n                  >{{ book.author }}</a\n                >\n                {{ linkable ? '' : book.author }}\n              </td>\n              <!-- Date -->\n              <td *ngIf=\"displayItems['Added on']\" class=\"col\">\n                {{ formatDate(book.date) }}\n              </td>\n              <!-- Year -->\n              <td *ngIf=\"displayItems['Year']\" class=\"col\">{{ book.year }}</td>\n              <!-- Publisher -->\n              <td *ngIf=\"displayItems['Publisher']\" class=\"col\">\n                {{ book.publisher }}\n              </td>\n              <!-- Language -->\n              <td *ngIf=\"displayItems['Language']\" class=\"col\">\n                {{ book.language }}\n              </td>\n              <!-- Pages -->\n              <td *ngIf=\"displayItems['Pages']\" class=\"col\">\n                {{ book.pages }}\n              </td>\n              <!-- Rating -->\n              <td *ngIf=\"displayItems['Rating']\" class=\"col\">\n                {{ book.Rating || 0 }}\n              </td>\n              <!-- Favorites -->\n              <td\n                *ngIf=\"displayItems['Favorites'] && withButtons\"\n                class=\"col-md-2\"\n              >\n                <div class=\"icons\">\n                  <i\n                    class=\"ti-briefcase tile-icon button clear\"\n                    (click)=\"updateFavoriteIcon(book, { owned: !book.owned })\"\n                    [ngClass]=\"{ inactive: !book.owned, owned: book.owned }\"\n                    tooltip=\"{{ book.owned ? 'Owned' : 'Not owned' }}\"\n                    [isDisabled]=\"false\"\n                    [tooltipAnimation]=\"true\"\n                    placement=\"bottom\"\n                  ></i>\n                  <i\n                    class=\"ti-gift tile-icon button clear\"\n                    (click)=\"\n                      updateFavoriteIcon(book, { wishlist: !book.wishlist })\n                    \"\n                    [ngClass]=\"{\n                      inactive: !book.wishlist,\n                      wishlist: book.wishlist\n                    }\"\n                    tooltip=\"{{\n                      book.wishlist ? 'In wishlist' : 'Not in wishlist'\n                    }}\"\n                    [isDisabled]=\"false\"\n                    [tooltipAnimation]=\"true\"\n                    placement=\"bottom\"\n                  ></i>\n                  <i\n                    class=\"ti-eye tile-icon button clear\"\n                    (click)=\"updateFavoriteIcon(book, { read: !book.read })\"\n                    [ngClass]=\"{ inactive: !book.read, read: book.read }\"\n                    tooltip=\"{{ book.read ? 'Read' : 'Not read' }}\"\n                    [isDisabled]=\"false\"\n                    [tooltipAnimation]=\"true\"\n                    placement=\"bottom\"\n                  ></i>\n                  <i\n                    class=\"ti-heart tile-icon button clear\"\n                    (click)=\"\n                      updateFavoriteIcon(book, { favorite: !book.favorite })\n                    \"\n                    [ngClass]=\"{\n                      inactive: !book.favorite,\n                      favorite: book.favorite\n                    }\"\n                    tooltip=\"{{\n                      book.favorite ? 'Favorite' : 'Not a favorite'\n                    }}\"\n                    [isDisabled]=\"false\"\n                    [tooltipAnimation]=\"true\"\n                    placement=\"bottom\"\n                  ></i>\n                </div>\n              </td>\n\n              <!-- <td *ngIf=\"selectable\" class=\"col-xs-3\">\n                <div class=\"text-muted\" style=\"font-style: italic\">\n                  <i style=\"font-size: 0.9em\" [ngClass]=\"{'ti-check': book.isSelected || !book.canBeSelected, 'ti-close': !book.isSelected}\"></i>\n                  {{\n                    book.canBeSelected\n                    ? (book.isSelected ? statusIncluded : statusNotIncluded)\n                    : statusCannotBeSelected\n                  }}\n                </div>\n              </td> -->\n\n              <!-- <td *ngIf=\"selectable\" class=\"col-xs-3\">\n                <button\n                  style=\"text-align: center\"\n                  class=\"btn btn-default\"\n                  type=\"button\"\n                  [disabled]=\"!book.canBeSelected\"\n                  (click)=\"updateSelectedBooks(book)\"\n                >{{book.isSelected ? 'Remove' : 'Add'}}</button>\n              </td> -->\n\n              <!-- <td *ngIf=\"clickable\" class=\"col-xs-3\">\n                <button\n                  style=\"text-align: center\"\n                  class=\"btn btn-default\"\n                  type=\"button\"\n                  (click)=\"updateSelectedBooks(book)\"\n                >Select</button>\n              </td> -->\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n  </div>\n</div>\n"
         },
         {
             "name": "BookTagsComponent",
@@ -10883,7 +10936,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"card\">\n  <div class=\"header\">\n    <h4 class=\"title\">Find book</h4>\n    <powered-by-goodreads></powered-by-goodreads>\n  </div>\n  <div class=\"content\">\n    <loading [visible]=\"isLoading\"></loading>\n    <hr *ngIf=\"!isLoading && books && books.length\" />\n    <div class=\"books-display\" *ngIf=\"!isLoading && books && books.length\">\n      <books-display\n        [fullSearchBar]=\"true\"\n        [maxBooks]=\"8\"\n        [tilesDisplay]=\"false\"\n        [tableDisplayItems]=\"tableItems\"\n        [books]=\"books\"\n        [clickable]=\"true\"\n        (onClick)=\"selectBook($event)\"\n      ></books-display>\n    </div>\n  </div>\n</div>\n"
+            "templateData": "<div class=\"card\">\n  <div class=\"header\">\n    <h4 class=\"title\">Find book</h4>\n    <powered-by-goodreads></powered-by-goodreads>\n  </div>\n  <div class=\"content\">\n    <loading [visible]=\"isLoading\"></loading>\n    <hr *ngIf=\"!isLoading && books && books.length\" />\n    <div class=\"books-display\" *ngIf=\"!isLoading && books && books.length\">\n      <books-display\n        [fullSearchBar]=\"true\"\n        [maxBooksPerPage]='8'\n        [tilesDisplay]=\"false\"\n        [tableDisplayItems]=\"tableItems\"\n        [books]=\"books\"\n        [clickable]=\"true\"\n        (onClick)=\"selectBook($event)\"\n      ></books-display>\n    </div>\n  </div>\n</div>\n"
         },
         {
             "name": "FooterComponent",
@@ -11769,7 +11822,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"card\">\n  <div class=\"header\">\n    <h4 class=\"title\">Search books</h4>\n  </div>\n  <div class=\"content\">\n    <form [formGroup]=\"form\" class=\"search-container\" (ngSubmit)=\"submit(form.value)\">\n      <div class=\"input-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"Search\" formControlName=\"searchInput\">\n        <span class=\"input-group-addon\" id=\"sizing-addon2\">\n          <i class=\"pe-7s-search search-icon\"></i>\n        </span>\n      </div>\n      <button\n        type=\"submit\"\n        class=\"btn btn-primary btn-margin\"\n      >Search</button>\n    </form>\n    <hr *ngIf=\"!isLoading && books && books.length\">\n    <loading [visible]=\"isLoading\"></loading>\n    <div class=\"books-display\" *ngIf=\"!isLoading && books && books.length\">\n      <books-display\n        [fullSearchBar]=\"true\"\n        [maxBooks]=\"4\"\n        [bookCardsInRow]=\"2\"\n        [tilesDisplay]=\"false\"\n        [tableDisplayItems]=\"tableItems\"\n        [books]=\"books\"\n        [selectable]=\"true\"\n      ></books-display>\n      <button\n        type=\"button\"\n        class=\"btn btn-success\"\n        style=\"width: 100%;\"\n        (click)=\"importBooks()\"\n      >Import</button>\n    </div>\n  </div>\n</div>\n"
+            "templateData": "<div class=\"card\">\n  <div class=\"header\">\n    <h4 class=\"title\">Search books</h4>\n  </div>\n  <div class=\"content\">\n    <form [formGroup]=\"form\" class=\"search-container\" (ngSubmit)=\"submit(form.value)\">\n      <div class=\"input-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"Search\" formControlName=\"searchInput\">\n        <span class=\"input-group-addon\" id=\"sizing-addon2\">\n          <i class=\"pe-7s-search search-icon\"></i>\n        </span>\n      </div>\n      <button\n        type=\"submit\"\n        class=\"btn btn-primary btn-margin\"\n      >Search</button>\n    </form>\n    <hr *ngIf=\"!isLoading && books && books.length\">\n    <loading [visible]=\"isLoading\"></loading>\n    <div class=\"books-display\" *ngIf=\"!isLoading && books && books.length\">\n      <books-display\n        [fullSearchBar]=\"true\"\n        [maxBooksPerPage]='4'\n        [bookCardsInRow]=\"2\"\n        [tilesDisplay]=\"false\"\n        [tableDisplayItems]=\"tableItems\"\n        [books]=\"books\"\n        [selectable]=\"true\"\n      ></books-display>\n      <button\n        type=\"button\"\n        class=\"btn btn-success\"\n        style=\"width: 100%;\"\n        (click)=\"importBooks()\"\n      >Import</button>\n    </div>\n  </div>\n</div>\n"
         },
         {
             "name": "GridComponent",
@@ -13839,7 +13892,7 @@
         },
         {
             "name": "PagesComponent",
-            "id": "component-PagesComponent-46bdceab317ede174f20e486175d19e6",
+            "id": "component-PagesComponent-2a94907dbd326710a620d8775da11ad4",
             "file": "src/app/dashboard/core/pages/pages.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -13863,26 +13916,21 @@
                     "line": 18
                 },
                 {
-                    "name": "maxCount",
-                    "defaultValue": "5",
-                    "line": 19
-                },
-                {
                     "name": "selectedPage",
-                    "defaultValue": "3",
-                    "line": 20
+                    "defaultValue": "1",
+                    "line": 19
                 },
                 {
                     "name": "withRoute",
                     "defaultValue": "false",
-                    "line": 21
+                    "line": 20
                 }
             ],
             "outputsClass": [
                 {
                     "name": "nextSelectedPage",
                     "defaultValue": "new EventEmitter<number>()",
-                    "line": 22,
+                    "line": 21,
                     "type": "EventEmitter"
                 }
             ],
@@ -13893,14 +13941,14 @@
                     "type": "Array<number | string>",
                     "optional": false,
                     "description": "",
-                    "line": 23
+                    "line": 22
                 },
                 {
                     "name": "router",
                     "type": "Router",
                     "optional": false,
                     "description": "",
-                    "line": 25,
+                    "line": 24,
                     "modifierKind": [
                         114
                     ]
@@ -13913,7 +13961,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 45
+                    "line": 44
                 },
                 {
                     "name": "ngOnChanges",
@@ -13921,7 +13969,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 39
+                    "line": 38
                 },
                 {
                     "name": "ngOnInit",
@@ -13929,7 +13977,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 27
+                    "line": 26
                 },
                 {
                     "name": "onClick",
@@ -13942,7 +13990,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 59,
+                    "line": 58,
                     "jsdoctags": [
                         {
                             "name": "page",
@@ -13959,7 +14007,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import {\n  Component,\n  OnInit,\n  Input,\n  Output,\n  EventEmitter,\n  OnChanges,\n} from '@angular/core'\nimport { ActivatedRoute, Params, Router } from '@angular/router'\n\n@Component({\n  moduleId: module.id,\n  selector: 'pages',\n  templateUrl: 'pages.component.html',\n  styleUrls: ['./pages.component.css'],\n})\nexport class PagesComponent implements OnInit, OnChanges {\n  @Input() count = 1\n  @Input() maxCount = 5\n  @Input() selectedPage = 3\n  @Input() withRoute = false\n  @Output() nextSelectedPage = new EventEmitter<number>()\n  pages: Array<number | string> = []\n\n  constructor(public router: Router, private route: ActivatedRoute) {}\n\n  ngOnInit() {\n    if (this.withRoute) {\n      this.route.queryParams.subscribe(\n        params =>\n          (this.selectedPage = params.page\n            ? +params.page\n            : this.selectedPage || 1)\n      )\n    }\n    this.calculatePages()\n  }\n\n  ngOnChanges() {\n    if (this.selectedPage > this.count) {\n      this.selectedPage = this.count\n    }\n  }\n\n  calculatePages() {\n    this.pages = new Array(this.count).fill(0).map((_x, i) => i + 1)\n    if (this.count > 5) {\n      if (this.selectedPage < 5) {\n        this.pages.splice(5, this.count - 6, '...')\n      } else if (this.selectedPage >= this.count - 3) {\n        this.pages.splice(1, this.count - 6, '...')\n      } else {\n        this.pages.splice(1, this.selectedPage - 3, '...')\n        this.pages.splice(5, this.pages.length - 6, '...')\n      }\n    }\n  }\n\n  onClick(page: number) {\n    const lastPage = page === this.count + 1\n    const firstPage = page === 0\n    if (firstPage || lastPage) {\n      return\n    }\n    if (this.withRoute) {\n      const queryParams: Params = {\n        ...this.route.snapshot.queryParams,\n        page,\n      }\n      this.router.navigate(['.'], { relativeTo: this.route, queryParams })\n    } else {\n      this.selectedPage = page\n      this.nextSelectedPage.emit(page)\n      this.calculatePages()\n    }\n  }\n}\n",
+            "sourceCode": "import {\n  Component,\n  OnInit,\n  Input,\n  Output,\n  EventEmitter,\n  OnChanges,\n} from '@angular/core'\nimport { ActivatedRoute, Params, Router } from '@angular/router'\n\n@Component({\n  moduleId: module.id,\n  selector: 'pages',\n  templateUrl: 'pages.component.html',\n  styleUrls: ['./pages.component.css'],\n})\nexport class PagesComponent implements OnInit, OnChanges {\n  @Input() count = 1\n  @Input() selectedPage = 1\n  @Input() withRoute = false\n  @Output() nextSelectedPage = new EventEmitter<number>()\n  pages: Array<number | string> = []\n\n  constructor(public router: Router, private route: ActivatedRoute) {}\n\n  ngOnInit() {\n    if (this.withRoute) {\n      this.route.queryParams.subscribe(\n        params =>\n          (this.selectedPage = params.page\n            ? +params.page\n            : this.selectedPage || 1)\n      )\n    }\n    this.calculatePages()\n  }\n\n  ngOnChanges() {\n    if (this.selectedPage > this.count) {\n      this.selectedPage = this.count\n    }\n  }\n\n  calculatePages() {\n    this.pages = new Array(this.count).fill(0).map((_x, i) => i + 1)\n    if (this.count > 5) {\n      if (this.selectedPage < 5) {\n        this.pages.splice(5, this.count - 6, '...')\n      } else if (this.selectedPage >= this.count - 3) {\n        this.pages.splice(1, this.count - 6, '...')\n      } else {\n        this.pages.splice(1, this.selectedPage - 3, '...')\n        this.pages.splice(5, this.pages.length - 6, '...')\n      }\n    }\n  }\n\n  onClick(page: number) {\n    const lastPage = page === this.count + 1\n    const firstPage = page === 0\n    if (firstPage || lastPage) {\n      return\n    }\n    if (this.withRoute) {\n      const queryParams: Params = {\n        ...this.route.snapshot.queryParams,\n        page,\n      }\n      this.router.navigate(['.'], { relativeTo: this.route, queryParams })\n    } else {\n      this.selectedPage = page\n      this.nextSelectedPage.emit(page)\n      this.calculatePages()\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -13981,7 +14029,7 @@
                         "type": "ActivatedRoute"
                     }
                 ],
-                "line": 23,
+                "line": 22,
                 "jsdoctags": [
                     {
                         "name": "router",
@@ -14907,7 +14955,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"wrapper\" [ngClass]=\"{ 'dark-theme': dark }\">\n  <div>\n    <h1>Heading 1</h1>\n    <h2>Heading 2</h2>\n    <h3>Heading 3</h3>\n    <h4>Heading 4</h4>\n    <h5>Heading 5</h5>\n    <h6>Heading 6</h6>\n  </div>\n  <div>\n    Apparently we had reached a great height in the atmosphere, for the sky was\n    a dead black, and the stars had ceased to twinkle.\n  </div>\n  <div class=\"small typography-padding\">\n    Apparently we had reached a great height in the atmosphere, for the sky was\n    a dead black, and the stars had ceased to twinkle.\n  </div>\n  <div class=\"tiny typography-padding\">\n    Apparently we had reached a great height in the atmosphere, for the sky was\n    a dead black, and the stars had ceased to twinkle.\n  </div>\n  <div class=\"capitalized typography-padding\">\n    Find an alternative\n  </div>\n  <div class=\"typography-wrapper\">\n    <span class=\"typography-padding\" style=\"font-weight: 700\"\n      >Inter - Bold</span\n    >\n    <span class=\"typography-padding\" style=\"font-weight: 600\"\n      >Inter - SemiBold</span\n    >\n    <span class=\"typography-padding\" style=\"font-weight: 500\"\n      >Inter - Medium</span\n    >\n    <span class=\"typography-padding\" style=\"font-weight: 400\"\n      >Inter - Regular</span\n    >\n  </div>\n  <div class=\"cards-wrapper\">\n    <div class=\"card elevation-99 card-example\"></div>\n    <div class=\"card elevation-01 card-example\"></div>\n    <div class=\"card elevation-02 card-example\"></div>\n    <div class=\"card elevation-03 card-example\"></div>\n    <div class=\"card elevation-04 card-example\"></div>\n    <div class=\"card elevation-05 card-example\"></div>\n    <div class=\"card elevation-06 card-example\"></div>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"small button button-padding\">Default</button>\n    <button class=\"small button button-padding success\">Success</button>\n    <button class=\"small button button-padding danger\">Danger</button>\n    <button class=\"small button button-padding clear\">Clear</button>\n    <button class=\"small button button-padding\" disabled>Disabled</button>\n    <button class=\"small button button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"button button-padding\">Default</button>\n    <button class=\"button button-padding success\">Success</button>\n    <button class=\"button button-padding danger\">Danger</button>\n    <button class=\"button button-padding clear\">Clear</button>\n    <button class=\"button button-padding\" disabled>Disabled</button>\n    <button class=\"button button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"button inverted button-padding\">Default</button>\n    <button class=\"button inverted button-padding success\">Success</button>\n    <button class=\"button inverted button-padding danger\">Danger</button>\n    <button class=\"button inverted button-padding\" disabled>Disabled</button>\n    <button class=\"button inverted button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"large button button-padding\">Default</button>\n    <button class=\"large button button-padding success\">Success</button>\n    <button class=\"large button button-padding danger\">Danger</button>\n    <button class=\"large button button-padding clear\">Danger</button>\n    <button class=\"large button button-padding\" disabled>Disabled</button>\n    <button class=\"large button button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"rounded button small button-padding\">Small</button>\n    <button class=\"rounded button button-padding\">Default</button>\n    <button class=\"rounded button large button-padding\">Large</button>\n    <button class=\"rounded button button-padding\" disabled>Disabled</button>\n    <button class=\"rounded button icon button-padding\">\n      <i class=\"pe-7s-alarm\"></i>\n    </button>\n  </div>\n  <div class=\"accordion\">\n    <input class=\"accordion-item-checkbox\" type=\"checkbox\" id=\"_checkbox1\" />\n    <div class=\"accordion-item\">\n      <label for=\"_checkbox1\">Item 1<i class=\"pe-7s-angle-down\"></i></label>\n      <div class=\"content\">\n        Lorem Ipsum is simply dummy text of the printing and typesetting\n        industry. Lorem Ipsum has been the industry's standard dummy text ever\n        since the 1500s, when an unknown printer took a galley of type and\n        scrambled it to make a type specimen book. It has survived not only five\n        centuries, but also the leap into electronic typesetting, remaining\n        essentially unchanged. It was popularised in the 1960s with the release\n        of Letraset sheets containing Lorem Ipsum passages, and more recently\n        with desktop publishing software like Aldus PageMaker including versions\n        of Lorem Ipsum.\n      </div>\n    </div>\n    <input class=\"accordion-item-checkbox\" type=\"checkbox\" id=\"_checkbox2\" />\n    <div class=\"accordion-item\">\n      <label for=\"_checkbox2\">Item 2<i class=\"pe-7s-angle-down\"></i></label>\n      <div class=\"content\">\n        Lorem Ipsum is simply dummy text of the printing and typesetting\n        industry. Lorem Ipsum has been the industry's standard dummy text ever\n        since the 1500s, when an unknown printer took a galley of type and\n        scrambled it to make a type specimen book. It has survived not only five\n        centuries, but also the leap into electronic typesetting, remaining\n        essentially unchanged. It was popularised in the 1960s with the release\n        of Letraset sheets containing Lorem Ipsum passages, and more recently\n        with desktop publishing software like Aldus PageMaker including versions\n        of Lorem Ipsum.\n      </div>\n    </div>\n  </div>\n  <div class=\"alert\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted\">Execute</button>\n  </div>\n  <div class=\"alert success\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted success\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert success\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted success\">Execute</button>\n  </div>\n  <div class=\"alert danger\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted danger\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert danger\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted danger\">Execute</button>\n  </div>\n  <div class=\"alert warning\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted warning\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert warning\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted warning\">Execute</button>\n  </div>\n  <div class=\"chips-wrapper\">\n    <div class=\"chip chip-padding\">Chip</div>\n    <div class=\"chip chip-padding chip-color\">Chip</div>\n    <div class=\"chip chip-padding chip-color-dark\">Chip</div>\n  </div>\n  <div class=\"chips-wrapper\">\n    <div class=\"chip chip-padding dismissable\">Chip</div>\n    <div class=\"chip chip-padding chip-color dismissable\">Chip</div>\n    <div class=\"chip chip-padding chip-color-dark dismissable\">Chip</div>\n  </div>\n  <div class=\"chips-wrapper\">\n    <div class=\"chip chip-padding \"><i class=\"pe-7s-alarm\"></i>Chip</div>\n    <div class=\"chip chip-padding chip-color\">\n      <i class=\"pe-7s-alarm\"></i>Chip\n    </div>\n    <div class=\"chip chip-padding chip-color-dark\">\n      <i class=\"pe-7s-alarm\"></i>Chip\n    </div>\n  </div>\n  <div class=\"badges-wrapper\">\n    <div class=\"badge badge-padding\">Primary</div>\n    <div class=\"badge badge-padding info\">Info</div>\n    <div class=\"badge badge-padding success\">Success</div>\n    <div class=\"badge badge-padding danger\">Danger</div>\n    <div class=\"badge badge-padding warning\">Warning</div>\n  </div>\n  <div class=\"checkboxes-wrapper\">\n    <input\n      type=\"checkbox\"\n      id=\"checkbox1\"\n      class=\"checkbox checkbox-padding\"\n    /><label for=\"checkbox1\">Checkbox</label>\n    <input\n      type=\"checkbox\"\n      id=\"checkbox2\"\n      class=\"checkbox checkbox-padding\"\n      checked\n    /><label for=\"checkbox2\">Checkbox</label>\n    <input\n      type=\"checkbox\"\n      id=\"checkbox3\"\n      class=\"checkbox checkbox-padding\"\n      disabled\n    /><label for=\"checkbox3\">Checkbox</label>\n    <input\n      type=\"checkbox\"\n      id=\"checkbox4\"\n      class=\"checkbox checkbox-padding\"\n      checked\n      disabled\n    /><label for=\"checkbox4\">Checkbox</label>\n  </div>\n  <div class=\"checkboxes-wrapper\">\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio1\"\n      class=\"checkbox checkbox-padding\"\n    /><label for=\"radio1\">Radio</label>\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio2\"\n      class=\"checkbox checkbox-padding\"\n      checked\n    /><label for=\"radio2\">Radio</label>\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio3\"\n      class=\"checkbox checkbox-padding\"\n      disabled\n    /><label for=\"radio3\">Radio</label>\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio4\"\n      class=\"checkbox checkbox-padding\"\n      checked\n      disabled\n    /><label for=\"radio4\">Radio</label>\n  </div>\n  <div class=\"checkboxes-wrapper\">\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch1\"\n      class=\"switch checkbox-padding\"\n    /><label for=\"switch1\">Switch</label>\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch2\"\n      class=\"switch checkbox-padding\"\n      checked\n    /><label for=\"switch2\">Switch</label>\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch3\"\n      class=\"switch checkbox-padding\"\n      disabled\n    /><label for=\"switch3\">Switch</label>\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch4\"\n      class=\"switch checkbox-padding\"\n      checked\n      disabled\n    /><label for=\"switch4\">Switch</label>\n  </div>\n  <div class=\"labels-wrapper\">\n    <label class=\"label-padding label label-small\">Label small</label>\n    <label class=\"label-padding label\">Label regular</label>\n    <label class=\"label-padding label label-large\">Label large</label>\n    <label class=\"label-padding label label-small\"\n      ><i class=\"pe-7s-album icon-left\"></i>Label</label\n    >\n    <label class=\"label-padding label\"\n      ><i class=\"pe-7s-album icon-left\"></i>Label</label\n    >\n    <label class=\"label-padding label label-large\"\n      ><i class=\"pe-7s-album icon-left\"></i>Label</label\n    >\n    <label class=\"label-padding label label-small\"\n      ><i class=\"pe-7s-angle-left icon-left primary\"></i>Label<i\n        class=\"pe-7s-angle-right icon-right primary\"\n      ></i\n    ></label>\n    <label class=\"label-padding label\"\n      ><i class=\"pe-7s-angle-left icon-left primary\"></i>Label<i\n        class=\"pe-7s-angle-right icon-right primary\"\n      ></i\n    ></label>\n    <label class=\"label-padding label label-large\"\n      ><i class=\"pe-7s-angle-left icon-left primary\"></i>Label<i\n        class=\"pe-7s-angle-right icon-right primary\"\n      ></i\n    ></label>\n  </div>\n  <div class=\"dropdown\">\n    <input class=\"dropdown-checkbox\" type=\"checkbox\" id=\"_dropdowncheckbox\" />\n    <label for=\"_dropdowncheckbox\">Dropdown Menu</label>\n    <div class=\"dropdown-menu\">\n      <div class=\"dropdown-menu-inner\">\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 1</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 2</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 3</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 4</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 5</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 6</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 7</label>\n      </div>\n    </div>\n  </div>\n  <div class=\"input-wrapper\">\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Placeholder\" />\n    </div>\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Required\" required />\n    </div>\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Disabled\" disabled />\n    </div>\n    <div class=\"input input-padding\">\n      <input class=\"icon-left\" type=\"text\" placeholder=\"Icon left\" /><i\n        class=\"pe-7s-disk left\"\n      ></i>\n    </div>\n    <div class=\"input input-padding\">\n      <input class=\"icon-right\" type=\"text\" placeholder=\"Icon right\" /><i\n        class=\"pe-7s-bookmarks right\"\n      ></i>\n    </div>\n    <div class=\"input input-padding\">\n      <label class=\"label\">Label</label>\n      <input type=\"text\" placeholder=\"Label\" />\n    </div>\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Assistive text\" />\n\n      <label class=\"info\"\n        ><i class=\"pe-7s-info info-icon\"></i>Assistive info text</label\n      >\n    </div>\n  </div>\n  <div class=\"input input-padding\">\n    <input class=\"icon-left icon-left\" type=\"email\" placeholder=\"E-mail\" />\n    <i class=\"pe-7s-mail left\"></i>\n  </div>\n  <div class=\"input input-padding\">\n    <i class=\"pe-7s-lock left\"></i>\n    <input\n      class=\"icon-left icon-right\"\n      type=\"password\"\n      placeholder=\"Password\"\n    />\n    <i class=\"pe-7s-look right clickable\"></i>\n  </div>\n  <div class=\"input search input-padding\">\n    <input class=\"icon-left\" type=\"text\" placeholder=\"Search\" />\n    <i class=\"pe-7s-search left\"></i>\n  </div>\n  <div class=\"input search input-padding\">\n    <textarea placeholder=\"Textarea\"></textarea>\n  </div>\n  <div class=\"modal modal-padding\">\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Cancel</button>\n      <button class=\"button\">Accept</button>\n    </div>\n  </div>\n  <div class=\"modal vertical modal-padding\">\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button large clear\">Cancel</button>\n      <button class=\"button large\">Accept</button>\n    </div>\n  </div>\n  <div class=\"modal dismissable modal-padding\">\n    <i class=\"pe-7s-close dismiss\"></i>\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Learn More</button>\n    </div>\n  </div>\n  <div class=\"modal dismissable modal-padding\">\n    <i class=\"pe-7s-close dismiss\"></i>\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"checkbox-wrapper\">\n      <input type=\"checkbox\" id=\"modalcheckbox\" class=\"checkbox\" /><label\n        for=\"modalcheckbox\"\n        >Don't show again</label\n      >\n      <button class=\"button\">Learn More</button>\n    </div>\n  </div>\n  <div class=\"modal modal-padding\">\n    <h6 class=\"header\">Are you sure you want to delete these files?</h6>\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Cancel</button>\n      <button class=\"button\">Accept</button>\n    </div>\n  </div>\n  <div class=\"modal danger modal-padding\">\n    <h6 class=\"header\">Are you sure you want to delete these files?</h6>\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Cancel</button>\n      <button class=\"button danger\">Delete</button>\n    </div>\n  </div>\n  <div class=\"sidebar-wrapper\">\n    <div class=\"sidebar\">\n      <div class=\"sidebar-toggle-header\">\n        <i class=\"pe-7s-menu\"></i>\n      </div>\n      <div class=\"sidebar-top\">\n        <h6 class=\"sidebar-header\">\n          <i class=\"pe-7s-global main-icon\"></i>BOOKLIB\n        </h6>\n        <hr class=\"sidebar-divider\" />\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-home\"></i>\n          Home\n        </a>\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-user\"></i>\n          Profile\n        </a>\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-mail\"></i>\n          Messages\n        </a>\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-settings\"></i>\n          Settings\n        </a>\n      </div>\n      <div class=\"sidebar-bottom\">\n        <hr class=\"sidebar-divider\" />\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-power\"></i>\n          Logout\n        </a>\n      </div>\n    </div>\n  </div>\n  <div class=\"navbar\">\n    <div class=\"navbar-left\">\n      <label class=\"label\"\n        ><i class=\"pe-7s-global icon-left primary\"></i>Booklib</label\n      >\n    </div>\n    <div class=\"navbar-center\">\n      <div class=\"input search input-padding\">\n        <input class=\"icon-left\" type=\"text\" placeholder=\"Search\" />\n        <i class=\"pe-7s-search left\"></i>\n      </div>\n    </div>\n    <div class=\"navbar-right\">\n      <button class=\"button\">Login</button>\n    </div>\n  </div>\n  <div class=\"navbar\">\n    <div class=\"navbar-left\">\n      <i\n        class=\"pe-7s-menu primary\"\n        style=\"font-weight: 600; font-size: var(--large-font-size);\"\n      ></i>\n    </div>\n    <div class=\"navbar-center\">\n      <label class=\"label\"\n        ><i class=\"pe-7s-global icon-left primary\"></i>Booklib</label\n      >\n    </div>\n    <div class=\"navbar-right\">\n      <i\n        class=\"pe-7s-bell primary\"\n        style=\"font-weight: 600; font-size: var(--large-font-size);\"\n      ></i>\n    </div>\n  </div>\n  <div class=\"footer\">\n    <span>2020 - All rights reserved</span>\n    <span>Terms & Conditions</span>\n  </div>\n  <div class=\"pagination\">\n    <i class=\"pe-7s-angle-left icon-left\"></i>\n    <span class=\"number\">1</span>\n    <span class=\"number\">2</span>\n    <span class=\"number selected\">3</span>\n    <span class=\"number disabled\">...</span>\n    <span class=\"number\">12</span>\n    <i class=\"pe-7s-angle-right icon-right\"></i>\n  </div>\n  <div class=\"tabs tabs-wrapper\">\n    <button class=\"tab\">\n      Home\n    </button>\n    <button class=\"tab\">\n      About\n    </button>\n    <button class=\"tab\">\n      Profile\n    </button>\n  </div>\n  <table class=\"table\">\n    <thead>\n      <th class=\"min-width\">\n        <input type=\"checkbox\" id=\"checkboxtable3\" class=\"checkbox\" /><label\n          for=\"checkboxtable3\"\n        ></label>\n      </th>\n      <th>Name</th>\n      <th>E-Mail</th>\n      <th>Number</th>\n    </thead>\n    <tbody>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable1\" class=\"checkbox\" /><label\n            for=\"checkboxtable1\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable2\" class=\"checkbox\" /><label\n            for=\"checkboxtable2\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable3\" class=\"checkbox\" /><label\n            for=\"checkboxtable3\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable4\" class=\"checkbox\" /><label\n            for=\"checkboxtable4\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable5\" class=\"checkbox\" /><label\n            for=\"checkboxtable5\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable6\" class=\"checkbox\" /><label\n            for=\"checkboxtable6\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable7\" class=\"checkbox\" /><label\n            for=\"checkboxtable7\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
+            "templateData": "<div class=\"wrapper\" [ngClass]=\"{ 'dark-theme': dark }\">\n  <div>\n    <h1>Heading 1</h1>\n    <h2>Heading 2</h2>\n    <h3>Heading 3</h3>\n    <h4>Heading 4</h4>\n    <h5>Heading 5</h5>\n    <h6>Heading 6</h6>\n  </div>\n  <div>\n    Apparently we had reached a great height in the atmosphere, for the sky was\n    a dead black, and the stars had ceased to twinkle.\n  </div>\n  <div class=\"small typography-padding\">\n    Apparently we had reached a great height in the atmosphere, for the sky was\n    a dead black, and the stars had ceased to twinkle.\n  </div>\n  <div class=\"tiny typography-padding\">\n    Apparently we had reached a great height in the atmosphere, for the sky was\n    a dead black, and the stars had ceased to twinkle.\n  </div>\n  <div class=\"capitalized typography-padding\">\n    Find an alternative\n  </div>\n  <div class=\"typography-wrapper\">\n    <span class=\"typography-padding\" style=\"font-weight: 700\"\n      >Inter - Bold</span\n    >\n    <span class=\"typography-padding\" style=\"font-weight: 600\"\n      >Inter - SemiBold</span\n    >\n    <span class=\"typography-padding\" style=\"font-weight: 500\"\n      >Inter - Medium</span\n    >\n    <span class=\"typography-padding\" style=\"font-weight: 400\"\n      >Inter - Regular</span\n    >\n  </div>\n  <div class=\"cards-wrapper\">\n    <div class=\"card elevation-99 card-example\"></div>\n    <div class=\"card elevation-01 card-example\"></div>\n    <div class=\"card elevation-02 card-example\"></div>\n    <div class=\"card elevation-03 card-example\"></div>\n    <div class=\"card elevation-04 card-example\"></div>\n    <div class=\"card elevation-05 card-example\"></div>\n    <div class=\"card elevation-06 card-example\"></div>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"small button button-padding\">Default</button>\n    <button class=\"small button button-padding success\">Success</button>\n    <button class=\"small button button-padding danger\">Danger</button>\n    <button class=\"small button button-padding clear\">Clear</button>\n    <button class=\"small button button-padding\" disabled>Disabled</button>\n    <button class=\"small button button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"button button-padding\">Default</button>\n    <button class=\"button button-padding success\">Success</button>\n    <button class=\"button button-padding danger\">Danger</button>\n    <button class=\"button button-padding clear\">Clear</button>\n    <button class=\"button button-padding\" disabled>Disabled</button>\n    <button class=\"button button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"button inverted button-padding\">Default</button>\n    <button class=\"button inverted button-padding success\">Success</button>\n    <button class=\"button inverted button-padding danger\">Danger</button>\n    <button class=\"button inverted button-padding\" disabled>Disabled</button>\n    <button class=\"button inverted button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"large button button-padding\">Default</button>\n    <button class=\"large button button-padding success\">Success</button>\n    <button class=\"large button button-padding danger\">Danger</button>\n    <button class=\"large button button-padding clear\">Danger</button>\n    <button class=\"large button button-padding\" disabled>Disabled</button>\n    <button class=\"large button button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"rounded button small button-padding\">Small</button>\n    <button class=\"rounded button button-padding\">Default</button>\n    <button class=\"rounded button large button-padding\">Large</button>\n    <button class=\"rounded button button-padding\" disabled>Disabled</button>\n    <button class=\"rounded button icon button-padding\">\n      <i class=\"pe-7s-alarm\"></i>\n    </button>\n  </div>\n  <div class=\"accordion\">\n    <input class=\"accordion-item-checkbox\" type=\"checkbox\" id=\"_checkbox1\" />\n    <div class=\"accordion-item\">\n      <label for=\"_checkbox1\">Item 1<i class=\"pe-7s-angle-down\"></i></label>\n      <div class=\"content\">\n        Lorem Ipsum is simply dummy text of the printing and typesetting\n        industry. Lorem Ipsum has been the industry's standard dummy text ever\n        since the 1500s, when an unknown printer took a galley of type and\n        scrambled it to make a type specimen book. It has survived not only five\n        centuries, but also the leap into electronic typesetting, remaining\n        essentially unchanged. It was popularised in the 1960s with the release\n        of Letraset sheets containing Lorem Ipsum passages, and more recently\n        with desktop publishing software like Aldus PageMaker including versions\n        of Lorem Ipsum.\n      </div>\n    </div>\n    <input class=\"accordion-item-checkbox\" type=\"checkbox\" id=\"_checkbox2\" />\n    <div class=\"accordion-item\">\n      <label for=\"_checkbox2\">Item 2<i class=\"pe-7s-angle-down\"></i></label>\n      <div class=\"content\">\n        Lorem Ipsum is simply dummy text of the printing and typesetting\n        industry. Lorem Ipsum has been the industry's standard dummy text ever\n        since the 1500s, when an unknown printer took a galley of type and\n        scrambled it to make a type specimen book. It has survived not only five\n        centuries, but also the leap into electronic typesetting, remaining\n        essentially unchanged. It was popularised in the 1960s with the release\n        of Letraset sheets containing Lorem Ipsum passages, and more recently\n        with desktop publishing software like Aldus PageMaker including versions\n        of Lorem Ipsum.\n      </div>\n    </div>\n  </div>\n  <div class=\"alert\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted\">Execute</button>\n  </div>\n  <div class=\"alert success\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted success\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert success\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted success\">Execute</button>\n  </div>\n  <div class=\"alert danger\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted danger\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert danger\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted danger\">Execute</button>\n  </div>\n  <div class=\"alert warning\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted warning\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert warning\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted warning\">Execute</button>\n  </div>\n  <div class=\"chips-wrapper\">\n    <div class=\"chip chip-padding\">Chip</div>\n    <div class=\"chip chip-padding chip-color\">Chip</div>\n    <div class=\"chip chip-padding chip-color-dark\">Chip</div>\n  </div>\n  <div class=\"chips-wrapper\">\n    <div class=\"chip chip-padding dismissable\">Chip</div>\n    <div class=\"chip chip-padding chip-color dismissable\">Chip</div>\n    <div class=\"chip chip-padding chip-color-dark dismissable\">Chip</div>\n  </div>\n  <div class=\"chips-wrapper\">\n    <div class=\"chip chip-padding \"><i class=\"pe-7s-alarm\"></i>Chip</div>\n    <div class=\"chip chip-padding chip-color\">\n      <i class=\"pe-7s-alarm\"></i>Chip\n    </div>\n    <div class=\"chip chip-padding chip-color-dark\">\n      <i class=\"pe-7s-alarm\"></i>Chip\n    </div>\n  </div>\n  <div class=\"badges-wrapper\">\n    <div class=\"badge badge-padding\">Primary</div>\n    <div class=\"badge badge-padding info\">Info</div>\n    <div class=\"badge badge-padding success\">Success</div>\n    <div class=\"badge badge-padding danger\">Danger</div>\n    <div class=\"badge badge-padding warning\">Warning</div>\n  </div>\n  <div class=\"checkboxes-wrapper\">\n    <input\n      type=\"checkbox\"\n      id=\"checkbox1\"\n      class=\"checkbox checkbox-padding\"\n    /><label for=\"checkbox1\">Checkbox</label>\n    <input\n      type=\"checkbox\"\n      id=\"checkbox2\"\n      class=\"checkbox checkbox-padding\"\n      checked\n    /><label for=\"checkbox2\">Checkbox</label>\n    <input\n      type=\"checkbox\"\n      id=\"checkbox3\"\n      class=\"checkbox checkbox-padding\"\n      disabled\n    /><label for=\"checkbox3\">Checkbox</label>\n    <input\n      type=\"checkbox\"\n      id=\"checkbox4\"\n      class=\"checkbox checkbox-padding\"\n      checked\n      disabled\n    /><label for=\"checkbox4\">Checkbox</label>\n  </div>\n  <div class=\"checkboxes-wrapper\">\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio1\"\n      class=\"checkbox checkbox-padding\"\n    /><label for=\"radio1\">Radio</label>\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio2\"\n      class=\"checkbox checkbox-padding\"\n      checked\n    /><label for=\"radio2\">Radio</label>\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio3\"\n      class=\"checkbox checkbox-padding\"\n      disabled\n    /><label for=\"radio3\">Radio</label>\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio4\"\n      class=\"checkbox checkbox-padding\"\n      checked\n      disabled\n    /><label for=\"radio4\">Radio</label>\n  </div>\n  <div class=\"checkboxes-wrapper\">\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch1\"\n      class=\"switch checkbox-padding\"\n    /><label for=\"switch1\">Switch</label>\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch2\"\n      class=\"switch checkbox-padding\"\n      checked\n    /><label for=\"switch2\">Switch</label>\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch3\"\n      class=\"switch checkbox-padding\"\n      disabled\n    /><label for=\"switch3\">Switch</label>\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch4\"\n      class=\"switch checkbox-padding\"\n      checked\n      disabled\n    /><label for=\"switch4\">Switch</label>\n  </div>\n  <div class=\"labels-wrapper\">\n    <label class=\"label-padding label label-small\">Label small</label>\n    <label class=\"label-padding label\">Label regular</label>\n    <label class=\"label-padding label label-large\">Label large</label>\n    <label class=\"label-padding label label-small\"\n      ><i class=\"pe-7s-album icon-left\"></i>Label</label\n    >\n    <label class=\"label-padding label\"\n      ><i class=\"pe-7s-album icon-left\"></i>Label</label\n    >\n    <label class=\"label-padding label label-large\"\n      ><i class=\"pe-7s-album icon-left\"></i>Label</label\n    >\n    <label class=\"label-padding label label-small\"\n      ><i class=\"pe-7s-angle-left icon-left primary\"></i>Label<i\n        class=\"pe-7s-angle-right icon-right primary\"\n      ></i\n    ></label>\n    <label class=\"label-padding label\"\n      ><i class=\"pe-7s-angle-left icon-left primary\"></i>Label<i\n        class=\"pe-7s-angle-right icon-right primary\"\n      ></i\n    ></label>\n    <label class=\"label-padding label label-large\"\n      ><i class=\"pe-7s-angle-left icon-left primary\"></i>Label<i\n        class=\"pe-7s-angle-right icon-right primary\"\n      ></i\n    ></label>\n  </div>\n  <div class=\"dropdown\">\n    <input class=\"dropdown-checkbox\" type=\"checkbox\" id=\"_dropdowncheckbox\" />\n    <label for=\"_dropdowncheckbox\">Dropdown Menu</label>\n    <div class=\"dropdown-menu\">\n      <div class=\"dropdown-menu-inner\">\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 1</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 2</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 3</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 4</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 5</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 6</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 7</label>\n      </div>\n    </div>\n  </div>\n  <div class=\"input-wrapper\">\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Placeholder\" />\n    </div>\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Required\" required />\n    </div>\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Disabled\" disabled />\n    </div>\n    <div class=\"input input-padding\">\n      <input class=\"icon-left\" type=\"text\" placeholder=\"Icon left\" /><i\n        class=\"pe-7s-disk left\"\n      ></i>\n    </div>\n    <div class=\"input input-padding\">\n      <input class=\"icon-right\" type=\"text\" placeholder=\"Icon right\" /><i\n        class=\"pe-7s-bookmarks right\"\n      ></i>\n    </div>\n    <div class=\"input input-padding\">\n      <label class=\"label\">Label</label>\n      <input type=\"text\" placeholder=\"Label\" />\n    </div>\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Assistive text\" />\n\n      <label class=\"info\"\n        ><i class=\"pe-7s-info info-icon\"></i>Assistive info text</label\n      >\n    </div>\n  </div>\n  <div class=\"input input-padding\">\n    <input class=\"icon-left icon-left\" type=\"email\" placeholder=\"E-mail\" />\n    <i class=\"pe-7s-mail left\"></i>\n  </div>\n  <div class=\"input input-padding\">\n    <i class=\"pe-7s-lock left\"></i>\n    <input\n      class=\"icon-left icon-right\"\n      type=\"password\"\n      placeholder=\"Password\"\n    />\n    <i class=\"pe-7s-look right clickable\"></i>\n  </div>\n  <div class=\"input search input-padding\">\n    <input class=\"icon-left\" type=\"text\" placeholder=\"Search\" />\n    <i class=\"pe-7s-search left\"></i>\n  </div>\n  <div class=\"input search input-padding\">\n    <textarea placeholder=\"Textarea\"></textarea>\n  </div>\n  <div class=\"modal modal-padding\">\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Cancel</button>\n      <button class=\"button\">Accept</button>\n    </div>\n  </div>\n  <div class=\"modal vertical modal-padding\">\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button large clear\">Cancel</button>\n      <button class=\"button large\">Accept</button>\n    </div>\n  </div>\n  <div class=\"modal dismissable modal-padding\">\n    <i class=\"pe-7s-close dismiss\"></i>\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Learn More</button>\n    </div>\n  </div>\n  <div class=\"modal dismissable modal-padding\">\n    <i class=\"pe-7s-close dismiss\"></i>\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"checkbox-wrapper\">\n      <input type=\"checkbox\" id=\"modalcheckbox\" class=\"checkbox\" /><label\n        for=\"modalcheckbox\"\n        >Don't show again</label\n      >\n      <button class=\"button\">Learn More</button>\n    </div>\n  </div>\n  <div class=\"modal modal-padding\">\n    <h6 class=\"header\">Are you sure you want to delete these files?</h6>\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Cancel</button>\n      <button class=\"button\">Accept</button>\n    </div>\n  </div>\n  <div class=\"modal danger modal-padding\">\n    <h6 class=\"header\">Are you sure you want to delete these files?</h6>\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Cancel</button>\n      <button class=\"button danger\">Delete</button>\n    </div>\n  </div>\n  <div class=\"sidebar-wrapper\">\n    <div class=\"sidebar\">\n      <div class=\"sidebar-toggle-header\">\n        <i class=\"pe-7s-menu\"></i>\n      </div>\n      <div class=\"sidebar-top\">\n        <h6 class=\"sidebar-header\">\n          <i class=\"pe-7s-global main-icon\"></i>BOOKLIB\n        </h6>\n        <hr class=\"sidebar-divider\" />\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-home\"></i>\n          Home\n        </a>\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-user\"></i>\n          Profile\n        </a>\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-mail\"></i>\n          Messages\n        </a>\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-settings\"></i>\n          Settings\n        </a>\n      </div>\n      <div class=\"sidebar-bottom\">\n        <hr class=\"sidebar-divider\" />\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-power\"></i>\n          Logout\n        </a>\n      </div>\n    </div>\n  </div>\n  <div class=\"navbar\">\n    <div class=\"navbar-left\">\n      <label class=\"label\"\n        ><i class=\"pe-7s-global icon-left primary\"></i>Booklib</label\n      >\n    </div>\n    <div class=\"navbar-center\">\n      <div class=\"input search input-padding\">\n        <input class=\"icon-left\" type=\"text\" placeholder=\"Search\" />\n        <i class=\"pe-7s-search left\"></i>\n      </div>\n    </div>\n    <div class=\"navbar-right\">\n      <button class=\"button\">Login</button>\n    </div>\n  </div>\n  <div class=\"navbar\">\n    <div class=\"navbar-left\">\n      <i\n        class=\"pe-7s-menu primary\"\n        style=\"font-weight: 600; font-size: var(--large-font-size);\"\n      ></i>\n    </div>\n    <div class=\"navbar-center\">\n      <label class=\"label\"\n        ><i class=\"pe-7s-global icon-left primary\"></i>Booklib</label\n      >\n    </div>\n    <div class=\"navbar-right\">\n      <i\n        class=\"pe-7s-bell primary\"\n        style=\"font-weight: 600; font-size: var(--large-font-size);\"\n      ></i>\n    </div>\n  </div>\n  <div class=\"footer\">\n    <span>2020 - All rights reserved</span>\n    <span>Terms & Conditions</span>\n  </div>\n  <div class=\"pagination\">\n    <i class=\"pe-7s-angle-left icon-left\"></i>\n    <span class=\"number\">1</span>\n    <span class=\"number\">2</span>\n    <span class=\"number selected\">3</span>\n    <span class=\"number disabled\">...</span>\n    <span class=\"number\">12</span>\n    <i class=\"pe-7s-angle-right icon-right\"></i>\n  </div>\n  <div class=\"tabs tabs-wrapper\">\n    <button class=\"tab\">\n      Home\n    </button>\n    <button class=\"tab\">\n      About\n    </button>\n    <button class=\"tab\">\n      Profile\n    </button>\n  </div>\n  <table class=\"table\">\n    <thead>\n    <tr>\n      <th class=\"min-width\">\n        <input type=\"checkbox\" id=\"checkboxtable3\" class=\"checkbox\" /><label\n        for=\"checkboxtable3\"\n      ></label>\n      </th>\n      <th>Name</th>\n      <th>E-Mail</th>\n      <th>Number</th>\n    </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable1\" class=\"checkbox\" /><label\n            for=\"checkboxtable1\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable2\" class=\"checkbox\" /><label\n            for=\"checkboxtable2\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable3\" class=\"checkbox\" /><label\n            for=\"checkboxtable3\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable4\" class=\"checkbox\" /><label\n            for=\"checkboxtable4\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable5\" class=\"checkbox\" /><label\n            for=\"checkboxtable5\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable6\" class=\"checkbox\" /><label\n            for=\"checkboxtable6\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable7\" class=\"checkbox\" /><label\n            for=\"checkboxtable7\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
         },
         {
             "name": "UserInfoComponent",
@@ -15426,6 +15474,9 @@
                             "name": "AuthorsTableComponent"
                         },
                         {
+                            "name": "BookButtonComponent"
+                        },
+                        {
                             "name": "BookButtonsComponent"
                         },
                         {
@@ -15508,6 +15559,9 @@
                         },
                         {
                             "name": "AuthorsTableComponent"
+                        },
+                        {
+                            "name": "BookButtonComponent"
                         },
                         {
                             "name": "BookButtonsComponent"
@@ -15987,6 +16041,14 @@
                 "type": "any"
             },
             {
+                "name": "allTableItems",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/books-table/books-table.example.ts",
+                "type": "object",
+                "defaultValue": "{\n  Cover: true,\n  'Original title': true,\n  Author: true,\n  'Added on': true,\n  Year: true,\n  Publisher: true,\n  Language: true,\n  Pages: true,\n  Rating: true,\n  Favorites: true,\n}"
+            },
+            {
                 "name": "ANIMATIONS",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -16094,14 +16156,6 @@
                 "name": "bookInLibrary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/dashboard/core/books-display/books-display.example.ts",
-                "type": "",
-                "defaultValue": "BookFactory.build({\n  canBeSelected: false,\n  isSelected: false,\n})"
-            },
-            {
-                "name": "bookInLibrary",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/dashboard/core/books-table/books-table.example.ts",
                 "type": "",
                 "defaultValue": "BookFactory.build({\n  canBeSelected: false,\n  isSelected: false,\n})"
@@ -16112,7 +16166,7 @@
                 "subtype": "variable",
                 "file": "src/app/dashboard/core/books-display/books-display.example.ts",
                 "type": "",
-                "defaultValue": "BookFactory.buildList(13, {\n  canBeSelected: true,\n  isSelected: true,\n})"
+                "defaultValue": "BookFactory.buildList(23, {\n  canBeSelected: true,\n  isSelected: true,\n})"
             },
             {
                 "name": "books",
@@ -16128,7 +16182,7 @@
                 "subtype": "variable",
                 "file": "src/app/dashboard/core/books-table/books-table.example.ts",
                 "type": "",
-                "defaultValue": "BookFactory.buildList(5, {\n  canBeSelected: true,\n  isSelected: true,\n})"
+                "defaultValue": "BookFactory.buildList(5, {\n  canBeSelected: true,\n  isSelected: true,\n  read: true,\n  owned: true,\n  wishlist: true,\n  favorite: true,\n})"
             },
             {
                 "name": "cleanFormValues",
@@ -16166,9 +16220,17 @@
                 "name": "Clickable",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/dashboard/core/book-card/book-card.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BookCardComponent,\n  props: {\n    book,\n    clickable: true,\n  },\n})"
+            },
+            {
+                "name": "Clickable",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/dashboard/core/books-display/books-display.example.ts",
                 "type": "",
-                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    sectionTitle: 'Section title',\n    description: 'A description',\n    clickable: true,\n  },\n})"
+                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    clickable: true,\n  },\n})"
             },
             {
                 "name": "Clickable",
@@ -16177,6 +16239,14 @@
                 "file": "src/app/dashboard/core/books-section/books-section.example.ts",
                 "type": "",
                 "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    clickable: true,\n  },\n})"
+            },
+            {
+                "name": "Clickable",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/books-table/books-table.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BooksTableComponent,\n  props: {\n    books,\n    withButtons: true,\n    clickable: true,\n    displayItems: tableItems,\n  },\n})"
             },
             {
                 "name": "COLLECTION_GROUPINGS",
@@ -16294,9 +16364,25 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/dashboard/core/book-button/book-button.component.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BookButtonComponent,\n  template: `\n  <div style=\"padding: 3rem\">\n    <book-button class=\"ti-briefcase\"></book-button>\n  </div>\n  `,\n})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/book-card/book-card.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BookCardComponent,\n  props: {\n    book,\n  },\n})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/dashboard/core/books-display/books-display.example.ts",
                 "type": "",
-                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    sectionTitle: 'Sectioaaaaasdasn title',\n    description: 'A description',\n  },\n})"
+                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n  },\n})"
             },
             {
                 "name": "Default",
@@ -16305,6 +16391,14 @@
                 "file": "src/app/dashboard/core/books-section/books-section.example.ts",
                 "type": "",
                 "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n  },\n})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/books-table/books-table.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BooksTableComponent,\n  props: {\n    books,\n    withButtons: true,\n    displayItems: tableItems,\n  },\n})"
             },
             {
                 "name": "Default",
@@ -16481,6 +16575,22 @@
                 "file": "src/app/dashboard/core/pages/pages.component.example.ts",
                 "type": "",
                 "defaultValue": "() => ({\n  component: PagesComponent,\n  props: { count: 12, selectedPage: 12 },\n})"
+            },
+            {
+                "name": "Linkable",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/books-display/books-display.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    linkable: true,\n    withButtons: true,\n  },\n})"
+            },
+            {
+                "name": "Linkable",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    linkable: true,\n  },\n})"
             },
             {
                 "name": "MAX_BOOKS",
@@ -16685,9 +16795,17 @@
                 "name": "Selectable",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/dashboard/core/book-card/book-card.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BookCardComponent,\n  props: {\n    book,\n    selectable: true,\n  },\n})"
+            },
+            {
+                "name": "Selectable",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/dashboard/core/books-display/books-display.example.ts",
                 "type": "",
-                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books: [...books, bookInLibrary],\n    sectionTitle: 'Section title',\n    description: 'A description',\n    selectable: true,\n    statusIncluded: 'In library',\n    statusNotIncluded: 'Not in library',\n    statusCannotBeSelected: 'Already in library',\n    selectBtnContent: 'Add to library',\n    selectBtnContentDisabled: 'Already in library',\n  },\n})"
+                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    selectable: true,\n  },\n})"
             },
             {
                 "name": "Selectable",
@@ -16696,6 +16814,30 @@
                 "file": "src/app/dashboard/core/books-section/books-section.example.ts",
                 "type": "",
                 "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    selectable: true,\n  },\n})"
+            },
+            {
+                "name": "Selectable",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/books-table/books-table.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  books: [...books, bookInLibrary, ...books],\n  withButtons: true,\n  selectable: true,\n  statusIncluded: 'In library',\n  statusNotIncluded: 'Not in library',\n  statusCannotBeSelected: 'Already in library',\n  displayItems: tableItems,\n})"
+            },
+            {
+                "name": "SelectableAndCannotBeSelected",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/book-card/book-card.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BookCardComponent,\n  props: {\n    book: bookCannotBeSelected,\n    selectable: true,\n  },\n})"
+            },
+            {
+                "name": "Selected",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/book-card/book-card.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BookCardComponent,\n  props: {\n    book: { ...book, isSelected: true },\n    selectable: true,\n  },\n})"
             },
             {
                 "name": "tableItems",
@@ -16752,6 +16894,38 @@
                 "file": "src/database/factories/user.factory.ts",
                 "type": "",
                 "defaultValue": "Factory.makeFactory<User>({\n  id: random.uuid(),\n  uid: random.uuid(),\n  name: `${name.firstName()} ${name.lastName()}`,\n  email: internet.email(),\n  collections: [],\n  books: [],\n  goodreadsId: random.number(),\n  avatarUrl: random.image(),\n  displayWelcomeMessage: random.boolean(),\n  backgroundUrl: random.image(),\n})"
+            },
+            {
+                "name": "WithAllItems",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/books-table/books-table.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BooksTableComponent,\n  props: {\n    books,\n    withButtons: true,\n    displayItems: allTableItems,\n  },\n})"
+            },
+            {
+                "name": "WithButtons",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/book-card/book-card.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BookCardComponent,\n  props: {\n    book,\n    withButtons: true,\n  },\n})"
+            },
+            {
+                "name": "WithButtons",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/books-display/books-display.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    withButtons: true,\n  },\n})"
+            },
+            {
+                "name": "WithMoreBooksPerPage",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/books-display/books-display.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    bookCardsInRow: 5,\n    maxBooksPerPage: 15,\n  },\n})"
             }
         ],
         "functions": [],
@@ -16913,6 +17087,72 @@
                     "file": "src/app/dashboard/sidebar/sidebar.component.ts",
                     "type": "RouteInfo[]",
                     "defaultValue": "[\n  { path: 'home', title: 'Home', icon: 'pe-7s-home', class: '' },\n  { path: 'books', title: 'Books', icon: 'pe-7s-notebook', class: '' },\n  {\n    path: 'collections',\n    title: 'Collections',\n    icon: 'pe-7s-albums',\n    class: '',\n  },\n  { path: 'authors', title: 'Authors', icon: 'pe-7s-pen', class: '' },\n  { path: 'goodreads', title: 'Goodreads', icon: 'pe-7s-server', class: '' },\n  {\n    path: 'import',\n    title: 'Import library',\n    icon: 'pe-7s-cloud-upload',\n    class: '',\n  },\n  { path: 'profile', title: 'Profile', icon: 'pe-7s-user', class: '' },\n]"
+                }
+            ],
+            "src/app/dashboard/core/books-table/books-table.example.ts": [
+                {
+                    "name": "allTableItems",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-table/books-table.example.ts",
+                    "type": "object",
+                    "defaultValue": "{\n  Cover: true,\n  'Original title': true,\n  Author: true,\n  'Added on': true,\n  Year: true,\n  Publisher: true,\n  Language: true,\n  Pages: true,\n  Rating: true,\n  Favorites: true,\n}"
+                },
+                {
+                    "name": "bookInLibrary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-table/books-table.example.ts",
+                    "type": "",
+                    "defaultValue": "BookFactory.build({\n  canBeSelected: false,\n  isSelected: false,\n})"
+                },
+                {
+                    "name": "books",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-table/books-table.example.ts",
+                    "type": "",
+                    "defaultValue": "BookFactory.buildList(5, {\n  canBeSelected: true,\n  isSelected: true,\n  read: true,\n  owned: true,\n  wishlist: true,\n  favorite: true,\n})"
+                },
+                {
+                    "name": "Clickable",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-table/books-table.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BooksTableComponent,\n  props: {\n    books,\n    withButtons: true,\n    clickable: true,\n    displayItems: tableItems,\n  },\n})"
+                },
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-table/books-table.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BooksTableComponent,\n  props: {\n    books,\n    withButtons: true,\n    displayItems: tableItems,\n  },\n})"
+                },
+                {
+                    "name": "Selectable",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-table/books-table.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  books: [...books, bookInLibrary, ...books],\n  withButtons: true,\n  selectable: true,\n  statusIncluded: 'In library',\n  statusNotIncluded: 'Not in library',\n  statusCannotBeSelected: 'Already in library',\n  displayItems: tableItems,\n})"
+                },
+                {
+                    "name": "tableItems",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-table/books-table.example.ts",
+                    "type": "object",
+                    "defaultValue": "{\n  Cover: false,\n  'Original title': false,\n  Author: true,\n  'Added on': false,\n  Year: false,\n  Publisher: false,\n  Language: false,\n  Pages: false,\n  Rating: false,\n  Favorites: true,\n}"
+                },
+                {
+                    "name": "WithAllItems",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-table/books-table.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BooksTableComponent,\n  props: {\n    books,\n    withButtons: true,\n    displayItems: allTableItems,\n  },\n})"
                 }
             ],
             "src/app/app.routing.ts": [
@@ -17193,6 +17433,54 @@
                     "file": "src/app/dashboard/core/book-card/book-card.example.ts",
                     "type": "",
                     "defaultValue": "BookFactory.build({ canBeSelected: false })"
+                },
+                {
+                    "name": "Clickable",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/book-card/book-card.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BookCardComponent,\n  props: {\n    book,\n    clickable: true,\n  },\n})"
+                },
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/book-card/book-card.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BookCardComponent,\n  props: {\n    book,\n  },\n})"
+                },
+                {
+                    "name": "Selectable",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/book-card/book-card.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BookCardComponent,\n  props: {\n    book,\n    selectable: true,\n  },\n})"
+                },
+                {
+                    "name": "SelectableAndCannotBeSelected",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/book-card/book-card.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BookCardComponent,\n  props: {\n    book: bookCannotBeSelected,\n    selectable: true,\n  },\n})"
+                },
+                {
+                    "name": "Selected",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/book-card/book-card.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BookCardComponent,\n  props: {\n    book: { ...book, isSelected: true },\n    selectable: true,\n  },\n})"
+                },
+                {
+                    "name": "WithButtons",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/book-card/book-card.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BookCardComponent,\n  props: {\n    book,\n    withButtons: true,\n  },\n})"
                 }
             ],
             "src/factories/book.factory.ts": [
@@ -17217,20 +17505,12 @@
             ],
             "src/app/dashboard/core/books-display/books-display.example.ts": [
                 {
-                    "name": "bookInLibrary",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/dashboard/core/books-display/books-display.example.ts",
-                    "type": "",
-                    "defaultValue": "BookFactory.build({\n  canBeSelected: false,\n  isSelected: false,\n})"
-                },
-                {
                     "name": "books",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/dashboard/core/books-display/books-display.example.ts",
                     "type": "",
-                    "defaultValue": "BookFactory.buildList(13, {\n  canBeSelected: true,\n  isSelected: true,\n})"
+                    "defaultValue": "BookFactory.buildList(23, {\n  canBeSelected: true,\n  isSelected: true,\n})"
                 },
                 {
                     "name": "Clickable",
@@ -17238,7 +17518,7 @@
                     "subtype": "variable",
                     "file": "src/app/dashboard/core/books-display/books-display.example.ts",
                     "type": "",
-                    "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    sectionTitle: 'Section title',\n    description: 'A description',\n    clickable: true,\n  },\n})"
+                    "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    clickable: true,\n  },\n})"
                 },
                 {
                     "name": "Default",
@@ -17246,7 +17526,15 @@
                     "subtype": "variable",
                     "file": "src/app/dashboard/core/books-display/books-display.example.ts",
                     "type": "",
-                    "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    sectionTitle: 'Sectioaaaaasdasn title',\n    description: 'A description',\n  },\n})"
+                    "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n  },\n})"
+                },
+                {
+                    "name": "Linkable",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-display/books-display.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    linkable: true,\n    withButtons: true,\n  },\n})"
                 },
                 {
                     "name": "Selectable",
@@ -17254,33 +17542,23 @@
                     "subtype": "variable",
                     "file": "src/app/dashboard/core/books-display/books-display.example.ts",
                     "type": "",
-                    "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books: [...books, bookInLibrary],\n    sectionTitle: 'Section title',\n    description: 'A description',\n    selectable: true,\n    statusIncluded: 'In library',\n    statusNotIncluded: 'Not in library',\n    statusCannotBeSelected: 'Already in library',\n    selectBtnContent: 'Add to library',\n    selectBtnContentDisabled: 'Already in library',\n  },\n})"
-                }
-            ],
-            "src/app/dashboard/core/books-table/books-table.example.ts": [
-                {
-                    "name": "bookInLibrary",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/dashboard/core/books-table/books-table.example.ts",
-                    "type": "",
-                    "defaultValue": "BookFactory.build({\n  canBeSelected: false,\n  isSelected: false,\n})"
+                    "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    selectable: true,\n  },\n})"
                 },
                 {
-                    "name": "books",
+                    "name": "WithButtons",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/dashboard/core/books-table/books-table.example.ts",
+                    "file": "src/app/dashboard/core/books-display/books-display.example.ts",
                     "type": "",
-                    "defaultValue": "BookFactory.buildList(5, {\n  canBeSelected: true,\n  isSelected: true,\n})"
+                    "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    withButtons: true,\n  },\n})"
                 },
                 {
-                    "name": "tableItems",
+                    "name": "WithMoreBooksPerPage",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/dashboard/core/books-table/books-table.example.ts",
-                    "type": "object",
-                    "defaultValue": "{\n  Cover: false,\n  'Original title': false,\n  Author: true,\n  'Added on': false,\n  Year: false,\n  Publisher: false,\n  Language: false,\n  Pages: false,\n  Rating: false,\n  Favorites: true,\n}"
+                    "file": "src/app/dashboard/core/books-display/books-display.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    bookCardsInRow: 5,\n    maxBooksPerPage: 15,\n  },\n})"
                 }
             ],
             "src/app/dashboard/core/books-section/books-section.example.ts": [
@@ -17307,6 +17585,14 @@
                     "file": "src/app/dashboard/core/books-section/books-section.example.ts",
                     "type": "",
                     "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n  },\n})"
+                },
+                {
+                    "name": "Linkable",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    linkable: true,\n  },\n})"
                 },
                 {
                     "name": "Selectable",
@@ -17431,6 +17717,16 @@
                     "file": "src/app/dashboard/dashboard.module.ts",
                     "type": "Route[]",
                     "defaultValue": "[\n  {\n    path: '',\n    component: DashboardComponent,\n    children: [\n      { path: '', redirectTo: 'home', pathMatch: 'full' },\n      { path: 'home', component: DashboardHomeComponent },\n      { path: 'books', loadChildren: () => BooksModule },\n      {\n        path: 'collections',\n        loadChildren: () => CollectionsModule,\n      },\n      {\n        path: 'authors',\n        loadChildren: () => AuthorsModule,\n      },\n      {\n        path: 'goodreads',\n        component: GoodreadsComponent,\n        // loadChildren: () => GoodreadsModule,\n      },\n      {\n        path: 'import',\n        component: ImportComponent,\n      },\n      {\n        path: 'profile',\n        loadChildren: () => ProfileModule,\n      },\n    ],\n  },\n]"
+                }
+            ],
+            "src/app/dashboard/core/book-button/book-button.component.example.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/book-button/book-button.component.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BookButtonComponent,\n  template: `\n  <div style=\"padding: 3rem\">\n    <book-button class=\"ti-briefcase\"></book-button>\n  </div>\n  `,\n})"
                 }
             ],
             "src/app/dashboard/core/loading/loading.example.ts": [
@@ -17998,6 +18294,25 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/dashboard/core/book-button/book-button.component.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/book-button/book-button.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "BookButtonComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/dashboard/core/book-buttons/book-buttons.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -18036,6 +18351,66 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/dashboard/core/book-card/book-card.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Clickable",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/book-card/book-card.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/book-card/book-card.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Selectable",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/book-card/book-card.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "SelectableAndCannotBeSelected",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/book-card/book-card.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Selected",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/book-card/book-card.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithButtons",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/dashboard/core/book-tags/book-tags.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -18051,16 +18426,6 @@
                 "name": "BooksDisplayComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/27",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/dashboard/core/books-display/books-display.example.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "bookInLibrary",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -18098,7 +18463,37 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "Linkable",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/books-display/books-display.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
                 "name": "Selectable",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/books-display/books-display.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithButtons",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/books-display/books-display.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithMoreBooksPerPage",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -18147,6 +18542,16 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "Linkable",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/books-section/books-section.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
                 "name": "Selectable",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
@@ -18158,7 +18563,17 @@
                 "linktype": "component",
                 "name": "BooksTableComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/21",
+                "coverageCount": "0/19",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/books-table/books-table.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "allTableItems",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -18186,7 +18601,47 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "Clickable",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/books-table/books-table.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/books-table/books-table.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Selectable",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/books-table/books-table.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
                 "name": "tableItems",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/books-table/books-table.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithAllItems",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -18320,7 +18775,7 @@
                 "linktype": "component",
                 "name": "PagesComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/13",
+                "coverageCount": "0/12",
                 "status": "low"
             },
             {

@@ -1,0 +1,19 @@
+i.tile-icon {
+  font-size: 20px;
+  font-weight: 500;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0px 6px;
+  color: var(--color-primary-02);
+  cursor: pointer;
+}
+
+i.active {
+  background-color: var(--color-light-03);
+  color: var(--color-primary-01);
+  box-shadow: var(--elevation-99);
+}

@@ -9,12 +9,10 @@ import { ActivatedRoute, Router } from '@angular/router'
   moduleId: module.id,
   selector: 'books-table',
   templateUrl: 'books-table.component.html',
-  styleUrls: ['./books-table.component.css'],
+  styleUrls: ['./books-table.component.scss'],
   animations: [ANIMATIONS.CARD],
 })
 export class BooksTableComponent implements OnInit {
-  @Input() sectionTitle: string
-  @Input() description: string
   @Input() books: Book[]
 
   @Input() withButtons: boolean

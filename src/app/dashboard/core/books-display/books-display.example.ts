@@ -16,6 +16,7 @@ import {
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { GridComponent } from '../grid/grid.component'
 import { BookCardComponent } from '../book-card/book-card.component'
+import { BookButtonComponent } from '../book-button/book-button.component'
 import { BooksSectionComponent } from '../books-section/books-section.component'
 import { BooksTableComponent } from '../books-table/books-table.component'
 import { BooksDisplayComponent } from './books-display.component'
@@ -66,6 +67,7 @@ export default {
       ],
       declarations: [
         GridComponent,
+        BookButtonComponent,
         BookCardComponent,
         BooksSectionComponent,
         BooksTableComponent,

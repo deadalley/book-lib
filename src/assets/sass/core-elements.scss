@@ -42,6 +42,12 @@
   --color-orange-04: #ff8800;
   --color-orange-05: #e67a00;
 
+  --color-purple-01: #ffe5ff;
+  --color-purple-02: #dda5e9;
+  --color-purple-03: #ac5dd9;
+  --color-purple-04: #6600cc;
+  --color-purple-05: #4d0099;
+
   --primary-color: var(--color-light-01);
   --primary-text-color: var(--color-dark-03);
 
@@ -1329,7 +1335,7 @@ input[type='radio'] {
   border-collapse: collapse;
   border-spacing: 0;
 
-  & > thead > th {
+  & > thead > tr > th {
     @extend %table-cell;
     color: var(--table-header-color);
     font-weight: 500;

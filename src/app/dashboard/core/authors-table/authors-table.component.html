@@ -3,11 +3,10 @@
     <div class="card">
       <div class="content table-responsive table-full-width">
         <table class="table">
-          
           <tbody>
             <tr
               *ngFor="let author of authors"
-              [ngClass]="{'row-clickable': clickable}"
+              [ngClass]="{ 'row-clickable': clickable }"
               (click)="onClick.emit(author)"
             >
               <!-- Image -->
@@ -42,8 +41,10 @@
               </td>
               <!-- Name -->
               <td class="col">
-                <a *ngIf="linkable" href="#" routerLink="{{author.id}}">{{author.name}}</a>
-                {{linkable ? '' : author.name}}
+                <a *ngIf="linkable" href="#" routerLink="{{ author.id }}">{{
+                  author.name
+                }}</a>
+                {{ linkable ? '' : author.name }}
               </td>
             </tr>
           </tbody>

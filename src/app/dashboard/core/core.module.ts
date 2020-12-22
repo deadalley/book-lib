@@ -10,6 +10,7 @@ import { NgxLoadingModule } from 'ngx-loading'
 import { AuthorCardComponent } from './author-card/author-card.component'
 import { BookCardComponent } from './book-card/book-card.component'
 import { BookTagsComponent } from './book-tags/book-tags.component'
+import { BookButtonComponent } from './book-button/book-button.component'
 import { BookButtonsComponent } from './book-buttons/book-buttons.component'
 import { ModalComponent } from './modal/modal.component'
 import { PageNavigatorComponent } from './page-navigator/page-navigator.component'
@@ -41,6 +42,7 @@ import loadingConfig from 'utils/loading.config'
     AuthorCardComponent,
     BookCardComponent,
     BookTagsComponent,
+    BookButtonComponent,
     BookButtonsComponent,
     ModalComponent,
     PageNavigatorComponent,
@@ -77,6 +79,7 @@ import loadingConfig from 'utils/loading.config'
     AuthorCardComponent,
     BookCardComponent,
     BookTagsComponent,
+    BookButtonComponent,
     BookButtonsComponent,
     ModalComponent,
     PageNavigatorComponent,

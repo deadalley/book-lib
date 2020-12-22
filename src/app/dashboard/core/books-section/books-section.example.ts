@@ -16,6 +16,7 @@ import {
 } from 'angularfire2/storage'
 import { GridComponent } from '../grid/grid.component'
 import { BookCardComponent } from '../book-card/book-card.component'
+import { BookButtonComponent } from '../book-button/book-button.component'
 import { BooksSectionComponent } from './books-section.component'
 import { LibraryService } from 'services/library.service'
 import { DatabaseService } from 'services/database.service'
@@ -53,7 +54,7 @@ export default {
         AngularFireStorageModule,
         BrowserAnimationsModule,
       ],
-      declarations: [GridComponent, BookCardComponent],
+      declarations: [GridComponent, BookButtonComponent, BookCardComponent],
     }),
   ],
 }

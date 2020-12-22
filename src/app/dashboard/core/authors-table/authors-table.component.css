@@ -9,5 +9,5 @@ img {
 
 .row-clickable:hover {
   cursor: pointer;
-  background: #ecfdef;
+  background: var(--color-green-01);
 }

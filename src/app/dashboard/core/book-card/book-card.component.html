@@ -76,29 +76,29 @@
   </div>
 
   <div class="icons" *ngIf="withButtons && !selectable && !clickable">
-    <i
-      class="ti-briefcase tile-icon button clear"
+    <book-button
+      [iconClass]="'ti-briefcase'"
+      [active]="book.owned"
       (click)="updateFavoriteIcon({ owned: !book.owned })"
-      [ngClass]="{ inactive: !book.owned, active: book.owned }"
       placement="bottom"
-    ></i>
-    <i
-      class="ti-gift tile-icon button clear"
+    ></book-button>
+    <book-button
+      [iconClass]="'ti-gift'"
+      [active]="book.wishlist"
       (click)="updateFavoriteIcon({ wishlist: !book.wishlist })"
-      [ngClass]="{ inactive: !book.wishlist, active: book.wishlist }"
       placement="bottom"
-    ></i>
-    <i
-      class="ti-eye tile-icon button clear"
+    ></book-button>
+    <book-button
+      [iconClass]="'ti-eye'"
+      [active]="book.read"
       (click)="updateFavoriteIcon({ read: !book.read })"
-      [ngClass]="{ inactive: !book.read, active: true || book.read }"
       placement="bottom"
-    ></i>
-    <i
-      class="ti-heart tile-icon button clear"
+    ></book-button>
+    <book-button
+      [iconClass]="'ti-heart'"
+      [active]="book.favorite"
       (click)="updateFavoriteIcon({ favorite: !book.favorite })"
-      [ngClass]="{ inactive: !book.favorite, active: book.favorite }"
       placement="bottom"
-    ></i>
+    ></book-button>
   </div>
 </div>

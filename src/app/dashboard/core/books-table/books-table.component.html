@@ -3,13 +3,14 @@
     <div class="card">
       <div class="content table-responsive table-full-width">
         <table class="table">
-          
           <thead>
             <tr>
               <th *ngIf="selectable" class="col-md-1">Selected</th>
               <th *ngIf="displayItems['Cover']" class="col-md-1"></th>
               <th class="col">Title</th>
-              <th *ngIf="displayItems['Original title']" class="col-md-2">Original title</th>
+              <th *ngIf="displayItems['Original title']" class="col-md-2">
+                Original title
+              </th>
               <th *ngIf="displayItems['Author']" class="col-md-2">Author</th>
               <th *ngIf="displayItems['Added on']" class="col">Added on</th>
               <th *ngIf="displayItems['Year']" class="col">Year</th>
@@ -17,13 +18,19 @@
               <th *ngIf="displayItems['Language']" class="col">Language</th>
               <th *ngIf="displayItems['Pages']" class="col">Pages</th>
               <th *ngIf="displayItems['Rating']" class="col">Rating</th>
-              <th *ngIf="displayItems['Favorites'] && withButtons" class="col-md-1"></th>
+              <th
+                *ngIf="displayItems['Favorites'] && withButtons"
+                class="col-md-1"
+              ></th>
             </tr>
-          
+          </thead>
+
           <tbody>
             <tr
               *ngFor="let book of books"
-              (click)="clickable ? onClick.emit(book) : updateSelectedBooks(book)"
+              (click)="
+                clickable ? onClick.emit(book) : updateSelectedBooks(book)
+              "
               [ngClass]="{
                 'row-clickable': clickable,
                 'row-selectable': selectable && book.canBeSelected,
@@ -33,10 +40,14 @@
             >
               <!-- Select button -->
               <td *ngIf="selectable">
-                <i *ngIf="book.canBeSelected" class="select-icon"[ngClass]="{
-                  'ti-check-box': book.isSelected,
-                  'ti-control-stop': !book.isSelected
-                }"></i>
+                <i
+                  *ngIf="book.canBeSelected"
+                  class="select-icon"
+                  [ngClass]="{
+                    'ti-check-box': book.isSelected,
+                    'ti-control-stop': !book.isSelected
+                  }"
+                ></i>
               </td>
               <!-- Cover -->
               <td *ngIf="displayItems['Cover']">
@@ -70,59 +81,97 @@
               </td>
               <!-- Title -->
               <td class="col">
-                <a *ngIf="linkable" href="#" routerLink="{{book.id}}">{{book.title}}</a>
-                {{linkable ? '' : book.title}}
+                <a *ngIf="linkable" href="#" routerLink="{{ book.id }}">{{
+                  book.title
+                }}</a>
+                {{ linkable ? '' : book.title }}
               </td>
               <!-- Original title -->
-              <td *ngIf="displayItems['Original title']" class="col-md-2">{{book.original}}</td>
+              <td *ngIf="displayItems['Original title']" class="col-md-2">
+                {{ book.original }}
+              </td>
               <!-- Author -->
               <td *ngIf="displayItems['Author']" class="col-md-2">
-                <a *ngIf="linkable" href="javascript:void(0);" (click)="authorRoute(book)">{{book.author}}</a>
-                {{linkable ? '' : book.author}}
+                <a
+                  *ngIf="linkable"
+                  href="javascript:void(0);"
+                  (click)="authorRoute(book)"
+                  >{{ book.author }}</a
+                >
+                {{ linkable ? '' : book.author }}
               </td>
               <!-- Date -->
-              <td *ngIf="displayItems['Added on']" class="col">{{formatDate(book.date)}}</td>
+              <td *ngIf="displayItems['Added on']" class="col">
+                {{ formatDate(book.date) }}
+              </td>
               <!-- Year -->
-              <td *ngIf="displayItems['Year']" class="col">{{book.year}}</td>
+              <td *ngIf="displayItems['Year']" class="col">{{ book.year }}</td>
               <!-- Publisher -->
-              <td *ngIf="displayItems['Publisher']" class="col">{{book.publisher}}</td>
+              <td *ngIf="displayItems['Publisher']" class="col">
+                {{ book.publisher }}
+              </td>
               <!-- Language -->
-              <td *ngIf="displayItems['Language']" class="col">{{book.language}}</td>
+              <td *ngIf="displayItems['Language']" class="col">
+                {{ book.language }}
+              </td>
               <!-- Pages -->
-              <td *ngIf="displayItems['Pages']" class="col">{{book.pages}}</td>
+              <td *ngIf="displayItems['Pages']" class="col">
+                {{ book.pages }}
+              </td>
               <!-- Rating -->
-              <td *ngIf="displayItems['Rating']" class="col">{{book.Rating || 0}}</td>
+              <td *ngIf="displayItems['Rating']" class="col">
+                {{ book.Rating || 0 }}
+              </td>
               <!-- Favorites -->
-              <td *ngIf="displayItems['Favorites'] && withButtons" class="col-md-2">
+              <td
+                *ngIf="displayItems['Favorites'] && withButtons"
+                class="col-md-2"
+              >
                 <div class="icons">
-                  <i class="pe-7s-check tile-icon"
+                  <book-button
+                    [iconClass]="'ti-briefcase'"
+                    [active]="book.owned"
                     (click)="updateFavoriteIcon(book, { owned: !book.owned })"
-                    [ngClass] = "{'inactive': !book.owned, 'owned': book.owned}"
-                    tooltip="{{book.owned ? 'Owned' : 'Not owned'}}"
+                    tooltip="{{ book.owned ? 'Owned' : 'Not owned' }}"
                     [isDisabled]="false"
                     [tooltipAnimation]="true"
-                    placement="bottom"></i>
-                  <i class="pe-7s-gift tile-icon"
-                    (click)="updateFavoriteIcon(book, { wishlist: !book.wishlist })"
-                    [ngClass] = "{'inactive': !book.wishlist, 'wishlist': book.wishlist}"
-                    tooltip="{{book.wishlist ? 'In wishlist' : 'Not in wishlist'}}"
+                    placement="bottom"
+                  ></book-button>
+                  <book-button
+                    [iconClass]="'ti-gift'"
+                    [active]="book.wishlist"
+                    (click)="
+                      updateFavoriteIcon(book, { wishlist: !book.wishlist })
+                    "
+                    tooltip="{{
+                      book.wishlist ? 'In wishlist' : 'Not in wishlist'
+                    }}"
                     [isDisabled]="false"
                     [tooltipAnimation]="true"
-                    placement="bottom"></i>
-                  <i class="pe-7s-glasses tile-icon"
+                    placement="bottom"
+                  ></book-button>
+                  <book-button
+                    [iconClass]="'ti-eye'"
+                    [active]="book.read"
                     (click)="updateFavoriteIcon(book, { read: !book.read })"
-                    [ngClass] = "{'inactive': !book.read, 'read': book.read}"
-                    tooltip="{{book.read ? 'Read' : 'Not read'}}"
+                    tooltip="{{ book.read ? 'Read' : 'Not read' }}"
                     [isDisabled]="false"
                     [tooltipAnimation]="true"
-                    placement="bottom"></i>
-                  <i class="pe-7s-like tile-icon"
-                    (click)="updateFavoriteIcon(book, { favorite: !book.favorite })"
-                    [ngClass] = "{'inactive': !book.favorite, 'favorite': book.favorite}"
-                    tooltip="{{book.favorite ? 'Favorite' : 'Not a favorite'}}"
+                    placement="bottom"
+                  ></book-button>
+                  <book-button
+                    [iconClass]="'ti-heart'"
+                    [active]="book.favorite"
+                    (click)="
+                      updateFavoriteIcon(book, { favorite: !book.favorite })
+                    "
+                    tooltip="{{
+                      book.favorite ? 'Favorite' : 'Not a favorite'
+                    }}"
                     [isDisabled]="false"
                     [tooltipAnimation]="true"
-                    placement="bottom"></i>
+                    placement="bottom"
+                  ></book-button>
                 </div>
               </td>
 
@@ -130,7 +179,7 @@
                 <div class="text-muted" style="font-style: italic">
                   <i style="font-size: 0.9em" [ngClass]="{'ti-check': book.isSelected || !book.canBeSelected, 'ti-close': !book.isSelected}"></i>
                   {{
-                    book.canBeSelected 
+                    book.canBeSelected
                     ? (book.isSelected ? statusIncluded : statusNotIncluded)
                     : statusCannotBeSelected
                   }}

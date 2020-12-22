@@ -86,28 +86,6 @@ div > img.tile-icon {
   margin: 0px 24px 24px 24px;
 }
 
-i.tile-icon {
-  font-size: 20px;
-  font-weight: 500;
-  width: 42px;
-  height: 42px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  color: var(--color-primary-02) !important;
-  cursor: pointer;
-}
-
-i.active {
-  box-shadow: var(--elevation-99) !important;
-  background-color: var(--color-light-03) !important;
-}
-
-i.inactive {
-  color: #c9c9c9;
-}
-
 .select-icon {
   font-size: 20px;
 }

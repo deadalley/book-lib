@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { storiesOf, moduleMetadata } from '@storybook/angular'
+import { moduleMetadata } from '@storybook/angular'
 import { AuthorsTableComponent } from './authors-table.component'
 import AuthorFactory from 'factories/author.factory'
 import { LibraryService } from 'services/library.service'
@@ -21,8 +21,10 @@ import {
 
 const authors = AuthorFactory.buildList(4)
 
-storiesOf('Authors Table', module)
-  .addDecorator(
+export default {
+  title: 'Authors Table',
+  component: AuthorsTableComponent,
+  decorators: [
     moduleMetadata({
       providers: [
         DatabaseService,
@@ -41,18 +43,21 @@ storiesOf('Authors Table', module)
         BrowserAnimationsModule,
       ],
       declarations: [AuthorsTableComponent],
-    })
-  )
-  .add('default', () => ({
-    component: AuthorsTableComponent,
-    props: {
-      authors,
-    },
-  }))
-  .add('clickable', () => ({
-    component: AuthorsTableComponent,
-    props: {
-      authors,
-      clickable: true,
-    },
-  }))
+    }),
+  ],
+}
+
+export const Default = () => ({
+  component: AuthorsTableComponent,
+  props: {
+    authors,
+  },
+})
+
+export const Clickable = () => ({
+  component: AuthorsTableComponent,
+  props: {
+    authors,
+    clickable: true,
+  },
+})
