@@ -5,11 +5,10 @@ import { DEFAULT_TABLE_ITEMS } from 'utils/constants'
   moduleId: module.id,
   selector: 'table-items',
   templateUrl: 'table-items.component.html',
-  styleUrls: ['./table-items.component.css'],
+  styleUrls: ['./table-items.component.scss'],
 })
 export class TableItemsComponent implements OnInit {
-  @Input()
-  items = DEFAULT_TABLE_ITEMS
+  @Input() items = DEFAULT_TABLE_ITEMS
   itemNames: string[]
   @Output() displayItems = new EventEmitter<object>()
 

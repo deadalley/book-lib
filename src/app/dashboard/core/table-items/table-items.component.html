@@ -1,12 +1,11 @@
-<div class="btn-group btn-group-justified buttons" role="group">
-  <div *ngFor="let name of itemNames" class="btn-group" role="role">
-    <button
-      type="button"
-      (click)="onClick(name)"
-      class="btn btn-default"
-      [ngClass]="{'active': items[name]}"
-    >
-      {{name}}
-    </button>
-  </div>
+<div class="table-items">
+  <button
+    *ngFor="let name of itemNames"
+    type="button"
+    class="button clear large item"
+    (click)="onClick(name)"
+    [ngClass]="{ active: items[name] }"
+  >
+    {{ name }}
+  </button>
 </div>

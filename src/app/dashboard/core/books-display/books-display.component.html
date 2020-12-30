@@ -1,9 +1,9 @@
-<div class='books-display'>
+<div class="books-display">
   <!-- Buttons -->
   <div *ngIf="books && books.length" class="buttons">
     <button type="button" class="button" (click)="toggleTilesDisplay()">
       <i
-        class='toggle-icon'
+        class="toggle-icon"
         [ngClass]="{
           'ti-view-list': tilesDisplay,
           'ti-layout-grid2': !tilesDisplay
@@ -63,10 +63,12 @@
   <!-- Table -->
   <ng-container *ngIf="!tilesDisplay && books && books.length > 0">
     <table-items
+      class="table-items"
       [items]="tableDisplayItems"
       (displayItems)="tableDisplayItems = $event"
     ></table-items>
     <books-table
+      class="table-wrapper"
       [displayItems]="tableDisplayItems"
       [books]="
         books

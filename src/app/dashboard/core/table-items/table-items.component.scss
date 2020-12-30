@@ -1,0 +1,24 @@
+.table-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.item {
+  margin: 0 6px;
+  flex: 1;
+
+  &:last-child {
+    margin-right: 0px;
+  }
+
+  &:first-child {
+    margin-left: 0px;
+  }
+}
+
+.active {
+  background-color: var(--color-light-03);
+  color: var(--color-primary-01);
+  box-shadow: var(--elevation-99);
+}
