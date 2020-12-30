@@ -4,7 +4,7 @@ import { Component, OnInit, Input } from '@angular/core'
   moduleId: module.id,
   selector: 'book-buttons',
   templateUrl: 'book-buttons.component.html',
-  styleUrls: ['./book-buttons.component.css'],
+  styleUrls: ['./book-buttons.component.scss'],
 })
 export class BookButtonsComponent implements OnInit {
   @Input() owned = false
