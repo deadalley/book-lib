@@ -4,7 +4,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
   moduleId: module.id,
   selector: 'tags-list',
   templateUrl: 'tags-list.component.html',
-  styleUrls: ['./tags-list.component.css'],
+  styleUrls: ['./tags-list.component.scss'],
 })
 export class TagsListComponent implements OnInit {
   @Input() tags: string[]

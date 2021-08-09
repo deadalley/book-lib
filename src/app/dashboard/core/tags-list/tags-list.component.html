@@ -1,14 +1,14 @@
-<div *ngIf="tags && tags.length" class="values">
+<div *ngIf="tags && tags.length" class="chips-wrapper">
   <a
     href="javascript:void(0);"
     *ngFor="let tag of tags"
-    class="tags"
+    class="chip chip-padding"
     (click)="onClick(tag)"
     [ngClass]="{selected: _selectedTags[tag]}"
   >
-    <i class="pe-7s-ticket icon"></i>
+    <i class="ti-tag"></i>
     {{tag}}
     <i class='ti-plus close-icon' [ngClass]="{'ti-minus': _selectedTags[tag], 'ti-plus': !_selectedTags[tag]}"></i>
   </a>
 </div>
-<h5 class="text-muted no-tag">No tags available</h5>
+<h5 *ngIf="!tags || !tags.length" class="">No tags available</h5>

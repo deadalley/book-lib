@@ -1,0 +1,19 @@
+.chip {
+  background-color: var(--color-blue-02);
+  margin-right: 6px;
+}
+
+.icon {
+  font-weight: bold;
+}
+
+.close-icon {
+  font-weight: bold;
+  font-size: 12px;
+  margin-left: 6px;
+  margin-right: 0;
+}
+
+.selected {
+  background: var(--color-red-03);
+}
