@@ -10,7 +10,7 @@ import { Author } from 'models/author.model'
   moduleId: module.id,
   selector: 'library-navbar',
   templateUrl: 'library-navbar.component.html',
-  styleUrls: ['library-navbar.component.css'],
+  styleUrls: ['library-navbar.component.scss'],
 })
 export class LibraryNavbarComponent implements OnInit, OnDestroy {
   subscriptions = []

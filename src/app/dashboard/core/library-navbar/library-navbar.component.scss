@@ -1,0 +1,11 @@
+.dropdown > label {
+  box-shadow: none;
+}
+
+.tile-icon {
+  box-shadow: none;
+}
+
+.tile-icon.success {
+  color: var(--primary-color);
+}

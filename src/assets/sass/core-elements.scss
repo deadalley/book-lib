@@ -312,6 +312,29 @@ a {
   }
 }
 
+i.tile-icon {
+  background-color: var(--primary-color);
+  font-size: 20px;
+  font-weight: 500;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0px 6px;
+  color: var(--color-primary-02);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-light-03);
+  }
+
+  &:active {
+    background-color: var(--color-light-04);
+  }
+}
+
 .button {
   @extend %standard-button;
 

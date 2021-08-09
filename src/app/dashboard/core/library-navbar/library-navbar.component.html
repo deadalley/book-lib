@@ -1,118 +1,58 @@
-<!-- Navbar -->
-<div class="card">
-  <div class="content">
-    <nav class="navbar">
-      <ul class="nav navbar-nav">
-        <!-- Buttons -->
-        <!-- DO NOT ERASE -->
-        <!-- <li [ngClass]="{'active': localUrlPath === 'books', 'library-nav-btn': true, 'left': true}">
-          <a href="javascript:void(0);" routerLink="./books">
-          <i class="pe-7s-bookmarks" style="vertical-align:middle; font-size: 1.4em;"></i> Books</a>
-        </li>
-        <li [ngClass]="{'active': localUrlPath === 'collections', 'library-nav-btn': true}">
-          <a href="javascript:void(0);" routerLink="./collections">
-          <i class="pe-7s-box1" style="vertical-align:middle; font-size: 1.4em;"></i> Collections</a>
-        </li> -->
-        <!-- Search -->
-        <li style="text-align: right">
-          <search-box
-            [withMargin]="true"
-            [items]="searchBoxItems"
-            [props]="searchBoxProps"
-            [searchProps]="searchBoxSearchProps"
-            [link]="searchBoxLink"
-          ></search-box>
-        </li>
-        <!-- Grouping -->
-        <li *ngIf="groupings && groupings.length">
-          <div class="dropdown">
-            <button
-              class="btn btn-default dropdown-toggle"
-              type="button"
-              id="dropdownMenu1"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="true"
-            >
-              {{ selectedGrouping }}
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-              <li style="padding: 8px 16px">Select grouping</li>
-              <li role="separator" class="divider"></li>
-              <li *ngFor="let grouping of groupings">
-                <a href="javascript:void(0);" (click)="setGrouping(grouping)">
-                  {{ grouping }}
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        <!-- Filtering -->
-        <li *ngIf="filters && filters.length">
-          <div class="dropdown">
-            <button
-              class="btn btn-default dropdown-toggle"
-              type="button"
-              id="dropdownMenu2"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="true"
-            >
-              {{ selectedFilter }}
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-              <li style="padding: 8px 16px">Select filter</li>
-              <li role="separator" class="divider"></li>
-              <li *ngFor="let filter of filters">
-                <a href="javascript:void(0);" (click)="setFilter(filter)">
-                  {{ filter }}
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        <li class="library-nav-right">
-          <ul style="height: 100%">
-            <li *ngIf="addButtonContent" class="text-center">
-              <!-- Tiles or Table -->
-              <button
-                type="button"
-                class="btn btn-default library-nav-tile"
-                (click)="toggleTilesDisplay()"
-                style="margin: 10px 5px"
-                [tooltip]="
-                  tilesDisplay ? 'Display as tables' : 'Display as tiles'
-                "
-                [tooltipAnimation]="true"
-                placement="top"
-              >
-                <span
-                  *ngIf="tilesDisplay"
-                  class="ti-view-list"
-                  aria-hidden="true"
-                ></span>
-                <span
-                  *ngIf="!tilesDisplay"
-                  class="ti-layout-grid2"
-                  aria-hidden="true"
-                ></span>
-              </button>
-              <!-- Add book -->
-              <button
-                type="button"
-                class="btn btn-success library-nav-tile"
-                routerLink="{{ router.url.split('?')[0] }}/new"
-                style="margin: 10px 5px"
-              >
-                <span class="ti-plus" aria-hidden="true"></span>
-                {{ addButtonContent }}
-              </button>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
+<div class="navbar">
+  <div class="navbar-left">
+    <div *ngIf="groupings && groupings.length" class="dropdown">
+      <input class="dropdown-checkbox" type="checkbox" id="groupingdropdowncheckbox" />
+      <label for="groupingdropdowncheckbox">{{ selectedGrouping }}</label>
+      <div class="dropdown-menu">
+        <div class="dropdown-menu-inner">
+          <label
+            *ngFor="let grouping of groupings"
+            for="groupingdropdowncheckbox"
+            class="dropdown-item"
+            (click)="setGrouping(grouping)"
+          >
+            {{ grouping }}
+          </label>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="filters && filters.length" class="dropdown">
+      <input class="dropdown-checkbox" type="checkbox" id="filterdropdowncheckbox" />
+      <label for="filterdropdowncheckbox">{{ selectedFilter }}</label>
+      <div class="dropdown-menu">
+        <div class="dropdown-menu-inner">
+          <label
+            *ngFor="let filter of filters"
+            for="filterdropdowncheckbox"
+            class="dropdown-item"
+            (click)="setFilter(filter)"
+          >
+            {{ filter }}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar-right">
+    <!-- Tiles or Table -->
+    <i
+      type="button"
+      class="button tile-icon"
+      (click)="toggleTilesDisplay()"
+      [ngClass]="{ 'ti-view-list': tilesDisplay, 'ti-layout-grid2': !tilesDisplay }"
+    >
+    <!-- [tooltip]="
+        tilesDisplay ? 'Display as tables' : 'Display as tiles'
+      "
+      placement="top"
+      [tooltipAnimation]="true" -->
+    </i>
+    <!-- Add book -->
+    <i
+      type="button"
+      class="ti-plus button tile-icon success"
+      routerLink="{{ router.url.split('?')[0] }}/new"
+    >
+  </i>
   </div>
 </div>
