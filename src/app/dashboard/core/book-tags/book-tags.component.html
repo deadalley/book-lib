@@ -1,50 +1,52 @@
 <label>{{ title }}</label>
-<div class="input-group">
-  <input
-    #tagInput
-    type="text"
-    [formControl]="tagInputValue"
-    class="form-control"
-    placeholder="{{ placeholder }}"
-    (keyup)="keyupHandle($event, tagInput.value)"
-    (keydown.enter)="pushItem(tagInput.value); tagInput.value = ''"
-    (focus)="hasFocus.emit(true)"
-    (blur)="hasFocus.emit(false)"
-  />
-  <span class="input-group-btn">
-    <button
-      class="btn btn-default"
-      type="button"
-      (click)="pushItem(tagInput.value); tagInput.value = ''"
+<div class="input-wrapper">
+  <div class="input">
+    <input
+      #tagInput
+      type="text"
+      [formControl]="tagInputValue"
+      class="form-control"
+      placeholder="{{ placeholder }}"
+      (keyup)="keyupHandle($event, tagInput.value)"
+      (keydown.enter)="pushItem(tagInput.value); tagInput.value = ''"
+      (focus)="hasFocus.emit(true)"
+      (blur)="hasFocus.emit(false)"
+    />
+    <ul
+      *ngIf="true || debouncedHasFocus"
+      class="card elevation-02 search-results"
+      [ngClass]="{
+        'no-border': !(filteredSuggestions | searchFilter: searchValue).length
+      }"
     >
-      <i class="ti-plus"></i>
-    </button>
-  </span>
-  <ul
-    *ngIf="debouncedHasFocus"
-    class="search-results"
-    [ngClass]="{
-      'no-border': !(filteredSuggestions | searchFilter: searchValue).length
-    }"
+      <li
+        *ngFor="
+          let suggestion of filteredSuggestions | searchFilter: searchValue
+        "
+        class="result"
+        (click)="pushItem(suggestion)"
+      >
+        <div class="props">
+          {{ suggestion }}
+        </div>
+      </li>
+    </ul>
+  </div>
+  <button
+    class="button large clear"
+    type="button"
+    (click)="pushItem(tagInput.value); tagInput.value = ''"
   >
-    <li
-      *ngFor="let suggestion of filteredSuggestions | searchFilter: searchValue"
-      class="result"
-      (click)="pushItem(suggestion)"
-    >
-      <div class="props">
-        {{ suggestion }}
-      </div>
-    </li>
-  </ul>
+    <i class="ti-plus"></i>
+  </button>
 </div>
-<div class="values">
+<div class="values" [ngClass]="{ 'left-padding': !tags }">
   <span
     *ngFor="let item of items; let lastItem = last; let i = index"
     class="value"
-    [ngClass]="{ tags: tags }"
+    [ngClass]="{ chip: tags }"
   >
-    <i class="{{ iconClass }} icon" *ngIf="iconClass"></i>
+    <i class="{{ iconClass }}" *ngIf="iconClass"></i>
     {{ item }}
     <a href="javascript:void(0);" (click)="removeItem(i)">
       <i class="ti-close close-icon" [ngClass]="{ white: tags }"></i>

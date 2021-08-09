@@ -6980,7 +6980,7 @@
         },
         {
             "name": "BookButtonsComponent",
-            "id": "component-BookButtonsComponent-649ffc9c9275531f980833626713b76b",
+            "id": "component-BookButtonsComponent-849ce98dc8eabf7ecfa758429697fe80",
             "file": "src/app/dashboard/core/book-buttons/book-buttons.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6990,7 +6990,7 @@
             "providers": [],
             "selector": "book-buttons",
             "styleUrls": [
-                "./book-buttons.component.css"
+                "./book-buttons.component.scss"
             ],
             "styles": [],
             "templateUrl": [
@@ -7044,19 +7044,19 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input } from '@angular/core'\n\n@Component({\n  moduleId: module.id,\n  selector: 'book-buttons',\n  templateUrl: 'book-buttons.component.html',\n  styleUrls: ['./book-buttons.component.css'],\n})\nexport class BookButtonsComponent implements OnInit {\n  @Input() owned = false\n  @Input() read = false\n  @Input() favorite = false\n  @Input() wishlist = false\n\n  ngOnInit() {}\n\n  getValues() {\n    return {\n      owned: this.owned,\n      read: this.read,\n      favorite: this.favorite,\n      wishlist: this.wishlist,\n    }\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit, Input } from '@angular/core'\n\n@Component({\n  moduleId: module.id,\n  selector: 'book-buttons',\n  templateUrl: 'book-buttons.component.html',\n  styleUrls: ['./book-buttons.component.scss'],\n})\nexport class BookButtonsComponent implements OnInit {\n  @Input() owned = false\n  @Input() read = false\n  @Input() favorite = false\n  @Input() wishlist = false\n\n  ngOnInit() {}\n\n  getValues() {\n    return {\n      owned: this.owned,\n      read: this.read,\n      favorite: this.favorite,\n      wishlist: this.wishlist,\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "",
-                    "styleUrl": "./book-buttons.component.css"
+                    "data": "label {\n  margin-left: 14px;\n}\n\ni {\n  font-weight: normal;\n}\n",
+                    "styleUrl": "./book-buttons.component.scss"
                 }
             ],
             "stylesData": "",
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<label>Favorites</label><br>\n<div class=\"btn-group\" role=\"group\">\n  <button type=\"button\"\n    (click) = \"owned = !owned\"\n    class=\"btn btn-default\" [ngClass]=\"{'active': owned}\"\n    tooltip=\"Owned\"\n    [isDisabled]=\"false\"\n    [tooltipAnimation]=\"true\"\n    placement=\"bottom\">\n    <i class=\"pe-7s-check\" style=\"font-size: 1.3em;\"></i>\n  </button>\n  <button type=\"button\"\n    (click) = \"wishlist = !wishlist\"\n    class=\"btn btn-default\" [ngClass]=\"{'active': wishlist}\"\n    tooltip=\"Wishlist\"\n    [isDisabled]=\"false\"\n    [tooltipAnimation]=\"true\"\n    placement=\"bottom\">\n    <i class=\"pe-7s-gift\" style=\"font-size: 1.3em;\"></i>\n  </button>\n  <button type=\"button\"\n    (click) = \"read = !read\"\n    class=\"btn btn-default\" [ngClass]=\"{'active': read}\"\n    tooltip=\"Read\"\n    [isDisabled]=\"false\"\n    [tooltipAnimation]=\"true\"\n    placement=\"bottom\">\n    <i class=\"pe-7s-glasses\" style=\"font-size: 1.3em;\"></i>\n  </button>\n  <button type=\"button\"\n    (click) = \"favorite = !favorite\"\n    class=\"btn btn-default\" [ngClass]=\"{'active': favorite}\"\n    tooltip=\"Favorite\"\n    [isDisabled]=\"false\"\n    [tooltipAnimation]=\"true\"\n    placement=\"bottom\">\n    <i class=\"pe-7s-like\" style=\"font-size: 1.3em;\"></i>\n  </button>\n</div>"
+            "templateData": "<label>Favorites</label><br />\n<div class=\"button-group\">\n  <button\n    type=\"button\"\n    class=\"button clear large icon\"\n    (click)=\"owned = !owned\"\n    [ngClass]=\"{ active: owned }\"\n  >\n    <i class=\"ti-briefcase\"></i>\n  </button>\n  <button\n    type=\"button\"\n    class=\"button clear large icon\"\n    (click)=\"wishlist = !wishlist\"\n    [ngClass]=\"{ active: wishlist }\"\n  >\n    <i class=\"ti-gift\"></i>\n  </button>\n  <button\n    type=\"button\"\n    class=\"button clear large icon\"\n    (click)=\"read = !read\"\n    [ngClass]=\"{ active: read }\"\n  >\n    <i class=\"ti-eye\"></i>\n  </button>\n  <button\n    type=\"button\"\n    class=\"button clear large icon\"\n    (click)=\"favorite = !favorite\"\n    [ngClass]=\"{ active: favorite }\"\n  >\n    <i class=\"ti-heart\"></i>\n  </button>\n</div>\n"
         },
         {
             "name": "BookCardComponent",
@@ -8346,7 +8346,7 @@
         },
         {
             "name": "BookTagsComponent",
-            "id": "component-BookTagsComponent-4e6e966dd23a95bef7a067021efc3882",
+            "id": "component-BookTagsComponent-fd9fa0a64934179228c95a593c86fb88",
             "file": "src/app/dashboard/core/book-tags/book-tags.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -8356,7 +8356,7 @@
             "providers": [],
             "selector": "book-tags",
             "styleUrls": [
-                "book-tags.component.css"
+                "book-tags.component.scss"
             ],
             "styles": [],
             "templateUrl": [
@@ -8381,7 +8381,6 @@
                 },
                 {
                     "name": "suggestions",
-                    "defaultValue": "[]",
                     "line": 24,
                     "type": "string[]"
                 },
@@ -8435,7 +8434,7 @@
                 },
                 {
                     "name": "tagInput",
-                    "type": "",
+                    "type": "any",
                     "optional": false,
                     "description": "",
                     "line": 29,
@@ -8461,28 +8460,28 @@
                     "args": [
                         {
                             "name": "event",
-                            "type": ""
+                            "type": "KeyboardEvent"
                         },
                         {
                             "name": "value",
-                            "type": ""
+                            "type": "string"
                         }
                     ],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 76,
+                    "line": 78,
                     "jsdoctags": [
                         {
                             "name": "event",
-                            "type": "",
+                            "type": "KeyboardEvent",
                             "tagName": {
                                 "text": "param"
                             }
                         },
                         {
                             "name": "value",
-                            "type": "",
+                            "type": "string",
                             "tagName": {
                                 "text": "param"
                             }
@@ -8502,17 +8501,17 @@
                     "args": [
                         {
                             "name": "value",
-                            "type": ""
+                            "type": "string"
                         }
                     ],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 69,
+                    "line": 71,
                     "jsdoctags": [
                         {
                             "name": "value",
-                            "type": "",
+                            "type": "string",
                             "tagName": {
                                 "text": "param"
                             }
@@ -8524,17 +8523,17 @@
                     "args": [
                         {
                             "name": "index",
-                            "type": ""
+                            "type": "number"
                         }
                     ],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 83,
+                    "line": 85,
                     "jsdoctags": [
                         {
                             "name": "index",
-                            "type": "",
+                            "type": "number",
                             "tagName": {
                                 "text": "param"
                             }
@@ -8547,12 +8546,12 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import {\n  Component,\n  OnInit,\n  Input,\n  Output,\n  EventEmitter,\n  ViewChild,\n} from '@angular/core'\nimport { debounceTime, distinctUntilChanged } from 'rxjs/operators'\nimport { FormControl } from '@angular/forms'\n\n@Component({\n  moduleId: module.id,\n  selector: 'book-tags',\n  templateUrl: 'book-tags.component.html',\n  styleUrls: ['book-tags.component.css'],\n})\nexport class BookTagsComponent implements OnInit {\n  @Input() title: string\n  @Input() placeholder: string\n  @Input() iconClass: string\n  @Input() items: string[]\n  @Input() tags: boolean\n  @Input() suggestions: string[] = []\n\n  @Output() getItems = new EventEmitter<string[]>()\n  @Output() hasFocus = new EventEmitter<boolean>()\n\n  @ViewChild('tagInput', { static: false }) tagInput\n\n  tagInputValue: FormControl = new FormControl()\n  filteredSuggestions: string[] = []\n  debouncedHasFocus: boolean\n  searchValue: string\n\n  constructor() {}\n\n  ngOnInit() {\n    this.hasFocus\n      .pipe(debounceTime(100))\n      .subscribe(value => (this.debouncedHasFocus = value))\n\n    this.tagInputValue.valueChanges\n      .pipe(\n        debounceTime(200),\n        distinctUntilChanged()\n      )\n      .subscribe(value => {\n        this.searchValue = value\n        if (!value) {\n          this.filteredSuggestions = []\n        } else {\n          this.filteredSuggestions = this.suggestions.filter(\n            suggestion => !this.items.includes(suggestion)\n          )\n        }\n      })\n\n    this.getItems.subscribe(array => {\n      if (!this.searchValue) {\n        return (this.filteredSuggestions = [])\n      }\n      this.filteredSuggestions = this.suggestions.filter(\n        suggestion => !array.includes(suggestion)\n      )\n    })\n  }\n\n  pushItem(value) {\n    if (value !== '') {\n      this.items.push(value)\n      this.getItems.emit(this.items)\n    }\n  }\n\n  keyupHandle(event, value) {\n    if (event.code === 'Comma' && value) {\n      this.pushItem(value.slice(0, -1))\n      this.tagInput.nativeElement.value = ''\n    }\n  }\n\n  removeItem(index) {\n    this.items.splice(index, 1)\n    this.getItems.emit(this.items)\n  }\n}\n",
+            "sourceCode": "import {\n  Component,\n  OnInit,\n  Input,\n  Output,\n  EventEmitter,\n  ViewChild,\n} from '@angular/core'\nimport { debounceTime, distinctUntilChanged } from 'rxjs/operators'\nimport { FormControl } from '@angular/forms'\n\n@Component({\n  moduleId: module.id,\n  selector: 'book-tags',\n  templateUrl: 'book-tags.component.html',\n  styleUrls: ['book-tags.component.scss'],\n})\nexport class BookTagsComponent implements OnInit {\n  @Input() title: string\n  @Input() placeholder: string\n  @Input() iconClass?: string\n  @Input() items: string[]\n  @Input() tags: boolean\n  @Input() suggestions?: string[]\n\n  @Output() getItems = new EventEmitter<string[]>()\n  @Output() hasFocus = new EventEmitter<boolean>()\n\n  @ViewChild('tagInput', { static: false }) tagInput: any\n\n  tagInputValue: FormControl = new FormControl()\n  filteredSuggestions: string[] = []\n  debouncedHasFocus: boolean\n  searchValue: string\n\n  constructor() {}\n\n  ngOnInit() {\n    console.log('CONST', this.suggestions)\n    this.hasFocus\n      .pipe(debounceTime(100))\n      .subscribe(value => (this.debouncedHasFocus = value))\n\n    this.tagInputValue.valueChanges\n      .pipe(\n        debounceTime(200),\n        distinctUntilChanged()\n      )\n      .subscribe(value => {\n        this.searchValue = value\n        if (!value) {\n          this.filteredSuggestions = []\n        } else {\n          this.filteredSuggestions = this.suggestions.filter(\n            suggestion => !this.items.includes(suggestion)\n          )\n        }\n        console.log(value, this.filteredSuggestions, this.suggestions)\n      })\n\n    this.getItems.subscribe((array: string[]) => {\n      if (!this.searchValue) {\n        return (this.filteredSuggestions = [])\n      }\n      this.filteredSuggestions = this.suggestions.filter(\n        suggestion => !array.includes(suggestion)\n      )\n    })\n  }\n\n  pushItem(value: string) {\n    if (value !== '') {\n      this.items.push(value)\n      this.getItems.emit(this.items)\n    }\n  }\n\n  keyupHandle(event: KeyboardEvent, value: string) {\n    if (event.code === 'Comma' && value) {\n      this.pushItem(value.slice(0, -1))\n      this.tagInput.nativeElement.value = ''\n    }\n  }\n\n  removeItem(index: number) {\n    this.items.splice(index, 1)\n    this.getItems.emit(this.items)\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".values {\n  padding: 5px 0;\n  font-size: 12px;\n}\n\n.value {\n  margin: 0 4px;\n}\n\n.tags {\n  background: #45cce8;\n  border-radius: 4px;\n  margin: 0 2px;\n  padding: 4px;\n  color: #f9f9f9;\n  font-weight: bold;\n  font-size: 12px;\n}\n\n.icon {\n  font-weight: bold;\n}\n\n.close-icon {\n  font-weight: bold;\n  font-size: 10px;\n}\n\n.white {\n  color: #f9f9f9;\n}\n\n.search-results {\n  padding: 0;\n  width: 100%;\n  z-index: 1;\n  max-height: 150px;\n  border-color: #888888;\n  border-radius: 4px;\n  list-style: none;\n  color: rgb(105, 105, 105);\n  border: 1px solid #ccc;\n  border-top: none;\n  /*so things don't jump around*/\n  position: absolute;\n  left: 0;\n  top: calc(50% + 20px);\n  overflow-y: auto;\n  background: #fff;\n}\n\n.result {\n  cursor: pointer;\n  min-height: 40px;\n  text-align: left;\n  display: flex;\n  flex: 1;\n  align-items: center;\n  padding: 6px;\n  color: #333333;\n  font-size: 14px;\n}\n\n.result:hover {\n  background: #f7f7f7;\n}\n\n.btn {\n  height: 0px;\n}\n",
-                    "styleUrl": "book-tags.component.css"
+                    "data": "label {\n  margin-left: 14px;\n}\n\n.input-wrapper {\n  display: flex;\n  justify-content: space-between;\n\n  & > .input {\n    flex: 1;\n    position: relative;\n    overflow: visible;\n  }\n}\n\n.button {\n  margin-left: 12px;\n  padding: 0 14px;\n  color: var(--color-primary-02);\n}\n\n.chip {\n  background-color: var(--color-blue-01);\n}\n\n.values {\n  margin: 14px 0;\n}\n\n.left-padding {\n  padding-left: 14px;\n}\n\n.value {\n  margin: 0 4px;\n\n  & > i {\n    font-weight: normal;\n    color: var(--color-primary-02);\n  }\n}\n\n.close-icon {\n  margin-left: 10px;\n  font-weight: bold;\n  font-size: 10px;\n}\n\n.search-results {\n  max-height: 150px;\n  list-style: none;\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: calc(50% + 14px);\n  overflow-y: auto;\n  padding: 0;\n}\n\n.result {\n  cursor: pointer;\n  min-height: 40px;\n  text-align: left;\n  flex: 1;\n  display: flex;\n  align-items: center;\n  padding: 6px;\n  color: var(--primary-text-color);\n  font-size: 14px;\n  padding-left: 14px;\n}\n\n.result:hover {\n  background: var(--accordion-hover-color);\n}\n",
+                    "styleUrl": "book-tags.component.scss"
                 }
             ],
             "stylesData": "",
@@ -8565,7 +8564,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<label>{{ title }}</label>\n<div class=\"input-group\">\n  <input\n    #tagInput\n    type=\"text\"\n    [formControl]=\"tagInputValue\"\n    class=\"form-control\"\n    placeholder=\"{{ placeholder }}\"\n    (keyup)=\"keyupHandle($event, tagInput.value)\"\n    (keydown.enter)=\"pushItem(tagInput.value); tagInput.value = ''\"\n    (focus)=\"hasFocus.emit(true)\"\n    (blur)=\"hasFocus.emit(false)\"\n  />\n  <span class=\"input-group-btn\">\n    <button\n      class=\"btn btn-default\"\n      type=\"button\"\n      (click)=\"pushItem(tagInput.value); tagInput.value = ''\"\n    >\n      <i class=\"ti-plus\"></i>\n    </button>\n  </span>\n  <ul\n    *ngIf=\"debouncedHasFocus\"\n    class=\"search-results\"\n    [ngClass]=\"{\n      'no-border': !(filteredSuggestions | searchFilter: searchValue).length\n    }\"\n  >\n    <li\n      *ngFor=\"let suggestion of filteredSuggestions | searchFilter: searchValue\"\n      class=\"result\"\n      (click)=\"pushItem(suggestion)\"\n    >\n      <div class=\"props\">\n        {{ suggestion }}\n      </div>\n    </li>\n  </ul>\n</div>\n<div class=\"values\">\n  <span\n    *ngFor=\"let item of items; let lastItem = last; let i = index\"\n    class=\"value\"\n    [ngClass]=\"{ tags: tags }\"\n  >\n    <i class=\"{{ iconClass }} icon\" *ngIf=\"iconClass\"></i>\n    {{ item }}\n    <a href=\"javascript:void(0);\" (click)=\"removeItem(i)\">\n      <i class=\"ti-close close-icon\" [ngClass]=\"{ white: tags }\"></i>\n    </a>\n  </span>\n</div>\n"
+            "templateData": "<label>{{ title }}</label>\n<div class=\"input-wrapper\">\n  <div class=\"input\">\n    <input\n      #tagInput\n      type=\"text\"\n      [formControl]=\"tagInputValue\"\n      class=\"form-control\"\n      placeholder=\"{{ placeholder }}\"\n      (keyup)=\"keyupHandle($event, tagInput.value)\"\n      (keydown.enter)=\"pushItem(tagInput.value); tagInput.value = ''\"\n      (focus)=\"hasFocus.emit(true)\"\n      (blur)=\"hasFocus.emit(false)\"\n    />\n    <ul\n      *ngIf=\"true || debouncedHasFocus\"\n      class=\"card elevation-02 search-results\"\n      [ngClass]=\"{\n        'no-border': !(filteredSuggestions | searchFilter: searchValue).length\n      }\"\n    >\n      <li\n        *ngFor=\"\n          let suggestion of filteredSuggestions | searchFilter: searchValue\n        \"\n        class=\"result\"\n        (click)=\"pushItem(suggestion)\"\n      >\n        <div class=\"props\">\n          {{ suggestion }}\n        </div>\n      </li>\n    </ul>\n  </div>\n  <button\n    class=\"button large clear\"\n    type=\"button\"\n    (click)=\"pushItem(tagInput.value); tagInput.value = ''\"\n  >\n    <i class=\"ti-plus\"></i>\n  </button>\n</div>\n<div class=\"values\" [ngClass]=\"{ 'left-padding': !tags }\">\n  <span\n    *ngFor=\"let item of items; let lastItem = last; let i = index\"\n    class=\"value\"\n    [ngClass]=\"{ chip: tags }\"\n  >\n    <i class=\"{{ iconClass }}\" *ngIf=\"iconClass\"></i>\n    {{ item }}\n    <a href=\"javascript:void(0);\" (click)=\"removeItem(i)\">\n      <i class=\"ti-close close-icon\" [ngClass]=\"{ white: tags }\"></i>\n    </a>\n  </span>\n</div>\n"
         },
         {
             "name": "CollectionsComponent",
@@ -14793,7 +14792,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".table-items {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}\n\n.item {\n  margin: 0 6px;\n\n  &:last-child {\n    margin-right: 0px;\n  }\n\n  &:first-child {\n    margin-left: 0px;\n  }\n}\n\n.active {\n  background-color: var(--color-light-03);\n  color: var(--color-primary-01);\n  box-shadow: var(--elevation-99);\n}\n",
+                    "data": ".table-items {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}\n\n.item {\n  flex: 1;\n}\n\n.active {\n  background-color: var(--color-light-03);\n  color: var(--color-primary-01);\n  box-shadow: var(--elevation-99);\n  border-width: 0;\n}\n",
                     "styleUrl": "./table-items.component.scss"
                 }
             ],
@@ -14801,7 +14800,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"table-items\">\n  <button\n    *ngFor=\"let name of itemNames\"\n    type=\"button\"\n    class=\"button clear large item\"\n    (click)=\"onClick(name)\"\n    [ngClass]=\"{ active: items[name] }\"\n  >\n    {{ name }}\n  </button>\n</div>\n"
+            "templateData": "<div class=\"button-group table-items\">\n  <button\n    *ngFor=\"let name of itemNames\"\n    type=\"button\"\n    class=\"button clear large item\"\n    (click)=\"onClick(name)\"\n    [ngClass]=\"{ active: items[name] }\"\n  >\n    {{ name }}\n  </button>\n</div>\n"
         },
         {
             "name": "TagsListComponent",
@@ -14908,7 +14907,7 @@
         },
         {
             "name": "UiComponent",
-            "id": "component-UiComponent-723b4482d4308c887b2de2f3b8bed38c",
+            "id": "component-UiComponent-4d15d385d42d55c8f9d064c9b6ce0db4",
             "file": "src/app/ui/ui.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -14917,7 +14916,7 @@
             "providers": [],
             "selector": "app-ui",
             "styleUrls": [
-                "./ui.component.css"
+                "./ui.component.scss"
             ],
             "styles": [],
             "templateUrl": [
@@ -14948,19 +14947,19 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, Input, OnInit } from '@angular/core'\n\n@Component({\n  selector: 'app-ui',\n  templateUrl: './ui.component.html',\n  styleUrls: ['./ui.component.css'],\n})\nexport class UiComponent implements OnInit {\n  @Input() dark: boolean\n\n  ngOnInit() {}\n}\n",
+            "sourceCode": "import { Component, Input, OnInit } from '@angular/core'\n\n@Component({\n  selector: 'app-ui',\n  templateUrl: './ui.component.html',\n  styleUrls: ['./ui.component.scss'],\n})\nexport class UiComponent implements OnInit {\n  @Input() dark: boolean\n\n  ngOnInit() {}\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
                     "data": ".wrapper {\n  padding: 25px;\n}\n\n.wrapper.dark-theme {\n  background-color: var(--color-dark-04);\n}\n\n.cards-wrapper {\n  display: flex;\n  margin: 15px 0px;\n}\n\n.card-example {\n  width: 100px;\n  height: 100px;\n  content: \"''\";\n  margin-right: 20px;\n}\n\n.typography-wrapper {\n  display: flex;\n  flex-direction: column;\n}\n\n.typography-padding {\n  padding: 5px 0px;\n}\n\n.buttons-wrapper {\n  margin: 6px 0px;\n}\n\n.button-padding {\n  margin-right: 5px;\n}\n\n.chips-wrapper {\n  display: flex;\n}\n\n.chip-padding {\n  margin: 6px 6px 6px 0px;\n}\n\n.chip-color {\n  background-color: var(--color-blue-02);\n}\n\n.chip-color-dark {\n  background-color: var(--color-blue-04);\n  color: var(--color-light-01);\n}\n\n.badges-wrapper {\n  display: flex;\n  padding: 5px 0px;\n}\n\n.badge-padding {\n  margin-right: 6px;\n}\n\n.checkboxes-wrapper {\n  display: flex;\n  padding: 6px 0px;\n}\n\n.checkbox-padding + label {\n  margin-right: 6px;\n}\n\n.labels-wrapper {\n  display: flex;\n  flex-direction: column;\n}\n\n.label-padding {\n  margin: 6px 0;\n}\n\n.input-wrapper {\n  display: flex;\n  flex-direction: column;\n  padding: 6px 0;\n}\n\n.input-padding {\n  margin: 4px 0px;\n}\n\n.modal-padding {\n  margin-top: 12px;\n}\n\n.sidebar-wrapper {\n  height: 500px;\n  margin: 54px 0px;\n}\n\n.navbar {\n  margin: 6px 0px;\n}\n\n.tabs-wrapper {\n  margin: 6px 0px;\n}\n",
-                    "styleUrl": "./ui.component.css"
+                    "styleUrl": "./ui.component.scss"
                 }
             ],
             "stylesData": "",
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"wrapper\" [ngClass]=\"{ 'dark-theme': dark }\">\n  <div>\n    <h1>Heading 1</h1>\n    <h2>Heading 2</h2>\n    <h3>Heading 3</h3>\n    <h4>Heading 4</h4>\n    <h5>Heading 5</h5>\n    <h6>Heading 6</h6>\n  </div>\n  <div>\n    Apparently we had reached a great height in the atmosphere, for the sky was\n    a dead black, and the stars had ceased to twinkle.\n  </div>\n  <div class=\"small typography-padding\">\n    Apparently we had reached a great height in the atmosphere, for the sky was\n    a dead black, and the stars had ceased to twinkle.\n  </div>\n  <div class=\"tiny typography-padding\">\n    Apparently we had reached a great height in the atmosphere, for the sky was\n    a dead black, and the stars had ceased to twinkle.\n  </div>\n  <div class=\"capitalized typography-padding\">\n    Find an alternative\n  </div>\n  <div class=\"typography-wrapper\">\n    <span class=\"typography-padding\" style=\"font-weight: 700\"\n      >Inter - Bold</span\n    >\n    <span class=\"typography-padding\" style=\"font-weight: 600\"\n      >Inter - SemiBold</span\n    >\n    <span class=\"typography-padding\" style=\"font-weight: 500\"\n      >Inter - Medium</span\n    >\n    <span class=\"typography-padding\" style=\"font-weight: 400\"\n      >Inter - Regular</span\n    >\n  </div>\n  <div class=\"cards-wrapper\">\n    <div class=\"card elevation-99 card-example\"></div>\n    <div class=\"card elevation-01 card-example\"></div>\n    <div class=\"card elevation-02 card-example\"></div>\n    <div class=\"card elevation-03 card-example\"></div>\n    <div class=\"card elevation-04 card-example\"></div>\n    <div class=\"card elevation-05 card-example\"></div>\n    <div class=\"card elevation-06 card-example\"></div>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"small button button-padding\">Default</button>\n    <button class=\"small button button-padding success\">Success</button>\n    <button class=\"small button button-padding danger\">Danger</button>\n    <button class=\"small button button-padding clear\">Clear</button>\n    <button class=\"small button button-padding\" disabled>Disabled</button>\n    <button class=\"small button button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"button button-padding\">Default</button>\n    <button class=\"button button-padding success\">Success</button>\n    <button class=\"button button-padding danger\">Danger</button>\n    <button class=\"button button-padding clear\">Clear</button>\n    <button class=\"button button-padding\" disabled>Disabled</button>\n    <button class=\"button button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"button inverted button-padding\">Default</button>\n    <button class=\"button inverted button-padding success\">Success</button>\n    <button class=\"button inverted button-padding danger\">Danger</button>\n    <button class=\"button inverted button-padding\" disabled>Disabled</button>\n    <button class=\"button inverted button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"large button button-padding\">Default</button>\n    <button class=\"large button button-padding success\">Success</button>\n    <button class=\"large button button-padding danger\">Danger</button>\n    <button class=\"large button button-padding clear\">Danger</button>\n    <button class=\"large button button-padding\" disabled>Disabled</button>\n    <button class=\"large button button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"rounded button small button-padding\">Small</button>\n    <button class=\"rounded button button-padding\">Default</button>\n    <button class=\"rounded button large button-padding\">Large</button>\n    <button class=\"rounded button button-padding\" disabled>Disabled</button>\n    <button class=\"rounded button icon button-padding\">\n      <i class=\"pe-7s-alarm\"></i>\n    </button>\n  </div>\n  <div class=\"accordion\">\n    <input class=\"accordion-item-checkbox\" type=\"checkbox\" id=\"_checkbox1\" />\n    <div class=\"accordion-item\">\n      <label for=\"_checkbox1\">Item 1<i class=\"pe-7s-angle-down\"></i></label>\n      <div class=\"content\">\n        Lorem Ipsum is simply dummy text of the printing and typesetting\n        industry. Lorem Ipsum has been the industry's standard dummy text ever\n        since the 1500s, when an unknown printer took a galley of type and\n        scrambled it to make a type specimen book. It has survived not only five\n        centuries, but also the leap into electronic typesetting, remaining\n        essentially unchanged. It was popularised in the 1960s with the release\n        of Letraset sheets containing Lorem Ipsum passages, and more recently\n        with desktop publishing software like Aldus PageMaker including versions\n        of Lorem Ipsum.\n      </div>\n    </div>\n    <input class=\"accordion-item-checkbox\" type=\"checkbox\" id=\"_checkbox2\" />\n    <div class=\"accordion-item\">\n      <label for=\"_checkbox2\">Item 2<i class=\"pe-7s-angle-down\"></i></label>\n      <div class=\"content\">\n        Lorem Ipsum is simply dummy text of the printing and typesetting\n        industry. Lorem Ipsum has been the industry's standard dummy text ever\n        since the 1500s, when an unknown printer took a galley of type and\n        scrambled it to make a type specimen book. It has survived not only five\n        centuries, but also the leap into electronic typesetting, remaining\n        essentially unchanged. It was popularised in the 1960s with the release\n        of Letraset sheets containing Lorem Ipsum passages, and more recently\n        with desktop publishing software like Aldus PageMaker including versions\n        of Lorem Ipsum.\n      </div>\n    </div>\n  </div>\n  <div class=\"alert\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted\">Execute</button>\n  </div>\n  <div class=\"alert success\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted success\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert success\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted success\">Execute</button>\n  </div>\n  <div class=\"alert danger\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted danger\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert danger\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted danger\">Execute</button>\n  </div>\n  <div class=\"alert warning\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted warning\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert warning\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted warning\">Execute</button>\n  </div>\n  <div class=\"chips-wrapper\">\n    <div class=\"chip chip-padding\">Chip</div>\n    <div class=\"chip chip-padding chip-color\">Chip</div>\n    <div class=\"chip chip-padding chip-color-dark\">Chip</div>\n  </div>\n  <div class=\"chips-wrapper\">\n    <div class=\"chip chip-padding dismissable\">Chip</div>\n    <div class=\"chip chip-padding chip-color dismissable\">Chip</div>\n    <div class=\"chip chip-padding chip-color-dark dismissable\">Chip</div>\n  </div>\n  <div class=\"chips-wrapper\">\n    <div class=\"chip chip-padding \"><i class=\"pe-7s-alarm\"></i>Chip</div>\n    <div class=\"chip chip-padding chip-color\">\n      <i class=\"pe-7s-alarm\"></i>Chip\n    </div>\n    <div class=\"chip chip-padding chip-color-dark\">\n      <i class=\"pe-7s-alarm\"></i>Chip\n    </div>\n  </div>\n  <div class=\"badges-wrapper\">\n    <div class=\"badge badge-padding\">Primary</div>\n    <div class=\"badge badge-padding info\">Info</div>\n    <div class=\"badge badge-padding success\">Success</div>\n    <div class=\"badge badge-padding danger\">Danger</div>\n    <div class=\"badge badge-padding warning\">Warning</div>\n  </div>\n  <div class=\"checkboxes-wrapper\">\n    <input\n      type=\"checkbox\"\n      id=\"checkbox1\"\n      class=\"checkbox checkbox-padding\"\n    /><label for=\"checkbox1\">Checkbox</label>\n    <input\n      type=\"checkbox\"\n      id=\"checkbox2\"\n      class=\"checkbox checkbox-padding\"\n      checked\n    /><label for=\"checkbox2\">Checkbox</label>\n    <input\n      type=\"checkbox\"\n      id=\"checkbox3\"\n      class=\"checkbox checkbox-padding\"\n      disabled\n    /><label for=\"checkbox3\">Checkbox</label>\n    <input\n      type=\"checkbox\"\n      id=\"checkbox4\"\n      class=\"checkbox checkbox-padding\"\n      checked\n      disabled\n    /><label for=\"checkbox4\">Checkbox</label>\n  </div>\n  <div class=\"checkboxes-wrapper\">\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio1\"\n      class=\"checkbox checkbox-padding\"\n    /><label for=\"radio1\">Radio</label>\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio2\"\n      class=\"checkbox checkbox-padding\"\n      checked\n    /><label for=\"radio2\">Radio</label>\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio3\"\n      class=\"checkbox checkbox-padding\"\n      disabled\n    /><label for=\"radio3\">Radio</label>\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio4\"\n      class=\"checkbox checkbox-padding\"\n      checked\n      disabled\n    /><label for=\"radio4\">Radio</label>\n  </div>\n  <div class=\"checkboxes-wrapper\">\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch1\"\n      class=\"switch checkbox-padding\"\n    /><label for=\"switch1\">Switch</label>\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch2\"\n      class=\"switch checkbox-padding\"\n      checked\n    /><label for=\"switch2\">Switch</label>\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch3\"\n      class=\"switch checkbox-padding\"\n      disabled\n    /><label for=\"switch3\">Switch</label>\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch4\"\n      class=\"switch checkbox-padding\"\n      checked\n      disabled\n    /><label for=\"switch4\">Switch</label>\n  </div>\n  <div class=\"labels-wrapper\">\n    <label class=\"label-padding label label-small\">Label small</label>\n    <label class=\"label-padding label\">Label regular</label>\n    <label class=\"label-padding label label-large\">Label large</label>\n    <label class=\"label-padding label label-small\"\n      ><i class=\"pe-7s-album icon-left\"></i>Label</label\n    >\n    <label class=\"label-padding label\"\n      ><i class=\"pe-7s-album icon-left\"></i>Label</label\n    >\n    <label class=\"label-padding label label-large\"\n      ><i class=\"pe-7s-album icon-left\"></i>Label</label\n    >\n    <label class=\"label-padding label label-small\"\n      ><i class=\"pe-7s-angle-left icon-left primary\"></i>Label<i\n        class=\"pe-7s-angle-right icon-right primary\"\n      ></i\n    ></label>\n    <label class=\"label-padding label\"\n      ><i class=\"pe-7s-angle-left icon-left primary\"></i>Label<i\n        class=\"pe-7s-angle-right icon-right primary\"\n      ></i\n    ></label>\n    <label class=\"label-padding label label-large\"\n      ><i class=\"pe-7s-angle-left icon-left primary\"></i>Label<i\n        class=\"pe-7s-angle-right icon-right primary\"\n      ></i\n    ></label>\n  </div>\n  <div class=\"dropdown\">\n    <input class=\"dropdown-checkbox\" type=\"checkbox\" id=\"_dropdowncheckbox\" />\n    <label for=\"_dropdowncheckbox\">Dropdown Menu</label>\n    <div class=\"dropdown-menu\">\n      <div class=\"dropdown-menu-inner\">\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 1</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 2</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 3</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 4</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 5</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 6</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 7</label>\n      </div>\n    </div>\n  </div>\n  <div class=\"input-wrapper\">\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Placeholder\" />\n    </div>\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Required\" required />\n    </div>\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Disabled\" disabled />\n    </div>\n    <div class=\"input input-padding\">\n      <input class=\"icon-left\" type=\"text\" placeholder=\"Icon left\" /><i\n        class=\"pe-7s-disk left\"\n      ></i>\n    </div>\n    <div class=\"input input-padding\">\n      <input class=\"icon-right\" type=\"text\" placeholder=\"Icon right\" /><i\n        class=\"pe-7s-bookmarks right\"\n      ></i>\n    </div>\n    <div class=\"input input-padding\">\n      <label class=\"label\">Label</label>\n      <input type=\"text\" placeholder=\"Label\" />\n    </div>\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Assistive text\" />\n\n      <label class=\"info\"\n        ><i class=\"pe-7s-info info-icon\"></i>Assistive info text</label\n      >\n    </div>\n  </div>\n  <div class=\"input input-padding\">\n    <input class=\"icon-left icon-left\" type=\"email\" placeholder=\"E-mail\" />\n    <i class=\"pe-7s-mail left\"></i>\n  </div>\n  <div class=\"input input-padding\">\n    <i class=\"pe-7s-lock left\"></i>\n    <input\n      class=\"icon-left icon-right\"\n      type=\"password\"\n      placeholder=\"Password\"\n    />\n    <i class=\"pe-7s-look right clickable\"></i>\n  </div>\n  <div class=\"input search input-padding\">\n    <input class=\"icon-left\" type=\"text\" placeholder=\"Search\" />\n    <i class=\"pe-7s-search left\"></i>\n  </div>\n  <div class=\"input search input-padding\">\n    <textarea placeholder=\"Textarea\"></textarea>\n  </div>\n  <div class=\"modal modal-padding\">\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Cancel</button>\n      <button class=\"button\">Accept</button>\n    </div>\n  </div>\n  <div class=\"modal vertical modal-padding\">\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button large clear\">Cancel</button>\n      <button class=\"button large\">Accept</button>\n    </div>\n  </div>\n  <div class=\"modal dismissable modal-padding\">\n    <i class=\"pe-7s-close dismiss\"></i>\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Learn More</button>\n    </div>\n  </div>\n  <div class=\"modal dismissable modal-padding\">\n    <i class=\"pe-7s-close dismiss\"></i>\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"checkbox-wrapper\">\n      <input type=\"checkbox\" id=\"modalcheckbox\" class=\"checkbox\" /><label\n        for=\"modalcheckbox\"\n        >Don't show again</label\n      >\n      <button class=\"button\">Learn More</button>\n    </div>\n  </div>\n  <div class=\"modal modal-padding\">\n    <h6 class=\"header\">Are you sure you want to delete these files?</h6>\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Cancel</button>\n      <button class=\"button\">Accept</button>\n    </div>\n  </div>\n  <div class=\"modal danger modal-padding\">\n    <h6 class=\"header\">Are you sure you want to delete these files?</h6>\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Cancel</button>\n      <button class=\"button danger\">Delete</button>\n    </div>\n  </div>\n  <div class=\"sidebar-wrapper\">\n    <div class=\"sidebar\">\n      <div class=\"sidebar-toggle-header\">\n        <i class=\"pe-7s-menu\"></i>\n      </div>\n      <div class=\"sidebar-top\">\n        <h6 class=\"sidebar-header\">\n          <i class=\"pe-7s-global main-icon\"></i>BOOKLIB\n        </h6>\n        <hr class=\"sidebar-divider\" />\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-home\"></i>\n          Home\n        </a>\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-user\"></i>\n          Profile\n        </a>\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-mail\"></i>\n          Messages\n        </a>\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-settings\"></i>\n          Settings\n        </a>\n      </div>\n      <div class=\"sidebar-bottom\">\n        <hr class=\"sidebar-divider\" />\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-power\"></i>\n          Logout\n        </a>\n      </div>\n    </div>\n  </div>\n  <div class=\"navbar\">\n    <div class=\"navbar-left\">\n      <label class=\"label\"\n        ><i class=\"pe-7s-global icon-left primary\"></i>Booklib</label\n      >\n    </div>\n    <div class=\"navbar-center\">\n      <div class=\"input search input-padding\">\n        <input class=\"icon-left\" type=\"text\" placeholder=\"Search\" />\n        <i class=\"pe-7s-search left\"></i>\n      </div>\n    </div>\n    <div class=\"navbar-right\">\n      <button class=\"button\">Login</button>\n    </div>\n  </div>\n  <div class=\"navbar\">\n    <div class=\"navbar-left\">\n      <i\n        class=\"pe-7s-menu primary\"\n        style=\"font-weight: 600; font-size: var(--large-font-size);\"\n      ></i>\n    </div>\n    <div class=\"navbar-center\">\n      <label class=\"label\"\n        ><i class=\"pe-7s-global icon-left primary\"></i>Booklib</label\n      >\n    </div>\n    <div class=\"navbar-right\">\n      <i\n        class=\"pe-7s-bell primary\"\n        style=\"font-weight: 600; font-size: var(--large-font-size);\"\n      ></i>\n    </div>\n  </div>\n  <div class=\"footer\">\n    <span>2020 - All rights reserved</span>\n    <span>Terms & Conditions</span>\n  </div>\n  <div class=\"pagination\">\n    <i class=\"pe-7s-angle-left icon-left\"></i>\n    <span class=\"number\">1</span>\n    <span class=\"number\">2</span>\n    <span class=\"number selected\">3</span>\n    <span class=\"number disabled\">...</span>\n    <span class=\"number\">12</span>\n    <i class=\"pe-7s-angle-right icon-right\"></i>\n  </div>\n  <div class=\"tabs tabs-wrapper\">\n    <button class=\"tab\">\n      Home\n    </button>\n    <button class=\"tab\">\n      About\n    </button>\n    <button class=\"tab\">\n      Profile\n    </button>\n  </div>\n  <table class=\"table\">\n    <thead>\n    <tr>\n      <th class=\"min-width\">\n        <input type=\"checkbox\" id=\"checkboxtable3\" class=\"checkbox\" /><label\n        for=\"checkboxtable3\"\n      ></label>\n      </th>\n      <th>Name</th>\n      <th>E-Mail</th>\n      <th>Number</th>\n    </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable1\" class=\"checkbox\" /><label\n            for=\"checkboxtable1\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable2\" class=\"checkbox\" /><label\n            for=\"checkboxtable2\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable3\" class=\"checkbox\" /><label\n            for=\"checkboxtable3\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable4\" class=\"checkbox\" /><label\n            for=\"checkboxtable4\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable5\" class=\"checkbox\" /><label\n            for=\"checkboxtable5\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable6\" class=\"checkbox\" /><label\n            for=\"checkboxtable6\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable7\" class=\"checkbox\" /><label\n            for=\"checkboxtable7\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
+            "templateData": "<div class=\"wrapper\" [ngClass]=\"{ 'dark-theme': dark }\">\n  <div>\n    <h1>Heading 1</h1>\n    <h2>Heading 2</h2>\n    <h3>Heading 3</h3>\n    <h4>Heading 4</h4>\n    <h5>Heading 5</h5>\n    <h6>Heading 6</h6>\n  </div>\n  <div>\n    Apparently we had reached a great height in the atmosphere, for the sky was\n    a dead black, and the stars had ceased to twinkle.\n  </div>\n  <div class=\"small typography-padding\">\n    Apparently we had reached a great height in the atmosphere, for the sky was\n    a dead black, and the stars had ceased to twinkle.\n  </div>\n  <div class=\"tiny typography-padding\">\n    Apparently we had reached a great height in the atmosphere, for the sky was\n    a dead black, and the stars had ceased to twinkle.\n  </div>\n  <div class=\"capitalized typography-padding\">\n    Find an alternative\n  </div>\n  <div class=\"typography-wrapper\">\n    <span class=\"typography-padding\" style=\"font-weight: 700\"\n      >Inter - Bold</span\n    >\n    <span class=\"typography-padding\" style=\"font-weight: 600\"\n      >Inter - SemiBold</span\n    >\n    <span class=\"typography-padding\" style=\"font-weight: 500\"\n      >Inter - Medium</span\n    >\n    <span class=\"typography-padding\" style=\"font-weight: 400\"\n      >Inter - Regular</span\n    >\n  </div>\n  <div class=\"cards-wrapper\">\n    <div class=\"card elevation-99 card-example\"></div>\n    <div class=\"card elevation-01 card-example\"></div>\n    <div class=\"card elevation-02 card-example\"></div>\n    <div class=\"card elevation-03 card-example\"></div>\n    <div class=\"card elevation-04 card-example\"></div>\n    <div class=\"card elevation-05 card-example\"></div>\n    <div class=\"card elevation-06 card-example\"></div>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"small button button-padding\">Default</button>\n    <button class=\"small button button-padding success\">Success</button>\n    <button class=\"small button button-padding danger\">Danger</button>\n    <button class=\"small button button-padding clear\">Clear</button>\n    <button class=\"small button button-padding\" disabled>Disabled</button>\n    <button class=\"small button button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"button button-padding\">Default</button>\n    <button class=\"button button-padding success\">Success</button>\n    <button class=\"button button-padding danger\">Danger</button>\n    <button class=\"button button-padding clear\">Clear</button>\n    <button class=\"button button-padding\" disabled>Disabled</button>\n    <button class=\"button button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"button inverted button-padding\">Default</button>\n    <button class=\"button inverted button-padding success\">Success</button>\n    <button class=\"button inverted button-padding danger\">Danger</button>\n    <button class=\"button inverted button-padding\" disabled>Disabled</button>\n    <button class=\"button inverted button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"large button button-padding\">Default</button>\n    <button class=\"large button button-padding success\">Success</button>\n    <button class=\"large button button-padding danger\">Danger</button>\n    <button class=\"large button button-padding clear\">Danger</button>\n    <button class=\"large button button-padding\" disabled>Disabled</button>\n    <button class=\"large button button-padding\">\n      <i class=\"pe-7s-add-user\"></i>\n      Icon\n    </button>\n  </div>\n  <div class=\"buttons-wrapper\">\n    <button class=\"rounded button small button-padding\">Small</button>\n    <button class=\"rounded button button-padding\">Default</button>\n    <button class=\"rounded button large button-padding\">Large</button>\n    <button class=\"rounded button button-padding\" disabled>Disabled</button>\n    <button class=\"rounded button icon buttobook-buttonsn-padding\">\n      <i class=\"pe-7s-alarm\"></i>\n    </button>\n  </div>\n  <div class=\"button-group buttons-wrapper\">\n    <button class=\"button clear\">\n      Button 1\n    </button>\n    <button class=\"button clear\">\n      Button 2\n    </button>\n    <button class=\"button clear\">\n      Button 3\n    </button>\n  </div>\n  <div class=\"accordion\">\n    <input class=\"accordion-item-checkbox\" type=\"checkbox\" id=\"_checkbox1\" />\n    <div class=\"accordion-item\">\n      <label for=\"_checkbox1\">Item 1<i class=\"pe-7s-angle-down\"></i></label>\n      <div class=\"content\">\n        Lorem Ipsum is simply dummy text of the printing and typesetting\n        industry. Lorem Ipsum has been the industry's standard dummy text ever\n        since the 1500s, when an unknown printer took a galley of type and\n        scrambled it to make a type specimen book. It has survived not only five\n        centuries, but also the leap into electronic typesetting, remaining\n        essentially unchanged. It was popularised in the 1960s with the release\n        of Letraset sheets containing Lorem Ipsum passages, and more recently\n        with desktop publishing software like Aldus PageMaker including versions\n        of Lorem Ipsum.\n      </div>\n    </div>\n    <input class=\"accordion-item-checkbox\" type=\"checkbox\" id=\"_checkbox2\" />\n    <div class=\"accordion-item\">\n      <label for=\"_checkbox2\">Item 2<i class=\"pe-7s-angle-down\"></i></label>\n      <div class=\"content\">\n        Lorem Ipsum is simply dummy text of the printing and typesetting\n        industry. Lorem Ipsum has been the industry's standard dummy text ever\n        since the 1500s, when an unknown printer took a galley of type and\n        scrambled it to make a type specimen book. It has survived not only five\n        centuries, but also the leap into electronic typesetting, remaining\n        essentially unchanged. It was popularised in the 1960s with the release\n        of Letraset sheets containing Lorem Ipsum passages, and more recently\n        with desktop publishing software like Aldus PageMaker including versions\n        of Lorem Ipsum.\n      </div>\n    </div>\n  </div>\n  <div class=\"alert\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted\">Execute</button>\n  </div>\n  <div class=\"alert success\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert success\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted success\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert success\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted success\">Execute</button>\n  </div>\n  <div class=\"alert danger\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert danger\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted danger\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert danger\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted danger\">Execute</button>\n  </div>\n  <div class=\"alert warning\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning icon-right\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning icon-left\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning icon-left dismissable\">\n    <span class=\"message\">Some text here</span>\n  </div>\n  <div class=\"alert warning\">\n    <span class=\"message\"\n      >Some text here<button class=\"button small inverted warning\">\n        Execute\n      </button></span\n    >\n  </div>\n  <div class=\"alert warning\">\n    <span class=\"header\">Alert Header</span>\n    <span class=\"message\">\n      Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n      Lorem Ipsum has been the industry's standard dummy text ever since the\n      1500s, when an unknown printer took a galley of type and scrambled it to\n      make a type specimen book.\n    </span>\n    <button class=\"button small inverted warning\">Execute</button>\n  </div>\n  <div class=\"chips-wrapper\">\n    <div class=\"chip chip-padding\">Chip</div>\n    <div class=\"chip chip-padding chip-color\">Chip</div>\n    <div class=\"chip chip-padding chip-color-dark\">Chip</div>\n  </div>\n  <div class=\"chips-wrapper\">\n    <div class=\"chip chip-padding dismissable\">Chip</div>\n    <div class=\"chip chip-padding chip-color dismissable\">Chip</div>\n    <div class=\"chip chip-padding chip-color-dark dismissable\">Chip</div>\n  </div>\n  <div class=\"chips-wrapper\">\n    <div class=\"chip chip-padding \"><i class=\"pe-7s-alarm\"></i>Chip</div>\n    <div class=\"chip chip-padding chip-color\">\n      <i class=\"pe-7s-alarm\"></i>Chip\n    </div>\n    <div class=\"chip chip-padding chip-color-dark\">\n      <i class=\"pe-7s-alarm\"></i>Chip\n    </div>\n  </div>\n  <div class=\"badges-wrapper\">\n    <div class=\"badge badge-padding\">Primary</div>\n    <div class=\"badge badge-padding info\">Info</div>\n    <div class=\"badge badge-padding success\">Success</div>\n    <div class=\"badge badge-padding danger\">Danger</div>\n    <div class=\"badge badge-padding warning\">Warning</div>\n  </div>\n  <div class=\"checkboxes-wrapper\">\n    <input\n      type=\"checkbox\"\n      id=\"checkbox1\"\n      class=\"checkbox checkbox-padding\"\n    /><label for=\"checkbox1\">Checkbox</label>\n    <input\n      type=\"checkbox\"\n      id=\"checkbox2\"\n      class=\"checkbox checkbox-padding\"\n      checked\n    /><label for=\"checkbox2\">Checkbox</label>\n    <input\n      type=\"checkbox\"\n      id=\"checkbox3\"\n      class=\"checkbox checkbox-padding\"\n      disabled\n    /><label for=\"checkbox3\">Checkbox</label>\n    <input\n      type=\"checkbox\"\n      id=\"checkbox4\"\n      class=\"checkbox checkbox-padding\"\n      checked\n      disabled\n    /><label for=\"checkbox4\">Checkbox</label>\n  </div>\n  <div class=\"checkboxes-wrapper\">\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio1\"\n      class=\"checkbox checkbox-padding\"\n    /><label for=\"radio1\">Radio</label>\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio2\"\n      class=\"checkbox checkbox-padding\"\n      checked\n    /><label for=\"radio2\">Radio</label>\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio3\"\n      class=\"checkbox checkbox-padding\"\n      disabled\n    /><label for=\"radio3\">Radio</label>\n    <input\n      type=\"radio\"\n      name=\"example\"\n      id=\"radio4\"\n      class=\"checkbox checkbox-padding\"\n      checked\n      disabled\n    /><label for=\"radio4\">Radio</label>\n  </div>\n  <div class=\"checkboxes-wrapper\">\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch1\"\n      class=\"switch checkbox-padding\"\n    /><label for=\"switch1\">Switch</label>\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch2\"\n      class=\"switch checkbox-padding\"\n      checked\n    /><label for=\"switch2\">Switch</label>\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch3\"\n      class=\"switch checkbox-padding\"\n      disabled\n    /><label for=\"switch3\">Switch</label>\n    <input\n      type=\"checkbox\"\n      name=\"example\"\n      id=\"switch4\"\n      class=\"switch checkbox-padding\"\n      checked\n      disabled\n    /><label for=\"switch4\">Switch</label>\n  </div>\n  <div class=\"labels-wrapper\">\n    <label class=\"label-padding label label-small\">Label small</label>\n    <label class=\"label-padding label\">Label regular</label>\n    <label class=\"label-padding label label-large\">Label large</label>\n    <label class=\"label-padding label label-small\"\n      ><i class=\"pe-7s-album icon-left\"></i>Label</label\n    >\n    <label class=\"label-padding label\"\n      ><i class=\"pe-7s-album icon-left\"></i>Label</label\n    >\n    <label class=\"label-padding label label-large\"\n      ><i class=\"pe-7s-album icon-left\"></i>Label</label\n    >\n    <label class=\"label-padding label label-small\"\n      ><i class=\"pe-7s-angle-left icon-left primary\"></i>Label<i\n        class=\"pe-7s-angle-right icon-right primary\"\n      ></i\n    ></label>\n    <label class=\"label-padding label\"\n      ><i class=\"pe-7s-angle-left icon-left primary\"></i>Label<i\n        class=\"pe-7s-angle-right icon-right primary\"\n      ></i\n    ></label>\n    <label class=\"label-padding label label-large\"\n      ><i class=\"pe-7s-angle-left icon-left primary\"></i>Label<i\n        class=\"pe-7s-angle-right icon-right primary\"\n      ></i\n    ></label>\n  </div>\n  <div class=\"dropdown\">\n    <input class=\"dropdown-checkbox\" type=\"checkbox\" id=\"_dropdowncheckbox\" />\n    <label for=\"_dropdowncheckbox\">Dropdown Menu</label>\n    <div class=\"dropdown-menu\">\n      <div class=\"dropdown-menu-inner\">\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 1</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 2</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 3</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 4</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 5</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 6</label>\n        <label for=\"_dropdowncheckbox\" class=\"dropdown-item\">Item 7</label>\n      </div>\n    </div>\n  </div>\n  <div class=\"input-wrapper\">\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Placeholder\" />\n    </div>\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Required\" required />\n    </div>\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Disabled\" disabled />\n    </div>\n    <div class=\"input input-padding\">\n      <input class=\"icon-left\" type=\"text\" placeholder=\"Icon left\" /><i\n        class=\"pe-7s-disk left\"\n      ></i>\n    </div>\n    <div class=\"input input-padding\">\n      <input class=\"icon-right\" type=\"text\" placeholder=\"Icon right\" /><i\n        class=\"pe-7s-bookmarks right\"\n      ></i>\n    </div>\n    <div class=\"input input-padding\">\n      <label class=\"label\">Label</label>\n      <input type=\"text\" placeholder=\"Label\" />\n    </div>\n    <div class=\"input input-padding\">\n      <input type=\"text\" placeholder=\"Assistive text\" />\n\n      <label class=\"info\"\n        ><i class=\"pe-7s-info info-icon\"></i>Assistive info text</label\n      >\n    </div>\n  </div>\n  <div class=\"input input-padding\">\n    <input class=\"icon-left icon-left\" type=\"email\" placeholder=\"E-mail\" />\n    <i class=\"pe-7s-mail left\"></i>\n  </div>\n  <div class=\"input input-padding\">\n    <i class=\"pe-7s-lock left\"></i>\n    <input\n      class=\"icon-left icon-right\"\n      type=\"password\"\n      placeholder=\"Password\"\n    />\n    <i class=\"pe-7s-look right clickable\"></i>\n  </div>\n  <div class=\"input search input-padding\">\n    <input class=\"icon-left\" type=\"text\" placeholder=\"Search\" />\n    <i class=\"pe-7s-search left\"></i>\n  </div>\n  <div class=\"input search input-padding\">\n    <textarea placeholder=\"Textarea\"></textarea>\n  </div>\n  <div class=\"modal modal-padding\">\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Cancel</button>\n      <button class=\"button\">Accept</button>\n    </div>\n  </div>\n  <div class=\"modal vertical modal-padding\">\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button large clear\">Cancel</button>\n      <button class=\"button large\">Accept</button>\n    </div>\n  </div>\n  <div class=\"modal dismissable modal-padding\">\n    <i class=\"pe-7s-close dismiss\"></i>\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Learn More</button>\n    </div>\n  </div>\n  <div class=\"modal dismissable modal-padding\">\n    <i class=\"pe-7s-close dismiss\"></i>\n    Are you sure you want to delete these files?\n    <br />This cannot be reverted.\n    <div class=\"checkbox-wrapper\">\n      <input type=\"checkbox\" id=\"modalcheckbox\" class=\"checkbox\" /><label\n        for=\"modalcheckbox\"\n        >Don't show again</label\n      >\n      <button class=\"button\">Learn More</button>\n    </div>\n  </div>\n  <div class=\"modal modal-padding\">\n    <h6 class=\"header\">Are you sure you want to delete these files?</h6>\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Cancel</button>\n      <button class=\"button\">Accept</button>\n    </div>\n  </div>\n  <div class=\"modal danger modal-padding\">\n    <h6 class=\"header\">Are you sure you want to delete these files?</h6>\n    <br />This cannot be reverted.\n    <div class=\"buttons\">\n      <button class=\"button clear\">Cancel</button>\n      <button class=\"button danger\">Delete</button>\n    </div>\n  </div>\n  <div class=\"sidebar-wrapper\">\n    <div class=\"sidebar\">\n      <div class=\"sidebar-toggle-header\">\n        <i class=\"pe-7s-menu\"></i>\n      </div>\n      <div class=\"sidebar-top\">\n        <h6 class=\"sidebar-header\">\n          <i class=\"pe-7s-global main-icon\"></i>BOOKLIB\n        </h6>\n        <hr class=\"sidebar-divider\" />\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-home\"></i>\n          Home\n        </a>\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-user\"></i>\n          Profile\n        </a>\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-mail\"></i>\n          Messages\n        </a>\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-settings\"></i>\n          Settings\n        </a>\n      </div>\n      <div class=\"sidebar-bottom\">\n        <hr class=\"sidebar-divider\" />\n        <a class=\"sidebar-button\">\n          <i class=\"pe-7s-power\"></i>\n          Logout\n        </a>\n      </div>\n    </div>\n  </div>\n  <div class=\"navbar\">\n    <div class=\"navbar-left\">\n      <label class=\"label\"\n        ><i class=\"pe-7s-global icon-left primary\"></i>Booklib</label\n      >\n    </div>\n    <div class=\"navbar-center\">\n      <div class=\"input search input-padding\">\n        <input class=\"icon-left\" type=\"text\" placeholder=\"Search\" />\n        <i class=\"pe-7s-search left\"></i>\n      </div>\n    </div>\n    <div class=\"navbar-right\">\n      <button class=\"button\">Login</button>\n    </div>\n  </div>\n  <div class=\"navbar\">\n    <div class=\"navbar-left\">\n      <i\n        class=\"pe-7s-menu primary\"\n        style=\"font-weight: 600; font-size: var(--large-font-size);\"\n      ></i>\n    </div>\n    <div class=\"navbar-center\">\n      <label class=\"label\"\n        ><i class=\"pe-7s-global icon-left primary\"></i>Booklib</label\n      >\n    </div>\n    <div class=\"navbar-right\">\n      <i\n        class=\"pe-7s-bell primary\"\n        style=\"font-weight: 600; font-size: var(--large-font-size);\"\n      ></i>\n    </div>\n  </div>\n  <div class=\"footer\">\n    <span>2020 - All rights reserved</span>\n    <span>Terms & Conditions</span>\n  </div>\n  <div class=\"pagination\">\n    <i class=\"pe-7s-angle-left icon-left\"></i>\n    <span class=\"number\">1</span>\n    <span class=\"number\">2</span>\n    <span class=\"number selected\">3</span>\n    <span class=\"number disabled\">...</span>\n    <span class=\"number\">12</span>\n    <i class=\"pe-7s-angle-right icon-right\"></i>\n  </div>\n  <div class=\"tabs tabs-wrapper\">\n    <button class=\"tab\">\n      Home\n    </button>\n    <button class=\"tab\">\n      About\n    </button>\n    <button class=\"tab\">\n      Profile\n    </button>\n  </div>\n  <table class=\"table\">\n    <thead>\n      <tr>\n        <th class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable3\" class=\"checkbox\" /><label\n            for=\"checkboxtable3\"\n          ></label>\n        </th>\n        <th>Name</th>\n        <th>E-Mail</th>\n        <th>Number</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable1\" class=\"checkbox\" /><label\n            for=\"checkboxtable1\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable2\" class=\"checkbox\" /><label\n            for=\"checkboxtable2\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable3\" class=\"checkbox\" /><label\n            for=\"checkboxtable3\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable4\" class=\"checkbox\" /><label\n            for=\"checkboxtable4\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable5\" class=\"checkbox\" /><label\n            for=\"checkboxtable5\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable6\" class=\"checkbox\" /><label\n            for=\"checkboxtable6\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n      <tr>\n        <td class=\"min-width\">\n          <input type=\"checkbox\" id=\"checkboxtable7\" class=\"checkbox\" /><label\n            for=\"checkboxtable7\"\n          ></label>\n        </td>\n        <td>Merrle Burgett</td>\n        <td>custom.email@email.com</td>\n        <td>#198274</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
         },
         {
             "name": "UserInfoComponent",
@@ -16177,17 +16176,17 @@
                 "name": "books",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/dashboard/core/books-display/books-display.example.ts",
+                "file": "src/app/dashboard/core/books-section/books-section.example.ts",
                 "type": "",
-                "defaultValue": "BookFactory.buildList(23, {\n  canBeSelected: true,\n  isSelected: true,\n})"
+                "defaultValue": "BookFactory.buildList(5, {\n  canBeSelected: true,\n  isSelected: true,\n})"
             },
             {
                 "name": "books",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                "file": "src/app/dashboard/core/books-display/books-display.example.ts",
                 "type": "",
-                "defaultValue": "BookFactory.buildList(5, {\n  canBeSelected: true,\n  isSelected: true,\n})"
+                "defaultValue": "BookFactory.buildList(23, {\n  canBeSelected: true,\n  isSelected: true,\n})"
             },
             {
                 "name": "books",
@@ -16249,17 +16248,17 @@
                 "name": "Clickable",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/dashboard/core/books-display/books-display.example.ts",
+                "file": "src/app/dashboard/core/books-section/books-section.example.ts",
                 "type": "",
-                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    clickable: true,\n  },\n})"
+                "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    clickable: true,\n  },\n})"
             },
             {
                 "name": "Clickable",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                "file": "src/app/dashboard/core/books-display/books-display.example.ts",
                 "type": "",
-                "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    clickable: true,\n  },\n})"
+                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    clickable: true,\n  },\n})"
             },
             {
                 "name": "Clickable",
@@ -16401,6 +16400,14 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/dashboard/core/book-buttons/book-buttons.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BookButtonsComponent,\n  props: {\n    owned: true,\n    favorite: true,\n    read: false,\n    wishlist: false,\n  },\n})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/dashboard/core/book-card/book-card.example.ts",
                 "type": "",
                 "defaultValue": "() => ({\n  component: BookCardComponent,\n  props: {\n    book,\n  },\n})"
@@ -16409,9 +16416,9 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/dashboard/core/books-display/books-display.example.ts",
+                "file": "src/app/dashboard/core/book-tags/book-tags.example.ts",
                 "type": "",
-                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n  },\n})"
+                "defaultValue": "Template.bind({})"
             },
             {
                 "name": "Default",
@@ -16420,6 +16427,14 @@
                 "file": "src/app/dashboard/core/books-section/books-section.example.ts",
                 "type": "",
                 "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n  },\n})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/books-display/books-display.example.ts",
+                "type": "",
+                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n  },\n})"
             },
             {
                 "name": "Default",
@@ -16481,17 +16496,17 @@
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/environments/environment.test.ts",
+                "file": "src/environments/environment.ts",
                 "type": "object",
-                "defaultValue": "{\n  production: false,\n  name: 'test',\n  localDomain: 'http://localhost:4200',\n  rootUrl: 'test',\n  firebaseConfig: {\n    apiKey: 'AIzaSyCOJ1FNmdWadfNOCvh3Gu1fPBstpWt33Wc',\n    authDomain: 'booklib-834b9.firebaseapp.com',\n    databaseURL: 'https://booklib-834b9.firebaseio.com',\n    projectId: 'booklib-834b9',\n    storageBucket: 'booklib-834b9.appspot.com',\n    messagingSenderId: '590001193511',\n  },\n  auth0Config: {\n    clientId: '9DYcDTKbpSlCtB731to7GjxnXg2c9D2P',\n    clientSecret:\n      'YjktGc6Nvx3TvtpnkWTUtlJrvgXuDDqkuBcgVxDICnTk5ImeCRuyl6e_cxl3IDFp',\n    domain: 'deadalley.auth0.com',\n    redirectUri: 'http://localhost:4200/dashboard/goodreads',\n  },\n  goodreadsConfig: {\n    key: 'Lxpz447iVHg9nhHt2OCgQ',\n    secret: 'Ke2MlJv4ipWVRYARzef5JxYwtZSKWfktRMQZ4i4jSE',\n    domain: 'https://www.goodreads.com',\n    proxyDomain: 'http://localhost:5000',\n  },\n  testConfig: {\n    email: 'test_ryCSZBFX@test.com',\n    password: 'PKRh6VPUxPd3uASC',\n    name: 'test_ryCSZBFX',\n  },\n}"
+                "defaultValue": "{\n  production: false,\n  name: 'development',\n  localDomain: 'http://localhost:4200',\n  rootUrl: '',\n  firebaseConfig: {\n    apiKey: 'AIzaSyCOJ1FNmdWadfNOCvh3Gu1fPBstpWt33Wc',\n    authDomain: 'booklib-834b9.firebaseapp.com',\n    databaseURL: 'https://booklib-834b9.firebaseio.com',\n    projectId: 'booklib-834b9',\n    storageBucket: 'booklib-834b9.appspot.com',\n    messagingSenderId: '590001193511',\n  },\n  auth0Config: {\n    clientId: '9DYcDTKbpSlCtB731to7GjxnXg2c9D2P',\n    clientSecret:\n      'YjktGc6Nvx3TvtpnkWTUtlJrvgXuDDqkuBcgVxDICnTk5ImeCRuyl6e_cxl3IDFp',\n    domain: 'deadalley.auth0.com',\n    redirectUri: 'http://localhost:4200/dashboard/goodreads',\n  },\n  goodreadsConfig: {\n    key: 'Lxpz447iVHg9nhHt2OCgQ',\n    secret: 'Ke2MlJv4ipWVRYARzef5JxYwtZSKWfktRMQZ4i4jSE',\n    domain: 'https://www.goodreads.com',\n    proxyDomain: 'http://localhost:5000',\n  },\n  testConfig: {\n    email: 'test_ryCSZBFX@test.com',\n    password: 'PKRh6VPUxPd3uASC',\n    name: 'test_ryCSZBFX',\n  },\n}"
             },
             {
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/environments/environment.ts",
+                "file": "src/environments/environment.test.ts",
                 "type": "object",
-                "defaultValue": "{\n  production: false,\n  name: 'development',\n  localDomain: 'http://localhost:4200',\n  rootUrl: '',\n  firebaseConfig: {\n    apiKey: 'AIzaSyCOJ1FNmdWadfNOCvh3Gu1fPBstpWt33Wc',\n    authDomain: 'booklib-834b9.firebaseapp.com',\n    databaseURL: 'https://booklib-834b9.firebaseio.com',\n    projectId: 'booklib-834b9',\n    storageBucket: 'booklib-834b9.appspot.com',\n    messagingSenderId: '590001193511',\n  },\n  auth0Config: {\n    clientId: '9DYcDTKbpSlCtB731to7GjxnXg2c9D2P',\n    clientSecret:\n      'YjktGc6Nvx3TvtpnkWTUtlJrvgXuDDqkuBcgVxDICnTk5ImeCRuyl6e_cxl3IDFp',\n    domain: 'deadalley.auth0.com',\n    redirectUri: 'http://localhost:4200/dashboard/goodreads',\n  },\n  goodreadsConfig: {\n    key: 'Lxpz447iVHg9nhHt2OCgQ',\n    secret: 'Ke2MlJv4ipWVRYARzef5JxYwtZSKWfktRMQZ4i4jSE',\n    domain: 'https://www.goodreads.com',\n    proxyDomain: 'http://localhost:5000',\n  },\n  testConfig: {\n    email: 'test_ryCSZBFX@test.com',\n    password: 'PKRh6VPUxPd3uASC',\n    name: 'test_ryCSZBFX',\n  },\n}"
+                "defaultValue": "{\n  production: false,\n  name: 'test',\n  localDomain: 'http://localhost:4200',\n  rootUrl: 'test',\n  firebaseConfig: {\n    apiKey: 'AIzaSyCOJ1FNmdWadfNOCvh3Gu1fPBstpWt33Wc',\n    authDomain: 'booklib-834b9.firebaseapp.com',\n    databaseURL: 'https://booklib-834b9.firebaseio.com',\n    projectId: 'booklib-834b9',\n    storageBucket: 'booklib-834b9.appspot.com',\n    messagingSenderId: '590001193511',\n  },\n  auth0Config: {\n    clientId: '9DYcDTKbpSlCtB731to7GjxnXg2c9D2P',\n    clientSecret:\n      'YjktGc6Nvx3TvtpnkWTUtlJrvgXuDDqkuBcgVxDICnTk5ImeCRuyl6e_cxl3IDFp',\n    domain: 'deadalley.auth0.com',\n    redirectUri: 'http://localhost:4200/dashboard/goodreads',\n  },\n  goodreadsConfig: {\n    key: 'Lxpz447iVHg9nhHt2OCgQ',\n    secret: 'Ke2MlJv4ipWVRYARzef5JxYwtZSKWfktRMQZ4i4jSE',\n    domain: 'https://www.goodreads.com',\n    proxyDomain: 'http://localhost:5000',\n  },\n  testConfig: {\n    email: 'test_ryCSZBFX@test.com',\n    password: 'PKRh6VPUxPd3uASC',\n    name: 'test_ryCSZBFX',\n  },\n}"
             },
             {
                 "name": "FactoryArray",
@@ -16617,17 +16632,17 @@
                 "name": "Linkable",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/dashboard/core/books-display/books-display.example.ts",
+                "file": "src/app/dashboard/core/books-section/books-section.example.ts",
                 "type": "",
-                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    linkable: true,\n    withButtons: true,\n  },\n})"
+                "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    linkable: true,\n  },\n})"
             },
             {
                 "name": "Linkable",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                "file": "src/app/dashboard/core/books-display/books-display.example.ts",
                 "type": "",
-                "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    linkable: true,\n  },\n})"
+                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    linkable: true,\n    withButtons: true,\n  },\n})"
             },
             {
                 "name": "MAX_BOOKS",
@@ -16840,17 +16855,17 @@
                 "name": "Selectable",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/dashboard/core/books-display/books-display.example.ts",
+                "file": "src/app/dashboard/core/books-section/books-section.example.ts",
                 "type": "",
-                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    selectable: true,\n  },\n})"
+                "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    selectable: true,\n  },\n})"
             },
             {
                 "name": "Selectable",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                "file": "src/app/dashboard/core/books-display/books-display.example.ts",
                 "type": "",
-                "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    selectable: true,\n  },\n})"
+                "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    selectable: true,\n  },\n})"
             },
             {
                 "name": "Selectable",
@@ -16891,6 +16906,22 @@
                 "file": "src/app/dashboard/core/tags-list/tags-list.component.example.ts",
                 "type": "[]",
                 "defaultValue": "['tag1', 'tag2', 'tag3', 'the best tag']"
+            },
+            {
+                "name": "TagStyle",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/book-tags/book-tags.example.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/book-tags/book-tags.example.ts",
+                "type": "",
+                "defaultValue": "(_props: any) => ({\n  component: BookTagsComponent,\n  props: {\n    title: 'Add tag',\n    placeholder: 'New tag',\n    items: ['Item 1', 'Item 2'],\n    suggestions: ['Item 1', 'Item 2'],\n    ..._props,\n  },\n})"
             },
             {
                 "name": "unique",
@@ -16955,6 +16986,14 @@
                 "file": "src/app/dashboard/core/books-display/books-display.example.ts",
                 "type": "",
                 "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    withButtons: true,\n  },\n})"
+            },
+            {
+                "name": "WithIcon",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/dashboard/core/book-tags/book-tags.example.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
             },
             {
                 "name": "WithMoreBooksPerPage",
@@ -17574,6 +17613,48 @@
                     "defaultValue": "Factory.makeFactory<Book>({\n  id: random.number(),\n  ownerId: random.uuid(),\n  isbn: random.number(),\n  title: `${lorem.word()} ${lorem.word()}`,\n  author: `${name.firstName()} ${name.lastName()}`,\n  original: lorem.sentence(),\n  language: lorem.word(),\n  owned: random.boolean(),\n  read: random.boolean(),\n  favorite: random.boolean(),\n  wishlist: random.boolean(),\n  publisher: company.companyName(),\n  year: date.past().getFullYear(),\n  pages: random.number(),\n  genres: [lorem.word()],\n  collections: [],\n  tags: [lorem.word()],\n  notes: lorem.text(),\n  imageSmall: random.image(),\n  imageLarge: random.image(),\n  rating: random.number(),\n  date: date.past().toISOString(),\n})"
                 }
             ],
+            "src/app/dashboard/core/books-section/books-section.example.ts": [
+                {
+                    "name": "books",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                    "type": "",
+                    "defaultValue": "BookFactory.buildList(5, {\n  canBeSelected: true,\n  isSelected: true,\n})"
+                },
+                {
+                    "name": "Clickable",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    clickable: true,\n  },\n})"
+                },
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n  },\n})"
+                },
+                {
+                    "name": "Linkable",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    linkable: true,\n  },\n})"
+                },
+                {
+                    "name": "Selectable",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/books-section/books-section.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    selectable: true,\n  },\n})"
+                }
+            ],
             "src/app/dashboard/core/books-display/books-display.example.ts": [
                 {
                     "name": "books",
@@ -17630,48 +17711,6 @@
                     "file": "src/app/dashboard/core/books-display/books-display.example.ts",
                     "type": "",
                     "defaultValue": "() => ({\n  component: BooksDisplayComponent,\n  props: {\n    books,\n    bookCardsInRow: 5,\n    maxBooksPerPage: 15,\n  },\n})"
-                }
-            ],
-            "src/app/dashboard/core/books-section/books-section.example.ts": [
-                {
-                    "name": "books",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/dashboard/core/books-section/books-section.example.ts",
-                    "type": "",
-                    "defaultValue": "BookFactory.buildList(5, {\n  canBeSelected: true,\n  isSelected: true,\n})"
-                },
-                {
-                    "name": "Clickable",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/dashboard/core/books-section/books-section.example.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    clickable: true,\n  },\n})"
-                },
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/dashboard/core/books-section/books-section.example.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n  },\n})"
-                },
-                {
-                    "name": "Linkable",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/dashboard/core/books-section/books-section.example.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    linkable: true,\n  },\n})"
-                },
-                {
-                    "name": "Selectable",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/dashboard/core/books-section/books-section.example.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\n  component: BooksSectionComponent,\n  props: {\n    books,\n    sectionTitle: 'Section Name',\n    description: 'A description',\n    withButtons: true,\n    selectable: true,\n  },\n})"
                 }
             ],
             "src/factories/collection.factory.ts": [
@@ -17790,6 +17829,50 @@
                     "defaultValue": "[\n  {\n    path: '',\n    component: DashboardComponent,\n    children: [\n      { path: '', redirectTo: 'home', pathMatch: 'full' },\n      { path: 'home', component: DashboardHomeComponent },\n      { path: 'books', loadChildren: () => BooksModule },\n      {\n        path: 'collections',\n        loadChildren: () => CollectionsModule,\n      },\n      {\n        path: 'authors',\n        loadChildren: () => AuthorsModule,\n      },\n      {\n        path: 'goodreads',\n        component: GoodreadsComponent,\n        // loadChildren: () => GoodreadsModule,\n      },\n      {\n        path: 'import',\n        component: ImportComponent,\n      },\n      {\n        path: 'profile',\n        loadChildren: () => ProfileModule,\n      },\n    ],\n  },\n]"
                 }
             ],
+            "src/app/dashboard/core/book-buttons/book-buttons.example.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/book-buttons/book-buttons.example.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: BookButtonsComponent,\n  props: {\n    owned: true,\n    favorite: true,\n    read: false,\n    wishlist: false,\n  },\n})"
+                }
+            ],
+            "src/app/dashboard/core/book-tags/book-tags.example.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/book-tags/book-tags.example.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "TagStyle",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/book-tags/book-tags.example.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/book-tags/book-tags.example.ts",
+                    "type": "",
+                    "defaultValue": "(_props: any) => ({\n  component: BookTagsComponent,\n  props: {\n    title: 'Add tag',\n    placeholder: 'New tag',\n    items: ['Item 1', 'Item 2'],\n    suggestions: ['Item 1', 'Item 2'],\n    ..._props,\n  },\n})"
+                },
+                {
+                    "name": "WithIcon",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/dashboard/core/book-tags/book-tags.example.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                }
+            ],
             "src/app/dashboard/core/loading/loading.example.ts": [
                 {
                     "name": "Default",
@@ -17820,16 +17903,6 @@
                     "defaultValue": "{\n  production: true,\n  name: 'production',\n  localDomain: 'https://booklib-834b9.firebaseapp.com',\n  rootUrl: '',\n  firebaseConfig: {\n    apiKey: 'AIzaSyCOJ1FNmdWadfNOCvh3Gu1fPBstpWt33Wc',\n    authDomain: 'booklib-834b9.firebaseapp.com',\n    databaseURL: 'https://booklib-834b9.firebaseio.com',\n    projectId: 'booklib-834b9',\n    storageBucket: 'booklib-834b9.appspot.com',\n    messagingSenderId: '590001193511',\n  },\n  auth0Config: {\n    clientId: '9DYcDTKbpSlCtB731to7GjxnXg2c9D2P',\n    clientSecret:\n      'YjktGc6Nvx3TvtpnkWTUtlJrvgXuDDqkuBcgVxDICnTk5ImeCRuyl6e_cxl3IDFp',\n    domain: 'deadalley.auth0.com',\n    redirectUri: 'https://booklib-834b9.firebaseapp.com/dashboard/goodreads',\n  },\n  goodreadsConfig: {\n    key: 'Lxpz447iVHg9nhHt2OCgQ',\n    secret: 'Ke2MlJv4ipWVRYARzef5JxYwtZSKWfktRMQZ4i4jSE',\n    domain: 'https://www.goodreads.com',\n    proxyDomain: 'https://book-lib-goodreads-proxy.herokuapp.com',\n  },\n}"
                 }
             ],
-            "src/environments/environment.test.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/environments/environment.test.ts",
-                    "type": "object",
-                    "defaultValue": "{\n  production: false,\n  name: 'test',\n  localDomain: 'http://localhost:4200',\n  rootUrl: 'test',\n  firebaseConfig: {\n    apiKey: 'AIzaSyCOJ1FNmdWadfNOCvh3Gu1fPBstpWt33Wc',\n    authDomain: 'booklib-834b9.firebaseapp.com',\n    databaseURL: 'https://booklib-834b9.firebaseio.com',\n    projectId: 'booklib-834b9',\n    storageBucket: 'booklib-834b9.appspot.com',\n    messagingSenderId: '590001193511',\n  },\n  auth0Config: {\n    clientId: '9DYcDTKbpSlCtB731to7GjxnXg2c9D2P',\n    clientSecret:\n      'YjktGc6Nvx3TvtpnkWTUtlJrvgXuDDqkuBcgVxDICnTk5ImeCRuyl6e_cxl3IDFp',\n    domain: 'deadalley.auth0.com',\n    redirectUri: 'http://localhost:4200/dashboard/goodreads',\n  },\n  goodreadsConfig: {\n    key: 'Lxpz447iVHg9nhHt2OCgQ',\n    secret: 'Ke2MlJv4ipWVRYARzef5JxYwtZSKWfktRMQZ4i4jSE',\n    domain: 'https://www.goodreads.com',\n    proxyDomain: 'http://localhost:5000',\n  },\n  testConfig: {\n    email: 'test_ryCSZBFX@test.com',\n    password: 'PKRh6VPUxPd3uASC',\n    name: 'test_ryCSZBFX',\n  },\n}"
-                }
-            ],
             "src/environments/environment.ts": [
                 {
                     "name": "environment",
@@ -17838,6 +17911,16 @@
                     "file": "src/environments/environment.ts",
                     "type": "object",
                     "defaultValue": "{\n  production: false,\n  name: 'development',\n  localDomain: 'http://localhost:4200',\n  rootUrl: '',\n  firebaseConfig: {\n    apiKey: 'AIzaSyCOJ1FNmdWadfNOCvh3Gu1fPBstpWt33Wc',\n    authDomain: 'booklib-834b9.firebaseapp.com',\n    databaseURL: 'https://booklib-834b9.firebaseio.com',\n    projectId: 'booklib-834b9',\n    storageBucket: 'booklib-834b9.appspot.com',\n    messagingSenderId: '590001193511',\n  },\n  auth0Config: {\n    clientId: '9DYcDTKbpSlCtB731to7GjxnXg2c9D2P',\n    clientSecret:\n      'YjktGc6Nvx3TvtpnkWTUtlJrvgXuDDqkuBcgVxDICnTk5ImeCRuyl6e_cxl3IDFp',\n    domain: 'deadalley.auth0.com',\n    redirectUri: 'http://localhost:4200/dashboard/goodreads',\n  },\n  goodreadsConfig: {\n    key: 'Lxpz447iVHg9nhHt2OCgQ',\n    secret: 'Ke2MlJv4ipWVRYARzef5JxYwtZSKWfktRMQZ4i4jSE',\n    domain: 'https://www.goodreads.com',\n    proxyDomain: 'http://localhost:5000',\n  },\n  testConfig: {\n    email: 'test_ryCSZBFX@test.com',\n    password: 'PKRh6VPUxPd3uASC',\n    name: 'test_ryCSZBFX',\n  },\n}"
+                }
+            ],
+            "src/environments/environment.test.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.test.ts",
+                    "type": "object",
+                    "defaultValue": "{\n  production: false,\n  name: 'test',\n  localDomain: 'http://localhost:4200',\n  rootUrl: 'test',\n  firebaseConfig: {\n    apiKey: 'AIzaSyCOJ1FNmdWadfNOCvh3Gu1fPBstpWt33Wc',\n    authDomain: 'booklib-834b9.firebaseapp.com',\n    databaseURL: 'https://booklib-834b9.firebaseio.com',\n    projectId: 'booklib-834b9',\n    storageBucket: 'booklib-834b9.appspot.com',\n    messagingSenderId: '590001193511',\n  },\n  auth0Config: {\n    clientId: '9DYcDTKbpSlCtB731to7GjxnXg2c9D2P',\n    clientSecret:\n      'YjktGc6Nvx3TvtpnkWTUtlJrvgXuDDqkuBcgVxDICnTk5ImeCRuyl6e_cxl3IDFp',\n    domain: 'deadalley.auth0.com',\n    redirectUri: 'http://localhost:4200/dashboard/goodreads',\n  },\n  goodreadsConfig: {\n    key: 'Lxpz447iVHg9nhHt2OCgQ',\n    secret: 'Ke2MlJv4ipWVRYARzef5JxYwtZSKWfktRMQZ4i4jSE',\n    domain: 'https://www.goodreads.com',\n    proxyDomain: 'http://localhost:5000',\n  },\n  testConfig: {\n    email: 'test_ryCSZBFX@test.com',\n    password: 'PKRh6VPUxPd3uASC',\n    name: 'test_ryCSZBFX',\n  },\n}"
                 }
             ],
             "src/factories/utils.ts": [
@@ -18423,6 +18506,16 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/dashboard/core/book-buttons/book-buttons.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/dashboard/core/book-card/book-card.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -18518,6 +18611,46 @@
                 "name": "BookTagsComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/19",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/book-tags/book-tags.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/book-tags/book-tags.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TagStyle",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/book-tags/book-tags.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/dashboard/core/book-tags/book-tags.example.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithIcon",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {

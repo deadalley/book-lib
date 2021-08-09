@@ -13,20 +13,20 @@ import { FormControl } from '@angular/forms'
   moduleId: module.id,
   selector: 'book-tags',
   templateUrl: 'book-tags.component.html',
-  styleUrls: ['book-tags.component.css'],
+  styleUrls: ['book-tags.component.scss'],
 })
 export class BookTagsComponent implements OnInit {
   @Input() title: string
   @Input() placeholder: string
-  @Input() iconClass: string
+  @Input() iconClass?: string
   @Input() items: string[]
   @Input() tags: boolean
-  @Input() suggestions: string[] = []
+  @Input() suggestions?: string[]
 
   @Output() getItems = new EventEmitter<string[]>()
   @Output() hasFocus = new EventEmitter<boolean>()
 
-  @ViewChild('tagInput', { static: false }) tagInput
+  @ViewChild('tagInput', { static: false }) tagInput: any
 
   tagInputValue: FormControl = new FormControl()
   filteredSuggestions: string[] = []
@@ -36,6 +36,7 @@ export class BookTagsComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    console.log('CONST', this.suggestions)
     this.hasFocus
       .pipe(debounceTime(100))
       .subscribe(value => (this.debouncedHasFocus = value))
@@ -54,9 +55,10 @@ export class BookTagsComponent implements OnInit {
             suggestion => !this.items.includes(suggestion)
           )
         }
+        console.log(value, this.filteredSuggestions, this.suggestions)
       })
 
-    this.getItems.subscribe(array => {
+    this.getItems.subscribe((array: string[]) => {
       if (!this.searchValue) {
         return (this.filteredSuggestions = [])
       }
@@ -66,21 +68,21 @@ export class BookTagsComponent implements OnInit {
     })
   }
 
-  pushItem(value) {
+  pushItem(value: string) {
     if (value !== '') {
       this.items.push(value)
       this.getItems.emit(this.items)
     }
   }
 
-  keyupHandle(event, value) {
+  keyupHandle(event: KeyboardEvent, value: string) {
     if (event.code === 'Comma' && value) {
       this.pushItem(value.slice(0, -1))
       this.tagInput.nativeElement.value = ''
     }
   }
 
-  removeItem(index) {
+  removeItem(index: number) {
     this.items.splice(index, 1)
     this.getItems.emit(this.items)
   }
